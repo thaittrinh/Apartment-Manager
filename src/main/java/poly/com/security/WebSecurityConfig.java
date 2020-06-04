@@ -61,10 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests().antMatchers("/trang-chu/**").permitAll()
 			.antMatchers("/api/auth/signin").permitAll()
 			.antMatchers("/api/auth/signup").permitAll()
-			.antMatchers("/api/test/all/**").permitAll()
-		    .antMatchers("/api/test/user").hasAnyRole("USER")
-			.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
-			.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
+			.antMatchers("/api/**").permitAll()
+			//.antMatchers("/api/test/all/**").permitAll()
+		    //.antMatchers("/api/test/user").hasAnyRole("USER")
+			//.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
+			//.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
 			.anyRequest().authenticated();
 		//lọc trước
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
