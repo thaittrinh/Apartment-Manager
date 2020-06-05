@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import poly.com.security.jwt.AuthEntryPointJwt;
 import poly.com.security.jwt.AuthTokenFilter;
@@ -60,10 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests().antMatchers("/trang-chu/**").permitAll()
 			.antMatchers("/api/auth/signin").permitAll()
 			.antMatchers("/api/auth/signup").permitAll()
-			.antMatchers("/api/test/all/**").permitAll()
-		    .antMatchers("/api/test/user").hasAnyRole("USER")
-			.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
-			.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
+			.antMatchers("/api/**").permitAll()
+			//.antMatchers("/api/test/all/**").permitAll()
+		    //.antMatchers("/api/test/user").hasAnyRole("USER")
+			//.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
+			//.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
 			.anyRequest().authenticated();
 		//lọc trước
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
