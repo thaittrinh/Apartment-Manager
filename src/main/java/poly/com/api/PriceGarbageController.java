@@ -53,6 +53,6 @@ public class PriceGarbageController {
 
 		return priceGarbageService.deletePriceGarbage(id);
 	}
-
+//
 }
 
