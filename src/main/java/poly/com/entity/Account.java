@@ -27,6 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Account implements Serializable {
 
+
+
 	/**
 	 * 
 	 */

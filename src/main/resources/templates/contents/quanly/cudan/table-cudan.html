@@ -1,0 +1,40 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout-admin">
+<div layout:fragment="content">
+
+    <!-------------------------------------------------- Header----------------------------------------------->
+    <div class="row">
+        <a class="title"> Quản Lý Cư Dân</a>
+        <div th:replace="components/header"></div>
+    </div>
+    <!------------------------------------------------- table Cư Dân ---------------------------------------->
+    <div class="card" style="width: 100%; margin-left: -3px">
+        <!-------------------------------------------- card title table ------------------------------------->
+        <div class="card-header" style="border-radius: 6px;">
+            <div class="card-titles">
+                <h6 style="color: white"> Danh sách cư dân</h6>
+            </div>
+        </div>
+        <!--------------------------------------------- card-body-table --------------------------------------->
+        <div class="card-body">
+            <table class="table table-hover" id="table-cudan">
+                <thead>
+                <tr>
+                    <th>Họ Tên</th>
+                    <th>Ngày Sinh</th>
+                    <th>Giới Tính</th>
+                    <th>Số CMND</th>
+                    <th>Quốc Tịch</th>
+                    <th>Quê Quán</th>
+                    <th>Điện Thoại</th>
+                    <th>Email</th>
+                    <th>Nghề Nghiệp</th>
+                    <th>ID Căn Hộ</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+   <script th:src="@{/assets/js/cudan.js}" type="text/javascript"></script>
+</div>
+<!------------------------------------------------------- end div content --------------------------------------------->
