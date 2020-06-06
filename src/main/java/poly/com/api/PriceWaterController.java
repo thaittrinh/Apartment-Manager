@@ -26,7 +26,7 @@ public class PriceWaterController {
 
 	// ------------------------------------------------
 	@GetMapping()
-	public ResponseEntity<List<PriceWater>> findAll() {
+	public ResponseEntity<List<PriceWater>> findAll() {	
 		return waterPriceService.findAll();
 	}
 
