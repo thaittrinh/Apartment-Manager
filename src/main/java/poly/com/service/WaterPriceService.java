@@ -59,7 +59,7 @@ public class WaterPriceService {
 			List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(priceWater.getDate().getYear() + 1900,
 	 		                                                                       priceWater.getDate().getMonth() + 1);
 			if (priceWaters.size() > 0) 		
-				return  new ResponseEntity<>(null, HttpStatus.CONFLICT);		
+				return  new ResponseEntity<>(null, HttpStatus.CONFLICT);	//409	
 			priceWater.setId(0);
 			PriceWater water = priceWaterRepository.save(priceWater);			
 			return ResponseEntity.ok(water);
@@ -77,7 +77,7 @@ public class WaterPriceService {
 			if (water == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			
-			// Giá các tháng trước đã có
+			// Giá các tháng trước đã có  //ngay cu 2020-8 -> 2020-8
 			List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(priceWater.getDate().getYear() + 1900,
                                                                                    priceWater.getDate().getMonth() + 1);			
 			for (PriceWater p : priceWaters) { 
