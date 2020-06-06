@@ -17,7 +17,7 @@ import poly.com.entity.PriceManagement;
 import poly.com.service.PriceManagementService;
 
 @RestController
-@RequestMapping("/api/price_management")
+@RequestMapping("/api/price-management")
 public class PriceManagementController {
 
 	@Autowired
