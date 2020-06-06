@@ -2,7 +2,6 @@ package poly.com.api;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,37 +19,38 @@ import poly.com.service.WaterPriceService;
 @RestController
 @RequestMapping("api/price-water")
 public class PriceWaterController {
+// < ----------------------------------- Class PriceElectricity RestController ---------------------------->
 
 	@Autowired
 	WaterPriceService waterPriceService;
-	
+
+	// ------------------------------------------------
 	@GetMapping()
-	public ResponseEntity<List<PriceWater>> findAll()
-	{
+	public ResponseEntity<List<PriceWater>> findAll() {
 		return waterPriceService.findAll();
 	}
-	
+
+	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<PriceWater> findById(@PathVariable int  id)
-	{
+	public ResponseEntity<PriceWater> findById(@PathVariable int id) {
 		return waterPriceService.findById(id);
 	}
-	
+
+	// < ------------------------ Create ----------------------------->
 	@PostMapping()
-	public ResponseEntity<PriceWater> createPriceWater(@RequestBody PriceWater priceWater)
-	{
+	public ResponseEntity<PriceWater> createPriceWater(@RequestBody PriceWater priceWater) {
 		return waterPriceService.createPriceWater(priceWater);
 	}
-	
+
+	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceWater> updatePriceWater(@PathVariable int id,@RequestBody PriceWater priceWater)
-	{
+	public ResponseEntity<PriceWater> updatePriceWater(@PathVariable int id, @RequestBody PriceWater priceWater) {
 		return waterPriceService.updatePriceWaterEntity(id, priceWater);
 	}
-	
+
+	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deletePriceWater(@PathVariable int id)
-	{
+	public ResponseEntity<String> deletePriceWater(@PathVariable int id) {
 		return waterPriceService.deletePriceWater(id);
 	}
 }

@@ -11,15 +11,21 @@ import poly.com.repository.PriceElectricityRepository;
 
 @Service
 public class PriceElectricityService {
+
+// < ------------------------------- Class PriceElectricity Service ----------------------------->
+
 	@Autowired
 	PriceElectricityRepository priceElectricityRepository;
 
-	public ResponseEntity<List<PriceElectricity>> findPriceElectricityAll() {
-		List<PriceElectricity> priceElectricities = priceElectricityRepository.findAll();
+// ----------------------------------------------------------------------
 
+	// < --------------------------- Find All --------------------------->
+	public ResponseEntity<List<PriceElectricity>> findAllElectricity() {
+		List<PriceElectricity> priceElectricities = priceElectricityRepository.findAll();
 		return ResponseEntity.ok(priceElectricities);
 	}
 
+    // < --------------------------- Find By Id -------------------------->
 	public ResponseEntity<PriceElectricity> findPriceElectricitybyId(int id) {
 		try {
 			PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);
@@ -28,39 +34,37 @@ public class PriceElectricityService {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+	
+    // < ---------------------------- Create ------------------------------------>
 	public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
-		PriceElectricity newPriceElectricity = null;
-		priceElectricity.setId(0);
 		try {
-			newPriceElectricity = priceElectricityRepository.save(priceElectricity);
+			priceElectricity.setId(0);
+			PriceElectricity newPriceElectricity = priceElectricityRepository.save(priceElectricity);
+			return ResponseEntity.ok(newPriceElectricity);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return ResponseEntity.ok(newPriceElectricity);
 	}
-
+	
+    // < ----------------------------- Update ------------------------------------->
 	public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
-
 		try {
 			PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null);
-			if (pricebyid == null) {
+			if (pricebyid == null) 
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			}
 			pricebyid = priceElectricityRepository.save(priceElectricity);
 			return ResponseEntity.ok(pricebyid);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
-
+	
+    // < --------------------------- Delete ------------------------------------------->
 	public ResponseEntity<String> deletePriceElectricity(int id) {
 		try {
 			PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null);
-			if (pricebyid == null) {
+			if (pricebyid == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			}
 			priceElectricityRepository.deleteById(id);
 			return ResponseEntity.ok("Deleted");
 		} catch (Exception e) {
