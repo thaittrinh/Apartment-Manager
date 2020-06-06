@@ -18,7 +18,7 @@ import poly.com.entity.PriceWater;
 import poly.com.service.WaterPriceService;
 
 @RestController
-@RequestMapping("api/price-water")
+@RequestMapping("/api/price-water")
 public class PriceWaterController {
 
 	@Autowired
