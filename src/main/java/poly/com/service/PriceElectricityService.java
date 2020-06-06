@@ -35,6 +35,10 @@ public class PriceElectricityService {
 		}
 	}
 	
+	/**
+	 *  insert vs update bắt lỗi cùng ngày tạo nhưng có chung định mức ( chưa bắt)
+	 */
+	
     // < ---------------------------- Create ------------------------------------>
 	public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
 		try {

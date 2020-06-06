@@ -26,6 +26,15 @@ public class PriceGarbageService {
 		return ResponseEntity.ok(priceGarbages);
 	}
 
+	/**
+	 * insert update bắt trùng ngày (xem trong entity) - status code 409
+	 * / quản lý giá theo ngày-tháng-năm
+	 * 1 ngày ko thể có 2 giá
+	 * insert nếu trùng ngày thì bắt update lại giá ngày đó ko thì thôi
+	 * update kiểm tra ngoài id đó còn id nào có ngày đó ko nếu có thì ko cho cập nhật
+	 *
+	 */
+	
 	// < -------------------- find by Id ---------------------------->
 	public ResponseEntity<PriceGarbage> findPriceGarbageById(int id) {
 		try {
