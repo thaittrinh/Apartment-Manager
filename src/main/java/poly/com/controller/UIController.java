@@ -45,7 +45,7 @@ public class UIController {
 
     // return template page table xe
     @RequestMapping("/table-xe")
-    public String pageTablexe() {
+    public String pageTableXe() {
         return "contents/quanly/table-xe";
     }
 
@@ -58,7 +58,24 @@ public class UIController {
     
     // return template page table phi rac
     @RequestMapping("/table-phi-rac")
-    public String pageTablephirac() {
+    public String pageTablePhirac() {
         return "contents/quanly/bang-gia/table-phirac";
+    }
+    
+    // return template page table gia dien 
+    @RequestMapping("/table-gia-dien")
+    public String pageTableGiadien() {
+        return "contents/quanly/bang-gia/table-giadien";
+    }
+    // return template page table gia nuoc
+    @RequestMapping("/table-gia-nuoc")
+    public String pageTableGianuoc() {
+        return "contents/quanly/bang-gia/table-gianuoc";
+    }
+    
+    // return template page table phi quan ly 
+    @RequestMapping("/table-phi-quan-ly")
+    public String pageTablePhiquanly() {
+        return "contents/quanly/bang-gia/table-phiquanly";
     }
 }
