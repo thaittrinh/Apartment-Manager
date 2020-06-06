@@ -27,6 +27,10 @@ public class Contact implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(length = 50 )
+	@NotNull
+	private String nameApartment;
+	
 	@Column(length = 12 )
 	@NotNull
 	private Integer phone;
