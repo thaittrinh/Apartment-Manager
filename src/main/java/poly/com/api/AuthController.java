@@ -42,63 +42,57 @@ public class AuthController {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
 	AccountRepository accountRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	JwtUtils jwtUtils;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		User user = null;
-		
+
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
-		
-		AccountDetailsImpl accontDetails = (AccountDetailsImpl) authentication.getPrincipal();		
-		List<String> roles = accontDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
+
+		AccountDetailsImpl accontDetails = (AccountDetailsImpl) authentication.getPrincipal();
+		List<String> roles = accontDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		if (accontDetails!=null) {
-		 user = userRepository.findById((int) accontDetails.getId())
-					   .orElseThrow( ()-> new UsernameNotFoundException("\"User Not Found with username: \" + username"));
+		if (accontDetails != null) {
+			user = userRepository.findById((int) accontDetails.getId())
+					.orElseThrow(() -> new UsernameNotFoundException("\"User Not Found with username: \" + username"));
 		}
-		
-		return ResponseEntity.ok(new JwtResponse(jwt, accontDetails.getId(),
-				                                      accontDetails.getUsername(), 
-				                                      user.getFullName(),
-				                                      roles));
+
+		return ResponseEntity.ok(
+				new JwtResponse(jwt, accontDetails.getId(), accontDetails.getUsername(), user.getFullName(), roles));
 	}
-	
+
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (accountRepository.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new MessageResponse("Error: Username is already taken!"));
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
 
 		// Create new account
 		User user = new User();
-		     user.setId(signUpRequest.getId());
-		Account  account = new Account(0, user, signUpRequest.getUsername(),
-											    passwordEncoder.encode(signUpRequest.getPassword()),
-											    null);
-		
+		user.setId(signUpRequest.getId());
+		Account account = new Account(0, user, signUpRequest.getUsername(),
+				passwordEncoder.encode(signUpRequest.getPassword()), null);
+
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 
@@ -134,8 +128,5 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
-	
-	
-	
-	
+
 }
