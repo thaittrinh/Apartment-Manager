@@ -20,35 +20,39 @@ import poly.com.service.PriceElectricityService;
 @RequestMapping("/api/price-electricity")
 public class PriceElectricityController {
 
+// < ----------------------------------- Class PriceElectricity RestController ---------------------------->
 	@Autowired
 	PriceElectricityService priceElectricityService;
+// ------------------------------------------------
 
+	// <------------------------- findAll --------------------------->
 	@GetMapping()
 	public ResponseEntity<List<PriceElectricity>> findPriceElectricityAll() {
-
-		return priceElectricityService.findPriceElectricityAll();
+		return priceElectricityService.findAllElectricity();
 	}
 
+	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
 	public ResponseEntity<PriceElectricity> findPriceElectricitybyId(@PathVariable int id) {
 		return priceElectricityService.findPriceElectricitybyId(id);
 	}
 
+	// < ------------------------ Create ----------------------------->
 	@PostMapping()
 	public ResponseEntity<PriceElectricity> createPriceElectricity(@RequestBody PriceElectricity priceElectricity) {
-
 		return priceElectricityService.createPriceElectricity(priceElectricity);
 	}
 
+	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceElectricity> updatePriceElectricity(@PathVariable int id, @RequestBody PriceElectricity priceElectricity) {
-
+	public ResponseEntity<PriceElectricity> updatePriceElectricity(@PathVariable int id,
+			@RequestBody PriceElectricity priceElectricity) {
 		return priceElectricityService.updatePriceElectricity(id, priceElectricity);
 	}
 
+	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePriceElectricity(@PathVariable int id) {
-
 		return priceElectricityService.deletePriceElectricity(id);
 	}
 

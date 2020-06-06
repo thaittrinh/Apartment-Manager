@@ -12,64 +12,64 @@ import poly.com.repository.PriceManagementRepository;
 
 @Service
 public class PriceManagementService {
+	
+// < ----------------------------- Class Price Management Service ------------------------->
 
 	@Autowired
 	PriceManagementRepository priceManagementRepository;
+// < ---------------------------------------------------
 
+	// < ---------------------------- find All ------------------------------->
 	public ResponseEntity<List<PriceManagement>> findAll() {
 		List<PriceManagement> priceManagements = priceManagementRepository.findAll();
-
 		return ResponseEntity.ok(priceManagements);
 	}
 
+	// < ----------------------------- find by Id ------------------------------ >
 	public ResponseEntity<PriceManagement> findbyId(int id) {
-		PriceManagement priceManagement = null;
 		try {
-	      priceManagement = priceManagementRepository.findById(id).orElse(null);	
+			PriceManagement priceManagement = priceManagementRepository.findById(id).orElse(null);
+			return ResponseEntity.ok(priceManagement);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return ResponseEntity.ok(priceManagement);
 	}
 
+	// < ------------------------------ Create --------------------------------->
 	public ResponseEntity<PriceManagement> createPriceManagement(PriceManagement priceManagement) {
-		PriceManagement newPriceManagement = null;
-		priceManagement.setId(0);
 		try {
-			newPriceManagement = priceManagementRepository.save(priceManagement);
+			priceManagement.setId(0);
+			PriceManagement newPriceManagement = priceManagementRepository.save(priceManagement);
+			return ResponseEntity.ok(newPriceManagement);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return ResponseEntity.ok(newPriceManagement);
 	}
 
+	// <-------------------------------- Update --------------------------------->
 	public ResponseEntity<PriceManagement> updatePriceManagement(int id, PriceManagement priceManagement) {
-		PriceManagement priceManagementOld = priceManagementRepository.findById(id).orElse(null);
-
-		if (priceManagementOld == null) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 		try {
+			PriceManagement priceManagementOld = priceManagementRepository.findById(id).orElse(null);
+			if (priceManagementOld == null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			priceManagement.setId(id);
 			priceManagementOld = priceManagementRepository.save(priceManagement);
+			return ResponseEntity.ok(priceManagementOld);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return ResponseEntity.ok(priceManagementOld);
 	}
 
+	// < ------------------------------- Delete ----------------------------------->
 	public ResponseEntity<String> deletePriceManagemet(int id) {
-		PriceManagement priceManagementOld = priceManagementRepository.findById(id).orElse(null);
-
-		if (priceManagementOld == null) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 		try {
+			PriceManagement priceManagementOld = priceManagementRepository.findById(id).orElse(null);
+			if (priceManagementOld == null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			priceManagementRepository.deleteById(id);
+			return ResponseEntity.ok("Delete success!");
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return ResponseEntity.ok("Delete success!");
 	}
 }

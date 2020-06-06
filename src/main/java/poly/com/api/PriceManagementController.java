@@ -20,31 +20,40 @@ import poly.com.service.PriceManagementService;
 @RequestMapping("/api/price-management")
 public class PriceManagementController {
 
+// < ----------------------------------- Class PriceElectricity RestController ---------------------------->
 	@Autowired
 	PriceManagementService priceManagementService;
-
+	// ------------------------------------------------
+	
+	
+	// <------------------------- findAll --------------------------->
 	@GetMapping
 	public ResponseEntity<List<PriceManagement>> findAll() {
 		return priceManagementService.findAll();
 	}
 
+	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
 	public ResponseEntity<PriceManagement> findbyId(@PathVariable int id) {
 		return priceManagementService.findbyId(id);
 	}
 
+	// < ------------------------ Create ----------------------------->
 	@PostMapping
 	public ResponseEntity<PriceManagement> createPriceManagement(@RequestBody PriceManagement priceManagement) {
 		return priceManagementService.createPriceManagement(priceManagement);
 	}
-	
+
+	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceManagement> updatePriceManagement(@PathVariable int id, @RequestBody PriceManagement priceManagement){
+	public ResponseEntity<PriceManagement> updatePriceManagement(@PathVariable int id,
+			@RequestBody PriceManagement priceManagement) {
 		return priceManagementService.updatePriceManagement(id, priceManagement);
 	}
-	
+
+	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deletePricemanagement(@PathVariable int id){
+	public ResponseEntity<String> deletePricemanagement(@PathVariable int id) {
 		return priceManagementService.deletePriceManagemet(id);
 	}
 }
