@@ -1,4 +1,4 @@
-package poly.com.security.service;
+package poly.com.service;
 
 import java.util.List;
 
@@ -23,10 +23,13 @@ public class PriceManagementService {
 	}
 
 	public ResponseEntity<PriceManagement> findbyId(int id) {
-		PriceManagement priceManagement = priceManagementRepository.findById(id).orElse(null);
-		if (priceManagement == null) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		PriceManagement priceManagement = null;
+		try {
+	      priceManagement = priceManagementRepository.findById(id).orElse(null);	
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
 		return ResponseEntity.ok(priceManagement);
 	}
 

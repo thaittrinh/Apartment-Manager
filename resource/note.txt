@@ -1,6 +1,7 @@
  - 200 : Success!
+ - 400 : Bad request! sai định dạng....
  - 403 : Bị chặn truy cập (chưa đăng nhập hoặc tài khoản không đúng quyền...)
  - 404 : Không tìm thấy đường dẫn hoặc ko tìm thấy tài nguyên....
- - 400 : Bad request!
+ - 409 : unique
  - 500 : Lỗi server!
  

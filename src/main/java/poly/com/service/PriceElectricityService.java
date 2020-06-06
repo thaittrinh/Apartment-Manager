@@ -20,13 +20,14 @@ public class PriceElectricityService {
 		return ResponseEntity.ok(priceElectricities);
 	}
 
-	
-	
 	public ResponseEntity<PriceElectricity> findPriceElectricitybyId(int id) {
-		PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);
-		if (priceElectricity == null) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		PriceElectricity priceElectricity = null;
+		try {
+			 priceElectricity = priceElectricityRepository.findById(id).orElse(null);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
 		return ResponseEntity.ok(priceElectricity);
 	}
 

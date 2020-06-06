@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.com.entity.PriceParking;
-import poly.com.security.service.PriceParkingService;
+import poly.com.service.PriceParkingService;
 
 @RestController
 @RequestMapping("/api/price_parking")
