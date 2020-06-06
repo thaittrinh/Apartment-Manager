@@ -21,18 +21,14 @@ public class PriceElectricityService {
 	}
 
 	public ResponseEntity<PriceElectricity> findPriceElectricitybyId(int id) {
-		PriceElectricity priceElectricity = null;
 		try {
-			 priceElectricity = priceElectricityRepository.findById(id).orElse(null);
+			PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);
+			return ResponseEntity.ok(priceElectricity);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return ResponseEntity.ok(priceElectricity);
 	}
 
-	
-	
 	public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
 		PriceElectricity newPriceElectricity = null;
 		priceElectricity.setId(0);
@@ -44,43 +40,33 @@ public class PriceElectricityService {
 		return ResponseEntity.ok(newPriceElectricity);
 	}
 
-	
-	
 	public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
-		priceElectricity.setId(0);
-		PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null);
-
-		if (pricebyid == null) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
 
 		try {
+			PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null);
+			if (pricebyid == null) {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
 			pricebyid = priceElectricityRepository.save(priceElectricity);
+			return ResponseEntity.ok(pricebyid);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		return ResponseEntity.ok(pricebyid);
-
 	}
-	
-	
-	public ResponseEntity<String> deletePriceElectricity(int id){
-		
-		 PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null); 
-		 
-		   if (pricebyid == null) {
-			   return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); 
-		   }
-			
-		   try {	   
-			     priceElectricityRepository.deleteById(id);
-			} catch (Exception e) {
-				
-				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+
+	public ResponseEntity<String> deletePriceElectricity(int id) {
+		try {
+			PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null);
+			if (pricebyid == null) {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
-		   
-		 return ResponseEntity.ok("Deleted");
+			priceElectricityRepository.deleteById(id);
+			return ResponseEntity.ok("Deleted");
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 }
