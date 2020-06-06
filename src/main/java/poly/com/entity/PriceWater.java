@@ -42,4 +42,5 @@ public class PriceWater implements Serializable {
 	private Date date;
 
 	private String note;
+	
 }

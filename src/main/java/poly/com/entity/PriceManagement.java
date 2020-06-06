@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PriceManagement implements Serializable {
 	
-	private static final long serialVersionUID = 913277483974447771L;
+	private static final long serialVersionUID = -235170374690314904L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
