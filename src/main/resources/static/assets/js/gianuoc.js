@@ -14,7 +14,7 @@ $(document).ready( function () {
 			{"mRender": function(data, type, full) {
 			   // return '<a class="btn btn-info btn-sm" href=' + full.id + '>' + 'Delete' + '</a>';
 				//<button type="button" class="btn btn-warning"></button>
-				return `<button type="button" class="btn btn-warning" value=${full.id} ><i class="fas fa-trash"></i></button>`
+				return `  <i  class="material-icons icon-table" type="button">delete</i>`
 			  }
 			}
 		]
@@ -22,36 +22,3 @@ $(document).ready( function () {
 } );
 
 
-
-
-
-/*
-(function(){
-    $.ajax({
-         type: 'get',
-         url: URL + 'api/price-water',
-         //contentType: "application/json",
-         dataType : 'json',
-         cache: false,
-         //data: JSON.stringify(data),	        
-         success: function (result) {
-            $('#table-gianuoc').DataTable({         
-            	processing: false,
-            	data: result,
-            	columns: [
-            		{data: "id" },           		
-            		{data: "date" },
-            		{data: "price" },
-            		{data: "note" }     		
-            	]    
-     	
-            });
-         },
-         error: function (error) {
-            var errorMessage = error.status;
-            console.log(errorMessage);   
-         }
-     });
-})();
-
-*/
