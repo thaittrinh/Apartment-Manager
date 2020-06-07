@@ -5,7 +5,7 @@ data-layout-decorate="~{/layout-admin}">
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
-		<a class="title"> Quáº£n LÃ½ Báº£ng GiÃ¡</a>
+		<a class="title"> Quản lý bảng giá</a>
 		<div th:replace="components/header"></div>
 	</div>
 	<!----------------------------------------- TABLE báº£ng phÃ­ rÃ¡c ----------------------------->
@@ -21,8 +21,8 @@ data-layout-decorate="~{/layout-admin}">
 			<table class="table table-hover" id="table-phirac">
 				<thead>
 					<tr>
-						<th>Ä�Æ¡n GiÃ¡</th>
-						<th>NgÃ y</th>
+						<th>Đơn Giá</th>
+						<th>Ngày</th>
 						<th>Ghi Chú</th>
 					</tr>
 				</thead>
@@ -30,7 +30,7 @@ data-layout-decorate="~{/layout-admin}">
 			<!------------------------------- button open modal form  ---------------------------->
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Táº¡o phÃ­ má»›i
+				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
 			</button>
 		</div>
 	</div>
@@ -53,12 +53,12 @@ data-layout-decorate="~{/layout-admin}">
 							<!------------------------------ Don gia ------------------------------------>
 								<div class="input-container">
 								<input type="number"  required="required" name="price" id="price" style="width: 220px" />
-								<label for="price">Ä�Æ¡n GiÃ¡</label>
+								<label for="price">Đơn Giá </label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
 								<input type="date"  required="required" name="date" id="date" style="width: 220px" />
-								<label for="date">NgÃ y</label>
+								<label for="date">Ngày </label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
@@ -66,7 +66,7 @@ data-layout-decorate="~{/layout-admin}">
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
 								<textarea style="width: 465px" id="note" name="note"  required="required" rows="4"></textarea>
-								<label for="note">Ghi ChÃº</label>
+								<label for="note">Ghi Chú</label>
 							</div>
 						</div>
 						<!------------------------------------ End row -------------------------------------->

@@ -363,7 +363,7 @@ i.icon-table {
 	position: relative;
 	border-radius: 50%;
 	padding: 5px;
-	margin-top: -5px ! important;
+	margin-top: -3px ! important;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s
 		ease;
@@ -481,7 +481,9 @@ p {
 		left: 0;
 	}
 }
-
+.dataTable{
+	width: 100% ! important;
+}
 .modal-header {
 	background: #59287a;
 }
