@@ -16,43 +16,45 @@ import org.springframework.web.bind.annotation.RestController;
 import poly.com.entity.PriceGarbage;
 import poly.com.service.PriceGarbageService;
 
-
-
 @RestController
 @RequestMapping("/api/price-garbage")
 public class PriceGarbageController {
-
+	
+	// < ----------------------------------- Class PriceGarbage RestController  ---------------------------->
 	@Autowired
 	PriceGarbageService priceGarbageService;
-
+	// ------------------------------------------------
+	
+	
+	// <------------------------- findAll --------------------------->
 	@GetMapping()
 	public ResponseEntity<List<PriceGarbage>> findPriceGarbageAll() {
-
 		return priceGarbageService.findPriceGarbageAll();
 	}
 
+	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
 	public ResponseEntity<PriceGarbage> findPriceGarbagebyId(@PathVariable int id) {
 		return priceGarbageService.findPriceGarbageById(id);
 	}
 
+	// < ------------------------ Create ----------------------------->
 	@PostMapping()
 	public ResponseEntity<PriceGarbage> createPriceGarbage(@RequestBody PriceGarbage priceGarbage) {
-
 		return priceGarbageService.createPriceGarbage(priceGarbage);
 	}
 
+	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceGarbage> updatePriceGarbage(@PathVariable int id, @RequestBody PriceGarbage priceGarbage) {
-
+	public ResponseEntity<PriceGarbage> updatePriceGarbage(@PathVariable int id,
+			@RequestBody PriceGarbage priceGarbage) {
 		return priceGarbageService.updatePriceGarbage(id, priceGarbage);
 	}
 
+	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deletePriceGarbage(@PathVariable int id) {
-
 		return priceGarbageService.deletePriceGarbage(id);
 	}
 
 }
-
