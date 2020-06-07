@@ -1,3 +1,4 @@
+
 package poly.com.service;
 
 import java.util.List;
@@ -27,15 +28,6 @@ public class WaterPriceService {
 	public ResponseEntity<List<PriceWater>> findAll() {
 		List<PriceWater> priceWater = priceWaterRepository.findAll();
 		return ResponseEntity.ok(priceWater);
-	}
-
-	// <----------------------------- find date --------------------------->
-	@SuppressWarnings("deprecation")
-	public ResponseEntity<List<PriceWater>> findDate(PriceWater priceWater) {
-		int year = priceWater.getDate().getYear() + 1900;
-		int month = priceWater.getDate().getMonth() + 1;
-		List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(year, month);
-		return ResponseEntity.ok(priceWaters);
 	}
 
 	// < -------------------------- find by Id ---------------------------->
@@ -72,15 +64,14 @@ public class WaterPriceService {
 			PriceWater water = priceWaterRepository.findById(id).orElse(null);
 			if (water == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			// Giá các tháng trước đã có //ngay cu 2020-8 -> 2020-8
-			List<PriceWater> priceWaters = priceWaterRepository
-					.findByYearAndMonth(priceWater.getDate().getYear() + 1900, priceWater.getDate().getMonth() + 1);
-			for (PriceWater p : priceWaters) {
-				int year = p.getDate().getYear();
-				int month = p.getDate().getMonth();
-				if (year == priceWater.getDate().getYear() && month == priceWater.getDate().getMonth())
-					return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-			}
+	
+			// Giá các tháng trước đã có
+			List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(priceWater.getDate().getYear() + 1900,
+                                                                                   priceWater.getDate().getMonth() + 1);			
+			if (id != priceWaters.get(0).getId()) 
+				return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
+			
+
 			priceWater.setId(id);
 			water = priceWaterRepository.save(priceWater);
 			return ResponseEntity.ok(water);
