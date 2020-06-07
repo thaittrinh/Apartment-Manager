@@ -1,5 +1,7 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout-admin">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"   
+ data-layout-decorate="~{/layout-admin}">
+ <!-------------------------------------------------------------------------------------------->
+ 
 <div layout:fragment="content">
 
     <!-------------------------------------------------- Header----------------------------------------------->
@@ -12,7 +14,7 @@
         <!-------------------------------------------- card title table ------------------------------------->
         <div class="card-header" style="border-radius: 6px;">
             <div class="card-titles">
-                <h6 style="color: white"> Danh sách cư dân</h6>
+                <h6 style="color: white">  <i class="fas fa-address-card mr-3"></i>Danh sách cư dân</h6>
             </div>
         </div>
         <!--------------------------------------------- card-body-table --------------------------------------->

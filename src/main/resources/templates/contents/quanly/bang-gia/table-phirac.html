@@ -1,6 +1,7 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="/layout-admin">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+data-layout-decorate="~{/layout-admin}">
+<!-------------------------------------------------------------------------------------------->
+
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
@@ -12,7 +13,7 @@
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white">Báº£ng phÃ­ rÃ¡c</h6>
+				<h6 style="color: white">  <i class="fas fa-trash-alt mr-3"></i>Bảng phí rác</h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
@@ -40,7 +41,9 @@
 			<div class="modal-content">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
-					<h5 class="modal-title" id="form-label">báº£ng phÃ­ rÃ¡c</h5>
+
+					<h5 class="modal-title" id="form-label">  <i class="fas fa-trash-alt mr-3 ml-2"></i> phí rác</h5>
+
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->

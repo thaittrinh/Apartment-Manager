@@ -1,10 +1,10 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="/layout-admin">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+layout:decorator="~{/layout-admin}">
+<!-------------------------------------------------------------------------------------------->
 <div layout:fragment="content">
-
     <!-------------------- Header--------------->
     <div class="row">
-        <a class="title"> Quản Lý Xe</a>
+        <a class="title"> Quản Lý Xe Đăng Ký Gửi</a>
         <div th:replace="components/header"></div>
     </div>
     <!-------------------------------------- Danh sách xe----------------------------->
@@ -12,7 +12,11 @@
         <!-------------------------- card title table --------------->
         <div class="card-header" style="border-radius: 6px;">
             <div class="card-titles">
-                <h6 style="color: white"> Danh sách Xe của cư dân </h6>
+                <h6 style="color: white">
+                <i class="fas fa-bicycle mr-1"></i> 
+                <i class="fas fa-motorcycle mr-1"></i> 
+                <i class="fas fa-car mr-3"></i>
+                 Danh sách Xe Đăng ký Gửi </h6>
             </div>
         </div>
         <!------------------------------------------------------------->
@@ -40,7 +44,11 @@
             <div class="modal-content">
                 <!------------------- Header-modal -------------->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="form-label">Thông Tin Xe của cư dân </h5>
+                    <h5 class="modal-title" id="form-label">  
+                   <i class="fas fa-bicycle mr-1"></i> 
+                   <i class="fas fa-motorcycle mr-1"></i> 
+                   <i class="fas fa-car mr-3"></i>
+                   Thông Tin Xe của cư dân </h5>
                     <i class="material-icons "  data-dismiss="modal">close</i>
                 </div>
                 <!------------------- body-modal ---------------->
