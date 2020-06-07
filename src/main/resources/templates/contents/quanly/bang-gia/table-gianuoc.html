@@ -20,11 +20,16 @@
 			<table class="table table-hover" id="table-gianuoc">
 				<thead>
 					<tr>
-						<th>Đơn Giá</th>
+						<th>Id</th>
 						<th>Ngày</th>
-						<th>Ghi Chú</th>
+						<th>Đơn Giá</th>
+						<th>Ghi Chú</th>		
+						<th>Delete</th>					
 					</tr>
 				</thead>
+				<tfoot>
+				
+				</tfoot>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
 			<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -40,7 +45,7 @@
 			<div class="modal-content">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
-					<h5 class="modal-title" id="form-label">bảng giá nước </h5>
+					<h5 class="modal-title" id="form-label">bảng giá nước</h5>
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->
@@ -48,21 +53,22 @@
 					<form>
 						<div class="row">
 							<!------------------------------ Don gia ------------------------------------>
-								<div class="input-container">
-								<input type="number"  required="required" name="price" id="price" style="width: 220px" />
-								<label for="price">Đơn Giá</label>
+							<div class="input-container">
+								<input type="number" required="required" name="price" id="price"
+									style="width: 220px" /> <label for="price">Đơn Giá</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
-								<input type="date"  required="required" name="date" id="date" style="width: 220px" />
-								<label for="date">Ngày</label>
+								<input type="date" required="required" name="date" id="date"
+									style="width: 220px" /> <label for="date">Ngày</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
 						<div class="row">
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
-								<textarea style="width: 465px" id="note" name="note"  required="required" rows="4"></textarea>
+								<textarea style="width: 465px" id="note" name="note"
+									required="required" rows="4"></textarea>
 								<label for="note">Ghi Chú</label>
 							</div>
 						</div>

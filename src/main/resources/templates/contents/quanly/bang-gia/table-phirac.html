@@ -4,15 +4,15 @@
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
-		<a class="title"> Quản Lý Bảng Giá</a>
+		<a class="title"> Quáº£n LÃ½ Báº£ng GiÃ¡</a>
 		<div th:replace="components/header"></div>
 	</div>
-	<!----------------------------------------- TABLE bảng phí rác ----------------------------->
+	<!----------------------------------------- TABLE báº£ng phÃ­ rÃ¡c ----------------------------->
 	<div class="card" style="width: 100%; margin-left: -3px">
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white">Bảng phí rác</h6>
+				<h6 style="color: white">Báº£ng phÃ­ rÃ¡c</h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
@@ -20,8 +20,8 @@
 			<table class="table table-hover" id="table-phirac">
 				<thead>
 					<tr>
-						<th>Đơn Giá</th>
-						<th>Ngày</th>
+						<th>Ä�Æ¡n GiÃ¡</th>
+						<th>NgÃ y</th>
 						<th>Ghi Chú</th>
 					</tr>
 				</thead>
@@ -29,7 +29,7 @@
 			<!------------------------------- button open modal form  ---------------------------->
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
+				<i class="icon-btn fa fa-plus"></i> Táº¡o phÃ­ má»›i
 			</button>
 		</div>
 	</div>
@@ -40,7 +40,7 @@
 			<div class="modal-content">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
-					<h5 class="modal-title" id="form-label">bảng phí rác</h5>
+					<h5 class="modal-title" id="form-label">báº£ng phÃ­ rÃ¡c</h5>
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->
@@ -50,12 +50,12 @@
 							<!------------------------------ Don gia ------------------------------------>
 								<div class="input-container">
 								<input type="number"  required="required" name="price" id="price" style="width: 220px" />
-								<label for="price">Đơn Giá</label>
+								<label for="price">Ä�Æ¡n GiÃ¡</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
 								<input type="date"  required="required" name="date" id="date" style="width: 220px" />
-								<label for="date">Ngày</label>
+								<label for="date">NgÃ y</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
@@ -63,7 +63,7 @@
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
 								<textarea style="width: 465px" id="note" name="note"  required="required" rows="4"></textarea>
-								<label for="note">Ghi Chú</label>
+								<label for="note">Ghi ChÃº</label>
 							</div>
 						</div>
 						<!------------------------------------ End row -------------------------------------->
@@ -72,10 +72,10 @@
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-success">
-						<i class="icon-btn fa fa-plus"></i> Tạo Mới
+						<i class="icon-btn fa fa-plus"></i> Táº¡o Má»›i
 					</button>
 					<button type="button" class="btn btn-primary">
-						<i class=" icon-btn fas fa-sync-alt"></i>Cập Nhật
+						<i class=" icon-btn fas fa-sync-alt"></i>Cáº­p Nháº­t
 					</button>
 				</div>
 			</div>

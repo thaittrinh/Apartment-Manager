@@ -1,9 +1,6 @@
+
 package poly.com.service;
 
-import java.io.Console;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ public class WaterPriceService {
 		List<PriceWater> priceWater = priceWaterRepository.findAll();
 		return ResponseEntity.ok(priceWater);
 	}
-
+	@SuppressWarnings("deprecation")
 	public ResponseEntity<List<PriceWater>> findDate(PriceWater priceWater) {
 		int year = priceWater.getDate().getYear() + 1900;
 	    int month = priceWater.getDate().getMonth() + 1;
@@ -80,12 +77,9 @@ public class WaterPriceService {
 			// Giá các tháng trước đã có
 			List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(priceWater.getDate().getYear() + 1900,
                                                                                    priceWater.getDate().getMonth() + 1);			
-			for (PriceWater p : priceWaters) { 
-				int year = p.getDate().getYear();
-				int month = p.getDate().getMonth();
-				if (year == priceWater.getDate().getYear() && month == priceWater.getDate().getMonth()) 
-					return new ResponseEntity<>(null, HttpStatus.CONFLICT);			
-			}
+			if (id != priceWaters.get(0).getId()) 
+				return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
+			
 			priceWater.setId(id);
 			water = priceWaterRepository.save(priceWater);
 			return ResponseEntity.ok(water);
