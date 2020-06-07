@@ -26,50 +26,75 @@ public class PriceGarbageService {
 		return ResponseEntity.ok(priceGarbages);
 	}
 
-	
 	// < -------------------- find by Id ---------------------------->
 	public ResponseEntity<PriceGarbage> findPriceGarbageById(int id) {
 		try {
 			PriceGarbage priceGarbage = priceGarbageRepository.findById(id).orElse(null);
+			if (priceGarbage == null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			return ResponseEntity.ok(priceGarbage);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-    // < ---------------------------- Create ------------------------->
+
+	// < -------------------------- find By Date --------------------->
+	@SuppressWarnings("deprecation")
+	public ResponseEntity<List<PriceGarbage>> findDate(PriceGarbage priceGarbage) {
+		int year = priceGarbage.getDate().getYear() + 1900;
+		int month = priceGarbage.getDate().getMonth() + 1;
+		List<PriceGarbage> priceGarbages = priceGarbageRepository.findByYearAndMonth(year, month);
+		return ResponseEntity.ok(priceGarbages);
+	}
+
+	// < ---------------------------- Create ------------------------->
+	@SuppressWarnings("deprecation")
 	public ResponseEntity<PriceGarbage> createPriceGarbage(PriceGarbage priceGarbage) {
 		try {
+			List<PriceGarbage> priceGarbages = priceGarbageRepository
+					.findByYearAndMonth(priceGarbage.getDate().getYear() + 1900, priceGarbage.getDate().getMonth() + 1);
+			if (priceGarbages.size() > 0)
+				return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
 			priceGarbage.setId(0);
-			PriceGarbage newPriceGarbage = priceGarbageRepository.save(priceGarbage);
-			return ResponseEntity.ok(newPriceGarbage);
+			PriceGarbage garbage = priceGarbageRepository.save(priceGarbage);
+			return ResponseEntity.ok(garbage);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-    // < ----------------------------- update ------------------------- > 
+
+	// < ----------------------------- update ------------------------- >
+	@SuppressWarnings("deprecation")
 	public ResponseEntity<PriceGarbage> updatePriceGarbage(int id, PriceGarbage priceGarbage) {
 		try {
-			priceGarbage.setId(0);
-			PriceGarbage pricebyid = priceGarbageRepository.findById(id).orElse(null);
-			if (pricebyid == null)
+			// id: priceWater không tồn tại
+			PriceGarbage grabage = priceGarbageRepository.findById(id).orElse(null);
+			if (grabage == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			pricebyid = priceGarbageRepository.save(priceGarbage);
-			return ResponseEntity.ok(pricebyid);
+			// Giá các tháng trước đã có
+			List<PriceGarbage> priceGrabage = priceGarbageRepository
+					.findByYearAndMonth(priceGarbage.getDate().getYear() + 1900, priceGarbage.getDate().getMonth() + 1);
+			if (id != priceGrabage.get(0).getId())
+				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+			priceGarbage.setId(id);
+			PriceGarbage priceGarbageid = priceGarbageRepository.findById(id).orElse(null);
+			if (priceGarbageid == null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			priceGarbageid = priceGarbageRepository.save(priceGarbage);
+			return ResponseEntity.ok(priceGarbageid);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-    // < ----------------------------- Delete -------------------------->
+
+	// < ----------------------------- Delete -------------------------->
 	public ResponseEntity<String> deletePriceGarbage(int id) {
 		try {
 			PriceGarbage pricebyid = priceGarbageRepository.findById(id).orElse(null);
 			if (pricebyid == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			priceGarbageRepository.deleteById(id);
-			return ResponseEntity.ok("Deleted");
+			return ResponseEntity.ok("Delete success");
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

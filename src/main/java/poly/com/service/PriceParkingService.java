@@ -29,6 +29,8 @@ public class PriceParkingService {
 	public ResponseEntity<PriceParking> findbyId(int id) {
 		try {
 			PriceParking priceParking = priceParkingRepository.findById(id).orElse(null);
+			if(priceParking == null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			return ResponseEntity.ok(priceParking);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
