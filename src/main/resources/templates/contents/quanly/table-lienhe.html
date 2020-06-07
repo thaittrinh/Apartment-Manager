@@ -5,37 +5,37 @@ data-layout-decorate="~{/layout-admin}">
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
-		<a class="title"> Quản Lý Bảng Giá</a>
+		<a class="title"> Quản Lý Thông tin Liên Hệ </a>
 		<div th:replace="components/header"></div>
 	</div>
-	<!----------------------------------------- TABLE bảng phí rác ----------------------------->
+	<!----------------------------------------- TABLE thông tin liên hệ  ----------------------------->
 	<div class="card" style="width: 100%; margin-left: -3px">
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white"><i class="fas fa-tint mr-3"></i> Bảng giá nước </h6>
+				<h6 style="color: white">
+					<i class="fas fa-phone-square mr-3"></i>Bảng thông tin liên hệ
+				</h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
 		<div class="card-body">
-			<table class="table table-hover" id="table-gianuoc">
+			<table class="table table-hover" id="table-lienhe">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Ngày</th>
-						<th>Đơn Giá</th>
-						<th>Ghi Chú</th>		
-						<th>Delete</th>					
+				    	<th> Tên Chung Cư</th>
+						<th>Điện Thoại</th>
+						<th>Email</th>
+						<th>Địa Chỉ</th>
+						<th>Ngân Hàng</th>
+						<th>Số Tài Khoản</th>
 					</tr>
 				</thead>
-				<tfoot>
-				
-				</tfoot>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
+				<i class="icon-btn fa fa-plus"></i> Thêm thông tin liên hệ
 			</button>
 		</div>
 	</div>
@@ -46,34 +46,52 @@ data-layout-decorate="~{/layout-admin}">
 			<div class="modal-content">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
-
-
-					<h5 class="modal-title" id="form-label"> <i class="fas fa-tint mr-3 ml-2"></i>đơn giá nước </h5>
-
+					<h5 class="modal-title" id="form-label">
+						<i class="fas fa-phone-square mr-3"></i>Thông tin liên hệ
+					</h5>
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->
 				<div class="modal-body">
 					<form>
 						<div class="row">
-							<!------------------------------ Don gia ------------------------------------>
+							<!------------------------------ tên chung cư ------------------------------------>
 							<div class="input-container">
-								<input type="number" required="required" name="price" id="price"
-									style="width: 220px" /> <label for="price">Đơn Giá</label>
+								<input type="text" required="required" name="nameApartment"id="nameApartment" style="width: 290px" /> 
+								<label for="nameApartment">Tên Chung Cư</label>
 							</div>
-							<!-------------------------------- Ngay ------------------------------------>
+							<!-------------------------------- Phone ------------------------------------>
 							<div class="input-container">
-								<input type="date" required="required" name="date" id="date"
-									style="width: 220px" /> <label for="date">Ngày</label>
+								<input type="text" required="required" name="phone" id="phone" style="width: 160px" />
+									 <label for="phone"> Điện Thoại</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
 						<div class="row">
-							<!------------------------------- Ghi Chu -------------------------------------->
+							<!------------------------------ email------------------------------------>
 							<div class="input-container">
-								<textarea style="width: 465px" id="note" name="note"
-									required="required" rows="4"></textarea>
-								<label for="note">Ghi Chú</label>
+								<input type="text" required="required" name="email" id="email"style="width: 465px" /> <label for="email">Email</label>
+							</div>
+						</div>
+						<!------------------------------------ End row -------------------------------------->
+						<div class="row">
+							<!------------------------------ address------------------------------------>
+							<div class="input-container">
+								<input type="text" required="required" name="adress"
+									id="address" style="width: 465px" /> <label for="address">Địa Chỉ</label>
+							</div>
+						</div>
+						<!------------------------------------ End row -------------------------------------->
+							<div class="row">
+									<!------------------------------ tên ngân hàng ------------------------------------>
+							<div class="input-container">
+								<input type="text" required="required" name="bank"id="bank" style="width: 290px" /> 
+								<label for="bank">Tên Ngân Hàng</label>
+							</div>
+							<!-------------------------------- số tài khoản ------------------------------------>
+							<div class="input-container">
+								<input type="text" required="required" name="accountNumber" id="accountNumber" style="width: 160px" />
+									 <label for="accountNumber">Số Tài Khoản</label>
 							</div>
 						</div>
 						<!------------------------------------ End row -------------------------------------->
@@ -91,6 +109,6 @@ data-layout-decorate="~{/layout-admin}">
 			</div>
 		</div>
 	</div>
-	<script th:src="@{/assets/js/gianuoc.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/js/lienhe.js}" type="text/javascript"></script>
 </div>
 <!-------------------------------------------------------- End Div content ------------------------------------------->

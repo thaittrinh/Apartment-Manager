@@ -17,9 +17,9 @@ public class ContactService {
 
 	@Autowired
 	ContactRepository contactRepository;
-	
-// ----------------------------------------------------
+// -----------------------------------------------------
 
+	
 	// < ---------------------- findAll -------------------------->
 	public ResponseEntity<List<Contact>> findAll() {
 		List<Contact> contacts = contactRepository.findAll();
@@ -30,11 +30,12 @@ public class ContactService {
 	public ResponseEntity<Contact> findById(int id) {
 		try {
 			Contact contacts = contactRepository.findById(id).orElse(null);
+			if (contacts == null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			return ResponseEntity.ok(contacts);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	// < ------------------------- Create ----------------------------->
@@ -60,14 +61,13 @@ public class ContactService {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	// < -------------------------- Delete ------------------------------->
 	public ResponseEntity<String> deleteContact(int id) {
 		try {
 			Contact contacts = contactRepository.findById(id).orElse(null);
-			if (contacts == null) 
+			if (contacts == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			contactRepository.deleteById(id);
 			return ResponseEntity.ok("Xóa Thành Công");

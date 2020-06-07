@@ -28,21 +28,21 @@
                 <ul class="collapse list-unstyled" id="toanha">
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-can-ho}">
+                        <a th:href="@{/ui/table-apartment}">
                             <span></span>
                             Danh  sách căn hộ
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/form-chu-can-ho}">
+                        <a th:href="@{/ui/form-own-apartment}">
                             <span></span>
                             Thông tin chủ căn hộ
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-chu-can-ho}">
+                        <a th:href="@{/ui/table-own-apartment}">
                             <span></span>
                             Danh sách chủ căn hộ
                         </a>
@@ -59,28 +59,28 @@
                 <ul class="collapse list-unstyled" id="cudan">
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/form-cu-dan}">
+                        <a th:href="@{/ui/form-resdential}">
                             <span class=""></span>
                             Thông tin cư dân
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-cu-dan}">
+                        <a th:href="@{/ui/table-resdential}">
                             <span class=""></span>
                             Danh sách cư dân
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-xe}">Xe cư dân đăng ký gửi </a>
+                        <a th:href="@{/ui/table-vehicle}">Xe đăng ký gửi </a>
                     </li>
                     <!---------------------------->
                 </ul>
             </li>
             <!-- --------------------------------- hoa don ---------------------- -->
             <li>
-                <a th:href="@{/ui/table-hoa-don}">
+                <a th:href="@{/ui/table-bill}">
                     <i class="fa fa-file-invoice-dollar mr-3"></i>
                   Hóa Đơn 
                 </a>
@@ -95,14 +95,14 @@
                 <ul class="collapse list-unstyled" id="phidichvu">
                     <!------------------------------>
                     <li>
-                        <a th:href="@{/ui/table-gia-dien}">
+                        <a th:href="@{/ui/table-price-electricity}">
                             <span class=""></span>
                           Bảng giá điện
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-gia-nuoc}">
+                        <a th:href="@{/ui/table-price-water}">
                             <span class=""></span>
                            Bảng giá nước 
                         </a>
@@ -116,14 +116,14 @@
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-phi-rac}">
+                        <a th:href="@{/ui/table-price-garbage}">
                             <span class=""></span>
                            Bảng phí rác
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-phi-quan-ly}">
+                        <a th:href="@{/ui/table-price-management}">
                             <span class=""></span>
                            Bảng phí quản lý 
                         </a>
@@ -147,7 +147,7 @@
                     </li>
                     <!---------------------------->
                     <li>
-                        <a href="/table-hoadon">
+                        <a href="#">
                             <span></span>
                         Quản lý  Tài Khoản 
                         </a>
@@ -165,9 +165,15 @@
             </li>
             <!-- ---------------------------------nội quy ---------------------- -->
             <li>
-                <a href="#">
-                    <span class="fa fa-question-circle mr-3"></span>
+                <a th:href="@{/ui/table-regulation}">
+                   <span class="fas fa-scroll mr-3"></span>
                   Nội Quy
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/ui/table-contact}">
+                <span class="fas fa-phone-square mr-3"></span>
+                  Liên Hệ
                 </a>
             </li>
         </ul>
