@@ -16,7 +16,6 @@ public class PriceElectricityService {
 
 	@Autowired
 	PriceElectricityRepository priceElectricityRepository;
-
 // ----------------------------------------------------------------------
 
 	// < --------------------------- Find All --------------------------->
@@ -29,6 +28,8 @@ public class PriceElectricityService {
 	public ResponseEntity<PriceElectricity> findPriceElectricitybyId(int id) {
 		try {
 			PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);
+			if(priceElectricity	== null)
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			return ResponseEntity.ok(priceElectricity);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

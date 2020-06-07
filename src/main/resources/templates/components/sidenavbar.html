@@ -73,7 +73,7 @@
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-vehicle}">Xe cư dân đăng ký gửi </a>
+                        <a th:href="@{/ui/table-vehicle}">Xe đăng ký gửi </a>
                     </li>
                     <!---------------------------->
                 </ul>
@@ -165,9 +165,15 @@
             </li>
             <!-- ---------------------------------nội quy ---------------------- -->
             <li>
-                <a href="#">
-                    <span class="fa fa-question-circle mr-3"></span>
+                <a th:href="@{/ui/table-regulation}">
+                   <span class="fas fa-scroll mr-3"></span>
                   Nội Quy
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/ui/table-contact}">
+                <span class="fas fa-phone-square mr-3"></span>
+                  Liên Hệ
                 </a>
             </li>
         </ul>

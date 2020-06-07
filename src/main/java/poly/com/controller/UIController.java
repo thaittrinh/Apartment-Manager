@@ -78,4 +78,10 @@ public class UIController {
     public String pageTablePhiquanly() {
         return "contents/quanly/bang-gia/table-phiquanly";
     }
+    // return template page table thong tin liên hệ  
+    @RequestMapping("/table-contact")
+    public String pageTableLienhe() {
+        return "contents/quanly/table-lienhe";
+    }
+    
 }
