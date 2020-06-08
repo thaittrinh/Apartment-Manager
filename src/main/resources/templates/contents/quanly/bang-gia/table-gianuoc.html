@@ -31,7 +31,7 @@ data-layout-decorate="~{/layout-admin}">
 				</thead>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
-			<button type="button" class="btn btn-primary" data-toggle="modal"
+			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
 				data-target="#form-building">
 				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
 			</button>
@@ -45,8 +45,8 @@ data-layout-decorate="~{/layout-admin}">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
 
-
-					<h5 class="modal-title" id="form-label"> <i class="fas fa-tint mr-3 ml-2"></i>đơn giá nước </h5>
+                     <!-------------------------------------- tittle ------------------------------------->
+					 <h5 class="modal-title" id="form-label"></h5>
 
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
@@ -56,6 +56,7 @@ data-layout-decorate="~{/layout-admin}">
 						<div class="row">
 							<!------------------------------ Don gia ------------------------------------>
 							<div class="input-container">
+							    <input type="number"  id="id" hidden="true" />
 								<input type="number" required="required" name="price" id="price"
 									style="width: 220px" /> <label for="price">Đơn Giá</label>
 							</div>
@@ -79,11 +80,11 @@ data-layout-decorate="~{/layout-admin}">
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success">
-						<i class="icon-btn fa fa-plus"></i> Tạo Mới
+					<button type="button" class="btn btn-success" id="save" style="width:103.05px;" >
+						<i class="fas fa-folder-plus"></i> Lưu
 					</button>
-					<button type="button" class="btn btn-primary">
-						<i class=" icon-btn fas fa-sync-alt"></i>Cập Nhật
+					<button type="button" class="btn btn-primary" id="clean-form">
+						<i class=" icon-btn fas fa-sync-alt"></i>Làm mới
 					</button>
 				</div>
 			</div>
