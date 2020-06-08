@@ -1,11 +1,14 @@
 
 $(document).ready( function () {
     $('#table-gianuoc').DataTable({
-    	deferRender:    true,
-        scrollY:        200,
-        scrollCollapse: true,
-        scroller:       true,
-    	processing: true,      
+    	"deferLoading": 12,
+    	"responsive": true,
+    	"scroller": {loadingIndicator: true},
+    	"autoWidth": false,
+      	"processing": true, 
+    	"autoWidth": false, 
+    	"scrollY": "250px",
+        "scrollCollapse": true,
     	"sAjaxSource": URL + 'api/price-water',
 		"sAjaxDataProp": "",
 		"order": [[ 0, "asc" ]],
