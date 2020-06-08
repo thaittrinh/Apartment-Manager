@@ -1,5 +1,4 @@
 
-
 $(document).ready( function () {
     $('#table-gianuoc').DataTable({
     	processing: true,      
@@ -12,16 +11,13 @@ $(document).ready( function () {
 			{ "mData": "price" },
 			{ "mData": "note" },
 			{"mRender": function(data, type, full) {		   
-				return `<i class="fas fa-edit "></i>`
+				return `<i  class="material-icons icon-table icon-update" type="button">edit</i>`
 			  }
 			},
 			{"mRender": function(data, type, full) {		  
-					return `<i  class="material-icons icon-table" type="button">delete</i>`
+					return `<i  class="material-icons icon-table icon-delete " type="button">delete</i>`
 			 }
 			}
 		]
     } );
 } );
-
-
-//<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
