@@ -11,14 +11,17 @@ $(document).ready( function () {
 	        { "mData": "date" },
 			{ "mData": "price" },
 			{ "mData": "note" },
-			{"mRender": function(data, type, full) {
-			   // return '<a class="btn btn-info btn-sm" href=' + full.id + '>' + 'Delete' + '</a>';
-				//<button type="button" class="btn btn-warning"></button>
-				return `  <i  class="material-icons icon-table" type="button">delete</i>`
+			{"mRender": function(data, type, full) {		   
+				return `<i class="fas fa-edit "></i>`
 			  }
+			},
+			{"mRender": function(data, type, full) {		  
+					return `<i  class="material-icons icon-table" type="button">delete</i>`
+			 }
 			}
 		]
     } );
 } );
 
 
+//<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
