@@ -1,13 +1,13 @@
 
 $(document).ready( function () {
-    $('#table-gianuoc').DataTable({
+    $('#my-table').DataTable({
     	"deferLoading": 12,
     	"responsive": true,
     	"scroller": {loadingIndicator: true},
     	"autoWidth": false,
       	"processing": true, 
     	"autoWidth": false, 
-    	"scrollY": "250px",
+    	"scrollY": "300px",
         "scrollCollapse": true,
     	"sAjaxSource": URL + 'api/price-water',
 		"sAjaxDataProp": "",
@@ -33,23 +33,22 @@ $(document).ready( function () {
 // Delete
 let deletePrice = (id, e) => {		
 	Swal.fire({
-		  title: 'Bạn chắc chắn muốn xóa?',
-		  text: "Các hóa đơn có thể bị ảnh hưởng!",
+		  title: 'Cảnh Báo',
+		  text: "Bạn chắc chắn muốn xóa",
 		  icon: 'warning',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
 		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Agree'
+		  confirmButtonText: 'Yes'
 	}).then((result) => {	
 		if (result.value) {
 			$.ajax({
 		         type: 'DELETE',
 		         url: URL + `api/price-water/${id}`,
 		         contentType: "application/json",
-		        // dataType : 'json'
 		         cache: false,
 		         success: function (result) {    	 
-		        	 $('#table-gianuoc').DataTable().row( $(e).parents('tr') )
+		        	 $('#my-table').DataTable().row( $(e).parents('tr') )
 		             .remove()
 		             .draw();        
 		         },
@@ -61,8 +60,10 @@ let deletePrice = (id, e) => {
 	})		
 }
 
+var index = -1;
 
 let showFormUpdate = (id, e) =>{
+	index =  $('#my-table').DataTable().row( $(e).parents('tr')).index();	
 	document.querySelector('#show-form').click();
 	document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
 	 $.ajax({
@@ -79,7 +80,6 @@ let showFormUpdate = (id, e) =>{
 	
 }
 
-
 // insert or update
 document.querySelector('#save').addEventListener('click', () => {
 	 let water = getValueForm();	  
@@ -91,8 +91,15 @@ document.querySelector('#save').addEventListener('click', () => {
 	         dataType : 'json', 
 	         cache: false,
 	         data: JSON.stringify(water),
-	         success: function (result) {  
-	        	 console.log(result)         
+	         success: function (result) {  	  
+        	 // Convert date to yy-MM-dd
+        	 result.date = formatDate(result.date);
+	        //update the row in dataTable
+	        $('#my-table').DataTable().row(index).data( result ).draw();
+	         // close modal
+	         $('#form-building').modal('hide');
+	        // Clean form
+	         cleanForm();	  
 	         },
 	         error: function (error) {
 	        	notification(error.status);
@@ -107,8 +114,18 @@ document.querySelector('#save').addEventListener('click', () => {
 	         dataType : 'json', 
 	         cache: false,
 	         data: JSON.stringify(water),
-	         success: function (result) {  
-	        	 console.log(result)         
+	         success: function (result) {
+	        	 // Convert date to yy-MM-dd
+	        	 result.date = formatDate(result.date);
+	        	 // Add new data to DataTable
+	        	 $('#my-table').DataTable()
+	        	    .row.add( result )
+	        	    .draw()
+	        	    .node(); 
+	        	 // Clean form
+	        	 cleanForm();
+	        	 // announce success
+	        	 notification(200);
 	         },
 	         error: function (error) {
 	        	notification(error.status);
@@ -118,16 +135,23 @@ document.querySelector('#save').addEventListener('click', () => {
 	 
 });
 
+// When modal close -> clean form modal
+$("#form-building").on("hidden.bs.modal", function () {
+	cleanForm();
+});
 
-// clean form
-document.querySelector('#clean-form').addEventListener('click',() => {
+
+let cleanForm = () => {
 	fillToForm({
 		"id": "",
 		"price": "",
 		"date": "",
 		"note": ""
 	});
-})
+}
+
+// clean form when click button clean
+document.querySelector('#clean-form').addEventListener('click',cleanForm);
 
 
 let getValueForm = () => {
@@ -146,6 +170,23 @@ let fillToForm = (water) => {
 	document.querySelector('#date').value = water.date;
 	document.querySelector('#note').value = water.note;
 }
+
+
+// những hàm dưới này sẽ viết ra file js dùng chung cho các file sau này
+
+let formatDate = (date) => {
+	 var d = new Date(date),
+     month = '' + (d.getMonth() + 1),
+     day = '' + d.getDate(),
+     year = d.getFullYear();
+
+	 if (month.length < 2) 
+	     month = '0' + month;
+	 if (day.length < 2)  
+	     day = '0' + day;
+	
+	 return [year, month, day].join('-');	
+} 
 
 
 let notification = (statusCode)=> {
