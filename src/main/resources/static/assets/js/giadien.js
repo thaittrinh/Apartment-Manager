@@ -1,5 +1,5 @@
 $(document).ready( function () {
-    $('#table-giadien').DataTable();
-} );/**
- * 
- */
+    $('#table-giadien').DataTable({
+    	
+    });
+} );
