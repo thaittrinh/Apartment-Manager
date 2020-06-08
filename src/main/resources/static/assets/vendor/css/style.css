@@ -388,20 +388,38 @@ i.icon-table:hover:after {
 		rgba(0, 0, 0, 0.23);
 }
 
-i.icon-table:nth-of-type(1) {
+i.icon-delete:nth-of-type(1) {
 	    background-color: #dc3545;
 }
 
-i.icon-table:nth-of-type(1):hover {
+i.icon-delete:nth-of-type(1):hover {
 	color: #dc3545;
 }
 
-i.icon-table:nth-of-type(1):after {
+i.icon-delete:nth-of-type(1):after {
 	  border-color: #dc3545;
 }
 
-i.icon-table:hover {
-	background-color: transparent;
+i.icon-delete:hover {
+	background-color: transparent !important;
+    transform:none !important;
+	cursor: pointer;
+	box-shadow: none;
+}
+i.icon-update:nth-of-type(1) {
+	    background-color: #1bc943!important;
+}
+
+i.icon-update:nth-of-type(1):hover {
+	color: #1bc943!important;
+}
+
+i.icon-update:nth-of-type(1):after {
+	  border-color: #1bc943!important;
+}
+
+i.icon-update:hover {
+	background-color: transparent !important;
     transform:none !important;
 	cursor: pointer;
 	box-shadow: none;
