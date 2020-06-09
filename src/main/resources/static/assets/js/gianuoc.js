@@ -63,77 +63,76 @@ let deletePrice = (id, e) => {
 
 var index = -1;
 // < -------------------------- show form update --------------------->
-let showFormUpdate = (id, e) => {
-    index = $('#my-table').DataTable().row($(e).parents('tr')).index();
-    document.querySelector('#show-form').click();
-    document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
-    $.ajax({
-        url: URL + `api/price-water/${id}`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (result) {
-            fillToForm(result)
-        },
-        error: function (error) {
-            notification(error.status);
-        }
-    });
 
+
+let showFormUpdate = (id, e) =>{
+	index =  $('#my-table').DataTable().row( $(e).parents('tr')).index();		
+	$('#form-building').modal('show')
+	document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
+	 $.ajax({
+		  url : URL + `api/price-water/${id}`,
+		  type : 'GET',
+		  dataType : 'json', 
+	      success : function(result) {    	
+	    	  fillToForm(result)  
+		   },
+	      error : function(error) {
+	    	  notification(error.status);
+		   } 
+	});
 }
 
 // < ------------------------ insert or update  ---------------------->
 document.querySelector('#save').addEventListener('click', () => {
-    let water = getValueForm();
-    if (water.id) {
-        $.ajax({
-            type: 'PUT',
-            url: URL + `api/price-water/${water.id}`,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(water),
-            success: function (result) {
-                // Convert date to yy-MM-dd
-                result.date = formatDate(result.date);
-                // update the row in dataTable
-                $('#my-table').DataTable().row(index).data(result).draw();
-                // close modal
-                $('#form-building').modal('hide');
-                // Clean form
-                cleanForm();
-            },
-            error: function (error) {
-                notification(error.status);
-            }
-        });
-
-    } else {
-        $.ajax({
-            type: 'POST',
-            url: URL + `api/price-water`,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(water),
-            success: function (result) {
-                // Convert date to yy-MM-dd
-                result.date = formatDate(result.date);
-                // Add new data to DataTable
-                $('#my-table').DataTable()
-                    .row.add(result)
-                    .draw()
-                    .node();
-                // Clean form
-                cleanForm();
-                // announce success
-                notification(200);
-            },
-            error: function (error) {
-                notification(error.status);
-            }
-        });
-    }
-
+	 let water = getValueForm();	  
+	 if(water.id){    
+	     $.ajax({
+	         type: 'PUT',
+	         url: URL + `api/price-water/${water.id}`,
+	         contentType: "application/json",
+	         dataType : 'json', 
+	         cache: false,
+	         data: JSON.stringify(water),
+	         success: function (result) {  	  
+        	 // Convert date to yy-MM-dd
+        	 result.date = formatDate(result.date);
+	        //update the row in dataTable
+	        $('#my-table').DataTable().row(index).data( result ).draw();
+	         // close modal
+	         $('#form-building').modal('hide');        
+	         },
+	         error: function (error) {
+	        	notification(error.status);
+	         }
+	     });
+	     	
+	 }else{
+		 $.ajax({
+	         type: 'POST',
+	         url: URL + `api/price-water`,
+	         contentType: "application/json",
+	         dataType : 'json', 
+	         cache: false,
+	         data: JSON.stringify(water),
+	         success: function (result) {
+	        	 // Convert date to yy-MM-dd
+	        	 result.date = formatDate(result.date);
+	        	 // Add new data to DataTable
+	        	 $('#my-table').DataTable()
+	        	    .row.add( result )
+	        	    .draw()
+	        	    .node(); 
+	        	 // Clean form
+	        	 cleanForm();
+	        	 // announce success
+	        	 notification(200);
+	         },
+	         error: function (error) {
+	        	notification(error.status);
+	         }
+	     });
+	 }
+	
 });
 
 // <------------- When modal close -> clean form modal  ----------->
@@ -157,12 +156,15 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 
 // < ------------------- get value form --------------------------->
 let getValueForm = () => {
-    return {
-        "id": document.querySelector('#id').value,
-        "price": document.querySelector('#price').value,
-        "date": document.querySelector('#date').value,
-        "note": document.querySelector('#note').value
-    }
+	return {
+		"id" : document.querySelector('#id').value,
+	    "price" : document.querySelector('#price').value,
+	    "date" : document.querySelector('#date').value,
+	    "employee" : {
+	    	"id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
+	    },
+	    "note" : document.querySelector('#note').value
+	}
 }
 
 // < ------------------- fill to form------------------------------>
