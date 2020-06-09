@@ -62,19 +62,20 @@ let deletePrice = (id, e) => {
 // < ----------------- show form update ------------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
-    index = $('table-garbage').dataTable().row($(e).parents('tr')).index();
-    document.querySelector('show-form').click();
-    document.querySelector('.modal-title').innerHTML = 'CẬP NHẬT BẢNG GIÁ '
+    index = $('#table-garbage').DataTable().row($(e).parents('tr')).index();
+    $('#form-building').modal('show')
+    document.querySelector('.modal-title').innerHTML = "Cập nhập phí rác ";
     $.ajax({
         url: URL + `api/price-garbage/${id}`,
-        type: 'json',
+        type: 'GET',
+        dataType: 'json',
         success: function (result) {
             fillToForm(result)
         },
-         error: function (error) {
-         
-         }
-    })
+        error: function (error) {
+            sweetalert(error.status)
+        }
+    });
 }
 let fillToForm = (garbage) => {
     document.querySelector('#id').value = garbage.id;

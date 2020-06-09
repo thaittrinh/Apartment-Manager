@@ -31,9 +31,10 @@ data-layout-decorate="~{/layout-admin}">
 				</thead>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
+			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+					onclick="document.querySelector('.modal-title').innerHTML = 'Thêm giá mới' "
+					data-target="#form-building">
+				<i class="icon-btn fa fa-plus"></i> Thêm giá mới
 			</button>
 		</div>
 	</div>
@@ -55,6 +56,7 @@ data-layout-decorate="~{/layout-admin}">
 						<div class="row">
 							<!------------------------------ Don gia ------------------------------------>
 								<div class="input-container">
+								<input type="number"  id="id" hidden="true" required="required" />
 								<input type="number"  required="required" name="price" id="price" style="width: 220px" />
 								<label for="price">Đơn Giá </label>
 							</div>
