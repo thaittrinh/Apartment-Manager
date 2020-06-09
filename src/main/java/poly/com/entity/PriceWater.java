@@ -34,17 +34,18 @@ public class PriceWater implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull
+	@NotNull(message = "Price is not null")
 	private Double price;
 	
-	@NotNull
+	@NotNull(message = "Date is not null")
 	@Column(unique = true)
 	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
 	private Date date;
 	
+	@NotNull(message = "Employee is not null")
 	@ManyToOne
-	@JoinColumn(name = "id_employee", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "id_employee", referencedColumnName = "id")
 	private Employee employee;
 	
 	private String note;
