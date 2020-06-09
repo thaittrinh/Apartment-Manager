@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"     data-layout-decorate="~{/layout-admin}">
+<div layout:fragment="content">
+    <!--------------------------------------------- Header-------------------------------->
+    <div class="row">
+        <a class="title"> Quản Lý chủ căn hộ </a>
+        <div th:replace="components/header"></div>
+    </div>
+    <!---------------------------------------- Table Chu can ho  -------------------------->
+    <div class="card" style="width: 100%; margin-left: -3px">
+        <!------------------------------------ card title table -------------------------->
+        <div class="card-header" style="border-radius: 6px;">
+            <div class="card-titles">
+                <h6 style="color: white"> <i class="fas fa-address-card mr-3 "></i> Danh sách chủ căn hộ </h6>
+            </div>
+        </div>
+        <!------------------------------------- card-body-table --------------------------->
+        <div class="card-body">
+            <table class="table table-hover" id="table-chucanho">
+                <thead>
+                <tr>
+                    <th>Họ Tên</th>
+                    <th>Ngày Sinh</th>
+                    <th>Giới Tính</th>
+                    <th>Số CMND</th>
+                    <th>Quốc Tịch</th>
+                    <th>Quê Quán</th>
+                    <th>Điện Thoại</th>
+                    <th>Email</th>
+                    <th>Nghề Nghiệp</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/assets/js/chucanho.js}" type="text/javascript"></script>
+</div>
+<!------------------------------------------------ End Div Content --------------------------------------------------->
