@@ -40,7 +40,7 @@ public class Account implements Serializable {
 	
 	@OneToOne
 	@MapsId
-    private User user;
+    private Employee user;
 	
 	@NotNull
 	@Column(unique = true, length = 20)

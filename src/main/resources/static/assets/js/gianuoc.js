@@ -63,8 +63,8 @@ let deletePrice = (id, e) => {
 var index = -1;
 
 let showFormUpdate = (id, e) =>{
-	index =  $('#my-table').DataTable().row( $(e).parents('tr')).index();	
-	document.querySelector('#show-form').click();
+	index =  $('#my-table').DataTable().row( $(e).parents('tr')).index();		
+	$('#form-building').modal('show')
 	document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
 	 $.ajax({
 		  url : URL + `api/price-water/${id}`,
@@ -97,9 +97,7 @@ document.querySelector('#save').addEventListener('click', () => {
 	        //update the row in dataTable
 	        $('#my-table').DataTable().row(index).data( result ).draw();
 	         // close modal
-	         $('#form-building').modal('hide');
-	        // Clean form
-	         cleanForm();	  
+	         $('#form-building').modal('hide');        
 	         },
 	         error: function (error) {
 	        	notification(error.status);
@@ -159,6 +157,9 @@ let getValueForm = () => {
 		"id" : document.querySelector('#id').value,
 	    "price" : document.querySelector('#price').value,
 	    "date" : document.querySelector('#date').value,
+	    "employee" : {
+	    	"id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
+	    },
 	    "note" : document.querySelector('#note').value
 	}
 }

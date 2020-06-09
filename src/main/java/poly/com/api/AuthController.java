@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 import poly.com.entity.Account;
 import poly.com.entity.ERole;
 import poly.com.entity.Role;
-import poly.com.entity.User;
+import poly.com.entity.Employee;
 import poly.com.payload.request.LoginRequest;
 import poly.com.payload.request.SignupRequest;
 import poly.com.payload.response.JwtResponse;
 import poly.com.payload.response.MessageResponse;
 import poly.com.repository.AccountRepository;
 import poly.com.repository.RoleRepository;
-import poly.com.repository.UserRepository;
+import poly.com.repository.EmployeeRepository;
 import poly.com.security.jwt.JwtUtils;
 import poly.com.security.service.AccountDetailsImpl;
 
@@ -50,7 +50,7 @@ public class AuthController {
 	AccountRepository accountRepository;
 
 	@Autowired
-	UserRepository userRepository;
+	EmployeeRepository userRepository;
 
 	@Autowired
 	JwtUtils jwtUtils;
@@ -60,7 +60,7 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		User user = null;
+		Employee user = null;
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -88,7 +88,7 @@ public class AuthController {
 		}
 
 		// Create new account
-		User user = new User();
+		Employee user = new Employee();
 		user.setId(signUpRequest.getId());
 		Account account = new Account(0, user, signUpRequest.getUsername(),
 				passwordEncoder.encode(signUpRequest.getPassword()), null);
