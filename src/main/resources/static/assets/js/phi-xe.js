@@ -1,3 +1,116 @@
-$(document).ready( function () {
-    $('#my-table').DataTable();
-} );
+
+$(document).ready(function () {
+    // < ----------------------- load data to table  ------------------------------->
+    $('#my-table').DataTable({
+        "responsive": true,
+        "scroller": {loadingIndicator: true},
+        "autoWidth": false,
+        "processing": true,
+        "autoWidth": false,
+        "scrollY": "300px",
+        "scrollCollapse": true,
+        "sAjaxSource": URL + 'api/price-parking',
+        "sAjaxDataProp": "",
+        "order": [[0, "asc"]],
+        "aoColumns": [
+            {"mData": "id"},
+            {"mData": "date"},
+            {"mData": "price"},
+            {"mData": "note"},
+            {
+                "mRender": function (data, type, full) {
+                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
+                }
+            },
+            {
+                "mRender": function (data, type, full) {
+                    return `<i  class="material-icons icon-table icon-delete " onclick='deletePrice(${full.id},this)' type="button">delete</i>`
+                }
+            }
+        ]
+    });
+});
+
+
+//< ----------------------------- Delete ---------------------------->
+let deletePrice = (id, e) => {
+    Swal.fire({
+        title: 'Warning',
+        text: "Bạn có chắc chắn muốn xóa không!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: 'DELETE',
+                url: URL + `api/price-parking/${id}`,
+                contentType: "application/json",
+                cache: false,
+                success: function (result) {
+                    $('#my-table').DataTable().row($(e).parents('tr')) // format date
+                        .remove().draw();
+                    sweetalert(200, 'Success!', 'Đã xóa giá gửi xe') // message
+                },
+                error: function (error) {
+                   sweetalert(error.status) //message
+                }
+            });
+        }
+    })
+}
+
+var index = -1;
+//< -------------------------- show form update --------------------->
+let showFormUpdate = (id, e) => {
+ index = $('#my-table').DataTable().row($(e).parents('tr')).index();
+ $('#form-building').modal('show')
+ document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
+ $.ajax({
+     url: URL + `api/price-parking/${id}`,
+     type: 'GET',
+     dataType: 'json',
+     success: function (result) {
+         fillToForm(result)
+     },
+     error: function (error) {
+         sweetalert(error.status)
+     }
+ });
+}
+
+
+
+
+//<------------- When modal close -> clean form modal  ----------->
+$("#form-building").on("hidden.bs.modal", function () {
+    cleanForm();
+});
+
+// < ---------------------- Clean form ---------------------------->
+let cleanForm = () => {
+    fillToForm({
+        "id": "",
+        "price": "",
+        "date": "",
+        "typeVehicel":"",
+        "note": ""
+    });
+}
+
+// < -------------- clean form when click button clean ------------>
+document.querySelector('#clean-form').addEventListener('click', cleanForm);
+
+
+
+
+let fillToForm = (water) => {
+    document.querySelector('#id').value = water.id;
+    document.querySelector('#price').value = water.price;
+    document.querySelector('#date').value = water.date;
+    document.querySelector('#type').value = water.typeVehicel.id;
+    document.querySelector('#note').value = water.note;
+}
+

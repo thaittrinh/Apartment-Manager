@@ -13,7 +13,7 @@ data-layout-decorate="~{/layout-admin}">
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white"><i class="fas fa-tint mr-3"></i> Bảng giá gửi xe </h6>
+				<h6 style="color: white"><i class="fas fa-car mr-3"></i> Bảng giá gửi xe </h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
@@ -36,6 +36,7 @@ data-layout-decorate="~{/layout-admin}">
 				data-target="#form-building">
 				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
 			</button>
+			<button type="button" class="btn btn-secondary"><i class="fas fa-list-alt"></i> Các loại xe</button>
 		</div>
 	</div>
 	<!------------------------------------------------ Form modal can ho ---------------------------------->
@@ -67,12 +68,19 @@ data-layout-decorate="~{/layout-admin}">
 									style="width: 220px"  /> <label for="date">Ngày</label>
 							</div>
 						</div>
+						<!-------------------------------- Loại xe ------------------------------------>
+						<div class ="row">
+                              <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;"
+                                     id="type"    class="input-select">
+                              <option  th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}" />          
+                               </select>
+                           </div>
 						<!---------------------------- End row ----------------------->
-						<div class="row">
+						<div class="row" style="margin-top:15px;">
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
-								<textarea style="width: 465px" id="note" name="note"
-									required="required" rows="4"></textarea>
+								<textarea style="width: 465px;" id="note" name="note"
+									required="required" rows="3"></textarea>
 								<label for="note">Ghi Chú</label>
 							</div>
 						</div>

@@ -32,10 +32,13 @@ public class TypeVehicelService {
 	}
 	
 	// < ------------------------------- insert ----------------------------------->
-	public ResponseEntity<TypeVehicel> createTypeVehicel(TypeVehicel typeVehicel){
+	public ResponseEntity<TypeVehicel> createTypeVehicel(TypeVehicel newVehicel){
 		try {
-			typeVehicel.setId(0);
-			TypeVehicel type = typeVehicelRepository.save(typeVehicel);
+			if (typeVehicelRepository.existsByName(newVehicel.getName()))
+				return new ResponseEntity<>(null, HttpStatus.CONFLICT);	
+			
+		     newVehicel.setId(0);
+			TypeVehicel type = typeVehicelRepository.save(newVehicel);
 			return ResponseEntity.ok(type);
 			
 		} catch (Exception e) {
@@ -45,15 +48,18 @@ public class TypeVehicelService {
 	
 	
 	// < ------------------------------- update ----------------------------------->
-	public ResponseEntity<TypeVehicel> updateTypeVehicel(int id, TypeVehicel typeVehicel){
-		try {
-			TypeVehicel typeOld = typeVehicelRepository.findById(id).orElse(null);
-			if(typeOld ==  null)
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			typeVehicel.setId(id);
-			TypeVehicel type = typeVehicelRepository.save(typeVehicel);
-			return ResponseEntity.ok(type);
+	public ResponseEntity<TypeVehicel> updateTypeVehicel(int id, TypeVehicel newVehicel){
+		try {		
+			if(!typeVehicelRepository.existsById(id))
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
 			
+			TypeVehicel typeVehicel = typeVehicelRepository.findByName(newVehicel.getName()).orElse(null);	
+			if (typeVehicel.getId() != id) 
+				return new ResponseEntity<>(null, HttpStatus.CONFLICT);	
+			
+			newVehicel.setId(id);
+			TypeVehicel type = typeVehicelRepository.save(newVehicel);
+			return ResponseEntity.ok(type);		
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -66,6 +72,7 @@ public class TypeVehicelService {
 				TypeVehicel typeOld = typeVehicelRepository.findById(id).orElse(null);
 				if (typeOld == null)
 					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				
 				typeVehicelRepository.deleteById(id);
 				return ResponseEntity.ok("delete success");
 			} catch (Exception e) {
