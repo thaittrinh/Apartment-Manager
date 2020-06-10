@@ -3,7 +3,6 @@ package poly.com.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,10 +33,6 @@ public class PriceParking implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotNull()
-	@Column(length = 20 )
-	private String typeVehicle;
-
 	@NotNull
 	private Double price;
 
@@ -50,6 +45,11 @@ public class PriceParking implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_employee", referencedColumnName = "id")
 	private Employee employee;
+	
+	@NotNull(message = "Type is not null")
+	@ManyToOne
+	@JoinColumn(name = "id_type", referencedColumnName = "id")
+	private TypeVehicel typeVehicel;
 	
 	private String note;
 }
