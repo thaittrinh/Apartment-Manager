@@ -38,15 +38,6 @@ public class PriceGarbageService {
 		}
 	}
 
-	// < -------------------------- find By Date --------------------->
-	@SuppressWarnings("deprecation")
-	public ResponseEntity<List<PriceGarbage>> findDate(PriceGarbage priceGarbage) {
-		int year = priceGarbage.getDate().getYear() + 1900;
-		int month = priceGarbage.getDate().getMonth() + 1;
-		List<PriceGarbage> priceGarbages = priceGarbageRepository.findByYearAndMonth(year, month);
-		return ResponseEntity.ok(priceGarbages);
-	}
-
 	// < ---------------------------- Create ------------------------->
 	@SuppressWarnings("deprecation")
 	public ResponseEntity<PriceGarbage> createPriceGarbage(PriceGarbage priceGarbage) {
@@ -72,9 +63,9 @@ public class PriceGarbageService {
 			if (grabage == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			// Giá các tháng trước đã có
-			List<PriceGarbage> priceGrabage = priceGarbageRepository
+			List<PriceGarbage> priceGarbages = priceGarbageRepository
 					.findByYearAndMonth(priceGarbage.getDate().getYear() + 1900, priceGarbage.getDate().getMonth() + 1);
-			if (id != priceGrabage.get(0).getId())
+			if (id != priceGarbages.get(0).getId())
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 			priceGarbage.setId(id);
 			PriceGarbage priceGarbageid = priceGarbageRepository.findById(id).orElse(null);
