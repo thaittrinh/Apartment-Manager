@@ -46,7 +46,7 @@ public class PriceWaterController {
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceWater> updatePriceWater( @PathVariable int id, @RequestBody PriceWater priceWater) {
+	public ResponseEntity<PriceWater> updatePriceWater( @PathVariable int id, @Valid @RequestBody PriceWater priceWater) {
 		return waterPriceService.updatePriceWaterEntity(id, priceWater);
 	}
 
