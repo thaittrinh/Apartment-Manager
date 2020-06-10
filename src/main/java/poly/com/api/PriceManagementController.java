@@ -40,7 +40,7 @@ public class PriceManagementController {
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping
-	public ResponseEntity<PriceManagement> createPriceManagement(@RequestBody PriceManagement priceManagement) {
+	public ResponseEntity<PriceManagement> createPriceManagement( @RequestBody PriceManagement priceManagement) {
 		return priceManagementService.createPriceManagement(priceManagement);
 	}
 
