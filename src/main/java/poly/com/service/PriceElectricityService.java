@@ -39,9 +39,12 @@ public class PriceElectricityService {
     // < ---------------------------- Create ------------------------------------>
     public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
         try {
-            List<PriceElectricity> priceElectricities = priceElectricityRepository
-                    .findByLimit(priceElectricity.getLimits());
-            if (priceElectricities.size() > 0)
+            PriceElectricity priceElectricities = priceElectricityRepository.findByLimit(
+                    priceElectricity.getDate().getYear()+ 1900,
+                    priceElectricity.getDate().getMonth() + 1,
+                    priceElectricity.getLimits()
+            );
+            if (priceElectricities != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
             priceElectricity.setId(0);
             PriceElectricity electricity = priceElectricityRepository.save(priceElectricity);
@@ -54,19 +57,18 @@ public class PriceElectricityService {
     // < ----------------------------- Update ------------------------------------->
     public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
         try {
-            PriceElectricity electricity = priceElectricityRepository.findById(id).orElse(null);
-            if (electricity == null)
+            // check xem id tồn tại không
+            if (!priceElectricityRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            List<PriceElectricity> priceElectricitys = priceElectricityRepository
-                    .findByLimit(priceElectricity.getLimits());
-            if (id != priceElectricitys.get(0).getId())
-                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-            priceElectricity.setId(id);
-            PriceElectricity priceElectricityid = priceElectricityRepository.findById(id).orElse(null);
-            if (priceElectricityid == null)
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            priceElectricityid = priceElectricityRepository.save(priceElectricity);
-            return ResponseEntity.ok(priceElectricityid);
+            PriceElectricity electricity = priceElectricityRepository.findByLimit(
+                    priceElectricity.getLimits(),
+                    priceElectricity.getDate().getMonth(),
+                    priceElectricity.getDate().getYear());
+            if(electricity.getId() !=id )
+                 return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
+                priceElectricity.setId(id);
+                priceElectricity = priceElectricityRepository.save(priceElectricity);
+                return  ResponseEntity.ok(priceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -75,8 +77,7 @@ public class PriceElectricityService {
     // < --------------------------- Delete ------------------------------------------->
     public ResponseEntity<String> deletePriceElectricity(int id) {
         try {
-            PriceElectricity pricebyid = priceElectricityRepository.findById(id).orElse(null);
-            if (pricebyid == null)
+            if (!priceElectricityRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             priceElectricityRepository.deleteById(id);
             return ResponseEntity.ok("Deleted");

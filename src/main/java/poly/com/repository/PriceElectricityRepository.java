@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PriceElectricityRepository extends JpaRepository<PriceElectricity, Integer> {
 
-    @Query("select w from PriceElectricity  w where w.limits = :limit")
-    List<PriceElectricity> findByLimit( int limit);
+    @Query("select p from PriceElectricity p where year(p.date) = ?1 and month(p.date) = ?2 and p.limits = ?3")
+    PriceElectricity findByLimit(int year, int month, int limit);
 
 }

@@ -42,9 +42,11 @@ public class PriceGarbageService {
 	@SuppressWarnings("deprecation")
 	public ResponseEntity<PriceGarbage> createPriceGarbage(PriceGarbage priceGarbage) {
 		try {
-			List<PriceGarbage> priceGarbages = priceGarbageRepository
-					.findByYearAndMonth(priceGarbage.getDate().getYear() + 1900, priceGarbage.getDate().getMonth() + 1);
-			if (priceGarbages.size() > 0)
+			PriceGarbage priceGarbages = priceGarbageRepository
+					.findByYearAndMonth(
+							  priceGarbage.getDate().getYear() + 1900,
+							priceGarbage.getDate().getMonth() + 1);
+			if (priceGarbages != null)
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
 			priceGarbage.setId(0);
 			PriceGarbage garbage = priceGarbageRepository.save(priceGarbage);
@@ -59,13 +61,13 @@ public class PriceGarbageService {
 	public ResponseEntity<PriceGarbage> updatePriceGarbage(int id, PriceGarbage priceGarbage) {
 		try {
 			// id: priceWater không tồn tại
-			PriceGarbage grabage = priceGarbageRepository.findById(id).orElse(null);
-			if (grabage == null)
+			if (!priceGarbageRepository.existsById(id))
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			// Giá các tháng trước đã có
-			List<PriceGarbage> priceGarbages = priceGarbageRepository
-					.findByYearAndMonth(priceGarbage.getDate().getYear() + 1900, priceGarbage.getDate().getMonth() + 1);
-			if (id != priceGarbages.get(0).getId())
+			PriceGarbage priceGarbages = priceGarbageRepository.findByYearAndMonth(
+					priceGarbage.getDate().getYear() + 1900,
+					priceGarbage.getDate().getMonth() + 1);
+			if (priceGarbages != null)
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 			priceGarbage.setId(id);
 			PriceGarbage priceGarbageid = priceGarbageRepository.findById(id).orElse(null);
@@ -81,8 +83,7 @@ public class PriceGarbageService {
 	// < ----------------------------- Delete -------------------------->
 	public ResponseEntity<String> deletePriceGarbage(int id) {
 		try {
-			PriceGarbage pricebyid = priceGarbageRepository.findById(id).orElse(null);
-			if (pricebyid == null)
+			if (!priceGarbageRepository.existsById(id))
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			priceGarbageRepository.deleteById(id);
 			return ResponseEntity.ok("Delete success");

@@ -64,14 +64,12 @@ public class WaterPriceService {
 			PriceWater water = priceWaterRepository.findById(id).orElse(null);
 			if (water == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-	
 			// Giá các tháng trước đã có
-			List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(priceWater.getDate().getYear() + 1900,
-                                                                                   priceWater.getDate().getMonth() + 1);			
+			List<PriceWater> priceWaters = priceWaterRepository.findByYearAndMonth(
+					priceWater.getDate().getYear() + 1900,
+					priceWater.getDate().getMonth() + 1);
 			if (id != priceWaters.get(0).getId()) 
 				return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
-			
-
 			priceWater.setId(id);
 			water = priceWaterRepository.save(priceWater);
 			return ResponseEntity.ok(water);
