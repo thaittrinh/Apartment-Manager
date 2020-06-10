@@ -58,12 +58,12 @@ public class WaterPriceService {
 		try {		
 			if (!priceWaterRepository.existsById(id))
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-	
+
 			PriceWater price = priceWaterRepository.findByYearAndMonth(priceWater.getDate().getYear() + 1900,
                                                                        priceWater.getDate().getMonth() + 1);			
 			if (id != price.getId()) 
 				return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
-			
+
 			priceWater.setId(id);
 			PriceWater water = priceWaterRepository.save(priceWater);
 			return ResponseEntity.ok(water);
