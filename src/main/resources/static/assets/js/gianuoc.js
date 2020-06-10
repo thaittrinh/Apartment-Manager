@@ -34,8 +34,8 @@ $(document).ready(function () {
 // < ----------------------------- Delete ---------------------------->
 let deletePrice = (id, e) => {
     Swal.fire({
-        title: 'Cảnh Báo',
-        text: "Bạn có chắc  chắn muốn xóa không!",
+        title: 'Warning',
+        text: "Bạn có chắc chắn muốn xóa không!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -49,13 +49,12 @@ let deletePrice = (id, e) => {
                 contentType: "application/json",
                 cache: false,
                 success: function (result) {
-                    $('#my-table').DataTable().row($(e).parents('tr'))
-                        .remove()
-                        .draw();
-                    sweetalert(200, 'Success !', 'Đơn giá nước đã được xóa')
+                    $('#my-table').DataTable().row($(e).parents('tr')) // format date
+                        .remove().draw();
+                    sweetalert(200, 'Success!', 'Đã xóa giá nước') // message
                 },
                 error: function (error) {
-                    sweetalert(500, 'Opps...', 'Lỗi server, vui lòng thử lại sau!')
+                   sweetalert(error.status) //message
                 }
             });
         }
@@ -96,7 +95,7 @@ document.querySelector('#save').addEventListener('click', () => {
                 result.date = formatDate(result.date);  // Convert date to yy-MM-dd
                 $('#my-table').DataTable().row(index).data(result).draw();  //update the row in dataTable
                 $('#form-building').modal('hide');     // close modal
-                sweetalert(200,'Success!' , ' Cập nhật đơn giá nước thành công')
+                sweetalert(200,'Success!' , ' Đã cập nhật giá nước ')
             },
             error: function (error) {
                 sweetalert(error.status)
@@ -114,11 +113,9 @@ document.querySelector('#save').addEventListener('click', () => {
             success: function (result) {
                 result.date = formatDate(result.date);  // Convert date to yy-MM-dd
                 $('#my-table').DataTable()  // Add new data to DataTable
-                    .row.add(result)
-                    .draw()
-                    .node();
+                    .row.add(result).draw().node();
                 cleanForm(); // Clean form
-                sweetalert(200 ,'Tạo đơn giá nước thành công') // message
+                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') // message
             },
             error: function (error) {
                 sweetalert(error.status)
