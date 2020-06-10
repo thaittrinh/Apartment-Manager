@@ -81,44 +81,46 @@ let showFormUpdate = (id, e) => {
 document.querySelector('#save').addEventListener('click', () => {
     let garbage = getValueForm();
     // ------------------ update ----------------------->
-    if (garbage.id) {
-        $.ajax({
-            type: 'PUT',
-            url: URL + `api/price-garbage/${garbage.id}`,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(garbage),
-            success: function (result) {
-                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                $('#table-garbage').DataTable().row(index).data(result).draw();  //update the row in dataTable
-                $('#form-building').modal('hide');     // close modal
-                sweetalert(200,'Success!' , ' Đã cập nhật phí rác')
-            },
-            error: function (error) {
-                sweetalert(error.status)
-            }
-        });
-    }
-    // <---------------------- insert ---------------------->
-    else {
-        $.ajax({
-            type: 'POST',
-            url: URL + 'api/price-garbage/',
-            contentType: 'application/json',
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(garbage),
-            success: function (result) {
-                result.date = formatDate(result.date); // format date
-                $('#table-garbage').DataTable().row.add(result).draw().node(); // add new data to table
-                cleanForm(); // clean form
-                sweetalert(200, 'Success!', 'Đã tạo phí rác') // message
-            },
-            error: function (error) {
-                sweetalert(error.status) // message
-            }
-        })
+    if(validate(garbage)){
+	    if (garbage.id) {
+	        $.ajax({
+	            type: 'PUT',
+	            url: URL + `api/price-garbage/${garbage.id}`,
+	            contentType: "application/json",
+	            dataType: 'json',
+	            cache: false,
+	            data: JSON.stringify(garbage),
+	            success: function (result) {
+	                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
+	                $('#table-garbage').DataTable().row(index).data(result).draw();  //update the row in dataTable
+	                $('#form-building').modal('hide');     // close modal
+	                sweetalert(200,'Success!' , ' Đã cập nhật phí rác')
+	            },
+	            error: function (error) {
+	                sweetalert(error.status)
+	            }
+	        });
+	    }
+	    // <---------------------- insert ---------------------->
+	    else {
+	        $.ajax({
+	            type: 'POST',
+	            url: URL + 'api/price-garbage/',
+	            contentType: 'application/json',
+	            dataType: 'json',
+	            cache: false,
+	            data: JSON.stringify(garbage),
+	            success: function (result) {
+	                result.date = formatDate(result.date); // format date
+	                $('#table-garbage').DataTable().row.add(result).draw().node(); // add new data to table
+	                cleanForm(); // clean form
+	                sweetalert(200, 'Success!', 'Đã tạo phí rác') // message
+	            },
+	            error: function (error) {
+	                sweetalert(error.status) // message
+	            }
+	        })
+	    }
     }
 });
 
@@ -159,3 +161,19 @@ let fillToForm = (garbage) => {
     document.querySelector('#date').value = garbage.date;
     document.querySelector('#note').value = garbage.note;
 }
+
+
+let validate = (data) =>  {
+	if(data.price === ''){
+		toastrError("Giá không được để trống");
+		document.querySelector('#price').focus();
+		return false;
+	}
+	if(data.date === ''){
+		toastrError("Ngày không được để trống");
+		document.querySelector('#date').focus();
+		return false;
+	}
+return true;
+}
+

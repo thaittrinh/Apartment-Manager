@@ -31,6 +31,7 @@ $(document).ready(function () {
 });
 
 
+
 // < ----------------------------- Delete ---------------------------->
 let deletePrice = (id, e) => {
     Swal.fire({
@@ -81,48 +82,51 @@ let showFormUpdate = (id, e) => {
 }
 
 // < ------------------------ insert or update  ---------------------->
-document.querySelector('#save').addEventListener('click', () => {
+document.querySelector('#save').addEventListener('click', () => {	
     let water = getValueForm();
-    if (water.id) {
-        $.ajax({
-            type: 'PUT',
-            url: URL + `api/price-water/${water.id}`,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(water),
-            success: function (result) {
-                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                $('#my-table').DataTable().row(index).data(result).draw();  //update the row in dataTable
-                $('#form-building').modal('hide');     // close modal
-                sweetalert(200,'Success!' , ' Đã cập nhật giá nước ')
-            },
-            error: function (error) {
-                sweetalert(error.status)
-            }
-        });
-
-    } else {
-        $.ajax({
-            type: 'POST',
-            url: URL + `api/price-water`,
-            contentType: "application/json",
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(water),
-            success: function (result) {
-                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                $('#my-table').DataTable()  // Add new data to DataTable
-                    .row.add(result).draw().node();
-                cleanForm(); // Clean form
-                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') // message
-            },
-            error: function (error) {
-                sweetalert(error.status)
-            }
-        });
+    if(validate(water)){
+	    if (water.id) {
+	        $.ajax({
+	            type: 'PUT',
+	            url: URL + `api/price-water/${water.id}`,
+	            contentType: "application/json",
+	            dataType: 'json',
+	            cache: false,
+	            data: JSON.stringify(water),
+	            success: function (result) {
+	                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
+	                $('#my-table').DataTable().row(index).data(result).draw();  //update the row in dataTable
+	                $('#form-building').modal('hide');     // close modal
+	                sweetalert(200,'Success!' , ' Đã cập nhật giá nước ')
+	            },
+	            error: function (error) {
+	                sweetalert(error.status)
+	            }
+	        });
+	
+	    } else {
+	        $.ajax({
+	            type: 'POST',
+	            url: URL + `api/price-water`,
+	            contentType: "application/json",
+	            dataType: 'json',
+	            cache: false,
+	            data: JSON.stringify(water),
+	            success: function (result) {
+	                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
+	                $('#my-table').DataTable()  // Add new data to DataTable
+	                    .row.add(result).draw().node();
+	                cleanForm(); // Clean form
+	                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') // message
+	            },
+	            error: function (error) {
+	                sweetalert(error.status)
+	            }
+	        });
+	    }
     }
-
+    
+    
 });
 
 // <------------- When modal close -> clean form modal  ----------->
@@ -164,5 +168,18 @@ let fillToForm = (water) => {
     document.querySelector('#note').value = water.note;
 }
 
+let validate = (data) =>  {
+		if(data.price === ''){
+			toastrError("Giá không được để trống");
+			document.querySelector('#price').focus();
+			return false;
+		}
+		if(data.date === ''){
+			toastrError("Ngày không được để trống");
+			document.querySelector('#date').focus();
+			return false;
+		}
+	return true;
+}
 
 
