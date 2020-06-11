@@ -16,7 +16,8 @@ $(document).ready( function () {
     	            {"mData": "id"},
     	            {"mData": "date"},
     	            {"mData": "price"},
-    	            {"mData": "note"},
+    	            {"mData": "employee.fullName"},
+    	            {"mData": "note"},	           
     	            {
     	                "mRender": function (data, type, full) {
     	                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
@@ -143,6 +144,10 @@ let cleanForm = () => {
     });
 }
 
+//<------------- When modal close -> clean form modal  ----------->
+$("#form-building").on("hidden.bs.modal", function () {
+    cleanForm();
+});
 // < -------------- clean form when click button clean ------------>
 document.querySelector('#clean-form').addEventListener('click', cleanForm);
 
