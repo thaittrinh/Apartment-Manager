@@ -32,7 +32,7 @@
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
 			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
-			 onclick="document.querySelector('.modal-title').innerHTML = 'Cập Nhật Phí Quản Lý' "
+			 onclick="document.querySelector('.modal-title').innerHTML = 'Cập nhật phí quản lý' "
 				data-target="#form-building">
 				<i class="icon-btn fa fa-plus"></i> Thêm Giá Mới
 			</button>
@@ -56,12 +56,12 @@
 								<div class="input-container">
 								<input type="number"  id="id" hidden="true" required="required" />
 								<input type="number"  required="required" name="price" id="price" style="width: 220px" />
-								<label for="price">Ä�Æ¡n GiÃ¡</label>
+								<label for="price">Đơn Giá</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
 								<input type="date"  required="required" name="date" id="date" style="width: 220px" />
-								<label for="date">NgÃ y</label>
+								<label for="date">Ngày</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
@@ -69,7 +69,7 @@
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
 								<textarea style="width: 465px" id="note" name="note"  required="required" rows="4"></textarea>
-								<label for="note">Ghi ChÃº</label>
+								<label for="note">Ghi Chú</label>
 							</div>
 						</div>
 						<!------------------------------------ End row -------------------------------------->
@@ -77,11 +77,11 @@
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success">
-						<i class="icon-btn fa fa-plus"></i> Táº¡o Má»›i
+					<button type="button" class="btn btn-success" id="save">
+						<i class="icon-btn fa fa-plus"></i> Tạo Mới
 					</button>
-					<button type="button" class="btn btn-primary">
-						<i class=" icon-btn fas fa-sync-alt"></i>Cáº­p Nháº­t
+					<button type="button" class="btn btn-primary" id="clean-form">
+						<i class=" icon-btn fas fa-sync-alt"></i>Cập Nhật
 					</button>
 				</div>
 			</div>
