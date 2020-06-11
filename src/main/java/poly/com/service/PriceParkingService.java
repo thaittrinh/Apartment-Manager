@@ -44,7 +44,7 @@ public class PriceParkingService {
 			PriceParking price =  priceParkingRepository.findByYearMonthAndLimit(
 				                                                priceParking.getDate().getYear() + 1900,
 				                                                priceParking.getDate().getMonth() + 1,
-				                                                priceParking.getTypeVehicel()); 
+				                                                priceParking.getTypeVehicel()); 	
 			if (price != null) 
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 			
@@ -68,7 +68,7 @@ public class PriceParkingService {
 										                    priceParking.getDate().getYear() + 1900,
 										                    priceParking.getDate().getMonth() + 1,
 										                    priceParking.getTypeVehicel()); 
-			if (price.getId() != id) 
+			if (price!= null && price.getId() != id) 
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 				
 			priceParking.setId(id);

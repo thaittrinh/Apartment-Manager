@@ -23,9 +23,11 @@
                 <tr>
                     <th>Id</th>
                     <th>Ngày</th>
-                    <th>Đơn Giá</th>
-                    <th>Ghi Chú</th>
-                    <th>Cập Nhật</th>
+                    <th>Loại xe</th>
+                    <th>Đơn giá</th>
+                    <th>Người tạo</th>                
+                    <th>Ghi chú</th>
+                    <th>Cập nhật</th>
                     <th>Xóa</th>
                 </tr>
                 </thead>
@@ -60,21 +62,22 @@
                             <div class="input-container">
                                 <input type="number" id="id" hidden="true" required="required"/>
                                 <input type="number" required="required" name="price" id="price"
-                                       style="width: 130px"/> <label for="price">Đơn Giá</label>
+                                       min="0" style="width: 220px"/> <label for="price">Đơn Giá</label>
                             </div>
                             <!-------------------------------- Ngay ------------------------------------>
                             <div class="input-container">
                                 <input type="date" required="required" name="date" id="date"
-                                       style="width: 150px"/> <label for="date">Ngày</label>
+                                       style="width: 220px"/> <label for="date">Ngày</label>
                             </div>
-                            <!-------------------------------- Loại xe ------------------------------------>
-                            <div>
-                                <select style="width: 156px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
+                            <!-------------------------------- Loại xe ------------------------------------>                       
+                        </div>
+                        <div class="row">
+                                <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
                                         class="input-select">
                                     <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
                                 </select>
                             </div>
-                        </div>
+                        
                         <!---------------------------- End row ----------------------->
                         <div class="row" style="margin-top:15px;">
                             <!------------------------------- Ghi Chu -------------------------------------->

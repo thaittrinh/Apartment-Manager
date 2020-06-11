@@ -15,7 +15,8 @@ $(document).ready(function () {
             {"mData": "id"},
             {"mData": "date"},
             {"mData": "price"},
-            {"mData": "note"},
+            {"mData": "employee.fullName"},
+            {"mData": "note"},         
             {
                 "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
@@ -94,9 +95,13 @@ document.querySelector('#save').addEventListener('click', () => {
 	            cache: false,
 	            data: JSON.stringify(water),
 	            success: function (result) {
-	                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-	                $('#my-table').DataTable().row(index).data(result).draw();  //update the row in dataTable
-	                $('#form-building').modal('hide');     // close modal
+	            	// Convert date to yy-MM-dd
+	                result.date = formatDate(result.date);
+	               //update the row in dataTable
+	                $('#my-table').DataTable().row(index).data(result).draw();
+	               // close modal
+	                $('#form-building').modal('hide');   
+	               // annount
 	                sweetalert(200,'Success!' , ' Đã cập nhật giá nước ')
 	            },
 	            error: function (error) {
@@ -113,11 +118,15 @@ document.querySelector('#save').addEventListener('click', () => {
 	            cache: false,
 	            data: JSON.stringify(water),
 	            success: function (result) {
-	                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-	                $('#my-table').DataTable()  // Add new data to DataTable
+	            	// Convert date to yy-MM-dd
+	                result.date = formatDate(result.date);
+	                // Add new data to DataTable
+	                $('#my-table').DataTable()  
 	                    .row.add(result).draw().node();
-	                cleanForm(); // Clean form
-	                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') // message
+	                // Clean form
+	                cleanForm(); 
+	                // annount
+	                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') 
 	            },
 	            error: function (error) {
 	                sweetalert(error.status)
