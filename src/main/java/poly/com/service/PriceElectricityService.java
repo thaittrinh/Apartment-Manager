@@ -63,7 +63,7 @@ public class PriceElectricityService {
                     priceElectricity.getDate().getYear() + 1900,
                     priceElectricity.getDate().getMonth() + 1,
                     priceElectricity.getLimits());
-            if(electricityid.getId() != id)
+            if( electricityid != null && electricityid.getId() != id)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
             priceElectricity.setId(id);
             priceElectricity = priceElectricityRepository.save(priceElectricity);

@@ -51,7 +51,7 @@ let deletePrice = (id, e) => {
                 contentType: "application/json",
                 cache: false,
                 success: function (result) {
-                    $('#my-table').DataTable().row($(e).parents('tr')) // format date
+                    $('#my-table').DataTable().row($(e).parents('tr'))
                         .remove().draw();
                     sweetalert(200, 'Success!', 'Đã xóa giá nước') // message
                 },
