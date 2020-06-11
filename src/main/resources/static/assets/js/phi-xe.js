@@ -104,8 +104,6 @@ let cleanForm = () => {
 document.querySelector('#clean-form').addEventListener('click', cleanForm);
 
 
-
-
 let fillToForm = (water) => {
     document.querySelector('#id').value = water.id;
     document.querySelector('#price').value = water.price;
@@ -114,3 +112,17 @@ let fillToForm = (water) => {
     document.querySelector('#note').value = water.note;
 }
 
+let getValueForm = () => {
+    return {
+        "id": document.querySelector('#id').value,
+        "price": document.querySelector('#price').value,
+        "date": document.querySelector('#date').value,
+        "employee": {
+            "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
+        },
+        "tyVehicel": {
+        	"id": document.querySelector('#type').value,
+        }
+        "note": document.querySelector('#note').value
+    }
+}
