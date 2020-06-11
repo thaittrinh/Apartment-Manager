@@ -6,9 +6,6 @@ let toastrError = (message) => {
         preventDuplicates: true,
         showMethod: "show",
         hideMethod: "hide",
-        
-   
-        
     })
 }
 
