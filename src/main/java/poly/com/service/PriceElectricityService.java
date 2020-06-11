@@ -43,8 +43,7 @@ public class PriceElectricityService {
             PriceElectricity priceElectricities = priceElectricityRepository.findByLimit(
                     priceElectricity.getDate().getYear()+ 1900,
                     priceElectricity.getDate().getMonth() + 1,
-                    priceElectricity.getLimits()
-            );
+                    priceElectricity.getLimits());
             if (priceElectricities != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
             priceElectricity.setId(0);
