@@ -63,16 +63,14 @@ public class PriceGarbageService {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             // Giá các tháng trước đã có
             PriceGarbage priceGarbages = priceGarbageRepository.findByYearAndMonth(
-                    priceGarbage.getDate().getYear() + 1900,
-                    priceGarbage.getDate().getMonth() + 1);
+											                    priceGarbage.getDate().getYear() + 1900,
+											                    priceGarbage.getDate().getMonth() + 1);
             if (priceGarbages != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            
             priceGarbage.setId(id);
-            PriceGarbage priceGarbageid = priceGarbageRepository.findById(id).orElse(null);
-            if (priceGarbageid == null)
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            priceGarbageid = priceGarbageRepository.save(priceGarbage);
-            return ResponseEntity.ok(priceGarbageid);
+            priceGarbage = priceGarbageRepository.save(priceGarbage);
+            return ResponseEntity.ok(priceGarbage);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
