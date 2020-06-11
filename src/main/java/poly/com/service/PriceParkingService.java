@@ -1,41 +1,43 @@
 package poly.com.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import poly.com.entity.PriceParking;
 import poly.com.repository.PriceParkingRepository;
+
+import java.util.List;
 
 @Service
 public class PriceParkingService {
 
 // < ------------------------------- class Price Parking Service ----------------------------------> 
 
-	@Autowired
-	PriceParkingRepository priceParkingRepository;
+    @Autowired
+    PriceParkingRepository priceParkingRepository;
 // --------------------------------------------------------
-	
-	// < ------------------------------ find all ------------------------->
-	public ResponseEntity<List<PriceParking>> findAll() {
-		List<PriceParking> priceParkings = priceParkingRepository.findAll();
-		return ResponseEntity.ok(priceParkings);
-	}
 
-	// <-------------------------------- find by Id ------------------------>
-	public ResponseEntity<PriceParking> findbyId(int id) {
-		try {
-			PriceParking priceParking = priceParkingRepository.findById(id).orElse(null);
-			if(priceParking == null)
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			return ResponseEntity.ok(priceParking);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    // < ------------------------------ find all ------------------------->
+    public ResponseEntity<List<PriceParking>> findAll() {
+        List<PriceParking> priceParkings = priceParkingRepository.findAll();
+        return ResponseEntity.ok(priceParkings);
+    }
+
+    // <-------------------------------- find by Id ------------------------>
+    public ResponseEntity<PriceParking> findbyId(int id) {
+        try {
+            PriceParking priceParking = priceParkingRepository.findById(id).orElse(null);
+            if (priceParking == null)
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(priceParking);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+   
+
 
 	// < -------------------------------- Create ---------------------------------->
 	@SuppressWarnings("deprecation")
@@ -79,16 +81,17 @@ public class PriceParkingService {
 		}
 	}
 	
+
     // < --------------------------------- Delete -----------------------------------> 
-	public ResponseEntity<String> deletePriceManagemet(int id) {
-		try {	
-			if (!priceParkingRepository.existsById(id))
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			
-			priceParkingRepository.deleteById(id);
-			return ResponseEntity.ok("Delete success!");
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    public ResponseEntity<String> deletePriceManagemet(int id) {
+        try {
+            if (!priceParkingRepository.existsById(id))
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+            priceParkingRepository.deleteById(id);
+            return ResponseEntity.ok("Delete success!");
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

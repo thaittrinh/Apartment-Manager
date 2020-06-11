@@ -9,5 +9,5 @@ import poly.com.entity.PriceManagement;
 
 public interface PriceManagementRepository extends JpaRepository<PriceManagement, Integer> {
 	@Query("select  w from PriceManagement w where year(w.date) = ?1 and month(w.date) = ?2")
-	List<PriceManagement> findByYearAndMonth(int year, int month);
+	PriceManagement findByYearAndMonth(int year, int month);
 }
