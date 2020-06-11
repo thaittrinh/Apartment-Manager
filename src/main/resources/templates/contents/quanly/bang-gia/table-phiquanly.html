@@ -5,32 +5,37 @@
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
-		<a class="title"> Quản Lý Bảng Giá</a>
+		<a class="title"> Quản Lý Bảng Phí</a>
 		<div th:replace="components/header"></div>
 	</div>
-	<!----------------------------------------- TABLE bảng phí rác ----------------------------->
+	<!----------------------------------------- TABLE báº£ng phÃ­ rÃ¡c ----------------------------->
 	<div class="card" style="width: 100%; margin-left: -3px">
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white"> <i class="fas fa-shield-alt mr-3"></i>Bảng PHí quản lý </h6>
+				<h6 style="color: white"> <i class="fas fa-shield-alt mr-3"></i>Bảng Phí Quản Lý </h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
 		<div class="card-body">
-			<table class="table table-hover" id="table-phiquanly">
+			<table class="table table-hover table-bordered" id="table-phiquanly">
 				<thead>
 					<tr>
-						<th>Đơn Giá</th>
+						<th>ID</th>
 						<th>Ngày</th>
-						<th>Ghi Chú</th>
+						<th>Giá</th>
+						<th>Người tạo</th>
+						<th>Ghi chú</th>
+						<th>Cập nhật</th>
+						<th>Xóa</th>
 					</tr>
 				</thead>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
-			<button type="button" class="btn btn-primary" data-toggle="modal"
+			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+			 onclick="document.querySelector('.modal-title').innerHTML = 'Cập nhật phí quản lý' "
 				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
+				<i class="icon-btn fa fa-plus"></i> Thêm Giá Mới
 			</button>
 		</div>
 	</div>
@@ -41,7 +46,7 @@
 			<div class="modal-content">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
-					<h5 class="modal-title" id="form-label"> <i class="fas fa-shield-alt mr-3 ml-2"></i> phí quản lý </h5>
+					<h5 class="modal-title" id="form-label"> <i class="fas fa-shield-alt mr-3 ml-2"></i> phÃ­ quáº£n lÃ½ </h5>
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->
@@ -50,6 +55,7 @@
 						<div class="row">
 							<!------------------------------ Don gia ------------------------------------>
 								<div class="input-container">
+								<input type="number"  id="id" hidden="true" required="required" />
 								<input type="number"  required="required" name="price" id="price" style="width: 220px" />
 								<label for="price">Đơn Giá</label>
 							</div>
@@ -72,10 +78,10 @@
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success">
+					<button type="button" class="btn btn-success" id="save">
 						<i class="icon-btn fa fa-plus"></i> Tạo Mới
 					</button>
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-primary" id="clean-form">
 						<i class=" icon-btn fas fa-sync-alt"></i>Cập Nhật
 					</button>
 				</div>
