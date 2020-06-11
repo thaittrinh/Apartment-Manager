@@ -13,14 +13,16 @@ $(document).ready(function () {
         "sAjaxDataProp": "",
         "order": [[0, "asc"]],
         "aoColumns": [
-            {"mData": "id"},
+            {"mData": "id"},          
             {"mData": "date"},
+            {"mData": "typeVehicel.name"},
             {"mData": "price"},
+            {"mData": "employee.fullName"},
             {"mData": "note"},
             {
                 "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
-                }
+                },"mWidth": "5%"
             },
             {
                 "mRender": function (data, type, full) {
@@ -67,7 +69,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
  index = $('#my-table').DataTable().row($(e).parents('tr')).index();
  $('#form-building').modal('show')
- document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
+ document.querySelector('.modal-title').innerHTML = "Cập nhập giá";
  $.ajax({
      url: URL + `api/price-parking/${id}`,
      type: 'GET',
@@ -81,6 +83,61 @@ let showFormUpdate = (id, e) => {
  });
 }
 
+
+document.querySelector('#save').addEventListener('click', () => {
+	let price = getValueForm();
+	if(validate(price)){
+	 if (price.id) {
+	        $.ajax({
+	            type: 'PUT',
+	            url: URL + `api/price-parking/${price.id}`,
+	            contentType: "application/json",
+	            dataType: 'json',
+	            cache: false,
+	            data: JSON.stringify(price),
+	            success: function (result) {
+	            	// Convert date to yy-MM-dd
+	                result.date = formatDate(result.date); 
+	                //update the row in dataTable
+	                $('#my-table').DataTable().row(index).data(result).draw(); 
+	                // close modal
+	                $('#form-building').modal('hide');   
+	                // annount
+	                sweetalert(200,'Success!' , ' Cập nhật thành công ')
+	            },
+	            error: function (error) {
+	            	console.log(error.status);
+	                sweetalert(error.status)
+	            }
+	        });
+	
+	    } else {
+	        $.ajax({
+	            type: 'POST',
+	            url: URL + `api/price-parking`,
+	            contentType: "application/json",
+	            dataType: 'json',
+	            cache: false,
+	            data: JSON.stringify(price),
+	            success: function (result) {
+	            	// Convert date to yy-MM-dd
+	                result.date = formatDate(result.date);                
+	                // Add new data to DataTable
+	                $('#my-table').DataTable()       
+	                    .row.add(result).draw().node();
+	                // Clean form
+	                cleanForm();
+	                // annount
+	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
+	            },
+	            error: function (error) {
+	                sweetalert(error.status)
+	            }
+	        });
+	    }
+	}
+	
+});
 
 
 
@@ -120,9 +177,34 @@ let getValueForm = () => {
         "employee": {
             "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
         },
-        "tyVehicel": {
+        "typeVehicel": {
         	"id": document.querySelector('#type').value,
-        }
+        },
         "note": document.querySelector('#note').value
     }
 }
+
+let validate = (data) =>  {
+	if(data.price === ''){
+		toastrError("Giá không được để trống");
+		document.querySelector('#price').focus();
+		return false;
+	}
+	if(data.price < 0){
+		toastrError("Giá không được âm");
+		document.querySelector('#price').focus();
+		return false;
+	}
+	if(data.date === ''){
+		toastrError("Ngày không được để trống");
+		document.querySelector('#date').focus();
+		return false;
+	}
+	if(data.typeVehicel.id === ''){
+		toastrError("Chưa chọn loại xe");
+		document.querySelector('#type').focus();
+		return false;
+	}
+return true;
+}
+
