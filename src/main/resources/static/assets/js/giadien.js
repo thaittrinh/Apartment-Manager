@@ -81,44 +81,46 @@ let showFormUpdate = (id, e) => {
 document.querySelector('#save').addEventListener('click', () => {
     let electricity = getValueForm();
     //< -------------- update --------------->
-    if (electricity.id) {
-        $.ajax({
-            type: 'PUT',
-            url: URL + `api/price-electricity/${electricity.id}`,
-            contentType: 'application/json',
-            date: 'json',
-            cache: false,
-            data: JSON.stringify(electricity),
-            success: function (result) {
-                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                $('#table-electricity').DataTable().row(index).data(result).draw();  //update the row in dataTable
-                $('#form-building').modal('hide');     // close modal
-                sweetalert(200, 'Success!', 'Đã cập nhật giá điện ');
-            }
-        })
-    }
-    // < --------------- insert ---------->
-    else {
-        $.ajax({
-            type: 'POST',
-            url: URL + `api/price-electricity`,
-            contentType: 'application/json',
-            dataType: 'json',
-            cache: false,
-            data: JSON.stringify(electricity),
-            success: function (result) {
-                result.date = formatDate(result.date);
-                $('#table-electricity').DataTable().row.add(result).draw().node();
-                cleanForm();
-                sweetalert(200, 'Success', 'Đã tạo giá điện')
-            },
-            error: function (error) {
-                sweetalert(error.status)
-            }
+    if(validate(electricity)) {
+        if (electricity.id) {
+            $.ajax({
+                type: 'PUT',
+                url: URL + `api/price-electricity/${electricity.id}`,
+                contentType: 'application/json',
+                date: 'json',
+                cache: false,
+                data: JSON.stringify(electricity),
+                success: function (result) {
+                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
+                    $('#table-electricity').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    $('#form-building').modal('hide');     // close modal
+                    sweetalert(200, 'Success!', 'Đã cập nhật giá điện ');
+                }
+            })
+        }
+        // < --------------- insert ---------->
+        else {
+            $.ajax({
+                type: 'POST',
+                url: URL + `api/price-electricity`,
+                contentType: 'application/json',
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(electricity),
+                success: function (result) {
+                    result.date = formatDate(result.date);
+                    $('#table-electricity').DataTable().row.add(result).draw().node();
+                    cleanForm();
+                    sweetalert(200, 'Success', 'Đã tạo giá điện')
+                },
+                error: function (error) {
+                    sweetalert(error.status)
+                }
 
-        })
+            })
+        }
     }
-})
+});
 
 // <------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
@@ -162,4 +164,33 @@ let fillToForm = (electricity) => {
     document.querySelector('#date').value = electricity.date;
     document.querySelector('#note').value = electricity.note;
 
+}
+
+let validate = (data) => {
+    if(data.limits === ''){
+        toastrError("hạn mức không được để trống")
+        document.querySelector('#limits').focus();
+        return false
+    }
+    if(data.limits < 0 ){
+        toastrError("hạn mức không được âm")
+        document.querySelector('#limits').focus();
+        return false
+    }
+    if (data.price === '') {
+        toastrError("Giá không được để trống");
+        document.querySelector('#price').focus();
+        return false;
+    }
+    if (data.price < 0 ){
+        toastrError("Giá không được âm");
+        document.querySelector('#price').focus();
+        return false
+    }
+    if (data.date === '') {
+        toastrError("Ngày không được để trống");
+        document.querySelector('#date').focus();
+        return false;
+    }
+    return true;
 }
