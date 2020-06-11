@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import poly.com.entity.PriceGarbage;
 import poly.com.entity.PriceManagement;
 import poly.com.repository.PriceManagementRepository;
 
