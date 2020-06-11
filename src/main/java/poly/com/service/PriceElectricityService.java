@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import poly.com.entity.PriceElectricity;
+import poly.com.entity.PriceWater;
 import poly.com.repository.PriceElectricityRepository;
 
 import java.util.List;
@@ -57,18 +58,17 @@ public class PriceElectricityService {
     // < ----------------------------- Update ------------------------------------->
     public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
         try {
-            // check xem id tồn tại không
             if (!priceElectricityRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            PriceElectricity electricity = priceElectricityRepository.findByLimit(
-                    priceElectricity.getLimits(),
-                    priceElectricity.getDate().getMonth(),
-                    priceElectricity.getDate().getYear());
-            if(electricity.getId() !=id )
-                 return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
-                priceElectricity.setId(id);
-                priceElectricity = priceElectricityRepository.save(priceElectricity);
-                return  ResponseEntity.ok(priceElectricity);
+            PriceElectricity electricityid = priceElectricityRepository.findByLimit(
+                    priceElectricity.getDate().getYear() + 1900,
+                    priceElectricity.getDate().getMonth() + 1,
+                    priceElectricity.getLimits());
+            if(electricityid.getId() != id)
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            priceElectricity.setId(id);
+            priceElectricity = priceElectricityRepository.save(priceElectricity);
+            return ResponseEntity.ok(priceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
