@@ -170,6 +170,11 @@ let validate = (data) => {
         document.querySelector('#price').focus();
         return false;
     }
+    if (data.price < 0 ){
+        toastrError("Giá không được âm");
+        document.querySelector('#price').focus();
+        return false
+    }
     if (data.date === '') {
         toastrError("Ngày không được để trống");
         document.querySelector('#date').focus();
