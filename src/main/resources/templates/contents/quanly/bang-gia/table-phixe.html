@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<div lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{/layout-admin}">
 <!-------------------------------------------------------------------------------------------->
 
@@ -25,7 +25,7 @@
                     <th>Ngày</th>
                     <th>Loại xe</th>
                     <th>Đơn giá</th>
-                    <th>Người tạo</th>
+                    <th>Người tạo</th>                
                     <th>Ghi chú</th>
                     <th>Cập nhật</th>
                     <th>Xóa</th>
@@ -34,16 +34,15 @@
             </table>
             <!------------------------------- button open modal form  ---------------------------->
             <button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
-                    onclick="document.querySelector('.modal-title').innerHTML = 'Thêm giá mới' "
+                    onclick="document.querySelector('#form-label').innerHTML = 'Thêm giá mới' "
                     data-target="#form-building">
-                <i class="fas fa-plus-square"></i> Thêm Giá Mới
+                <i class="icon-btn fa fa-plus"></i> Tạo phí mới
             </button>
             <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-vehicel">
-                <i class="fas fa-list-alt"></i> Các loại xe
-            </button>
+            	<i class="fas fa-list-alt"></i> Các loại xe</button>
         </div>
     </div>
-    <!------------------------------------------------ Form modal can ho ---------------------------------->
+    <!------------------------------------------------ Form modal  ---------------------------------->
     <div class="modal fade" id="form-building" tabindex="-1" role="dialog"
          aria-labelledby="form-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -64,22 +63,22 @@
                             <div class="input-container">
                                 <input type="number" id="id" hidden="true" required="required"/>
                                 <input type="number" required="required" name="price" id="price"
-                                       min="0" style="width: 130px"/> <label for="price">Đơn Giá</label>
+                                       min="0" style="width: 220px"/> <label for="price">Đơn Giá</label>
                             </div>
                             <!-------------------------------- Ngay ------------------------------------>
                             <div class="input-container">
                                 <input type="date" required="required" name="date" id="date"
-                                       style="width: 150px"/> <label for="date">Ngày</label>
+                                       style="width: 220px"/> <label for="date">Ngày</label>
                             </div>
                             <!-------------------------------- Loại xe ------------------------------------>
-                            <div>
-                                <select style="width: 160px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
-                                        class="input-select">
-                                    <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
-                                </select>
-                            </div>
+                           
                         </div>
-
+						<div class="row">
+                             <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
+                                     class="input-select">
+                                 <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
+                             </select>
+                         </div>
                         <!---------------------------- End row ----------------------->
                         <div class="row" style="margin-top:15px;">
                             <!------------------------------- Ghi Chu -------------------------------------->
@@ -94,83 +93,107 @@
                 </div>
                 <!----------------------------------------- footer-modal -------------------------------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="save">
-                        <i class="fas fa-save mr-2"></i> Lưu Lại
+                    <button type="button" class="btn btn-success" id="save" style="width:103.05px;">
+                        <i class="fas fa-folder-plus"></i> Lưu
                     </button>
-                    <button type="button" class="btn btn-danger" id="clean-form">
-                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
+                    <button type="button" class="btn btn-primary" id="clean-form">
+                        <i class=" icon-btn fas fa-sync-alt"></i>Làm mới
                     </button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!---------------------------------------- Modal  Các loại xe-------------------------------------- -->
-    <!-- Modal -->
-    <div class="modal fade" id="modal-vehicel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Các loại xe</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form-type-vehivel">
-                        Launch demo modal
-                    </button>
-                    <br>
-                    <br>
-
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!---------------------------------------- Modal form các loại xe-------------------------------------- -->
-    <div class="modal fade" id="form-type-vehivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    
+    <!---------------------------------------- Modal  Các loại xe-------------------------------------- -->		
+			<!-- Modal -->
+			<div class="modal fade" id="modal-vehicel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="#exampleModalLongTitle">Các loại xe</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      
+			           <!-- Button trigger modal -->
+					<button type="button" class="btn btn-success" data-toggle="modal"
+						 onclick="document.querySelector('#title-formVehicel').textContent = 'Thêm loại xe' "
+					 	data-target="#form-type-vehicel">
+					 <i class="fas fa-plus-circle"></i> Thêm
+					</button>
+					<div class="body-modalType">
+					<!--  
+						<hr>		
+				        <strong style="text-transform: uppercase;">Xe máy</strong>
+				        <a style="float: right; margin:0px 10px; color:red;" th:href="@{#}">Delete</a>
+				        <a style="float: right;" th:href="@{#}">Update</a>       
+				        <br>
+				        -->
+					</div>
+					
+			        	  
+			        <hr>
+			       
+			        
+			      
+			     
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>     
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			    
+  <!---------------------------------------- Modal form các loại xe-------------------------------------- -->		
+			<div class="modal fade"   id="form-type-vehicel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="title-formVehicel"></h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			       <form>
+						<div class="row">
+							<!------------------------------ Don gia ------------------------------------>
+								<div class="input-container">
+								<input type="number"  id="id-type" hidden="true" required="required" />
+								<input type="text" required="required" id="name-type" style="width: 465px" />
+								<label for="price">Tên loại </label>
+							</div>
+						</div>	
+						<!---------------------------- End row ----------------------->
+						<div class="row">
+							<!------------------------------- Ghi Chu -------------------------------------->
+							<div class="input-container">
+								<textarea style="width: 465px" id="note-type"  required="required" rows="3"></textarea>
+								<label for="note">Ghi chú</label>
+							</div>
+						</div>
+						<!------------------------------------ End row -------------------------------------->
+					<div style="float: right;">
+						<button  type="button" class="btn btn-success" id="save-type" style="width:103.05px;">
+	                        <i class="fas fa-folder-plus"></i> Lưu
+	                    </button>
+	                    <button  type="button" class="btn btn-primary" id="clean-formType">
+	                        <i class=" icon-btn fas fa-sync-alt"></i>Làm mới
+	                    </button>
+                    </div>		
+					</form> 	
+					<!-- No footer -->		
+			      </div>    	 
+			    </div>
+			  </div>
+			</div>
+			    
+    
     <script th:src="@{/assets/js/phi-xe.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/loai-xe.js}" type="text/javascript"></script>
 </div>
 <!-------------------------------------------------------- End Div content ------------------------------------------->
+</div>

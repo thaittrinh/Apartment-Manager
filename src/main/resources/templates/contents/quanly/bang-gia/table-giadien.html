@@ -53,29 +53,31 @@
 				<!----------------------------------------- body-modal ------------------------------------->
 				<div class="modal-body">
 					<form>
-						<div class="row">
-							<!-- ------------------------------- Hạn mức ---------------------------------------->
-							<div class="input-container">
-								<input type="number"  id="id" hidden="true" required="required" />
-								<input type="number"  min="0" required="required" name="limits" id="limits" style="width: 100px" />
-								<label for="limits">Hạn Mức</label>
-							</div>
+						<div class="row">			
 							<!------------------------------ Don gia ------------------------------------>
 							<div class="input-container">
-								<input type="number" min="0"  required="required" name="price" id="price" style="width: 170px" />
+								<input type="number" min="0"  required="required" name="price" id="price" style="width: 220px" />
 								<label for="price">Đơn Giá</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
-								<input type="date"  required="required" name="date" id="date" style="width: 160px" />
+								<input type="date"  required="required" name="date" id="date" style="width: 220px" />
 								<label for="date">Ngày</label>
+							</div>
+						</div>
+						<!-- ------------------------------- Hạn mức ---------------------------------------->
+						<div class="row">
+							<div class="input-container">
+								<input type="number"  id="id" hidden="true" required="required" />
+								<input type="number"  min="0" required="required" name="limits" id="limits" style="width: 220px" />
+								<label for="limits">Hạn Mức</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
 						<div class="row">
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
-								<textarea style="width: 465px" id="note" name="note"  required="required" rows="4"></textarea>
+								<textarea style="width: 465px" id="note" name="note"  required="required" rows="3"></textarea>
 								<label for="note">Ghi Chú</label>
 							</div>
 						</div>

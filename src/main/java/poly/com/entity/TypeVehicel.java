@@ -28,7 +28,7 @@ public class TypeVehicel implements Serializable {
 	private Integer id;
 
 	@NotNull()
-	@Column(unique = true)
+	@Column(unique = true, length = 20)
 	private String name;
 
 	private String note;

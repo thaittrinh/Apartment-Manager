@@ -2,6 +2,8 @@ package poly.com.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,14 +38,13 @@ public class TypeVehicelController {
 	}
 		
 	@PostMapping()
-	public ResponseEntity<TypeVehicel> createTypeVehicel(@RequestBody TypeVehicel typeVehicel){
-		
+	public ResponseEntity<TypeVehicel> createTypeVehicel(@Valid @RequestBody TypeVehicel typeVehicel){
 		return typeVehicelService.createTypeVehicel(typeVehicel);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<TypeVehicel> updateTypeVehicel(@PathVariable() int id, @RequestBody TypeVehicel typeVehicel){
-		
+	public ResponseEntity<TypeVehicel> updateTypeVehicel(@PathVariable() int id,@Valid @RequestBody TypeVehicel typeVehicel){
+		System.out.println(typeVehicel);
 		return typeVehicelService.updateTypeVehicel(id, typeVehicel);
 	}
 	
