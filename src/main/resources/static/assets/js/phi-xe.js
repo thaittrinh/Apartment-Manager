@@ -1,5 +1,6 @@
 
-$(document).ready(function () {
+(function(){
+	
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
         "responsive": true,
@@ -31,8 +32,7 @@ $(document).ready(function () {
             }
         ]
     });
-});
-
+})()
 
 //< ----------------------------- Delete ---------------------------->
 let deletePrice = (id, e) => {
@@ -105,8 +105,7 @@ document.querySelector('#save').addEventListener('click', () => {
 	                // annount
 	                sweetalert(200,'Success!' , ' Cập nhật thành công ')
 	            },
-	            error: function (error) {
-	            	console.log(error.status);
+	            error: function (error) {           
 	                sweetalert(error.status)
 	            }
 	        });
@@ -138,7 +137,6 @@ document.querySelector('#save').addEventListener('click', () => {
 	}
 	
 });
-
 
 
 //<------------- When modal close -> clean form modal  ----------->
