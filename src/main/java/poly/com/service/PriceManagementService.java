@@ -46,8 +46,8 @@ public class PriceManagementService {
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
 
             priceManagement.setId(0);
-            PriceManagement management = priceManagementRepository.save(priceManagement);
-            return ResponseEntity.ok(management);
+            priceManagement = priceManagementRepository.save(priceManagement);
+            return ResponseEntity.ok(priceManagement);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -80,6 +80,7 @@ public class PriceManagementService {
         try {
             if (!priceManagementRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            
             priceManagementRepository.deleteById(id);
             return ResponseEntity.ok("Delete success!");
         } catch (Exception e) {

@@ -46,8 +46,8 @@ public class WaterPriceService {
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 
             priceWater.setId(0);
-            PriceWater water = priceWaterRepository.save(priceWater);
-            return ResponseEntity.ok(water);
+            priceWater = priceWaterRepository.save(priceWater);
+            return ResponseEntity.ok(priceWater);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -68,8 +68,8 @@ public class WaterPriceService {
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 
             priceWater.setId(id);
-            PriceWater water = priceWaterRepository.save(priceWater);
-            return ResponseEntity.ok(water);
+            priceWater = priceWaterRepository.save(priceWater);
+            return ResponseEntity.ok(priceWater);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

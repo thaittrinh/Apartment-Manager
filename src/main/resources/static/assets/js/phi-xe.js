@@ -106,7 +106,14 @@ document.querySelector('#save').addEventListener('click', () => {
 	                sweetalert(200,'Success!' , ' Cập nhật thành công ')
 	            },
 	            error: function (error) {           
-	                sweetalert(error.status)
+	            	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại. Trùng loại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status)  
 	            }
 	        });
 	
@@ -130,7 +137,14 @@ document.querySelector('#save').addEventListener('click', () => {
 	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
 	            },
 	            error: function (error) {
-	                sweetalert(error.status)
+	            	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại. Trùng loại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status)  
 	            }
 	        });
 	    }
@@ -184,22 +198,22 @@ let getValueForm = () => {
 
 let validate = (data) =>  {
 	if(data.price === ''){
-		toastrError("Giá không được để trống");
+		toastrError("Giá không được để trống!");
 		document.querySelector('#price').focus();
 		return false;
 	}
 	if(data.price < 0){
-		toastrError("Giá không được âm");
+		toastrError("Giá không được âm!");
 		document.querySelector('#price').focus();
 		return false;
 	}
 	if(data.date === ''){
-		toastrError("Ngày không được để trống");
+		toastrError("Ngày không được để trống!");
 		document.querySelector('#date').focus();
 		return false;
 	}
 	if(data.typeVehicel.id === ''){
-		toastrError("Chưa chọn loại xe");
+		toastrError("Chưa chọn loại xe!");
 		document.querySelector('#type').focus();
 		return false;
 	}

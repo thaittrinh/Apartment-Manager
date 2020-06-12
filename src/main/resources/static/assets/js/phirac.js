@@ -98,7 +98,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', ' Đã cập nhật phí rác')
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
                 }
             });
         }
@@ -118,7 +125,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', 'Đã tạo phí rác') // message
                 },
                 error: function (error) {
-                    sweetalert(error.status) // message
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
                 }
             })
         }
@@ -166,17 +180,17 @@ let fillToForm = (garbage) => {
 
 let validate = (data) => {
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
     if (data.price < 0 ){
-        toastrError("Giá không được âm");
+        toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
     }
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
     }
