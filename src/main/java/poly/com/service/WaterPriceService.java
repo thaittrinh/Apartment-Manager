@@ -40,11 +40,11 @@ public class WaterPriceService {
         try { // kiểm tra tháng-năm đó đã có giá.
             PriceWater priceWaters = priceWaterRepository
                     .findByYearAndMonth(
-                    		priceWater.getDate().getYear() + 1900,
-							priceWater.getDate().getMonth() + 1);
+                            priceWater.getDate().getYear() + 1900,
+                            priceWater.getDate().getMonth() + 1);
             if (priceWaters != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-            
+
             priceWater.setId(0);
             PriceWater water = priceWaterRepository.save(priceWater);
             return ResponseEntity.ok(water);
@@ -59,14 +59,14 @@ public class WaterPriceService {
         try {
             if (!priceWaterRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            
+
             PriceWater price = priceWaterRepository.findByYearAndMonth(
-            		priceWater.getDate().getYear() + 1900,
+                    priceWater.getDate().getYear() + 1900,
                     priceWater.getDate().getMonth() + 1);
-            
-            if ( price!= null && id != price.getId())
+
+            if (price != null && id != price.getId())
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-            
+
             priceWater.setId(id);
             PriceWater water = priceWaterRepository.save(priceWater);
             return ResponseEntity.ok(water);
@@ -80,7 +80,7 @@ public class WaterPriceService {
         try {
             if (!priceWaterRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            
+
             priceWaterRepository.deleteById(id);
             return ResponseEntity.ok("delete success");
         } catch (Exception e) {
