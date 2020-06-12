@@ -58,8 +58,8 @@ public class TypeVehicelService {
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);	
 			
 			newVehicel.setId(id);
-			TypeVehicel type = typeVehicelRepository.save(newVehicel);
-			return ResponseEntity.ok(type);		
+			newVehicel = typeVehicelRepository.save(newVehicel);
+			return ResponseEntity.ok(newVehicel);		
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

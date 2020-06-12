@@ -105,7 +105,14 @@ document.querySelector('#save').addEventListener('click', () => {
 	                sweetalert(200,'Success!' , ' Đã cập nhật giá nước ')
 	            },
 	            error: function (error) {
-	                sweetalert(error.status)
+	            	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status)   
 	            }
 	        });
 	
@@ -129,7 +136,14 @@ document.querySelector('#save').addEventListener('click', () => {
 	                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') 
 	            },
 	            error: function (error) {
-	                sweetalert(error.status)
+	            	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status)   
 	            }
 	        });
 	    }
@@ -179,12 +193,12 @@ let fillToForm = (water) => {
 
 let validate = (data) =>  {
 		if(data.price === ''){
-			toastrError("Giá không được để trống");
+			toastrError("Giá không được để trống!");
 			document.querySelector('#price').focus();
 			return false;
 		}
 		if(data.date === ''){
-			toastrError("Ngày không được để trống");
+			toastrError("Ngày không được để trống!");
 			document.querySelector('#date').focus();
 			return false;
 		}

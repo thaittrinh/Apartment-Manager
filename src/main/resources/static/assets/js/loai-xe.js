@@ -100,7 +100,14 @@ document.querySelector('#save-type').addEventListener('click', () => {
 	                sweetalert(200,'Success!' , ' Cập nhật thành công ')
 	            },
 	            error: function (error) {           
-	                sweetalert(error.status)
+	            	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Tên loại xe đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
 	            }
 	        });
 	
@@ -121,7 +128,14 @@ document.querySelector('#save-type').addEventListener('click', () => {
 	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
 	            },
 	            error: function (error) {
-	                sweetalert(error.status)
+	            	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Tên loại xe đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
 	            }
 	        });
 	    }

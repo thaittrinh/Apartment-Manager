@@ -27,9 +27,7 @@ public class PriceGarbageService {
     // < -------------------- find by Id ---------------------------->
     public ResponseEntity<PriceGarbage> findPriceGarbageById(int id) {
         try {
-            PriceGarbage priceGarbage = priceGarbageRepository.findById(id).orElse(null);
-            if (priceGarbage == null)
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            PriceGarbage priceGarbage = priceGarbageRepository.findById(id).orElse(null);    
             return ResponseEntity.ok(priceGarbage);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,6 +81,7 @@ public class PriceGarbageService {
         try {
             if (!priceGarbageRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            
             priceGarbageRepository.deleteById(id);
             return ResponseEntity.ok("Delete success");
         } catch (Exception e) {

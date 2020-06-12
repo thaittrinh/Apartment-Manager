@@ -95,6 +95,16 @@ document.querySelector('#save').addEventListener('click', () => {
                     $('#table-electricity').DataTable().row(index).data(result).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
                     sweetalert(200, 'Success!', 'Đã cập nhật giá điện ');
+                },
+                error: function (error) {
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status)   
                 }
             })
         }
@@ -114,7 +124,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success', 'Đã tạo giá điện')
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status)   
                 }
 
             })
@@ -166,31 +183,31 @@ let fillToForm = (electricity) => {
 
 }
 
-let validate = (data) => {
-    if(data.limits === ''){
-        toastrError("hạn mức không được để trống")
-        document.querySelector('#limits').focus();
-        return false
-    }
-    if(data.limits < 0 ){
-        toastrError("hạn mức không được âm")
-        document.querySelector('#limits').focus();
-        return false
-    }
+let validate = (data) => {  
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
     if (data.price < 0 ){
-        toastrError("Giá không được âm");
+        toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
     }
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
+    }
+    if(data.limits === ''){
+        toastrError("Hạn mức không được để trống!")
+        document.querySelector('#limits').focus();
+        return false
+    }
+    if(data.limits < 0 ){
+        toastrError("Hạn mức không được âm!")
+        document.querySelector('#limits').focus();
+        return false
     }
     return true;
 }

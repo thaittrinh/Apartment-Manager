@@ -70,7 +70,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', ' Đã cập nhật phí quản lý ')
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
                 }
             });
 
@@ -94,8 +101,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', 'Đã tạo phí quản lý')
                 },
                 error: function (error) {
-                    sweetalert(error.status)
-                }
+                    sweetalert(error.status)if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
             });
         }
     }
@@ -167,12 +180,12 @@ let getValueForm = () => {
 
 let validate = (data) => {
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
     }
@@ -185,3 +198,5 @@ let fillToForm = (management) => {
     document.querySelector('#date').value = management.date;
     document.querySelector('#note').value = management.note;
 }
+
+
