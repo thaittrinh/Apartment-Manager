@@ -40,7 +40,7 @@ public class PriceElectricity implements Serializable {
 	@NotNull
 	private Double price;
 
-	
+	@NotNull
 	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
 	private Date date;
