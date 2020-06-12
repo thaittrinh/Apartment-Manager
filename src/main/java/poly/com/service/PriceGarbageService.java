@@ -65,7 +65,7 @@ public class PriceGarbageService {
             PriceGarbage priceGarbages = priceGarbageRepository.findByYearAndMonth(
 											                    priceGarbage.getDate().getYear() + 1900,
 											                    priceGarbage.getDate().getMonth() + 1);
-            if (priceGarbages != null)
+            if (priceGarbages != null && priceGarbages.getId() != id)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
             
             priceGarbage.setId(id);

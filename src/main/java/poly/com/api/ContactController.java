@@ -17,7 +17,7 @@ import poly.com.entity.Contact;
 import poly.com.service.ContactService;
 
 @RestController
-@RequestMapping("api/contact")
+@RequestMapping("/api/contact")
 public class ContactController {
 
 // <---------------------------- Class  Contact RestController ------------------------------------> 

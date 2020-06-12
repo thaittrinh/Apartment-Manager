@@ -1,106 +1,106 @@
-$(document).ready( function () {
-	 // < ----------------------- load data to table  ------------------------------->
+$(document).ready(function () {
+    // < ----------------------- load data to table  ------------------------------->
     $('#table-phiquanly').DataTable(
-    		{
-    	        "responsive": true,
-    	        "scroller": {loadingIndicator: true},
-    	        "autoWidth": false,
-    	        "processing": true,
-    	        "autoWidth": false,
-    	        "scrollY": "300px",
-    	        "scrollCollapse": true,
-    	        "sAjaxSource": URL + 'api/price-management',
-    	        "sAjaxDataProp": "",
-    	        "order": [[0, "asc"]],
-    	        "aoColumns": [
-    	            {"mData": "id"},
-    	            {"mData": "date"},
-    	            {"mData": "price"},
-    	            {"mData": "employee.fullName"},
-    	            {"mData": "note"},	           
-    	            {
-    	                "mRender": function (data, type, full) {
-    	                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
-    	                }
-    	            },
-    	            {
-    	                "mRender": function (data, type, full) {
-    	                    return `<i  class="material-icons icon-table icon-delete " onclick='deletePrice(${full.id},this)' type="button">delete</i>`
-    	                }
-    	            }
-    	        ]
-    	    });
-} );
+        {
+            "responsive": true,
+            "scroller": {loadingIndicator: true},
+            "autoWidth": false,
+            "processing": true,
+            "autoWidth": false,
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "sAjaxSource": URL + 'api/price-management',
+            "sAjaxDataProp": "",
+            "order": [[0, "asc"]],
+            "aoColumns": [
+                {"mData": "id"},
+                {"mData": "date"},
+                {"mData": "price"},
+                {"mData": "employee.fullName"},
+                {"mData": "note"},
+                {
+                    "mRender": function (data, type, full) {
+                        return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
+                    }
+                },
+                {
+                    "mRender": function (data, type, full) {
+                        return `<i  class="material-icons icon-table icon-delete " onclick='deletePrice(${full.id},this)' type="button">delete</i>`
+                    }
+                }
+            ]
+        });
+});
 
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
- index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
- $('#form-building').modal('show')
- document.querySelector('.modal-title').innerHTML = "Cập nhật phí quản lý";
- $.ajax({
-     url: URL + `api/price-management/${id}`,
-     type: 'GET',
-     dataType: 'json',
-     success: function (result) {
-         fillToForm(result)
-     },
-     error: function (error) {
-         sweetalert(error.status)
-     }
- });
+    index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
+    $('#form-building').modal('show')
+    document.querySelector('.modal-title').innerHTML = "Cập nhật phí quản lý";
+    $.ajax({
+        url: URL + `api/price-management/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            fillToForm(result)
+        },
+        error: function (error) {
+            sweetalert(error.status)
+        }
+    });
 }
 
 //< ------------------------ insert or update  ---------------------->
-document.querySelector('#save').addEventListener('click', () => {	
+document.querySelector('#save').addEventListener('click', () => {
     let management = getValueForm();
-    if(validate(management)){
-	    if (management.id) {
-	        $.ajax({
-	            type: 'PUT',
-	            url: URL + `api/price-management/${management.id}`,
-	            contentType: "application/json",
-	            dataType: 'json',
-	            cache: false,
-	            data: JSON.stringify(management),
-	            success: function (result) {
-	                result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-	                $('#table-phiquanly').DataTable().row(index).data(result).draw();  //update the row in dataTable
-	                $('#form-building').modal('hide');     // close modal
-	                sweetalert(200,'Success!' , ' Đã cập nhật phí quản lý ')
-	            },
-	            error: function (error) {
-	                sweetalert(error.status)
-	            }
-	        });
-	
-	    } else {
-	        $.ajax({
-	            type: 'POST',
-	            url: URL + `api/price-management`,
-	            contentType: "application/json",
-	            dataType: 'json',
-	            cache: false,
-	            data: JSON.stringify(management),
-	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date);
-	             // Add new data to DataTable
-	                $('#table-phiquanly').DataTable()  
-	                    .row.add(result).draw().node();
-	             // Clean form
-	                cleanForm(); 
-	                // message
-	                sweetalert(200 ,'Success!' ,'Đã tạo phí quản lý')
-	            },
-	            error: function (error) {
-	                sweetalert(error.status)
-	            }
-	        });
-	    }
+    if (validate(management)) {
+        if (management.id) {
+            $.ajax({
+                type: 'PUT',
+                url: URL + `api/price-management/${management.id}`,
+                contentType: "application/json",
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(management),
+                success: function (result) {
+                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
+                    $('#table-phiquanly').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    $('#form-building').modal('hide');     // close modal
+                    sweetalert(200, 'Success!', ' Đã cập nhật phí quản lý ')
+                },
+                error: function (error) {
+                    sweetalert(error.status)
+                }
+            });
+
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: URL + `api/price-management`,
+                contentType: "application/json",
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(management),
+                success: function (result) {
+                    // Convert date to yy-MM-dd
+                    result.date = formatDate(result.date);
+                    // Add new data to DataTable
+                    $('#table-phiquanly').DataTable()
+                        .row.add(result).draw().node();
+                    // Clean form
+                    cleanForm();
+                    // message
+                    sweetalert(200, 'Success!', 'Đã tạo phí quản lý')
+                },
+                error: function (error) {
+                    sweetalert(error.status)
+                }
+            });
+        }
     }
-    
-    
+
+
 });
 
 
@@ -127,7 +127,7 @@ let deletePrice = (id, e) => {
                     sweetalert(200, 'Success!', 'Xóa thành công') // message
                 },
                 error: function (error) {
-                   sweetalert(error.status) //message
+                    sweetalert(error.status) //message
                 }
             });
         }
@@ -165,18 +165,18 @@ let getValueForm = () => {
     }
 }
 
-let validate = (data) =>  {
-	if(data.price === ''){
-		toastrError("Giá không được để trống");
-		document.querySelector('#price').focus();
-		return false;
-	}
-	if(data.date === ''){
-		toastrError("Ngày không được để trống");
-		document.querySelector('#date').focus();
-		return false;
-	}
-return true;
+let validate = (data) => {
+    if (data.price === '') {
+        toastrError("Giá không được để trống");
+        document.querySelector('#price').focus();
+        return false;
+    }
+    if (data.date === '') {
+        toastrError("Ngày không được để trống");
+        document.querySelector('#date').focus();
+        return false;
+    }
+    return true;
 }
 
 let fillToForm = (management) => {
