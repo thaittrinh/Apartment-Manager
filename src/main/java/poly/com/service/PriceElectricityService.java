@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import poly.com.entity.PriceElectricity;
-import poly.com.entity.PriceWater;
 import poly.com.repository.PriceElectricityRepository;
 
 import java.util.List;
@@ -28,9 +27,7 @@ public class PriceElectricityService {
     // < --------------------------- Find By Id -------------------------->
     public ResponseEntity<PriceElectricity> findPriceElectricitybyId(int id) {
         try {
-            PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);
-            if (priceElectricity == null)
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);       
             return ResponseEntity.ok(priceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -38,6 +35,7 @@ public class PriceElectricityService {
     }
 
     // < ---------------------------- Create ------------------------------------>
+    @SuppressWarnings("deprecation")
     public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
         try {
             PriceElectricity priceElectricities = priceElectricityRepository.findByLimit(
@@ -46,15 +44,17 @@ public class PriceElectricityService {
                     priceElectricity.getLimits());
             if (priceElectricities != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
+            
             priceElectricity.setId(0);
-            PriceElectricity electricity = priceElectricityRepository.save(priceElectricity);
-            return ResponseEntity.ok(electricity);
+            priceElectricity = priceElectricityRepository.save(priceElectricity);
+            return ResponseEntity.ok(priceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ----------------------------- Update ------------------------------------->
+    @SuppressWarnings("deprecation")
     public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
         try {
             if (!priceElectricityRepository.existsById(id))
@@ -65,6 +65,7 @@ public class PriceElectricityService {
                     priceElectricity.getLimits());
             if( electricityid != null && electricityid.getId() != id)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            
             priceElectricity.setId(id);
             priceElectricity = priceElectricityRepository.save(priceElectricity);
             return ResponseEntity.ok(priceElectricity);
@@ -78,6 +79,7 @@ public class PriceElectricityService {
         try {
             if (!priceElectricityRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            
             priceElectricityRepository.deleteById(id);
             return ResponseEntity.ok("Deleted");
         } catch (Exception e) {

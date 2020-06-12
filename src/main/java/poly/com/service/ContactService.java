@@ -29,9 +29,7 @@ public class ContactService {
 	// < ---------------------- findById -------------------------->
 	public ResponseEntity<Contact> findById(int id) {
 		try {
-			Contact contacts = contactRepository.findById(id).orElse(null);
-			if (contacts == null)
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			Contact contacts = contactRepository.findById(id).orElse(null);	
 			return ResponseEntity.ok(contacts);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -55,6 +53,7 @@ public class ContactService {
 			Contact contacts = contactRepository.findById(id).orElse(null);
 			if (contacts == null)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			
 			contact.setId(id);
 			contacts = contactRepository.save(contact);
 			return ResponseEntity.ok(contacts);
@@ -65,10 +64,10 @@ public class ContactService {
 
 	// < -------------------------- Delete ------------------------------->
 	public ResponseEntity<String> deleteContact(int id) {
-		try {
-			Contact contacts = contactRepository.findById(id).orElse(null);
-			if (contacts == null)
+		try {		
+			if (!contactRepository.existsById(id))
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			
 			contactRepository.deleteById(id);
 			return ResponseEntity.ok("Xóa Thành Công");
 		} catch (Exception e) {

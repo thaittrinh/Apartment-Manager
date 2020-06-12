@@ -28,23 +28,23 @@
                 <ul class="collapse list-unstyled" id="toanha">
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-apartment}">
+                        <a th:href="@{/ui/apartment}">
                             <span></span>
-                            Danh  sách căn hộ
+                           Danh Sách Căn Hộ
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/form-own-apartment}">
+                        <a th:href="@{/ui/own-apartment/form}">
                             <span></span>
-                            Thông tin chủ căn hộ
+                            Thông Tin Chủ Căn Hộ
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-own-apartment}">
+                        <a th:href="@{#}">
                             <span></span>
-                            Danh sách chủ căn hộ
+                            Danh Sách Chủ Căn Hộ
                         </a>
                     </li>
                     <!---------------------------->
@@ -59,73 +59,73 @@
                 <ul class="collapse list-unstyled" id="cudan">
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/form-resdential}">
+                        <a th:href="@{/ui/resdential/form}">
                             <span class=""></span>
-                            Thông tin cư dân
+                            Thông Tin Cư Dân
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-resdential}">
+                        <a th:href="@{/ui/resdential}">
                             <span class=""></span>
-                            Danh sách cư dân
+                            Danh Sách Cư Dân
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-vehicle}">Xe đăng ký gửi </a>
+                        <a th:href="@{/ui/resdential/vehicle}">Xe Đăng ký gửi </a>
                     </li>
                     <!---------------------------->
                 </ul>
             </li>
             <!-- --------------------------------- hoa don ---------------------- -->
             <li>
-                <a th:href="@{/ui/table-bill}">
+                <a th:href="@{/ui/bill}">
                     <i class="fa fa-file-invoice-dollar mr-3"></i>
-                  Hóa Đơn 
+                  Hóa Đơn
                 </a>
             </li>
             <!-- -------------------------------- Bang gia   ---------------------- -->
             <li>
                 <a href="#phidichvu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <i class="fa fas fa-file-invoice mr-3"></i>
-                    Bảng Giá 
+                    Bảng Giá
                 </a>
                 <!---------------------------->
                 <ul class="collapse list-unstyled" id="phidichvu">
                     <!------------------------------>
                     <li>
-                        <a th:href="@{/ui/table-price-electricity}">
+                        <a th:href="@{/ui/price/electricity}">
                             <span class=""></span>
-                          Bảng giá điện
+                          Giá Điện
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-price-water}">
+                        <a th:href="@{/ui/price/water}">
                             <span class=""></span>
-                           Bảng giá nước 
+                           Giá Nước
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a href="#">
+                        <a th:href="@{/ui/price/vehicle}">
                             <span class=""></span>
-                         Bảng phí gửi xe 
+                         Phí Gửi Xe
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-price-garbage}">
+                        <a th:href="@{/ui/price/garbage}">
                             <span class=""></span>
-                           Bảng phí rác
+                           Phí Rác
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
-                        <a th:href="@{/ui/table-price-management}">
+                        <a th:href="@{/ui/price/management}">
                             <span class=""></span>
-                           Bảng phí quản lý 
+							Phí Quản Lý
                         </a>
                     </li>
                     <!---------------------------->
@@ -142,36 +142,36 @@
                     <li>
                         <a href="#">
                             <span></span>
-                           Quản lý nhân viên
+                           Quản Lý Nhân Viên
                         </a>
                     </li>
                     <!---------------------------->
                     <li>
                         <a href="#">
                             <span></span>
-                        Quản lý  Tài Khoản 
+                        Quản Lý Tài Khoản
                         </a>
                     </li>
                     <!---------------------------->
                 </ul>
             </li>
 
-            <!-- --------------------------------- thông báo  ---------------------- -->
+            <!-- --------------------------------- thÃ´ng bÃ¡o  ---------------------- -->
             <li>
                 <a href="#">
                     <span class="fa fa-bell mr-3"></span>
-                    Thông Báo 
+                   Thông Báo
                 </a>
             </li>
-            <!-- ---------------------------------nội quy ---------------------- -->
+            <!-- ---------------------------------ná»™i quy ---------------------- -->
             <li>
-                <a th:href="@{/ui/table-regulation}">
+                <a th:href="@{#}">
                    <span class="fas fa-scroll mr-3"></span>
                   Nội Quy
                 </a>
             </li>
             <li>
-                <a th:href="@{/ui/table-contact}">
+                <a th:href="@{#}">
                 <span class="fas fa-phone-square mr-3"></span>
                   Liên Hệ
                 </a>

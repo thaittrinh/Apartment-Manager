@@ -38,8 +38,8 @@ public class TypeVehicelService {
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);	
 			
 		     newVehicel.setId(0);
-			TypeVehicel type = typeVehicelRepository.save(newVehicel);
-			return ResponseEntity.ok(type);
+		     newVehicel = typeVehicelRepository.save(newVehicel);
+			return ResponseEntity.ok(newVehicel);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,12 +54,12 @@ public class TypeVehicelService {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
 			
 			TypeVehicel typeVehicel = typeVehicelRepository.findByName(newVehicel.getName()).orElse(null);	
-			if (typeVehicel.getId() != id) 
+			if (typeVehicel!= null && typeVehicel.getId() != id) 
 				return new ResponseEntity<>(null, HttpStatus.CONFLICT);	
 			
 			newVehicel.setId(id);
-			TypeVehicel type = typeVehicelRepository.save(newVehicel);
-			return ResponseEntity.ok(type);		
+			newVehicel = typeVehicelRepository.save(newVehicel);
+			return ResponseEntity.ok(newVehicel);		
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -28,13 +28,6 @@ let sweetalert = (statusCode, title, text) => {
                 icon: 'warning'
             })
             break;
-        case 409:
-            Swal.fire({
-                title : 'Error',
-                text: 'Dữ liệu bị trùng lặp, vui lòng kiểm tra lại ',
-                icon:'error'
-            })
-            break;
         case 500:
             Swal.fire({
                 title: 'Error',
