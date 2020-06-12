@@ -38,7 +38,8 @@
                     data-target="#form-building">
                 <i class="icon-btn fa fa-plus"></i> Tạo phí mới
             </button>
-            <button type="button" class="btn btn-secondary"><i class="fas fa-list-alt"></i> Các loại xe</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-vehicel">
+            	<i class="fas fa-list-alt"></i> Các loại xe</button>
         </div>
     </div>
     <!------------------------------------------------ Form modal can ho ---------------------------------->
@@ -62,22 +63,22 @@
                             <div class="input-container">
                                 <input type="number" id="id" hidden="true" required="required"/>
                                 <input type="number" required="required" name="price" id="price"
-                                       min="0" style="width: 220px"/> <label for="price">Đơn Giá</label>
+                                       min="0" style="width: 130px"/> <label for="price">Đơn Giá</label>
                             </div>
                             <!-------------------------------- Ngay ------------------------------------>
                             <div class="input-container">
                                 <input type="date" required="required" name="date" id="date"
-                                       style="width: 220px"/> <label for="date">Ngày</label>
+                                       style="width: 150px"/> <label for="date">Ngày</label>
                             </div>
-                            <!-------------------------------- Loại xe ------------------------------------>                       
+                            <!-------------------------------- Loại xe ------------------------------------>
+                           <div>
+                               <select style="width: 160px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
+                                       class="input-select">
+                                   <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
+                               </select>
+                           </div>
                         </div>
-                        <div class="row">
-                                <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
-                                        class="input-select">
-                                    <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
-                                </select>
-                            </div>
-                        
+
                         <!---------------------------- End row ----------------------->
                         <div class="row" style="margin-top:15px;">
                             <!------------------------------- Ghi Chu -------------------------------------->
@@ -102,6 +103,73 @@
             </div>
         </div>
     </div>
+    
+    <!---------------------------------------- Modal  Các loại xe-------------------------------------- -->		
+			<!-- Modal -->
+			<div class="modal fade" id="modal-vehicel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">Các loại xe</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        ...
+			           <!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form-type-vehivel">
+					  Launch demo modal
+					</button>
+			        <br>
+			        <br>
+			        
+			          <br>
+			        <br>
+			          <br>
+			        <br>
+			          <br>
+			        <br>
+			          <br>
+			        <br>
+			          <br>
+			        <br>
+			          <br>
+			        <br>
+			          <br>
+			        <br>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>     
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			    
+  <!---------------------------------------- Modal form các loại xe-------------------------------------- -->		
+			<div class="modal fade" id="form-type-vehivel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        ...
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			    
+    
+    
+    
     <script th:src="@{/assets/js/phi-xe.js}" type="text/javascript"></script>
 </div>
 <!-------------------------------------------------------- End Div content ------------------------------------------->
