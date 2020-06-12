@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,10 +40,15 @@ public class PriceElectricity implements Serializable {
 	@NotNull
 	private Double price;
 
-	
+	@NotNull
 	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
 	private Date date;
 
+	@NotNull(message = "Employee is not null")
+	@ManyToOne
+	@JoinColumn(name = "id_employee", referencedColumnName = "id")
+	private Employee employee;
+	
 	private String note;
 }

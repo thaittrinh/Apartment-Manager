@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
- data-layout-decorate="~{/layout-admin}">
- <!-------------------------------------------------------------------------------------------->
- 
+	  data-layout-decorate="~{/layout-admin}">
+<!-------------------------------------------------------------------------------------------->
+
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
@@ -18,44 +18,50 @@
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
 		<div class="card-body">
-			<table class="table table-hover" id="table-giadien">
+			<table class="table table-hover table-bordered"  id="table-electricity">
 				<thead>
-					<tr>
-					   <th>Hạn Mức</th>
-						<th>Đơn Giá</th>
-						<th>Ngày</th>
-						<th>Ghi Chú</th>
-					</tr>
+				<tr>
+					<th>ID</th>
+					<th>Hạn Mức</th>
+					<th>Đơn Giá</th>
+					<th>Ngày</th>
+					<th>nhân Viên</th>
+					<th>Ghi Chú</th>
+					<th>Cập Nhật </th>
+					<th> Xóa</th>
+				</tr>
 				</thead>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
-			<button type="button" class="btn btn-primary" data-toggle="modal"
-				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
+			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+					onclick="document.querySelector('.modal-title').innerHTML ='Thêm giá mới' "
+					data-target="#form-building">
+				<i class="icon-btn fa fa-plus"></i> Thêm giá mới
 			</button>
 		</div>
 	</div>
 	<!------------------------------------------------ Form modal can ho ---------------------------------->
 	<div class="modal fade" id="form-building" tabindex="-1" role="dialog"
-		aria-labelledby="form-label" aria-hidden="true">
+		 aria-labelledby="form-label" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<!-------------------------------------- Header-modal ------------------------------------->
 				<div class="modal-header">
-					<h5 class="modal-title" id="form-label">  <i class="fas fa-bolt mr-3 ml-2"></i> đơn giá điện</h5>
+					<h5 class="modal-title" id="form-label"></h5>
 					<i class="material-icons " data-dismiss="modal">close</i>
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->
 				<div class="modal-body">
 					<form>
 						<div class="row">
-						<!-- ------------------------------- Hạn mức ---------------------------------------->
+							<!-- ------------------------------- Hạn mức ---------------------------------------->
 							<div class="input-container">
-								<input type="number"  min="0" required="required" name="limit" id="limt" style="width: 100px" />
-								<label for="limit">Hạn Mức</label>
+								<input type="number"  id="id" hidden="true" required="required" />
+								<input type="number"  min="0" required="required" name="limits" id="limits" style="width: 100px" />
+								<label for="limits">Hạn Mức</label>
 							</div>
 							<!------------------------------ Don gia ------------------------------------>
-								<div class="input-container">
+							<div class="input-container">
 								<input type="number" min="0"  required="required" name="price" id="price" style="width: 170px" />
 								<label for="price">Đơn Giá</label>
 							</div>
@@ -78,11 +84,11 @@
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success">
-						<i class="icon-btn fa fa-plus"></i> Tạo Mới
+					<button type="button" class="btn btn-success"  id="save">
+						<i class="icon-btn fa fa-plus"></i> Lưu
 					</button>
-					<button type="button" class="btn btn-primary">
-						<i class=" icon-btn fas fa-sync-alt"></i>Cập Nhật
+					<button type="button" class="btn btn-primary" id="clean-form">
+						<i class=" icon-btn fas fa-sync-alt"></i>Tạo mới
 					</button>
 				</div>
 			</div>

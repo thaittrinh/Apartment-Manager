@@ -47,7 +47,7 @@ public class PriceParkingController {
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
 	public ResponseEntity<PriceParking> updatePriceParking(@PathVariable int id,
-			@RequestBody PriceParking priceParking) {
+														   @RequestBody PriceParking priceParking) {
 		return priceParkingService.updatePriceParking(id, priceParking);
 	}
 

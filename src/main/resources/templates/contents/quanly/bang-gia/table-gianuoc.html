@@ -18,22 +18,24 @@ data-layout-decorate="~{/layout-admin}">
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
 		<div class="card-body ">
-			<table class="table table-hover table-bordered" id="table-gianuoc" >
+			<table class="table table-hover table-bordered" id="my-table" >
 				<thead>
 					<tr>
-						<th scope="col">Id</th>
+						<th>Id</th>
 						<th>Ngày</th>
-						<th>Đơn Giá</th>
-						<th>Ghi Chú</th>		
-						<th>Cập Nhật</th>	
-						<th>Xóa</th>				
+						<th>Đơn giá</th>	
+						<th>Người tạo</th>	
+						<th>Ghi chú</th>						
+						<th >Cập nhật</th>	
+						<th >Xóa</th>				
 					</tr>
 				</thead>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
 			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+			 onclick="document.querySelector('.modal-title').innerHTML = 'Thêm giá mới' "
 				data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Tạo phí mới
+				<i class="icon-btn fa fa-plus"></i> Thêm giá mới
 			</button>
 		</div>
 	</div>
@@ -52,18 +54,18 @@ data-layout-decorate="~{/layout-admin}">
 				</div>
 				<!----------------------------------------- body-modal ------------------------------------->
 				<div class="modal-body">
-					<form>
+					<form id="my-form">
 						<div class="row">
 							<!------------------------------ Don gia ------------------------------------>
 							<div class="input-container">
-							    <input type="number"  id="id" hidden="true" />
-								<input type="number" required="required" name="price" id="price"
+							    <input type="number"  id="id" hidden="true" required="required" />
+								<input type="number" min="0" required="required" name="price" id="price"
 									style="width: 220px" /> <label for="price">Đơn Giá</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
 								<input type="date" required="required" name="date" id="date"
-									style="width: 220px" /> <label for="date">Ngày</label>
+									style="width: 220px"  /> <label for="date">Ngày</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
@@ -75,7 +77,7 @@ data-layout-decorate="~{/layout-admin}">
 								<label for="note">Ghi Chú</label>
 							</div>
 						</div>
-						<!------------------------------------ End row -------------------------------------->
+						<!------------------------------------ End row -------------------------------------->					
 					</form>
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->

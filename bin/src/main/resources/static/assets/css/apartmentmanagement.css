@@ -1,0 +1,172 @@
+.card {
+	width: 700px;
+	border: 0;
+	margin: 65px 0 0 15px;
+	border-radius: 6px;
+	color: #333;
+	background: #fff;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px
+		rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+	color: white;
+	margin: -30px 15px 3px 15px;
+	padding: 10px;
+	box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px
+		rgba(73, 76, 162, 0.4);
+	background-color: #59287a !important;
+}
+
+.card-titles {
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	text-transform: uppercase;
+	line-height: 1.4em;
+	margin: 6px 0 -0.25rem 0;
+	font-weight: lighter;
+}
+
+.input-container {
+	position: relative;
+	margin-bottom: 25px;
+	margin-left: 15px;
+}
+
+.input-container label {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 16px;
+	color: black;
+	pointer-events: none;
+	transition: all 0.3s ease-in-out;
+}
+
+.input-container input {
+	border: 0;
+	border-bottom: 1px solid #999999;
+	background: transparent;
+	padding: 8px 0 5px 0;
+	font-size: 16px;
+	color: black;
+}
+
+.input-container input:focus {
+	border: none;
+	outline: none;
+	border-bottom: 2px solid rgb(73, 76, 162);
+}
+
+.input-container input:valid {
+	border-bottom: 2px solid rgb(73, 76, 162);
+}
+
+.input-container input:focus ~ label, .input-container input:valid ~
+	label {
+	top: -12px;
+	font-size: 12px;
+	color: #b3b1b1;
+}
+
+.input-container textarea {
+	border: 0;
+	border-bottom: 1px solid #999999;
+	background: transparent;
+	padding: 8px 0 5px 0;
+	font-size: 16px;
+	color: black;
+}
+
+.input-container textarea:focus {
+	border: none;
+	outline: none;
+	border-bottom: 2px solid rgb(73, 76, 162);
+}
+
+.input-container textarea:valid {
+	border-bottom: 2px solid rgb(73, 76, 162);
+}
+
+.input-container textarea:focus ~ label, .input-container textarea:valid 
+	 ~ label {
+	top: -12px;
+	font-size: 12px;
+	color: #b3b1b1;
+}
+
+.card-img {
+	margin: -50px auto 0;
+	border-radius: 50%;
+	overflow: hidden;
+	padding: 0;
+	box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0
+		rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	max-width: 130px;
+	max-height: 130px;
+}
+
+.card-img img {
+	width: 100%;
+	height: auto;
+}
+
+.card-title-name {
+	padding-top: 30px;
+	text-align: center;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-size: 16px;
+}
+
+.card-body-information {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serifS;
+	padding: 15px 0 0 15px;
+	line-height: 30px;
+}
+
+.card-body {
+	margin: 0 10px 0 10px;
+}
+
+.title {
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+	margin-top: -30px;
+	position: relative;
+	color: inherit;
+	font-size: 15px;
+	font-weight: 300;
+	padding: .625rem 0;
+	margin-left: 4rem;
+	text-transform: uppercase;
+}
+
+.dropdown-menu.dropdown-menu-right.show {
+	margin-top: 20px;
+}
+
+.input-select {
+	border: none;
+	outline: none;
+	border-bottom: 1px solid #999999;
+}
+
+.btn-delete-table {
+	background-color: #f4772e !important;
+}
+
+.icon-table {
+
+}
+
+input::-webkit-datetime-edit {
+	color: transparent;
+	margin-top: -2px
+}
+
+input:focus::-webkit-datetime-edit {
+	color: black;
+}
+
+input:valid::-webkit-datetime-edit {
+	color: black;
+}
