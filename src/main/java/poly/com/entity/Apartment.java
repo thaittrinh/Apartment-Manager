@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Apartments")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Apartment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,6 @@ public class Apartment implements Serializable {
 	
 	private String note;
 	
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_own", referencedColumnName = "id")
 	private OwnApartment ownApartment;

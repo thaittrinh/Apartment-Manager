@@ -12,16 +12,14 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @Entity
+@Table(name = "Residents")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Table(name = "Residentials")
-public class Residential implements Serializable {
+public class Resident implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = -2874673172145085128L;
 
 	@Id
@@ -29,7 +27,7 @@ public class Residential implements Serializable {
     private Integer id;
 
     @NotNull
-    @Column(length = 70)
+    @Column(length = 50)
     private String fullname;
 
     @NotNull

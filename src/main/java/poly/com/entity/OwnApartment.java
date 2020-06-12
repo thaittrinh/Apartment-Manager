@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "OwnApartments")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class OwnApartment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class OwnApartment implements Serializable {
 	private Integer id;
 
 	@NotNull
-	@Column(length = 70)
+	@Column(length = 50)
 	private String fullname;
 
 	@NotNull
@@ -41,9 +41,6 @@ public class OwnApartment implements Serializable {
 	@NotNull
 	@Column(length = 20)
 	private String nationality;
-
-	@NotNull
-	private String birthplace;
 	
 	@NotNull
 	private String job;
