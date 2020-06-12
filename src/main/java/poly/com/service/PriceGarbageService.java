@@ -46,6 +46,7 @@ public class PriceGarbageService {
                             priceGarbage.getDate().getMonth() + 1);
             if (priceGarbages != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
+
             priceGarbage.setId(0);
             PriceGarbage garbage = priceGarbageRepository.save(priceGarbage);
             return ResponseEntity.ok(garbage);
@@ -61,13 +62,14 @@ public class PriceGarbageService {
             // id: priceWater không tồn tại
             if (!priceGarbageRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
             // Giá các tháng trước đã có
             PriceGarbage priceGarbages = priceGarbageRepository.findByYearAndMonth(
-											                    priceGarbage.getDate().getYear() + 1900,
-											                    priceGarbage.getDate().getMonth() + 1);
+                    priceGarbage.getDate().getYear() + 1900,
+                    priceGarbage.getDate().getMonth() + 1);
             if (priceGarbages != null && priceGarbages.getId() != id)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-            
+
             priceGarbage.setId(id);
             priceGarbage = priceGarbageRepository.save(priceGarbage);
             return ResponseEntity.ok(priceGarbage);

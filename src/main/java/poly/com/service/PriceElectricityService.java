@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import poly.com.entity.PriceElectricity;
-import poly.com.entity.PriceWater;
 import poly.com.repository.PriceElectricityRepository;
 
 import java.util.List;
@@ -38,6 +37,7 @@ public class PriceElectricityService {
     }
 
     // < ---------------------------- Create ------------------------------------>
+    @SuppressWarnings("deprecation")
     public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
         try {
             PriceElectricity priceElectricities = priceElectricityRepository.findByLimit(
@@ -55,6 +55,7 @@ public class PriceElectricityService {
     }
 
     // < ----------------------------- Update ------------------------------------->
+    @SuppressWarnings("deprecation")
     public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
         try {
             if (!priceElectricityRepository.existsById(id))
