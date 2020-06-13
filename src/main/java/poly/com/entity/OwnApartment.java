@@ -70,7 +70,7 @@ public class OwnApartment implements Serializable {
 	private String image;
 
 	@NotNull()
-	@Column(unique = true)
+	@Column(unique = true, length = 12)
 	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
 	private String identitycard;
 

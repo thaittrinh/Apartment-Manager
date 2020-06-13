@@ -50,7 +50,7 @@ public class Employee implements Serializable {
   	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
     
-    @Column(length = 8)
+    @Column(length = 12)
     private String indentityCard;
     
     @NotNull

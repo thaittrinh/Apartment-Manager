@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import poly.com.entity.Resident;
 
+import java.util.Optional;
+
 @Repository
 public interface ResidentRepository extends JpaRepository <Resident,Integer> {
-    Boolean existsByIdentitycard(String identitycard);
+
+    Optional<Resident> findByIdentitycard(String identitycard);
 }
