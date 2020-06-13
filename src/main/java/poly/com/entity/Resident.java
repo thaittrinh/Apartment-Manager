@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -43,21 +44,21 @@ public class Resident implements Serializable {
     private String nationality;
 
     @NotNull
-    private String birthplace;
+    private String hometown;
 
     @NotNull
     private String job;
 
-    @NotNull
+
     @Column(length = 12)
-    private Integer phone;
+    private String phone;
 
     @Column(length = 50)
     private String email;
 
-    @NotNull
+
     @Column(length = 12)
-    private Integer identitycard;
+    private String identitycard;
 
     @NotNull
     @ManyToOne
