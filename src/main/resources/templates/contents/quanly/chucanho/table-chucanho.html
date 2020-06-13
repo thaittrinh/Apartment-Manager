@@ -3,7 +3,7 @@
 <div layout:fragment="content">
     <!--------------------------------------------- Header-------------------------------->
     <div class="row">
-        <a class="title"> Quản Lý chủ căn hộ </a>
+        <a class="title"> Quản lý chủ căn hộ </a>
         <div th:replace="components/header"></div>
     </div>
     <!---------------------------------------- Table Chu can ho  -------------------------->
@@ -16,20 +16,21 @@
         </div>
         <!------------------------------------- card-body-table --------------------------->
         <div class="card-body">
-            <table class="table table-hover" id="table-chucanho">
+            <table class="table table-hover" id="table-chucanho"  style= "font-family: Verdana, Geneva, Tahoma, sans-serif;">
                 <thead>
-                <tr>
-                    <th>Họ Tên</th>
-                    <th>Ngày Sinh</th>
-                    <th>Giới Tính</th>
-                    <th>Số CMND</th>
-                    <th>Quốc Tịch</th>
-                    <th>Quê Quán</th>
-                    <th>Điện Thoại</th>
-                    <th>Email</th>
-                    <th>Nghề Nghiệp</th>
-                </tr>
+	                <tr style="font-size:13px;">
+	                    <th>Họ tên</th>
+	                    <th>Ngày sinh</th>
+	                    <th>Giới tính</th>
+	                    <th>Nghề nghiệp</th>
+	                    <th>Số CMND</th>        
+	                    <th>Số ĐT</th>
+	                    <th>Email</th>
+	                    <th>Quốc tịch</th>
+	                    <th>Quê quán</th>             
+	                </tr>
                 </thead>
+                <tfoot style="font-size:12px;"></tfoot>
             </table>
         </div>
     </div>

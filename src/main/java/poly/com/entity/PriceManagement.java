@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,16 +27,19 @@ public class PriceManagement implements Serializable {
 	private Integer id; 
 
 	@NotNull
+	@Min(value = 0, message = "Price must be greater than 0" )
 	private Double price;
 	
-	@NotNull
 	@Column(unique =  true)
+	@NotNull(message = "Date is not null")
 	@Temporal(TemporalType.DATE)	 
-  	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
+  	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
+	
 	@ManyToOne
-	@JoinColumn(name = "id_employee", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "id_employee", referencedColumnName = "id")
+	@NotNull(message = "Employee is not null")
 	private Employee employee;
 
 	private String note;

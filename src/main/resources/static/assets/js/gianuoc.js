@@ -1,34 +1,34 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
-    $('#my-table').DataTable({
-        "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
-        "processing": true,
-        "autoWidth": false,
-        "scrollY": "300px",
-        "scrollCollapse": true,
-        "sAjaxSource": URL + 'api/price-water',
-        "sAjaxDataProp": "",
-        "order": [[0, "asc"]],
-        "aoColumns": [
-            {"mData": "id"},
-            {"mData": "date"},
-            {"mData": "price"},
-            {"mData": "employee.fullName"},
-            {"mData": "note"},         
-            {
-                "mRender": function (data, type, full) {
-                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
-                }
-            },
-            {
-                "mRender": function (data, type, full) {
-                    return `<i  class="material-icons icon-table icon-delete " onclick='deletePrice(${full.id},this)' type="button">delete</i>`
-                }
-            }
-        ]
-    });
+       $('#my-table').DataTable({	  
+	        "responsive": true,
+	        "scroller": {loadingIndicator: true},
+	        "autoWidth": false,
+	        "processing": true,
+	        "scrollY": "300px",
+	        "scrollCollapse": true,
+	        "sAjaxSource": URL + 'api/price-water',
+	        "sAjaxDataProp": "",
+	        "order": [[0, "asc"]],
+	        "aoColumns": [
+	            {"mData": "id"},
+	            {"mData": "date"},
+	            {"mData": "price"},
+	            {"mData": "employee.fullName"},
+	            {"mData": "note"},         
+	            {
+	                "mRender": function (data, type, full) {
+	                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
+	                }
+	            },
+	            {
+	                "mRender": function (data, type, full) {
+	                    return `<i  class="material-icons icon-table icon-delete " onclick='deletePrice(${full.id},this)' type="button">delete</i>`
+	                }
+	            }
+	        ]
+	    });
+  
 });
 
 
