@@ -15,47 +15,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.entity.PriceElectricity;
-import poly.com.service.PriceElectricityService;
+import poly.com.entity.OwnApartment;
+import poly.com.service.OwnApartmentService;
 
 @RestController
-@RequestMapping("/api/price-electricity")
-public class PriceElectricityController {
+@RequestMapping("/api/own-apartment")
+public class OwnApartmentController {
 
-// < ----------------------------------- Class PriceElectricity RestController ---------------------------->
 	@Autowired
-	PriceElectricityService priceElectricityService;
+	OwnApartmentService ownApartmentService;
 // ------------------------------------------------
 
 	// <------------------------- findAll --------------------------->
 	@GetMapping()
-	public ResponseEntity<List<PriceElectricity>> findPriceElectricityAll() {
-		return priceElectricityService.findAllElectricity();
+	public ResponseEntity<List<OwnApartment>> findAll() {
+		return ownApartmentService.findAll();
 	}
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<PriceElectricity> findPriceElectricitybyId(@PathVariable int id) {
-		return priceElectricityService.findPriceElectricitybyId(id);
+	public ResponseEntity<OwnApartment> findById(@PathVariable int id) {
+		return ownApartmentService.findById(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping()
-	public ResponseEntity<PriceElectricity> createPriceElectricity(@Valid @RequestBody PriceElectricity priceElectricity) {
-		return priceElectricityService.createPriceElectricity(priceElectricity);
+	public ResponseEntity<OwnApartment> createOwn(@Valid @RequestBody OwnApartment ownApartment) {
+		return ownApartmentService.createOwn(ownApartment);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceElectricity> updatePriceElectricity(@PathVariable int id,
-			 													  @Valid @RequestBody PriceElectricity priceElectricity) {
-		return priceElectricityService.updatePriceElectricity(id, priceElectricity);
+	public ResponseEntity<OwnApartment> updateOwn(@PathVariable int id,
+												  @Valid @RequestBody OwnApartment ownApartment) {
+		return ownApartmentService.updateOwn(id, ownApartment);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deletePriceElectricity(@PathVariable int id) {
-		return priceElectricityService.deletePriceElectricity(id);
+	public ResponseEntity<String> deleteOwn(@PathVariable int id) {
+		return ownApartmentService.deleteOwn(id);
 	}
 
 }
