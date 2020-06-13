@@ -27,7 +27,7 @@ public class PriceElectricityService {
     // < --------------------------- Find By Id -------------------------->
     public ResponseEntity<PriceElectricity> findPriceElectricitybyId(int id) {
         try {
-            PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);       
+            PriceElectricity priceElectricity = priceElectricityRepository.findById(id).orElse(null);
             return ResponseEntity.ok(priceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -39,12 +39,12 @@ public class PriceElectricityService {
     public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
         try {
             PriceElectricity priceElectricities = priceElectricityRepository.findByLimit(
-                    priceElectricity.getDate().getYear()+ 1900,
+                    priceElectricity.getDate().getYear() + 1900,
                     priceElectricity.getDate().getMonth() + 1,
                     priceElectricity.getLimits());
             if (priceElectricities != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
-            
+
             priceElectricity.setId(0);
             priceElectricity = priceElectricityRepository.save(priceElectricity);
             return ResponseEntity.ok(priceElectricity);
@@ -63,9 +63,9 @@ public class PriceElectricityService {
                     priceElectricity.getDate().getYear() + 1900,
                     priceElectricity.getDate().getMonth() + 1,
                     priceElectricity.getLimits());
-            if( electricityid != null && electricityid.getId() != id)
+            if (electricityid != null && electricityid.getId() != id)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-            
+
             priceElectricity.setId(id);
             priceElectricity = priceElectricityRepository.save(priceElectricity);
             return ResponseEntity.ok(priceElectricity);
@@ -79,7 +79,7 @@ public class PriceElectricityService {
         try {
             if (!priceElectricityRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            
+
             priceElectricityRepository.deleteById(id);
             return ResponseEntity.ok("Deleted");
         } catch (Exception e) {
