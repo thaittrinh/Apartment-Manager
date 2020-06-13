@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,14 +36,16 @@ public class PriceElectricity implements Serializable {
 	private Integer id;
 
 	@NotNull
+	@Min(value = 1, message = "Limit must be greater than 1" )
 	private Integer limits;
 
 	@NotNull
+	@Min(value = 0, message = "Price must be greater than 0" )
 	private Double price;
 
-	@NotNull
+	@NotNull(message = "Date is not null")
 	@Temporal(TemporalType.DATE)	 
-  	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
+  	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 
 	@NotNull(message = "Employee is not null")

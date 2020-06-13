@@ -101,14 +101,15 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', 'Đã tạo phí quản lý')
                 },
                 error: function (error) {
-                    sweetalert(error.status)if(error.status === 409){
+                    if(error.status === 409){
 	            		 Swal.fire({
 	                         title : 'Error',
 	                         text: 'Giá trong tháng đã tồn tại!!!',
 	                         icon:'error'
 	                     })
 	            	}
-	            	sweetalert(error.status) 
+	            	sweetalert(error.status);
+                }
             });
         }
     }

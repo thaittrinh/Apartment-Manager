@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,9 @@ public class TypeVehicel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotNull()
-	@Column(unique = true, length = 20)
+	@Column(unique = true)
+	@NotNull
+	@Size( max = 20, message = "The name length is less than or equal to 20 characters")
 	private String name;
 
 	private String note;

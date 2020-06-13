@@ -3,9 +3,8 @@ $(document).ready(function () {
     $('#table-electricity').DataTable({
         "responsive": true,
         "scroller": {loadingIndicator: true},
-        "autoWidth": false,
-        "processing": true,
-        "autoWidth": false,
+        "autoWidth": true,
+        "processing": true,  
         "scrollY": "300px",
         "scrollCollapse": true,
         "sAjaxSource": URL + 'api/price-electricity',
