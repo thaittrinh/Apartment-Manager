@@ -1,12 +1,14 @@
 $(document).ready(function () {
     // <- ------------------------- load data to table ---------------------------->
     $('#table-garbage').DataTable({
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": {loadingIndicator: true},
+        "scroller": true,
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "scrollCollapse": true,
         "sAjaxSource": URL + "api/price-garbage",
         "sAjaxDataProp": "",
         "order": [[0, "asc"]],

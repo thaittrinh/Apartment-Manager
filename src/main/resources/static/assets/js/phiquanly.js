@@ -2,12 +2,14 @@ $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-phiquanly').DataTable(
         {
+            "paging": true,
+            "serverSize": true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
             "responsive": true,
-            "scroller": {loadingIndicator: true},
+            "scroller": true,
             "autoWidth": true,
             "processing": true,
-            "scrollY": "300px",
-            "scrollCollapse": true,
+            "scrollY": "250px",
             "sAjaxSource": URL + 'api/price-management',
             "sAjaxDataProp": "",
             "order": [[0, "asc"]],

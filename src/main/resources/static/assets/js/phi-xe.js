@@ -3,12 +3,14 @@
 	
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": {loadingIndicator: true},
+        "scroller": true,
         "autoWidth": true,
         "processing": true,
-        "scrollY": "300px",
-        "scrollCollapse": true,
+        "scrollY": "250px",
         "sAjaxSource": URL + 'api/price-parking',
         "sAjaxDataProp": "",
         "order": [[0, "asc"]],

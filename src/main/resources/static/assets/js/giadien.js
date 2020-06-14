@@ -1,12 +1,14 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-electricity').DataTable({
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": {loadingIndicator: true},
+        "scroller": true,
         "autoWidth": true,
-        "processing": true,  
-        "scrollY": "300px",
-        "scrollCollapse": true,
+        "processing": true,
+        "scrollY": "250px",
         "sAjaxSource": URL + 'api/price-electricity',
         "sAjaxDataProp": "",
         "order": [[0, "asc"]],
@@ -79,13 +81,13 @@ let showFormUpdate = (id, e) => {
 document.querySelector('#save').addEventListener('click', () => {
     let electricity = getValueForm();
     //< -------------- update --------------->
-    if(validate(electricity)) {
+    if (validate(electricity)) {
         if (electricity.id) {
             $.ajax({
                 type: 'PUT',
                 url: URL + `api/price-electricity/${electricity.id}`,
                 contentType: 'application/json',
-                date: 'json',
+                dataType: 'json',
                 cache: false,
                 data: JSON.stringify(electricity),
                 success: function (result) {
@@ -95,14 +97,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', 'Đã cập nhật giá điện ');
                 },
                 error: function (error) {
-                	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status)   
+                    if (error.status === 409) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
+                            icon: 'error'
+                        })
+                    }
+                    sweetalert(error.status)
                 }
             })
         }
@@ -122,14 +124,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success', 'Đã tạo giá điện')
                 },
                 error: function (error) {
-                	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status)   
+                    if (error.status === 409) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
+                            icon: 'error'
+                        })
+                    }
+                    sweetalert(error.status)
                 }
 
             })
@@ -181,13 +183,13 @@ let fillToForm = (electricity) => {
 
 }
 
-let validate = (data) => {  
+let validate = (data) => {
     if (data.price === '') {
         toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
-    if (data.price < 0 ){
+    if (data.price < 0) {
         toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
@@ -197,12 +199,12 @@ let validate = (data) => {
         document.querySelector('#date').focus();
         return false;
     }
-    if(data.limits === ''){
+    if (data.limits === '') {
         toastrError("Hạn mức không được để trống!")
         document.querySelector('#limits').focus();
         return false
     }
-    if(data.limits < 0 ){
+    if (data.limits < 0) {
         toastrError("Hạn mức không được âm!")
         document.querySelector('#limits').focus();
         return false

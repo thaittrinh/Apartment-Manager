@@ -61,9 +61,9 @@ public class ResidentService {
             if (resident != null && resident.getId() != id )
                 return new ResponseEntity(null, HttpStatus.CONFLICT);
 
-            resident.setId(id);
-            resident = residentRepository.save(resident);
-            return ResponseEntity.ok(resident);
+            newResident.setId(id);
+            newResident = residentRepository.save(newResident);
+            return ResponseEntity.ok(newResident);
         } catch (Exception e) {
             return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

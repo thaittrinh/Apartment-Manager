@@ -18,8 +18,8 @@
             </div>
         </div>
         <!--------------------------------------------- card-body-table --------------------------------------->
-        <div class="card-body ">
-            <table class="table table-hover table-responsive-xl table-light" id="table-resident">
+        <div class="card-body  ">
+            <table class="table  table-condensed table-responsive-xl table-striped" id="table-resident">
                 <thead >
                 <tr >
                     <th>ID</th>
@@ -38,11 +38,13 @@
                 </tbody>
             </table>
             <!--------------------------------- Button open modal form  -------------------------->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form-resident">
-                <i class="fas fa-user-plus mr-1"></i> Thêm Cư Dân
+            <button style="width: 160px" type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+                    onclick="document.querySelector('#form-label').innerHTML = 'Thêm Cư Dân' "
+                    data-target="#form-resident">
+                <i class=" fas fa-user-plus mr-2"></i> Thêm cư dân
             </button>
             <!------------------------------------------------------>
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#form-vehicle">
+            <button style="width: 160px"  type="button" class="btn btn-warning" data-toggle="modal" data-target="#form-vehicle">
                 <i class="fas fa-motorcycle mr-1"></i> Đăng ký xe gửi
             </button>
         </div>
@@ -50,14 +52,13 @@
     </div>
     <!--------------------------------------------- Form modal Cư Dân---------------------------------->
     <div class="modal fade" id="form-resident" tabindex="-1"
-         role="dialog" aria-labelledby="form-resident" aria-hidden="true">
+         role="dialog" aria-labelledby="form-label" aria-hidden="true">
         <div class=" modal-lg modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <!------------------------------------- Header-modal ----------------------------------->
                 <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-address-card mr-3"></i>
-                        Thêm Cư Dân </h5>
+                    <h5 class="modal-title" id="form-label">
+                        <i class="fas fa-address-card mr-3"></i></h5>
                     <i class="material-icons " data-dismiss="modal">close</i>
                 </div>
                 <!--------------------------------------- body-modal ------------------------------------->
@@ -81,12 +82,12 @@
                             <!------------------------- Giới tính --------------------------->
                             <div class="custom-control custom-radio custom-control-inline"
                                  style="margin-left: 40px; margin-top: 15px;">
-                                <input type="radio" id="male" name="gender" value="Male" class="custom-control-input">
+                                <input type="radio" id="male" name="gender" value="male" class="custom-control-input">
                                 <label class="custom-control-label" for="male">Nam</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline"
                                  style="margin-left:10px; margin-top: 15px;">
-                                <input type="radio" id="female" name="gender" value="Female" class="custom-control-input">
+                                <input type="radio" id="female" name="gender" value="female" class="custom-control-input">
                                 <label class="custom-control-label" for="female">Nữ</label>
                             </div>
                         </div>
@@ -143,8 +144,12 @@
                 </div>
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
-                    <button class="btn btn-primary"><i class="fas fa-user-plus mr-2"></i>Thêm Mới</button>
-                    <button class="btn btn-success"><i class="fas fa-user-edit mr-2"></i>Cập Nhật</button>
+                    <button style="width: 115px" type="button" class="btn btn-success" id="saveResident">
+                        <i class="fas fa-save mr-2"></i> Lưu Lại
+                    </button>
+                    <button style="width: 115px" type="button" class="btn btn-danger" id="clean-form-resident">
+                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
+                    </button>
                 </div>
                 <!------------------------------------------->
             </div>
@@ -200,10 +205,10 @@
                 </div>
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="save">
+                    <button type="button" class="btn btn-success" id="savevehicle">
                         <i class="fas fa-save mr-2"></i> Lưu Lại
                     </button>
-                    <button type="button" class="btn btn-danger" id="clean-form">
+                    <button type="button" class="btn btn-danger" id="clean">
                         <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
                     </button>
                 </div>

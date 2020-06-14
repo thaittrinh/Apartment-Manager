@@ -1,13 +1,14 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-resident').DataTable({
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": {loadingIndicator: true},
+        "scroller": true,
         "autoWidth": true,
         "processing": true,
-        "scrollY": "270px",
-        "scrollX": "100px",
-        "scrollCollapse": true,
+        "scrollY": "250px",
         "sAjaxSource": URL + 'api/resident',
         "sAjaxDataProp": "",
         "order": [[0, "asc"]],
@@ -15,8 +16,8 @@ $(document).ready(function () {
             {"mData": "id"},
             {"mData": "fullname"},
             {
-                "mRender": function (gender) {
-                    return gender ? 'Male' : 'Female';
+                "mRender": function (data, type, full) {
+                    return full.gender ? "Female" : "Male"
                 }
             },
             {"mData": "birthday"},
@@ -55,7 +56,7 @@ let deleteResident = (id, e) => {
                 contentType: 'application/json',
                 cache: false,
                 success: function (result) {
-                    $('#table-resident').DataTable().row($(e).parents('tr'))
+                    $('#table-resident').DataTable().row($(e).parents('tr')).remove().draw();
                     sweetalert(200, 'Success!', 'Đã xóa cư dân ')
 
                 },
@@ -67,35 +68,176 @@ let deleteResident = (id, e) => {
         }
     })
 }
+
+
 // < ----------------- show form update -------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
-    index = $('#table-resident').DataTable().row($(e).parent('tr')).index
+    index = $('#table-resident').DataTable().row($(e).parents('tr')).index();
     $('#form-resident').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập Nhật Thông Tin Cư Dân"
+    document.querySelector('.modal-title').innerHTML = "Cập Nhật Thông Tin Cư Dân";
     $.ajax({
         url: URL + `api/resident/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-         fillToFrom(result);
+            fillToFrom(result)
         },
         error: function (error) {
-            sweetalert(error.stastus)
+            sweetalert(error.status)
         }
     })
 }
-// < ------------------ fill to form -------------------------->
-let fillToFrom = (resident, apartment) =>{
-    document.querySelector('#id').value = resident.id;
-    document.querySelector('#fullname').value = resident.fullname;
-    document.querySelector('#birthday').value = resident.birthday;
-    document.querySelector('#gender').checked === ? false : true;
-    document.querySelector('#nationality').value = resident.nationality;
-    document.querySelector('#hometown').value = resident.hometown;
-    document.querySelector('#job').value = resident.job;
-    document.querySelector('#phone').value = resident.phone;
-    document.querySelector('#email').value = resident.email;
-    document.querySelector('#identitycard').value = resident.identitycard;
-    document.querySelector('#idapartment').value = apartment.id;
+
+
+// < -------------------------- insert or update ----------------->
+document.querySelector('#saveResident').addEventListener('click', () => {
+    let resident = getValueForm();
+    if (validate(resident)) {
+        if (resident.id) {
+            // < ------------------- update --------->
+            $.ajax({
+                type: 'PUT',
+                url: URL + `api/resident/${resident.id}`,
+                contentType: 'application/json',
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(resident),
+                success: function (result) {
+                    result.birthday = formatDate(result.birthday);  // Convert date to yy-MM-dd
+                    $('#table-resident').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    $('#form-resident').modal('hide');     // close modal
+                    sweetalert(200, 'Success!', 'Đã cập nhật thông tin cư dân ');
+                },
+                error: function (error) {
+                    if (error.status === 409) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Số chứng minh thư đã tồn tại',
+                            icon: 'error'
+                        })
+                    }
+                    sweetalert(error.status)
+                }
+            })
+        } else {
+            // < ---------------- create ------------>
+            $.ajax({
+                type: 'POST',
+                url: URL + `api/resident`,
+                contentType: 'application/json',
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(resident),
+                success: function (result) {
+                    result.birthday = formatDate(result.birthday)
+                    $('#table-resident').DataTable().row.add(result).draw().node();
+                    sweetalert(200, 'Success!', 'Đã thêm cư dân mới ')
+                },
+                error: function (error) {
+                    if (error.status === 409) {
+                        swal.fire({
+                            title: 'Error',
+                            text: 'Số chứng minh nhân dân đã tồn tại',
+                            icon: 'error'
+                        })
+                    }
+                    sweetalert(error.status)
+                }
+            })
+        }
+    }
+})
+
+
+//< ---------------- clean form when modal close ---------->
+$("#form-resident").on("hidden.bs.modal", function () {
+    cleanFrom();
+});
+
+
+// < -------------------- clean form ----- ---------------->
+let cleanFrom = () => {
+    document.querySelector("#id").value = '',
+        document.querySelector('#fullname').value = '',
+        document.querySelector('#birthday').value = '',
+        $('input[name="gender"]').prop('checked', false),
+        document.querySelector('#nationality').value = '',
+        document.querySelector('#hometown').value = '',
+        document.querySelector('#job').value = '',
+        document.querySelector('#phone').value = '',
+        document.querySelector('#email').value = '',
+        document.querySelector('#identitycard').value = '',
+        document.querySelector('#idapartment').value = ''
 }
+
+// < -------------- clean form when click button clean ------------>
+document.querySelector('#clean-form-resident').addEventListener('click', cleanFrom);
+
+
+// < ------------------- get value form ------------------------>
+let getValueForm = () => {
+    return {
+        'id': document.querySelector('#id').value,
+        'fullname': document.querySelector('#fullname').value,
+        'birthday': document.querySelector('#birthday').value,
+        'gender': $("input[name='gender']:checked").val() == 'female' ? true : false,
+        'nationality': document.querySelector('#nationality').value,
+        'hometown': document.querySelector('#hometown').value,
+        'job': document.querySelector('#job').value,
+        'phone': document.querySelector('#phone').value,
+        'email': document.querySelector('#email').value,
+        'identitycard': document.querySelector('#identitycard').value,
+        'apartment': {'id': document.querySelector('#idapartment').value},
+
+    }
+}
+// < ------------------ fill to form -------------------------->
+let fillToFrom = (resident) => {
+    document.querySelector("#id").value = resident.id,
+        document.querySelector('#fullname').value = resident.fullname,
+        document.querySelector('#birthday').value = resident.birthday,
+        $(resident.gender ? "#female" : "#male").prop('checked', true),
+        document.querySelector('#nationality').value = resident.nationality,
+        document.querySelector('#hometown').value = resident.hometown,
+        document.querySelector('#job').value = resident.job,
+        document.querySelector('#phone').value = resident.phone,
+        document.querySelector('#email').value = resident.email,
+        document.querySelector('#identitycard').value = resident.identitycard,
+        document.querySelector('#idapartment').value = resident.apartment.id
+}
+
+let validate = (data) => {
+    if (data.fullname === '') {
+        toastrError("Họ tên không được để trống!");
+        document.querySelector('#fullname').focus();
+        return false;
+    }
+    if (data.birthday === '') {
+        toastrError("Ngày sinh không được để trống");
+        document.querySelector('#birthday').focus();
+        return false
+    }
+    if (!$('input[name=gender]:checked').val()) {
+        toastrError("Giới tính phải không được trống");
+        return false
+    }
+    if (data.nationality === '') {
+        toastrError("Quốc tịch không được để trống")
+        document.querySelector('#nationality').focus();
+        return false
+    }
+    if (data.hometown === '') {
+        toastrError("Quê quán không được để trống");
+        document.querySelector('#hometown').focus();
+        return false
+    }
+    if (data.apartment.id === '') {
+        toastrError("Mã căn hộ không được để trống");
+        document.querySelector('#idapartment')
+        return false
+
+    }
+    return true;
+}
+
