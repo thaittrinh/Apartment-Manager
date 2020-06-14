@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -26,38 +28,40 @@ public class Resident implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "fullname can  not  be null ")
     @Column(length = 50)
     private String fullname;
 
-    @NotNull
+    @NotNull(message = "gender can not be  null ")
     private Boolean gender;
 
-    @NotNull
+    @NotNull(message = "birthday can not be null")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
 
-    @NotNull
+    @NotNull(message = "nationality can not bư null")
     @Column(length = 20)
     private String nationality;
 
-    @NotNull
-    private String birthplace;
+    @NotNull(message = " hometown can not be null ")
+    private String hometown;
 
-    @NotNull
+    @NotNull(message = "job can not be null")
     private String job;
 
-    @NotNull
-    @Column(length = 12)
-    private Integer phone;
+
+    @Column(length = 11 )
+    @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
+    private String phone;
 
     @Column(length = 50)
     private String email;
 
-    @NotNull
+
     @Column(length = 12)
-    private Integer identitycard;
+    @Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
+    private String identitycard;
 
     @NotNull
     @ManyToOne

@@ -1,7 +1,8 @@
 .card {
-	width: 700px;
+
+	width: 1067px;
 	border: 0;
-	margin: 65px 0 0 15px;
+	margin: 65px 0 0px 15px;
 	border-radius: 6px;
 	color: #333;
 	background: #fff;
@@ -157,7 +158,11 @@
 .icon-table {
 
 }
-
+.card-body table thead {
+	font-size: 15px !important;
+	font-family: Roboto, Helvetica, Arial, sans-serif !important;
+	color: #59287a !important;
+}
 input::-webkit-datetime-edit {
 	color: transparent;
 	margin-top: -2px

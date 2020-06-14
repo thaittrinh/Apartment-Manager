@@ -41,7 +41,6 @@ public class PriceManagementService {
             PriceManagement priceManagements = priceManagementRepository.findByYearAndMonth(
                     priceManagement.getDate().getYear() + 1900,
                     priceManagement.getDate().getMonth() + 1);
-
             if (priceManagements != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
 
