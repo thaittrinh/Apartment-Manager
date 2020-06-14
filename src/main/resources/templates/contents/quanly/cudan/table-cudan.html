@@ -67,6 +67,7 @@
                         <div class="row">
                             <!------------------------- Họ Tên ------------------------------>
                             <div class="input-container">
+                                <input type="number" id="id" hidden="true" required="required"/>
                                 <input type="text" required="required" name="fullname" id="fullname"
                                        style="width:300px"/>
                                 <label for="fullname">Họ Tên</label>
@@ -80,12 +81,12 @@
                             <!------------------------- Giới tính --------------------------->
                             <div class="custom-control custom-radio custom-control-inline"
                                  style="margin-left: 40px; margin-top: 15px;">
-                                <input type="radio" id="male" name="gender" class="custom-control-input">
+                                <input type="radio" id="male" name="gender" value="Male" class="custom-control-input">
                                 <label class="custom-control-label" for="male">Nam</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline"
                                  style="margin-left:10px; margin-top: 15px;">
-                                <input type="radio" id="female" name="gender" class="custom-control-input">
+                                <input type="radio" id="female" name="gender" value="Female" class="custom-control-input">
                                 <label class="custom-control-label" for="female">Nữ</label>
                             </div>
                         </div>
@@ -93,9 +94,9 @@
                         <div class="row">
                             <!---------------------------- CMND ------------------------------>
                             <div class="input-container">
-                                <input type="text" required="required" name="identityCard" id="identityCard"
+                                <input type="text" required="required" name="identitycard" id="identitycard"
                                        style="width:180px">
-                                <label for="identityCard">CMND</label>
+                                <label for="identitycard">CMND</label>
                             </div>
                             <!--------------------------- Quốc Tịch -------------------------->
                             <div class="input-container">

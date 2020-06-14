@@ -3,7 +3,7 @@ $(document).ready(function () {
        $('#my-table').DataTable({	  
 	        "responsive": true,
 	        "scroller": {loadingIndicator: true},
-	        "autoWidth": false,
+	        "autoWidth": true,
 	        "processing": true,
 	        "scrollY": "300px",
 	        "scrollCollapse": true,

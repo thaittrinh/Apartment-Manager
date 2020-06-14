@@ -48,11 +48,10 @@ let deletePrice = (id, e) => {
                 cache: false,
                 success: function (result) {
                     $('#table-electricity').DataTable().row($(e).parents('tr')) //
-                        .remove().draw();
                     sweetalert(200, 'Success!', 'Đã xóa giá điện ')
                 },
                 error: function (error) {
-                    toastrmessage(error.status)
+                    sweetalert(error.status)
                 }
             });
         }

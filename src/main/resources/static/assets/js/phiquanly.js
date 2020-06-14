@@ -4,9 +4,8 @@ $(document).ready(function () {
         {
             "responsive": true,
             "scroller": {loadingIndicator: true},
-            "autoWidth": false,
+            "autoWidth": true,
             "processing": true,
-            "autoWidth": false,
             "scrollY": "300px",
             "scrollCollapse": true,
             "sAjaxSource": URL + 'api/price-management',

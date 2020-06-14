@@ -163,6 +163,9 @@
 	font-family: Roboto, Helvetica, Arial, sans-serif !important;
 	color: #59287a !important;
 }
+.card-body table tbody{
+	color: #59287a !important;
+}
 input::-webkit-datetime-edit {
 	color: transparent;
 	margin-top: -2px
