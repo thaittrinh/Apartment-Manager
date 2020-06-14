@@ -15,6 +15,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -50,6 +51,7 @@ public class PriceWater implements Serializable {
 	@JoinColumn(name = "id_employee", referencedColumnName = "id")
 	private Employee employee;
 	
+	@Size( max = 255, message = "The note length is less than or equal to 50 characters")
 	private String note;
 	
 }

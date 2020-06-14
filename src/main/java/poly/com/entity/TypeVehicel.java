@@ -33,6 +33,7 @@ public class TypeVehicel implements Serializable {
 	@Size( max = 20, message = "The name length is less than or equal to 20 characters")
 	private String name;
 
+	@Size( max = 255, message = "The note length is less than or equal to 50 characters")
 	private String note;
 	
 }

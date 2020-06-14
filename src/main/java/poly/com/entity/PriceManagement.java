@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -42,5 +43,6 @@ public class PriceManagement implements Serializable {
 	@NotNull(message = "Employee is not null")
 	private Employee employee;
 
+	@Size( max = 255, message = "The note length is less than or equal to 50 characters")
 	private String note;
 }
