@@ -36,18 +36,18 @@ public class PriceElectricityService {
 
     // < ---------------------------- Create ------------------------------------>
     @SuppressWarnings("deprecation")
-    public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity priceElectricity) {
+    public ResponseEntity<PriceElectricity> createPriceElectricity(PriceElectricity newPriceElectricity) {
         try {
-            PriceElectricity priceElectricities = priceElectricityRepository.findByLimit(
-                    priceElectricity.getDate().getYear() + 1900,
-                    priceElectricity.getDate().getMonth() + 1,
-                    priceElectricity.getLimits());
-            if (priceElectricities != null)
+            PriceElectricity priceElectricity = priceElectricityRepository.findByLimit(
+                    newPriceElectricity.getDate().getYear() + 1900,
+                    newPriceElectricity.getDate().getMonth() + 1,
+                    newPriceElectricity.getLimits());
+            if (priceElectricity != null)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT); // 409
 
-            priceElectricity.setId(0);
-            priceElectricity = priceElectricityRepository.save(priceElectricity);
-            return ResponseEntity.ok(priceElectricity);
+            newPriceElectricity.setId(0);
+            newPriceElectricity = priceElectricityRepository.save(newPriceElectricity);
+            return ResponseEntity.ok(newPriceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -55,20 +55,20 @@ public class PriceElectricityService {
 
     // < ----------------------------- Update ------------------------------------->
     @SuppressWarnings("deprecation")
-    public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity priceElectricity) {
+    public ResponseEntity<PriceElectricity> updatePriceElectricity(int id, PriceElectricity newPriceElectricity) {
         try {
             if (!priceElectricityRepository.existsById(id))
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            PriceElectricity electricityid = priceElectricityRepository.findByLimit(
-                    priceElectricity.getDate().getYear() + 1900,
-                    priceElectricity.getDate().getMonth() + 1,
-                    priceElectricity.getLimits());
-            if (electricityid != null && electricityid.getId() != id)
+            PriceElectricity priceElectricity = priceElectricityRepository.findByLimit(
+                    newPriceElectricity.getDate().getYear() + 1900,
+                    newPriceElectricity.getDate().getMonth() + 1,
+                    newPriceElectricity.getLimits());
+            if (priceElectricity != null && priceElectricity.getId() != id)
                 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 
-            priceElectricity.setId(id);
-            priceElectricity = priceElectricityRepository.save(priceElectricity);
-            return ResponseEntity.ok(priceElectricity);
+            newPriceElectricity.setId(id);
+            newPriceElectricity = priceElectricityRepository.save(newPriceElectricity);
+            return ResponseEntity.ok(newPriceElectricity);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

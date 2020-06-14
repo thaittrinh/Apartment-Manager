@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import poly.com.entity.Resident;
 import poly.com.service.ResidentService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,8 +29,21 @@ public class ResidentController {
         return residentService.findById(id);
     }
 
+    // < ----------------------------- Create --------------------->
     @PostMapping()
-    public ResponseEntity create(@RequestBody Resident resident) {
+    public ResponseEntity create(@Valid @RequestBody Resident resident) {
         return residentService.create(resident);
+    }
+
+    // < ----------------------------- Update --------------------->
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable int id, @Valid @RequestBody Resident resident) {
+        return residentService.update(id, resident);
+    }
+
+    // < ----------------------------- Delete --------------------->
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable int id) {
+        return residentService.delete(id);
     }
 }

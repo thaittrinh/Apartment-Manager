@@ -8,7 +8,7 @@ data-layout-decorate="~{/layout-admin}">
         <div th:replace="components/header"></div>
     </div>
     <!-------------------------------------- Danh sách xe----------------------------->
-    <div class="card" style="width: 100%; margin-left: -3px">
+    <div class="card"  >
         <!-------------------------- card title table --------------->
         <div class="card-header" style="border-radius: 6px;">
             <div class="card-titles">
@@ -22,7 +22,7 @@ data-layout-decorate="~{/layout-admin}">
         <!------------------------------------------------------------->
         <div class="card-body">
             <!--------------------------card-body-table---------------->
-            <table class="table table-hover" id="table-xe">
+            <table class="table table-hover table-responsive-xl table-light"" id="table-xe">
                 <thead>
                 <tr>
                     <th>
@@ -32,55 +32,50 @@ data-layout-decorate="~{/layout-admin}">
                 </thead>
             </table>
             <!------------------------------------------------------>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form-building">
-                <i class="icon-btn fa fa-plus"></i> Đăng ký xe gửi
-            </button>
         </div>
     </div>
     <!---------------------------------------- Form modal Xe ---------------------------------->
-    <div class="modal fade" id="form-building" tabindex="-1"
-         role="dialog" aria-labelledby="form-label" aria-hidden="true">
+    <div class="modal fade" id="form-vehicle" tabindex="-1"
+         role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <!------------------- Header-modal -------------->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="form-label">  
-                   <i class="fas fa-bicycle mr-1"></i> 
-                   <i class="fas fa-motorcycle mr-1"></i> 
-                   <i class="fas fa-car mr-3"></i>
-                   Thông Tin Xe của cư dân </h5>
-                    <i class="material-icons "  data-dismiss="modal">close</i>
+                    <h5 class="modal-title">
+                        <i class="fas fa-bicycle mr-1"></i>
+                        <i class="fas fa-motorcycle mr-1"></i>
+                        <i class="fas fa-car mr-3"></i>
+                        Thông Tin Xe của cư dân </h5>
+                    <i class="material-icons " data-dismiss="modal">close</i>
                 </div>
                 <!------------------- body-modal ---------------->
                 <div class="modal-body">
                     <form>
 
                         <div class="row">
-                            <!------------- ID Can ho --------------->
+                            <!------------- loai xe --------------->
                             <div class="input-container">
-                                <input type="text"  required="required" name="typeVehicle" id="typeVehicle" style="width:230px"/>
+                                <input type="text" required="required" name="typeVehicle" id="typeVehicle"
+                                       style="width:230px"/>
                                 <label for="typeVehicle">Loại Xe </label>
                             </div>
 
-                            <!------------- Diện Tích --------------->
+                            <!------------- bien so xe --------------->
                             <div class="input-container">
-                                <input type="text"  required="required" name="licensePlates" id="licensePlates" style="width:220px"/>
+                                <input type="text" required="required" name="licensePlates" id="licensePlates"
+                                       style="width:220px"/>
                                 <label for="licensePlates">Biển Số Xe</label>
                             </div>
                             <!----------------- MAU XE --------------->
                             <div class="input-container">
-                                <input type="text"  required="required" name="color" id="color" style="width:170px"/>
+                                <input type="text" required="required" name="color" id="color" style="width:170px"/>
                                 <label for="color">Màu</label>
                             </div>
                             <!------------------- id cư dan ------------>
-                            <div>
-                                <select style="width: 285px;margin: 2px 0 0 10px;padding-bottom: 12px;"
-                                        class="input-select">
-                                    <option selected> ID Cư Dân</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                            <div class="input-container">
+                                <input type="text" required="required" name="idresident" id="idresident"
+                                       style="width:280px"/>
+                                <label for="idresident">ID Cư Dân</label>
                             </div>
                             <!---------------------------------------->
                         </div>
@@ -89,9 +84,11 @@ data-layout-decorate="~{/layout-admin}">
                 </div>
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success"><i class="icon-btn fa fa-plus"></i> Tạo Mới
+                    <button type="button" class="btn btn-success" id="save">
+                        <i class="fas fa-save mr-2"></i> Lưu Lại
                     </button>
-                    <button type="button" class="btn btn-primary"><i class=" icon-btn fas fa-sync-alt"></i>Cập Nhật
+                    <button type="button" class="btn btn-danger" id="clean-form">
+                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
                     </button>
                 </div>
                 <!------------------------------------------------->

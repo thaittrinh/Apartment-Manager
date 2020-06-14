@@ -33,15 +33,17 @@ public class ResidentService {
         }
     }
 
-    public ResponseEntity create(Resident resident) {
+    // < ------------------------- Create --------------------->
+    public ResponseEntity create(Resident newResident) {
         try {
-            if (resident.getIdentitycard() != null && residentRepository.existsByIdentitycard(
-                    resident.getIdentitycard()))
+            Resident resident = residentRepository.findByIdentitycard(
+                    newResident.getIdentitycard()).orElse(null);
+            if( newResident.getIdentitycard() != null && resident  != null)
                 return new ResponseEntity(null, HttpStatus.CONFLICT);
 
-            resident.setId(0);
-            resident = residentRepository.save(resident);
-            return ResponseEntity.ok(resident);
+            newResident.setId(0);
+            newResident = residentRepository.save(newResident);
+            return ResponseEntity.ok(newResident);
         } catch (Exception e) {
             return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -49,12 +51,14 @@ public class ResidentService {
 
 
     // < --------------------------- Update ---------------------->
-    public ResponseEntity update(int id, Resident resident) {
+    public ResponseEntity update(int id, Resident newResident) {
         try {
             if (!residentRepository.existsById(id))
                 return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-            if (resident.getIdentitycard() != null && residentRepository.existsByIdentitycard(
-                    resident.getIdentitycard()))
+
+            Resident resident = residentRepository.findByIdentitycard(
+                    newResident.getIdentitycard()).orElse(null);
+            if (resident != null && resident.getId() != id )
                 return new ResponseEntity(null, HttpStatus.CONFLICT);
 
             resident.setId(id);
