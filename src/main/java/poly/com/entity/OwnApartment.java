@@ -42,6 +42,7 @@ public class OwnApartment implements Serializable {
 	private Boolean gender;
 
 	@NotNull(message = "Birthday is not null") 
+	//@Past() time quá khứ
   	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;;
@@ -70,7 +71,7 @@ public class OwnApartment implements Serializable {
 	private String image;
 
 	@NotNull()
-	@Column(unique = true, length = 12)
+	@Column(length = 12, unique = true)
 	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
 	private String identitycard;
 

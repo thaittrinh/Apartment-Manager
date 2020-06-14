@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.entity.OwnApartment;
 import poly.com.service.OwnApartmentService;
@@ -39,14 +41,21 @@ public class OwnApartmentController {
 	}
 
 	// < ------------------------ Create ----------------------------->
+   
 	@PostMapping()
-	public ResponseEntity<OwnApartment> createOwn(@Valid @RequestBody OwnApartment ownApartment) {
+	public ResponseEntity<?> createOwn(@Valid @RequestBody OwnApartment ownApartment){
 		return ownApartmentService.createOwn(ownApartment);
 	}
-
+	
+	@PostMapping("/upload-file/{id}")
+	public ResponseEntity<OwnApartment> uploadFile(@PathVariable int id ,
+												   @RequestParam("file") MultipartFile mFile) {
+	  return ownApartmentService.uploadFile(mFile, id);
+	}
+	
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<OwnApartment> updateOwn(@PathVariable int id,
+	public ResponseEntity<?> updateOwn(@PathVariable int id,
 												  @Valid @RequestBody OwnApartment ownApartment) {
 		return ownApartmentService.updateOwn(id, ownApartment);
 	}
