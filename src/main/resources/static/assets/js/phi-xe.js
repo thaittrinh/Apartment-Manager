@@ -65,12 +65,17 @@ let deletePrice = (id, e) => {
     })
 }
 
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-car mr-3'></i>" +'Thêm Giá Mới'
+}
+
+
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
  index = $('#my-table').DataTable().row($(e).parents('tr')).index();
  $('#form-building').modal('show')
- document.querySelector('.modal-title').innerHTML = "Cập nhập giá";
+ document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-car mr-3'></i>" + "Cập nhập giá"
  $.ajax({
      url: URL + `api/price-parking/${id}`,
      type: 'GET',

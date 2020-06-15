@@ -59,12 +59,17 @@ let deletePrice = (id, e) => {
         }
     })
 }
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-bolt mr-3'></i>" +'Thêm Giá Mới'
+}
+
 // < ----------------------- show form update ---------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-electricity').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập Nhật Giá Điện";
+    document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-bolt mr-3 '></i>" + "Cập Nhật Giá Điện";
     $.ajax({
         url: URL + `api/price-electricity/${id}`,
         type: 'GET',

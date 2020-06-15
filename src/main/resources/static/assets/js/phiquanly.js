@@ -33,12 +33,16 @@ $(document).ready(function () {
         });
 });
 
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" +'Thêm Giá Mới'
+}
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
     index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập nhật phí quản lý";
+    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "Cập nhật phí quản lý";
     $.ajax({
         url: URL + `api/price-management/${id}`,
         type: 'GET',

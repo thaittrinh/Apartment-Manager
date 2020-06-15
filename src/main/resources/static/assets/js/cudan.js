@@ -69,13 +69,15 @@ let deleteResident = (id, e) => {
     })
 }
 
-
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3'></i>" + 'Thêm Cư Dân'
+}
 // < ----------------- show form update -------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-resident').DataTable().row($(e).parents('tr')).index();
     $('#form-resident').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập Nhật Thông Tin Cư Dân";
+    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-address-card mr-3'></i>" + "Cập Nhật Thông Tin Cư Dân";
     $.ajax({
         url: URL + `api/resident/${id}`,
         type: 'GET',
@@ -133,6 +135,7 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                     result.birthday = formatDate(result.birthday)
                     $('#table-resident').DataTable().row.add(result).draw().node();
                     sweetalert(200, 'Success!', 'Đã thêm cư dân mới ')
+                    cleanFrom();
                 },
                 error: function (error) {
                     if (error.status === 409) {
@@ -158,17 +161,16 @@ $("#form-resident").on("hidden.bs.modal", function () {
 
 // < -------------------- clean form ----- ---------------->
 let cleanFrom = () => {
-    document.querySelector("#id").value = '',
-        document.querySelector('#fullname').value = '',
-        document.querySelector('#birthday').value = '',
+    document.querySelector("#id").value = "",
+        document.querySelector('#fullname').value = "",
+        document.querySelector('#birthday').value = "",
         $('input[name="gender"]').prop('checked', false),
-        document.querySelector('#nationality').value = '',
-        document.querySelector('#hometown').value = '',
-        document.querySelector('#job').value = '',
-        document.querySelector('#phone').value = '',
-        document.querySelector('#email').value = '',
-        document.querySelector('#identitycard').value = '',
-        document.querySelector('#idapartment').value = ''
+        document.querySelector("#hometown").value = "",
+        document.querySelector('#job').value = "",
+        document.querySelector('#phone').value = "",
+        document.querySelector('#email').value = "",
+        document.querySelector('#identitycard').value = "" ,
+        document.querySelector('#idapartment').value = ""
 }
 
 // < -------------- clean form when click button clean ------------>
@@ -178,19 +180,19 @@ document.querySelector('#clean-form-resident').addEventListener('click', cleanFr
 // < ------------------- get value form ------------------------>
 let getValueForm = () => {
     return {
-        'id': document.querySelector('#id').value,
+        'id': document.querySelector("#id").value,
         'fullname': document.querySelector('#fullname').value,
         'birthday': document.querySelector('#birthday').value,
         'gender': $("input[name='gender']:checked").val() == 'female' ? true : false,
-        'nationality': document.querySelector('#nationality').value,
-        'hometown': document.querySelector('#hometown').value,
+        'hometown': document.querySelector("#hometown").value,
         'job': document.querySelector('#job').value,
         'phone': document.querySelector('#phone').value,
         'email': document.querySelector('#email').value,
         'identitycard': document.querySelector('#identitycard').value,
-        'apartment': {'id': document.querySelector('#idapartment').value},
-
+        'apartment': {"id": document.querySelector('#idapartment').value}
     }
+
+
 }
 // < ------------------ fill to form -------------------------->
 let fillToFrom = (resident) => {
@@ -198,9 +200,8 @@ let fillToFrom = (resident) => {
         document.querySelector('#fullname').value = resident.fullname,
         document.querySelector('#birthday').value = resident.birthday,
         $(resident.gender ? "#female" : "#male").prop('checked', true),
-        document.querySelector('#nationality').value = resident.nationality,
-        document.querySelector('#hometown').value = resident.hometown,
-        document.querySelector('#job').value = resident.job,
+        document.querySelector("#hometown").value = resident.hometown,
+        document.querySelector('#job').value = resident.job ,
         document.querySelector('#phone').value = resident.phone,
         document.querySelector('#email').value = resident.email,
         document.querySelector('#identitycard').value = resident.identitycard,
@@ -220,11 +221,6 @@ let validate = (data) => {
     }
     if (!$('input[name=gender]:checked').val()) {
         toastrError("Giới tính phải không được trống");
-        return false
-    }
-    if (data.nationality === '') {
-        toastrError("Quốc tịch không được để trống")
-        document.querySelector('#nationality').focus();
         return false
     }
     if (data.hometown === '') {

@@ -40,9 +40,6 @@ public class Resident implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
 
-    @NotNull(message = "nationality can not bư null")
-    @Column(length = 20)
-    private String nationality;
 
     @NotNull(message = " hometown can not be null ")
     private String hometown;
