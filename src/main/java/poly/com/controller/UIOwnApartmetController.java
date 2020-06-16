@@ -1,7 +1,9 @@
 package poly.com.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,12 +16,13 @@ public class UIOwnApartmetController {
 		return "contents/quanly/chucanho/table-chucanho";
 	}
 
-	// return template page chu can ho
-	@GetMapping("/form")
-	public String pageChuCanho() {
-		return "contents/quanly/chucanho/form-chucanho";
+   // return template page chu can ho
+	@GetMapping("/form/{id}")
+	public String formUpdate(@PathVariable int id, ModelMap model) {
+		
+		 model.addAttribute("idOwn", id);
+		return "contents/quanly/chucanho/form-update";
 	}
-	
 	
 	
 
