@@ -14,10 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-<<<<<<< HEAD
-=======
-import javax.validation.constraints.Pattern;
->>>>>>> 915ed3481b2e80e2e0d82dc08872c5a03e7fa868
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 
