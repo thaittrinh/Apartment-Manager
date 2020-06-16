@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import poly.com.dto.OwnApartmentDTO;
 import poly.com.entity.OwnApartment;
 import poly.com.service.OwnApartmentService;
 
@@ -29,24 +30,32 @@ public class OwnApartmentController {
 // ------------------------------------------------
 
 	// <------------------------- findAll --------------------------->
+
 	@GetMapping()
-	public ResponseEntity<List<OwnApartment>> findAll() {
+	public ResponseEntity<List<OwnApartmentDTO>> findAll() {
 		return ownApartmentService.findAll();
 	}
+	
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<OwnApartment> findById(@PathVariable int id) {
+	public ResponseEntity<OwnApartmentDTO> findById(@PathVariable int id) {
 		return ownApartmentService.findById(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
    
 	@PostMapping()
-	public ResponseEntity<?> createOwn(@Valid @RequestBody OwnApartment ownApartment){
-		return ownApartmentService.createOwn(ownApartment);
+	public ResponseEntity<?> createOwn(@Valid @RequestBody OwnApartmentDTO ownDTO ){
+		
+		return ownApartmentService.createOwn(ownDTO);
 	}
-	
+	/*
+	@PostMapping("/upload-file")
+	public boolean uploadFile( @RequestParam("file") MultipartFile mFile) {
+	  return ownApartmentService.saveImage(mFile);
+	}
+	*/
 	@PostMapping("/upload-file/{id}")
 	public ResponseEntity<OwnApartment> uploadFile(@PathVariable int id ,
 												   @RequestParam("file") MultipartFile mFile) {
@@ -56,8 +65,8 @@ public class OwnApartmentController {
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateOwn(@PathVariable int id,
-												  @Valid @RequestBody OwnApartment ownApartment) {
-		return ownApartmentService.updateOwn(id, ownApartment);
+												  @Valid @RequestBody OwnApartmentDTO ownDTO) {
+		return ownApartmentService.updateOwn(id, ownDTO);
 	}
 
 	// < -------------------------- Delete --------------------------->

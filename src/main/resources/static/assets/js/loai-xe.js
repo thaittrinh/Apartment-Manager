@@ -144,7 +144,7 @@ document.querySelector('#save-type').addEventListener('click', () => {
 });
 //<------------- When close type vihecel ->reload  price parking  ----------->
 $("#modal-vehicel").on("hidden.bs.modal", function () {
-	 window.open(URL + 'ui/price/vehicle' ); 
+	 location.href = URL + 'ui/price/vehicle' ; 
 });
 
 
