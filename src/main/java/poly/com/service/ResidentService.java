@@ -23,61 +23,68 @@ public class ResidentService {
     }
 
     // <------------------------- findById ------------------>
-    public ResponseEntity findById(int id) {
+    public ResponseEntity<Resident> findById(int id) {
         try {
             Resident resident = residentRepository.findById(id).orElse(null);
             return ResponseEntity.ok(resident);
-
         } catch (Exception e) {
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ------------------------- Create --------------------->
-    public ResponseEntity create(Resident newResident) {
+    public ResponseEntity<Resident> create(Resident newResident) {
         try {
-            Resident resident = residentRepository.findByIdentitycard(
-                    newResident.getIdentitycard()).orElse(null);
-            if( newResident.getIdentitycard() != null && resident  != null)
-                return new ResponseEntity(null, HttpStatus.CONFLICT);
-
+            // --------------------------------------------------------
+            if (newResident.getIdentitycard() != null) {
+                Resident resident = residentRepository.findByIdentitycard(
+                        newResident.getIdentitycard()).orElse(null);
+                if (resident != null)
+                    return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            } // ---------------------------------------------------
+            if (newResident.getIdentitycard() == "") {
+                newResident.setIdentitycard(null);
+            }  //--------------------------------------------------
             newResident.setId(0);
             newResident = residentRepository.save(newResident);
             return ResponseEntity.ok(newResident);
         } catch (Exception e) {
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-
     // < --------------------------- Update ---------------------->
-    public ResponseEntity update(int id, Resident newResident) {
+    public ResponseEntity<Resident> update(int id, Resident newResident) {
         try {
             if (!residentRepository.existsById(id))
-                return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-
-            Resident resident = residentRepository.findByIdentitycard(
-                    newResident.getIdentitycard()).orElse(null);
-            if (resident != null && resident.getId() != id )
-                return new ResponseEntity(null, HttpStatus.CONFLICT);
-
-            resident.setId(id);
-            resident = residentRepository.save(resident);
-            return ResponseEntity.ok(resident);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+             // -------------------------------------
+            if (newResident.getIdentitycard() != null) {
+                Resident resident = residentRepository.findByIdentitycard(
+                        newResident.getIdentitycard()).orElse(null);
+                if (resident != null && resident.getId() != id)
+                    return new ResponseEntity<>(null, HttpStatus.CONFLICT);}
+            // ----------------------------------------
+            if (newResident.getIdentitycard() == "") {
+                newResident.setIdentitycard(null); }
+            // -----------------------------------------
+            newResident.setId(id);
+            newResident = residentRepository.save(newResident);
+            return ResponseEntity.ok(newResident);
         } catch (Exception e) {
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ----------------------- delete --------------------------->
-    public ResponseEntity delete(int id) {
+    public ResponseEntity<String> delete(int id) {
         try {
             if (!residentRepository.existsById(id))
-                return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             residentRepository.deleteById(id);
-            return new ResponseEntity(null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

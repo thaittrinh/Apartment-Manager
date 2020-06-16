@@ -14,7 +14,7 @@ public class UIPriceParkingController {
     @Autowired
     TypeVehicelRepository typeVehicelRepository;
 
-    @GetMapping()
+    @GetMapping("")
     public String pageTableXe(ModelMap model) {
 
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());

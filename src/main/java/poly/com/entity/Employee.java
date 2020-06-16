@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,39 +30,41 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 4548470369384115251L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-    @NotNull
+
+    @NotNull(message = "fullname can  not  be null ")
     @Column(length = 50)
 	private String fullName;
-	
-    @NotNull
+
+    @NotNull(message = "gender can not be  null ")
     private boolean gender;
-    
-    @NotNull 
+
+    @NotNull(message = "birthday can not be null")
   	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
-    
-    @Column(length = 12)
-    private String indentityCard;
-    
+
+    @NotNull()
+    @Column(length = 12, unique = true)
+    @Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
+    private String indentitycard;
+
     @NotNull
+    @Column(length = 11 )
+    @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
     private String phone;
     
-    @NotNull
+    @NotNull(message = "address can not be null ")
     private String address;
     
     private String email;
-    
+
+    @Size( max = 50, message = "The image length is less than or equal to 50 characters")
     private String image;
     
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
