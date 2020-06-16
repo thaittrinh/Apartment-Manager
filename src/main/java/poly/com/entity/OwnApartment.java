@@ -45,11 +45,7 @@ public class OwnApartment implements Serializable {
 	//@Past() time quá khứ
   	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;;
-
-	@NotNull(message = "Nationality is not null")
-	@Size( max = 50, message = "The nationality length is less than or equal to 50 characters")
-	private String nationality;
+    private Date birthday;
 	
 	@NotNull(message = "Job is not null")
 	@Column(length = 50)
@@ -74,7 +70,5 @@ public class OwnApartment implements Serializable {
 	@Column(length = 12, unique = true)
 	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
 	private String identitycard;
-
-
 	
 }

@@ -19,4 +19,6 @@ public interface OwnApartmentRepository extends JpaRepository<OwnApartment, Inte
 	 
 	 @Query("SELECT coalesce(max(own.id), 0) FROM OwnApartment own")
 	 Integer getMaxId();
+	 
+	 
 }
