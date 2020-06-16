@@ -75,21 +75,6 @@ public class OwnApartment implements Serializable {
 	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
 	private String identitycard;
 
-	/*
-	  {
-        "id": 1,
-        "fullname": "thaisalwm",
-        "gender": true,
-        "birthday": "2020-02-01T17:00:00.000+00:00",
-        "nationality": "vietnam",
-        "job": "it",
-        "phone": "0123456745",
-        "email": "thai@gmial",
-        "homeTown": "thanh hóa",
-        "image": "thia.png",
-        "identitycard": "123456789o"
-    }
-	 */
-	
+
 	
 }
