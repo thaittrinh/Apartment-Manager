@@ -23,51 +23,51 @@ public class VehicleService {
     }
 
     // <----------------------------- findById --------------------->
-    public ResponseEntity findById(int id) {
+    public ResponseEntity<Vehicle> findById(int id) {
         try {
             Vehicle vehicle = vehicleRespository.findById(id).orElse(null);
             return ResponseEntity.ok(vehicle);
         } catch (Exception e) {
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     // < --------------------------- Create -------------------------->
-    public ResponseEntity create( Vehicle newVehicle){
+    public ResponseEntity<Vehicle> create( Vehicle newVehicle){
        try {
            Vehicle vehicle = vehicleRespository.findByLicensePlates(
                    newVehicle.getLicensePlates()).orElse(null);
            if (vehicle != null)
-               return new  ResponseEntity(null,HttpStatus.CONFLICT);
+               return new  ResponseEntity<>(null,HttpStatus.CONFLICT);
            newVehicle.setId(0);
            newVehicle = vehicleRespository.save(newVehicle);
            return ResponseEntity.ok(newVehicle);
        }catch (Exception e){
-           return  new ResponseEntity(null,HttpStatus.INTERNAL_SERVER_ERROR);
+           return  new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
        }
     }
 
-    public  ResponseEntity update(int id, Vehicle newVehicle){
+    public  ResponseEntity<Vehicle> update(int id, Vehicle newVehicle){
         try {
             if(!vehicleRespository.existsById(id))
-                return new  ResponseEntity(null, HttpStatus.NOT_FOUND);
+                return new  ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             Vehicle vehicle = vehicleRespository.findByLicensePlates( newVehicle.getLicensePlates()).orElse(null);
             if (vehicle != null && vehicle.getId() != id )
-                return  new ResponseEntity(null, HttpStatus.CONFLICT);
+                return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
             newVehicle.setId(id);
             newVehicle = vehicleRespository.save(newVehicle);
             return ResponseEntity.ok(newVehicle);
         }catch (Exception e){
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    public  ResponseEntity delete(int id ){
+    public  ResponseEntity<String> delete(int id ){
         try {
             if (!vehicleRespository.existsById(id))
-                return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             vehicleRespository.deleteById(id);
-            return new ResponseEntity(null, HttpStatus.OK);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
