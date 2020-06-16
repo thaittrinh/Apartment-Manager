@@ -51,7 +51,7 @@ public class Employee implements Serializable {
     private Date birthday;
     
     @Column(length = 12)
-    private String indentityCard;
+    private String indentitycard;
     
     @NotNull
     private String phone;

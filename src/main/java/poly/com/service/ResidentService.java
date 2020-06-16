@@ -27,7 +27,6 @@ public class ResidentService {
         try {
             Resident resident = residentRepository.findById(id).orElse(null);
             return ResponseEntity.ok(resident);
-
         } catch (Exception e) {
             return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -36,11 +35,16 @@ public class ResidentService {
     // < ------------------------- Create --------------------->
     public ResponseEntity create(Resident newResident) {
         try {
-            Resident resident = residentRepository.findByIdentitycard(
-                    newResident.getIdentitycard()).orElse(null);
-            if( newResident.getIdentitycard() != null && resident  != null)
-                return new ResponseEntity(null, HttpStatus.CONFLICT);
-
+            // --------------------------------------------------------
+            if (newResident.getIdentitycard() != null) {
+                Resident resident = residentRepository.findByIdentitycard(
+                        newResident.getIdentitycard()).orElse(null);
+                if (resident != null)
+                    return new ResponseEntity(null, HttpStatus.CONFLICT);
+            } // ---------------------------------------------------
+            if (newResident.getIdentitycard() == "") {
+                newResident.setIdentitycard(null);
+            }  //--------------------------------------------------
             newResident.setId(0);
             newResident = residentRepository.save(newResident);
             return ResponseEntity.ok(newResident);
@@ -49,21 +53,24 @@ public class ResidentService {
         }
     }
 
-
     // < --------------------------- Update ---------------------->
     public ResponseEntity update(int id, Resident newResident) {
         try {
             if (!residentRepository.existsById(id))
                 return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-
-            Resident resident = residentRepository.findByIdentitycard(
-                    newResident.getIdentitycard()).orElse(null);
-            if (resident != null && resident.getId() != id )
-                return new ResponseEntity(null, HttpStatus.CONFLICT);
-
-            resident.setId(id);
-            resident = residentRepository.save(resident);
-            return ResponseEntity.ok(resident);
+             // -------------------------------------
+            if (newResident.getIdentitycard() != null) {
+                Resident resident = residentRepository.findByIdentitycard(
+                        newResident.getIdentitycard()).orElse(null);
+                if (resident != null && resident.getId() != id)
+                    return new ResponseEntity(null, HttpStatus.CONFLICT);}
+            // ----------------------------------------
+            if (newResident.getIdentitycard() == "") {
+                newResident.setIdentitycard(null); }
+            // -----------------------------------------
+            newResident.setId(id);
+            newResident = residentRepository.save(newResident);
+            return ResponseEntity.ok(newResident);
         } catch (Exception e) {
             return new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

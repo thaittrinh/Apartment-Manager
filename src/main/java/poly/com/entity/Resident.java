@@ -40,19 +40,13 @@ public class Resident implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
 
-    @NotNull(message = "nationality can not bư null")
-    @Column(length = 20)
-    private String nationality;
 
     @NotNull(message = " hometown can not be null ")
     private String hometown;
 
-    @NotNull(message = "job can not be null")
     private String job;
 
-
     @Column(length = 11 )
-    @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
     private String phone;
 
     @Column(length = 50)
@@ -60,7 +54,6 @@ public class Resident implements Serializable {
 
 
     @Column(length = 12)
-    @Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
     private String identitycard;
 
     @NotNull

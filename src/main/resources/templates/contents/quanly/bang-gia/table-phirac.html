@@ -18,7 +18,7 @@
         </div>
         <!----------------------------------- card-body-table ---------------------------->
         <div class="card-body">
-            <table class="table table-hover table-responsive-xl table-light" id="table-garbage">
+            <table class="table  table-condensed table-responsive-xl table-striped" id="table-garbage">
                 <thead>
                 <tr>
                     <th> Id</th>
@@ -31,10 +31,10 @@
                 </thead>
             </table>
             <!------------------------------- button open modal form  ---------------------------->
-            <button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
-                    onclick="document.querySelector('.modal-title').innerHTML = 'Thêm giá mới' "
+            <button style="width: 150px" type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+                    onclick="changetitle() "
                     data-target="#form-building">
-                <i class="fas fa-plus-square"></i> Thêm Giá Mới
+                <i class="fas fa-plus-square"></i> Thêm giá mới
             </button>
         </div>
     </div>
@@ -81,10 +81,10 @@
                 </div>
                 <!----------------------------------------- footer-modal -------------------------------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="save">
+                    <button style="width: 115px" type="button" class="btn btn-success" id="save">
                         <i class="fas fa-save mr-2"></i> Lưu Lại
                     </button>
-                    <button type="button" class="btn btn-danger" id="clean-form">
+                    <button style="width: 115px" type="button" class="btn btn-danger" id="clean-form">
                         <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
                     </button>
                 </div>
