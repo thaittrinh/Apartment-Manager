@@ -10,7 +10,7 @@
         <div th:replace="components/header"></div>
     </div>
     <!------------------------------------------------- table Cư Dân ---------------------------------------->
-    <div class="card"  >
+    <div class="card">
         <!-------------------------------------------- card title table ------------------------------------->
         <div class="card-header" style="border-radius: 6px;">
             <div class="card-titles">
@@ -20,8 +20,8 @@
         <!--------------------------------------------- card-body-table --------------------------------------->
         <div class="card-body  ">
             <table class="table  table-condensed table-responsive-xl table-striped" id="table-resident">
-                <thead >
-                <tr >
+                <thead>
+                <tr>
                     <th>ID</th>
                     <th>Họ Tên</th>
                     <th>Giới Tính</th>
@@ -29,7 +29,7 @@
                     <th>Nghề Nghiệp</th>
                     <th>Điện Thoại</th>
                     <th>ID Căn Hộ</th>
-                    <th>Cập Nhật </th>
+                    <th>Cập Nhật</th>
                     <th>Xóa</th>
                 </tr>
                 </thead>
@@ -44,7 +44,8 @@
                 <i class=" fas fa-user-plus mr-2"></i> Thêm cư dân
             </button>
             <!------------------------------------------------------>
-            <button style="width: 160px"  type="button" class="btn btn-warning" data-toggle="modal" data-target="#form-vehicle">
+            <button style="width: 160px" type="button" class="btn btn-warning" data-toggle="modal"
+                    data-target="#form-vehicle">
                 <i class="fas fa-motorcycle mr-1"></i> Đăng ký xe gửi
             </button>
         </div>
@@ -87,7 +88,8 @@
                             </div>
                             <div class="custom-control custom-radio custom-control-inline"
                                  style="margin-left:10px; margin-top: 15px;">
-                                <input type="radio" id="female" name="gender" value="female" class="custom-control-input">
+                                <input type="radio" id="female" name="gender" value="female"
+                                       class="custom-control-input">
                                 <label class="custom-control-label" for="female">Nữ</label>
                             </div>
                         </div>
@@ -169,28 +171,36 @@
 
                         <div class="row">
                             <!------------- loai xe --------------->
-                            <div class="input-container">
-                                <input type="text" required="required" name="typeVehicle" id="typeVehicle"
-                                       style="width:230px"/>
-                                <label for="typeVehicle">Loại Xe </label>
+                            <div>
+                                <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
+                                        class="input-select">
+                                    <option> chọn loại xe </option>
+                                    <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
+                                </select>
                             </div>
-
                             <!------------- bien so xe --------------->
                             <div class="input-container">
+                                <input type="number" id="idVehicle" hidden="true" required="required"/>
                                 <input type="text" required="required" name="licensePlates" id="licensePlates"
-                                       style="width:220px"/>
+                                       style="width:230px"/>
                                 <label for="licensePlates">Biển Số Xe</label>
                             </div>
                             <!----------------- MAU XE --------------->
                             <div class="input-container">
-                                <input type="text" required="required" name="color" id="color" style="width:170px"/>
+                                <input type="text" required="required" name="color" id="color" style="width:225px"/>
                                 <label for="color">Màu</label>
+                            </div>
+                            <!------------------------ Ngày Sinh ---------------------------->
+                            <div class="input-container">
+                                <input type="date" required="required" name="date" id="date"
+                                       style="width:230px">
+                                <label for="date">Ngày Đăng Ký</label>
                             </div>
                             <!------------------- id cư dan ------------>
                             <div class="input-container">
-                                <input type="text" required="required" name="idresident" id="idresident"
-                                       style="width:280px"/>
-                                <label for="idresident">ID Cư Dân</label>
+                                <input type="text" required="required" name="idResident" id="idResident"
+                                       style="width:230px"/>
+                                <label for="idResident">ID Cư Dân</label>
                             </div>
                             <!---------------------------------------->
                         </div>
@@ -199,10 +209,10 @@
                 </div>
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="savevehicle">
+                    <button type="button" class="btn btn-success" id="save-vehicle">
                         <i class="fas fa-save mr-2"></i> Lưu Lại
                     </button>
-                    <button type="button" class="btn btn-danger" id="clean">
+                    <button type="button" class="btn btn-danger" id="clean-form-vehicle">
                         <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
                     </button>
                 </div>

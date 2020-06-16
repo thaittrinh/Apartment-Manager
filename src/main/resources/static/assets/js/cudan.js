@@ -15,30 +15,27 @@ $(document).ready(function () {
         "aoColumns": [
             {"mData": "id"},
             {"mData": "fullname"},
-            {
-                "mRender": function (data, type, full) {
-                    return full.gender ? "Female" : "Male"
-                }
+            {"mRender": function (data, type, full) {
+                return full.gender ? "Female" : "Male"}
             },
             {"mData": "birthday"},
             {"mData": "job"},
             {"mData": "phone"},
             {"mData": "apartment.id"},
-            {
-                "mRender": function (data, type, full) {
-                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
-                }
+            {"mRender": function (data, type, full) {
+                return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
+            }
             },
-            {
-                "mRender": function (data, type, full) {
+            {"mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-delete " onclick='deleteResident(${full.id},this)' type="button">delete</i>`
                 }
             }
         ]
     });
-
 });
-// <--------------- Delete ---------------->
+
+
+// <---------------------------------- Delete --------------------------->
 let deleteResident = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
@@ -58,20 +55,21 @@ let deleteResident = (id, e) => {
                 success: function (result) {
                     $('#table-resident').DataTable().row($(e).parents('tr')).remove().draw();
                     sweetalert(200, 'Success!', 'Đã xóa cư dân ')
-
                 },
                 error: function (error) {
                     sweetalert(error.status)
-
                 }
             })
         }
     })
 }
 
+ // ------------------- change title ------------------------
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3'></i>" + 'Thêm Cư Dân'
+    document.querySelector('#form-label').innerHTML =
+        "<i class='fas fa-address-card mr-3'></i>" + 'Thêm Cư Dân'
 }
+
 // < ----------------- show form update -------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
@@ -91,13 +89,12 @@ let showFormUpdate = (id, e) => {
     })
 }
 
-
-// < -------------------------- insert or update ----------------->
+// < ------------------------- insert or update -------------------->
 document.querySelector('#saveResident').addEventListener('click', () => {
     let resident = getValueForm();
     if (validate(resident)) {
         if (resident.id) {
-            // < ------------------- update --------->
+            // < ------------------- update ---------------------->
             $.ajax({
                 type: 'PUT',
                 url: URL + `api/resident/${resident.id}`,
@@ -114,8 +111,8 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                 error: function (error) {
                     if (error.status === 409) {
                         Swal.fire({
-                            title: 'Error',
-                            text: 'Số chứng minh thư đã tồn tại',
+                            title: 'Error!',
+                            text: 'Số chứng minh thư đã tồn tại, vui lòng kiểm tra lại ',
                             icon: 'error'
                         })
                     }
@@ -123,7 +120,7 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                 }
             })
         } else {
-            // < ---------------- create ------------>
+            // < ----------------------- create ----------------->
             $.ajax({
                 type: 'POST',
                 url: URL + `api/resident`,
@@ -141,7 +138,7 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                     if (error.status === 409) {
                         swal.fire({
                             title: 'Error',
-                            text: 'Số chứng minh nhân dân đã tồn tại',
+                            text: 'Số chứng minh nhân dân đã tồn tại, vui lòng kiểm tra lại!',
                             icon: 'error'
                         })
                     }
@@ -220,7 +217,7 @@ let validate = (data) => {
         return false
     }
     if (!$('input[name=gender]:checked').val()) {
-        toastrError("Giới tính phải không được trống");
+        toastrError("Chưa chọn giới tính");
         return false
     }
     if (data.hometown === '') {

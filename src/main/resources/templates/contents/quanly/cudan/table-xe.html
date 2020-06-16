@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org"xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 data-layout-decorate="~{/layout-admin}">
 <!-------------------------------------------------------------------------------------------->
 <div layout:fragment="content">
@@ -13,8 +13,8 @@ data-layout-decorate="~{/layout-admin}">
         <div class="card-header" style="border-radius: 6px;">
             <div class="card-titles">
                 <h6 style="color: white">
-                <i class="fas fa-bicycle mr-1"></i> 
-                <i class="fas fa-motorcycle mr-1"></i> 
+                <i class="fas fa-bicycle mr-1"></i>
+                <i class="fas fa-motorcycle mr-1"></i>
                 <i class="fas fa-car mr-3"></i>
                  Danh sách Xe Đăng ký Gửi </h6>
             </div>
@@ -22,14 +22,22 @@ data-layout-decorate="~{/layout-admin}">
         <!------------------------------------------------------------->
         <div class="card-body">
             <!--------------------------card-body-table---------------->
-            <table class="table  table-condensed table-responsive-xl table-striped" id="table-xe">
+            <table class="table  table-condensed table-responsive-xl table-striped" id="table-vehicle">
                 <thead>
                 <tr>
-                    <th>
-
-                    </th>
+                    <th> ID</th>
+                    <th>Biển Số Xe</th>
+                    <th> Màu xe</th>
+                   <th>Ngày Đăng Ký</th>
+                    <th>Chủ Sỡ Hữu</th>
+                    <th>Loại Xe</th>
+                    <th> Cập Nhật</th>
+                    <th> Xóa</th>
                 </tr>
                 </thead>
+                <tbody>
+
+                </tbody>
             </table>
             <!------------------------------------------------------>
         </div>
@@ -54,28 +62,35 @@ data-layout-decorate="~{/layout-admin}">
 
                         <div class="row">
                             <!------------- loai xe --------------->
-                            <div class="input-container">
-                                <input type="text" required="required" name="typeVehicle" id="typeVehicle"
-                                       style="width:230px"/>
-                                <label for="typeVehicle">Loại Xe </label>
+                            <div>
+                                <select style="width: 225px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
+                                        class="input-select">
+                                    <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
+                                </select>
                             </div>
-
                             <!------------- bien so xe --------------->
                             <div class="input-container">
+                                <input type="number" id="idVehicle" hidden="true" required="required"/>
                                 <input type="text" required="required" name="licensePlates" id="licensePlates"
-                                       style="width:220px"/>
+                                       style="width:230px"/>
                                 <label for="licensePlates">Biển Số Xe</label>
                             </div>
                             <!----------------- MAU XE --------------->
                             <div class="input-container">
-                                <input type="text" required="required" name="color" id="color" style="width:170px"/>
+                                <input type="text" required="required" name="color" id="color" style="width:225px"/>
                                 <label for="color">Màu</label>
+                            </div>
+                            <!------------------------ Ngày Sinh ---------------------------->
+                            <div class="input-container">
+                                <input type="date" required="required" name="date" id="date"
+                                       style="width:230px">
+                                <label for="date">Ngày Đăng Ký</label>
                             </div>
                             <!------------------- id cư dan ------------>
                             <div class="input-container">
-                                <input type="text" required="required" name="idresident" id="idresident"
-                                       style="width:280px"/>
-                                <label for="idresident">ID Cư Dân</label>
+                                <input type="text" required="required" name="idResident" id="idResident"
+                                       style="width:230px"/>
+                                <label for="idResident">ID Cư Dân</label>
                             </div>
                             <!---------------------------------------->
                         </div>
@@ -84,10 +99,10 @@ data-layout-decorate="~{/layout-admin}">
                 </div>
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="save">
+                    <button type="button" class="btn btn-success" id="save-vehicle">
                         <i class="fas fa-save mr-2"></i> Lưu Lại
                     </button>
-                    <button type="button" class="btn btn-danger" id="clean-form">
+                    <button type="button" class="btn btn-danger" id="clean-form-vehicle">
                         <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
                     </button>
                 </div>
