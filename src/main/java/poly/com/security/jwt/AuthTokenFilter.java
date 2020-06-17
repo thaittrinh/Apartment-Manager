@@ -1,3 +1,4 @@
+
 package poly.com.security.jwt;
 
 import java.io.IOException;
@@ -19,9 +20,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import poly.com.security.service.AccountDetailsServiceImpl;
 
-/**
- * Class define a filter that executes once per request. 
- */
+	/*
+	 * Class define a filter that executes once per request. 
+	 */
+	  
 public class AuthTokenFilter extends OncePerRequestFilter{
 
 	
@@ -77,3 +79,4 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 
 
 }
+

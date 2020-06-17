@@ -1,3 +1,4 @@
+
 package poly.com.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,20 +8,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import poly.com.entity.Account;
-import poly.com.repository.AccountRepository;
+import poly.com.entity.Employee;
+import poly.com.repository.EmployeeRepository;
 
 @Service
 public class AccountDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
-	AccountRepository accountRepository;
+	EmployeeRepository employeeRepository;
 	
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Account account = accountRepository.findByUsername(username)
+		Employee account = employeeRepository.findByUsername(username)
 											.orElseThrow(()->  new UsernameNotFoundException("\"User Not Found with username: \" + username"));
 		
 		return AccountDetailsImpl.build(account);
