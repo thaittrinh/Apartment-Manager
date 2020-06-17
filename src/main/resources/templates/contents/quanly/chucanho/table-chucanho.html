@@ -17,21 +17,20 @@
         <!------------------------------------- card-body-table --------------------------->
         <div class="card-body">
 
-            <table class="table table-hover table-responsive-xl table-light" 
-                  id="table-chucanho" style= "font-family: Verdana, Geneva, Tahoma, sans-serif;">
+            <table class="table  table-condensed table-responsive-xl table-striped" id="table-chucanho" >
                 <thead>
-	                <tr style="font-size:13px;">           
+	                <tr>
 	                    <th>Họ tên</th>              
 	                    <th>Giới tính</th>           
 	                    <th>Quê quán</th>               
-	                    <th>Số đt</th>
+	                    <th>Điện thoại</th>
 	                    <th>Email</th>	 
 						<th>Danh sách căn hộ</th>               
 	                    <th>Cập nhật</th>
 	                    <th>Xóa</th>             
 	                </tr>
                 </thead>
-                <tbody style="font-size:12px;"></tbody>
+                <tbody ></tbody>
             </table>
             
            <!--------------------------------- Insert  -------------------------->
@@ -59,39 +58,38 @@
 						<form >
 							<div class="row" >
 								<!------------------------- Há»� TÃªn ------------------------------->						
-								<div class="input-container col-sm-4" style="padding: 0;">	
+								<div class="input-container col-md-4" style="padding: 0;">
 									<input type="text" required="required" name="fullname" id="fullname"
 										 style="width: 100%" /> <label for="fullname">Họ
 										tên</label>
 								</div>
 								<!------------------------ NgÃ y Sinh ------------------------------>
-								<div class="input-container col-sm-4" style="padding: 0;">
+								<div class="input-container col-md-4" style="padding: 0;">
 									<input type="date" required="required" id="birthday"
 										 style="width: 100%"> <label
 										for="birthday">Ngày sinh</label>
 								</div>
 
-								<!----------------------------- QuÃª QuÃ¡n  ---------------------------->
-								<div class="input-container col-sm-3" style="padding: 0;">
-									<input type="text" required="required" id="homeTown"
-										 style="width: 100%" /> <label for="birthplace">Quê
-										quán</label>
+								<div  style="padding: 0; margin: 20px 0 0 55px" >
+									<div class="custom-control custom-radio custom-control-inline">
+										<input type="radio" id="male" name="gender" value="male"
+											   class="custom-control-input"> <label
+											class="custom-control-label" for="male">Nam</label>
+									</div>
+									<div class="custom-control custom-radio custom-control-inline">
+										<input type="radio" id="female" name="gender" value="female"
+											   class="custom-control-input"> <label
+											class="custom-control-label" for="female">Nữ</label>
+									</div>
 								</div>
 							</div>
 							<!-------------------------------- div End row ----------------------->
 							<div class="row" >
-								<!------------------------- gioi tinh ---------------------------->
-								<div class="col-sm-4" style="padding: 0 0 0 15px; margin:0 15px 0 0;">
-									<div class="custom-control custom-radio custom-control-inline">
-										<input type="radio" id="male" name="gender" checked
-											class="custom-control-input"> <label
-											class="custom-control-label" for="male">Nam</label>
-									</div>
-									<div class="custom-control custom-radio custom-control-inline">
-										<input type="radio" id="female" name="gender"
-											class="custom-control-input"> <label
-											class="custom-control-label" for="female">Nữ</label>
-									</div>
+								<!----------------------------- QuÃª QuÃ¡n  ---------------------------->
+								<div class="input-container col-md-4" style="padding: 0;">
+									<input type="text" required="required" id="homeTown"
+										   style="width: 100%" /> <label for="homeTown">Quê
+									quán</label>
 								</div>
 								<!----------------------------- CMND ------------------------------>
 								<div class="input-container col-sm-4"

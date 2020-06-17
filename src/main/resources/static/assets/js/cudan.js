@@ -1,10 +1,12 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-resident').DataTable({
-        "paging": true,
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
+        "scrollCollapse": true,
+        "responsive": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-        "responsive": true,
         "scroller": true,
         "autoWidth": true,
         "processing": true,
@@ -16,7 +18,7 @@ $(document).ready(function () {
             {"mData": "id"},
             {"mData": "fullname"},
             {"mRender": function (data, type, full) {
-                return full.gender ? "Female" : "Male"}
+                return full.gender ? "Nữ" : "Nam"}
             },
             {"mData": "birthday"},
             {"mData": "job"},
@@ -75,7 +77,8 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-resident').DataTable().row($(e).parents('tr')).index();
     $('#form-resident').modal('show')
-    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-address-card mr-3'></i>" + "Cập Nhật Thông Tin Cư Dân";
+    document.querySelector('.modal-title').innerHTML =
+        "<i class='fas fa-address-card mr-3'></i>" + "Cập Nhật Thông Tin Cư Dân";
     $.ajax({
         url: URL + `api/resident/${id}`,
         type: 'GET',
@@ -103,9 +106,12 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(resident),
                 success: function (result) {
-                    result.birthday = formatDate(result.birthday);  // Convert date to yy-MM-dd
-                    $('#table-resident').DataTable().row(index).data(result).draw();  //update the row in dataTable
-                    $('#form-resident').modal('hide');     // close modal
+                    result.birthday = formatDate(result.birthday);
+                    // Convert date to yy-MM-dd
+                    $('#table-resident').DataTable().row(index).data(result).draw();
+                    //update the row in dataTable
+                    $('#form-resident').modal('hide');
+                    // close modal
                     sweetalert(200, 'Success!', 'Đã cập nhật thông tin cư dân ');
                 },
                 error: function (error) {
@@ -219,6 +225,31 @@ let validate = (data) => {
     if (!$('input[name=gender]:checked').val()) {
         toastrError("Chưa chọn giới tính");
         return false
+    }
+
+    if(data.identitycard != ''){
+        if(isNaN(data.identitycard)){
+            toastrError("Số chứng minh - căn cước công dân phải là số!");
+            document.querySelector('#identityCard').focus();
+            return false;
+        }
+        if(data.identitycard.length <9 || data.identitycard.length > 12 ){
+            toastrError("Số chứng minh - căn cước công dân phải từ 9 đến 12 chữ số!");
+            document.querySelector('#identityCard').focus();
+            return false;
+        }
+    }
+    if(data.phone != ''){
+        if(isNaN(data.phone)){
+            toastrError("Số điện thoại phải là số!");
+            document.querySelector('#phone').focus();
+            return false;
+        }
+        if(data.phone.length <9 || data.phone.length > 11 ){
+            toastrError("Số điện thoại phải từ 9 đến 11 chữ số!");
+            document.querySelector('#phone').focus();
+            return false;
+        }
     }
     if (data.hometown === '') {
         toastrError("Quê quán không được để trống");
