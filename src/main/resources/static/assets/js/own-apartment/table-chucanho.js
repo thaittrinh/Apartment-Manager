@@ -125,14 +125,14 @@ document.querySelector('#save').addEventListener('click', () => {
 
 let getValueForm = () => {
     return { 
-        "fullname": document.querySelector('#fullname').value,
-        "birthday": document.querySelector('#birthday').value,
-        "homeTown": document.querySelector('#homeTown').value,
-		'gender': $("input[name='gender']:checked").val() == 'female' ? true : false,
-        "identitycard": document.querySelector('#identityCard').value,
-        "phone": document.querySelector('#phone').value,
-        "job": document.querySelector('#job').value,
-        "email": document.querySelector('#email').value,
+        "fullname": document.querySelector('#fullname').value.trim(),
+        "birthday": document.querySelector('#birthday').value.trim(),
+        "homeTown": document.querySelector('#homeTown').value.trim(),
+        "gender": document.querySelector('#male').checked === true ? true : false,
+        "identitycard": document.querySelector('#identityCard').value.trim(),
+        "phone": document.querySelector('#phone').value.trim(),
+        "job": document.querySelector('#job').value.trim(),
+        "email": document.querySelector('#email').value.trim(),
         "apartments": document.querySelector('#id_apartment').value.split(/,/).map( n => n.trim())
     }
 }

@@ -169,14 +169,14 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 // < ---------------- get value form ------------------------->
 let getValueForm = () => {
     return {
-        'id': document.querySelector('#id').value,
-        'limits': document.querySelector('#limits').value,
-        'price': document.querySelector('#price').value,
-        'date': document.querySelector('#date').value,
+        'id': document.querySelector('#id').value.trim(),
+        'limits': document.querySelector('#limits').value.trim(),
+        'price': document.querySelector('#price').value.trim(),
+        'date': document.querySelector('#date').value.trim(),
         'employee': {
             'id': 1
         },
-        'note': document.querySelector('#note').value
+        'note': document.querySelector('#note').value.trim()
     }
 }
 

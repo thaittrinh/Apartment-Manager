@@ -21,14 +21,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Apartment implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 7572562617485997180L;
+
 	@Id
-	@Column(length = 10)
+	@Column(length = 8, unique = true)
 	private String id;
 	
 	@NotNull
-	@Column(length = 6)
+	@Column(length = 8)
 	private String password;
 	
 	@NotNull
@@ -44,4 +44,8 @@ public class Apartment implements Serializable {
 	@JoinColumn(name = "id_own", referencedColumnName = "id")
 	private OwnApartment ownApartment;
 
+	
+	
+	
+	
 }
