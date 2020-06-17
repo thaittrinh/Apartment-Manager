@@ -177,16 +177,16 @@ document.querySelector('#clean-form-resident').addEventListener('click', cleanFr
 // < ------------------- get value form ------------------------>
 let getValueForm = () => {
     return {
-        'id': document.querySelector("#id").value,
-        'fullname': document.querySelector('#fullname').value,
-        'birthday': document.querySelector('#birthday').value,
+        'id': document.querySelector("#id").value.trim(),
+        'fullname': document.querySelector('#fullname').value.trim(),
+        'birthday': document.querySelector('#birthday').value.trim(),
         'gender': $("input[name='gender']:checked").val() == 'female' ? true : false,
-        'hometown': document.querySelector("#hometown").value,
-        'job': document.querySelector('#job').value,
-        'phone': document.querySelector('#phone').value,
-        'email': document.querySelector('#email').value,
-        'identitycard': document.querySelector('#identitycard').value,
-        'apartment': {"id": document.querySelector('#idapartment').value}
+        'hometown': document.querySelector("#hometown").value.trim(),
+        'job': document.querySelector('#job').value.trim(),
+        'phone': document.querySelector('#phone').value.trim(),
+        'email': document.querySelector('#email').value.trim(),
+        'identitycard': document.querySelector('#identitycard').value.trim(),
+        'apartment': {"id": document.querySelector('#idapartment').value.trim()}
     }
 
 

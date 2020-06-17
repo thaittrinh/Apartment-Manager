@@ -174,13 +174,13 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 //< ------------------- get value form --------------------------->
 let getValueForm = () => {
     return {
-        "id": document.querySelector('#id').value,
-        "price": document.querySelector('#price').value,
-        "date": document.querySelector('#date').value,
+        "id": document.querySelector('#id').value.trim(),
+        "price": document.querySelector('#price').value.trim(),
+        "date": document.querySelector('#date').value.trim(),
         "employee": {
             "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
         },
-        "note": document.querySelector('#note').value
+        "note": document.querySelector('#note').value.trim()
     }
 }
 

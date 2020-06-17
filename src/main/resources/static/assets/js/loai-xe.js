@@ -176,9 +176,9 @@ let fillToFormType = (type) => {
 //< ---------------------------------------Get value form ------------------------------------>
 let getformType = () => {
 	 return {
-	        "id": document.querySelector('#id-type').value,
-	        "name": document.querySelector('#name-type').value,   
-	        "note": document.querySelector('#note-type').value
+	        "id": document.querySelector('#id-type').value.trim(),
+	        "name": document.querySelector('#name-type').value.trim(),   
+	        "note": document.querySelector('#note-type').value.trim()
 	    }
 }
 

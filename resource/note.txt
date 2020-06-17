@@ -8,3 +8,5 @@
  
  
  -- delete cascase null id_own cho bảng căn hộ
+ 
+ -- delete cu dan -> delete xe ky gui

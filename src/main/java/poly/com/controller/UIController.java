@@ -16,7 +16,7 @@ public class UIController {
     // return template page can ho
     @RequestMapping("/apartment")
     public String pageCanho() {
-        return "contents/quanly/table-canho";
+        return "contents/quanly/can-ho/table-canho";
     }
 
  
