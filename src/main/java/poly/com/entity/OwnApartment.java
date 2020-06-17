@@ -42,13 +42,10 @@ public class OwnApartment implements Serializable {
 	private Boolean gender;
 
 	@NotNull(message = "Birthday is not null") 
+	//@Past() time quá khứ
   	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;;
-
-	@NotNull(message = "Nationality is not null")
-	@Size( max = 50, message = "The nationality length is less than or equal to 50 characters")
-	private String nationality;
+    private Date birthday;
 	
 	@NotNull(message = "Job is not null")
 	@Column(length = 50)
@@ -70,25 +67,8 @@ public class OwnApartment implements Serializable {
 	private String image;
 
 	@NotNull()
-	@Column(unique = true)
+	@Column(length = 12, unique = true)
 	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
 	private String identitycard;
-
-	/*
-	  {
-        "id": 1,
-        "fullname": "thaisalwm",
-        "gender": true,
-        "birthday": "2020-02-01T17:00:00.000+00:00",
-        "nationality": "vietnam",
-        "job": "it",
-        "phone": "0123456745",
-        "email": "thai@gmial",
-        "homeTown": "thanh hóa",
-        "image": "thia.png",
-        "identitycard": "123456789o"
-    }
-	 */
-	
 	
 }

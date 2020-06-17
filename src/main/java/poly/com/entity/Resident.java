@@ -1,16 +1,26 @@
 package poly.com.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
@@ -26,38 +36,33 @@ public class Resident implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "fullname can  not  be null ")
     @Column(length = 50)
     private String fullname;
 
-    @NotNull
+    @NotNull(message = "gender can not be  null ")
     private Boolean gender;
 
-    @NotNull
+    @NotNull(message = "birthday can not be null")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
 
-    @NotNull
-    @Column(length = 20)
-    private String nationality;
 
-    @NotNull
-    private String birthplace;
+    @NotNull(message = " hometown can not be null ")
+    private String hometown;
 
-    @NotNull
     private String job;
 
-    @NotNull
-    @Column(length = 12)
-    private Integer phone;
+    @Column(length = 11 )
+    private String phone;
 
     @Column(length = 50)
     private String email;
 
-    @NotNull
+
     @Column(length = 12)
-    private Integer identitycard;
+    private String identitycard;
 
     @NotNull
     @ManyToOne

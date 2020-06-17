@@ -38,7 +38,7 @@ public class Regulation implements Serializable {
 	@NotNull
 	@Column(unique = true)
 	@Temporal(TemporalType.DATE)	 
-  	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
+  	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	
 	private String note;

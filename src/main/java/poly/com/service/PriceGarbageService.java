@@ -38,8 +38,7 @@ public class PriceGarbageService {
     @SuppressWarnings("deprecation")
     public ResponseEntity<PriceGarbage> createPriceGarbage(PriceGarbage priceGarbage) {
         try {
-            PriceGarbage priceGarbages = priceGarbageRepository
-                    .findByYearAndMonth(
+            PriceGarbage priceGarbages = priceGarbageRepository.findByYearAndMonth(
                             priceGarbage.getDate().getYear() + 1900,
                             priceGarbage.getDate().getMonth() + 1);
             if (priceGarbages != null)
