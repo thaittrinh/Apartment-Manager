@@ -116,7 +116,7 @@ let fillToForm = (data) => {
 	document.querySelector('#fullname').value = data.fullname,
     document.querySelector('#birthday').value = data.birthday,
     document.querySelector('#homeTown').value = data.homeTown,
-    document.querySelector('#female').checked = data.gender === false ? true : false ,
+	$(data.gender ? "#female" : "#male").prop('checked', true),
     document.querySelector('#identityCard').value = data.identitycard,
     document.querySelector('#phone').value = data.phone,
     document.querySelector('#job').value = data.job,

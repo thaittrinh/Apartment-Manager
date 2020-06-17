@@ -3,14 +3,18 @@ package poly.com.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -67,8 +71,21 @@ public class Employee implements Serializable {
     @Size( max = 50, message = "The image length is less than or equal to 50 characters")
     private String image;
     
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Account account;
+    @NotNull
+	@Column(unique = true, length = 20)
+    @Size(min = 5, max = 20, message = "Phone numbers from 5 to 20 characters")
+	private String username;
+	
+	@NotNull
+	@Column(length = 120)
+	private String password;// no set size
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_roles",//user_roles bảng trung gian
+					joinColumns = @JoinColumn(name= "userId"),
+					inverseJoinColumns = @JoinColumn(name="roleId"))
+	private Set<Role> roles = new HashSet<>();
     
 }
 

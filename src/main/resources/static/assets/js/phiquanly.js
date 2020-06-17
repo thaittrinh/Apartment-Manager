@@ -1,7 +1,8 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
-    $('#table-phiquanly').DataTable(
-        {
+    $('#table-phiquanly').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
             "paging": true,
             "serverSize": true,
             "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],

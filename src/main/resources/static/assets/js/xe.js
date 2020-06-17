@@ -1,6 +1,8 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-vehicle').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],

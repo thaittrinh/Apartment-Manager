@@ -3,6 +3,10 @@
 	
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
+        fixedColumns:   {
+            leftColumns: 1,
+            rightColumns: 1
+        },
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],

@@ -1,6 +1,6 @@
+
+
 package poly.com.security.jwt;
-
-
 
 import java.util.Date;
 
@@ -19,6 +19,7 @@ import poly.com.security.service.AccountDetailsImpl;
  * - getusername từ 1 chuỗi jwt,
  * - xác nhận 1 jwt
  */
+
 @Component
 public class JwtUtils {
 
@@ -66,3 +67,4 @@ public class JwtUtils {
 	}
 	
 }
+

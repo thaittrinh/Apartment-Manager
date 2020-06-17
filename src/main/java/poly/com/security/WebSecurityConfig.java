@@ -1,3 +1,4 @@
+
 package poly.com.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/api/**").permitAll()
 			.antMatchers("/ui/**").permitAll()
 			//.antMatchers("/api/test/all/**").permitAll()
-		    //.antMatchers("/api/test/user").hasAnyRole("USER")
+		   // .antMatchers("/api/test/user").hasAnyRole("USER")
 			//.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
 			//.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
 			.anyRequest().authenticated();
