@@ -1,6 +1,8 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-vehicle').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
@@ -178,12 +180,12 @@ let fillToFormVehicle = (vehicle) => {
 
 let getValueFormVehicle = () => {
     return {
-        "id": document.querySelector('#idVehicle').value,
-        "licensePlates": document.querySelector('#licensePlates').value,
-        'color': document.querySelector('#color').value,
-        'date': document.querySelector('#date').value,
-        'resident': {'id': document.querySelector('#idResident').value},
-        "typeVehicle": {"id": document.querySelector('#type').value},
+        "id": document.querySelector('#idVehicle').value.trim(),
+        "licensePlates": document.querySelector('#licensePlates').value.trim(),
+        'color': document.querySelector('#color').value.trim(),
+        'date': document.querySelector('#date').value.trim(),
+        'resident': {'id': document.querySelector('#idResident').value.trim()},
+        "typeVehicle": {"id": document.querySelector('#type').value.trim()},
     }
 }
 

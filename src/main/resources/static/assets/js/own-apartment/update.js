@@ -116,7 +116,7 @@ let fillToForm = (data) => {
 	document.querySelector('#fullname').value = data.fullname,
     document.querySelector('#birthday').value = data.birthday,
     document.querySelector('#homeTown').value = data.homeTown,
-    document.querySelector('#female').checked = data.gender === false ? true : false ,
+	$(data.gender ? "#female" : "#male").prop('checked', true),
     document.querySelector('#identityCard').value = data.identitycard,
     document.querySelector('#phone').value = data.phone,
     document.querySelector('#job').value = data.job,
@@ -138,15 +138,15 @@ let fillToFormImage = (data) => {
 /* ------------------------       Get value form      --------------------------*/
 let getValueForm = () => {
     return {
-        "id": document.querySelector('#id_own').value,
-        "fullname": document.querySelector('#fullname').value,
-        "birthday": document.querySelector('#birthday').value,
-        "homeTown": document.querySelector('#homeTown').value,
+        "id": document.querySelector('#id_own').value.trim(),
+        "fullname": document.querySelector('#fullname').value.trim(),
+        "birthday": document.querySelector('#birthday').value.trim(),
+        "homeTown": document.querySelector('#homeTown').value.trim(),
         "gender": document.querySelector('#male').checked === true ? true : false,
-        "identitycard": document.querySelector('#identityCard').value,
-        "phone": document.querySelector('#phone').value,
-        "job": document.querySelector('#job').value,
-        "email": document.querySelector('#email').value,
+        "identitycard": document.querySelector('#identityCard').value.trim(),
+        "phone": document.querySelector('#phone').value.trim(),
+        "job": document.querySelector('#job').value.trim(),
+        "email": document.querySelector('#email').value.trim(),
         "apartments": document.querySelector('#id_apartment').value.split(/,/).map( n => n.trim())
     }
 }

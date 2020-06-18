@@ -1,6 +1,8 @@
 $(document).ready(function () {
     // <- ------------------------- load data to table ---------------------------->
     $('#table-garbage').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
@@ -167,13 +169,13 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 // < ---------------------------- get value form ----------------------------------->
 let getValueForm = () => {
     return {
-        'id': document.querySelector('#id').value,
-        'price': document.querySelector('#price').value,
-        'date': document.querySelector('#date').value,
+        'id': document.querySelector('#id').value.trim(),
+        'price': document.querySelector('#price').value.trim(),
+        'date': document.querySelector('#date').value.trim(),
         'employee': {
             'id': 1
         },
-        'note': document.querySelector('#note').value
+        'note': document.querySelector('#note').value.trim()
     }
 }
 // < -------------------------------- fill data to form ------------------------------->

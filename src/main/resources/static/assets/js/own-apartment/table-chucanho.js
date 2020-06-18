@@ -1,21 +1,24 @@
 $(document).ready(function () {
     // <- ------------------------- load data to table ---------------------------->
-     $('#table-chucanho').DataTable({	 
-        "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
-        "processing": true,
-        "scrollY": "250px",
-        "scrollCollapse": true,
+     $('#table-chucanho').DataTable({
+		 fixedColumns:   {leftColumns: 1, rightColumns: 1},
+		 "scrollCollapse": true,
+		 "paging": true,
+		 "serverSize": true,
+		 "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+		 "responsive": true,
+		 "scroller": true,
+		 "autoWidth": true,
+		 "processing": true,
+		 "scrollY": "250px",
         "sAjaxSource": URL + "api/own-apartment",
         "sAjaxDataProp": "",     
         "order": [[0, "asc"]],
         "aoColumns": [
-        	 {"mData": "fullname"}, 
-             {"mData": function(data){
-            	 			return data.gender === true ? 'Nam' : "Nữ"
-             			}
-        	 },
+        	 {"mData": "fullname"},
+			{"mRender": function (data, type, full) {
+					return full.gender ? "Nữ" : "Nam"}
+			},
              {"mData": "homeTown"}, 
              {"mData": "phone"},
              {"mData": "email"},   
@@ -122,23 +125,27 @@ document.querySelector('#save').addEventListener('click', () => {
 
 let getValueForm = () => {
     return { 
-        "fullname": document.querySelector('#fullname').value,
-        "birthday": document.querySelector('#birthday').value,
-        "homeTown": document.querySelector('#homeTown').value,
+        "fullname": document.querySelector('#fullname').value.trim(),
+        "birthday": document.querySelector('#birthday').value.trim(),
+        "homeTown": document.querySelector('#homeTown').value.trim(),
         "gender": document.querySelector('#male').checked === true ? true : false,
-        "identitycard": document.querySelector('#identityCard').value,
-        "phone": document.querySelector('#phone').value,
-        "job": document.querySelector('#job').value,
-        "email": document.querySelector('#email').value,
+        "identitycard": document.querySelector('#identityCard').value.trim(),
+        "phone": document.querySelector('#phone').value.trim(),
+        "job": document.querySelector('#job').value.trim(),
+        "email": document.querySelector('#email').value.trim(),
         "apartments": document.querySelector('#id_apartment').value.split(/,/).map( n => n.trim())
     }
 }
+//< ---------------- clean form when modal close ---------->
+$("#form-resident").on("hidden.bs.modal", function () {
+	cleanForm();
+});
 
 let cleanForm = () =>{  
      document.querySelector('#fullname').value = '',
      document.querySelector('#birthday').value = '',
      document.querySelector('#homeTown').value = '',
-     document.querySelector('#male').checked = true,
+	 $('input[name="gender"]').prop('checked', false),
      document.querySelector('#identityCard').value = '',
      document.querySelector('#phone').value = '',
      document.querySelector('#job').value = '',
@@ -159,6 +166,10 @@ let validate = (data) =>{
 		toastrError("Ngày sinh không được để trống!");
 		document.querySelector('#birthday').focus();
 		return false;
+	}
+	if (!$('input[name=gender]:checked').val()) {
+		toastrError("Chưa chọn giới tính");
+		return false
 	}
 	if(data.homeTown === ''){
 		toastrError("Quê quán không được để trống!");

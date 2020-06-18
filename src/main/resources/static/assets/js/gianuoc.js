@@ -1,6 +1,8 @@
 $(document).ready(function () {
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
@@ -63,6 +65,7 @@ let deletePrice = (id, e) => {
         }
     })
 }
+
 let changetitle = () => {
     document.querySelector('#form-label').innerHTML = "<i class='fas fa-tint mr-3'></i>" +'Thêm Giá Mới'
 }
@@ -117,8 +120,10 @@ document.querySelector('#save').addEventListener('click', () => {
                             text: 'Giá đã tồn tại!!!',
                             icon: 'error'
                         })
+                    }else{
+                    	 sweetalert(error.status)
                     }
-                    sweetalert(error.status)
+                   
                 }
             });
 
@@ -148,8 +153,10 @@ document.querySelector('#save').addEventListener('click', () => {
                             text: 'Giá đã tồn tại!!!',
                             icon: 'error'
                         })
+                    }else{
+                    	sweetalert(error.status)
                     }
-                    sweetalert(error.status)
+                    
                 }
             });
         }
@@ -183,13 +190,13 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 // < ------------------- get value form --------------------------->
 let getValueForm = () => {
     return {
-        "id": document.querySelector('#id').value,
-        "price": document.querySelector('#price').value,
-        "date": document.querySelector('#date').value,
+        "id": document.querySelector('#id').value.trim(),
+        "price": document.querySelector('#price').value.trim(),
+        "date": document.querySelector('#date').value.trim(),
         "employee": {
             "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
         },
-        "note": document.querySelector('#note').value
+        "note": document.querySelector('#note').value.trim()
     }
 }
 

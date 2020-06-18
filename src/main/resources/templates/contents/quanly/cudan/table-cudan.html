@@ -18,24 +18,22 @@
             </div>
         </div>
         <!--------------------------------------------- card-body-table --------------------------------------->
-        <div class="card-body  ">
-            <table class="table  table-condensed table-responsive-xl table-striped" id="table-resident">
+        <div class="card-body dt-responsive nowrap">
+            <table class=" display nowrap table  table-condensed table-responsive-xl table-striped" id="table-resident">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Họ Tên</th>
-                    <th>Giới Tính</th>
-                    <th>Ngày Sinh</th>
-                    <th>Nghề Nghiệp</th>
-                    <th>Điện Thoại</th>
-                    <th>ID Căn Hộ</th>
-                    <th>Cập Nhật</th>
+                    <th>Họ tên</th>
+                    <th>Giới tính</th>
+                    <th>Ngày sinh</th>
+                    <th>Nghề nghiệp</th>
+                    <th>Điện thoại</th>
+                    <th>ID căn hộ</th>
+                    <th>Cập nhật</th>
                     <th>Xóa</th>
                 </tr>
                 </thead>
-                <tbody style="color: #59287a !important">
-
-                </tbody>
+                <tbody ></tbody>
             </table>
             <!--------------------------------- Button open modal form  -------------------------->
             <button style="width: 160px" type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
@@ -67,17 +65,17 @@
                     <form>
 
                         <div class="row">
+                            <input type="number" id="id" hidden="true" required="required"/>
                             <!------------------------- Họ Tên ------------------------------>
                             <div class="input-container">
-                                <input type="number" id="id" hidden="true" required="required"/>
                                 <input type="text" required="required" name="fullname" id="fullname"
                                        style="width:300px"/>
-                                <label for="fullname">Họ Tên</label>
+                                <label for="fullname">Họ tên</label>
                             </div>
                             <!------------------------ Ngày Sinh ---------------------------->
-                            <div class="input-container">
+                            <div class="input-container"  >
                                 <input type="date" required="required" name="birthday" id="birthday"
-                                       style="width:230px">
+                                       style="width:275px;">
                                 <label for="birthday">Ngày Sinh</label>
                             </div>
                             <!------------------------- Giới tính --------------------------->
@@ -104,13 +102,13 @@
 
                             <!-------------------------- Điện Thoại ------------------------>
                             <div class="input-container">
-                                <input type="text" required="required" name="phone" id="phone" style="width:245px"/>
+                                <input type="text" required="required" name="phone" id="phone" style="width:283px"/>
                                 <label for="phone">Điện Thoại</label>
                             </div>
 
                             <!-------------------------- Nghề Nghiệp ----------------------->
                             <div class="input-container">
-                                <input type="text" required="required" name="job" id="job" style="width:245px"/>
+                                <input type="text" required="required" name="job" id="job" style="width:207px"/>
                                 <label for="job">Nghề Nghiệp</label>
                             </div>
                         </div>
@@ -121,7 +119,7 @@
                             <!--------------------------- Quê Quán  -------------------------->
                             <div class="input-container">
                                 <input type="text" required="required" name="hometown" id="hometown"
-                                       style="width:308px"/>
+                                       style="width:245px"/>
                                 <label for="hometown">Quê Quán</label>
                             </div>
                             <!---------------------------- Email --------------------------->
@@ -132,7 +130,7 @@
                             <!--------------------------- ID Căn hộ  ------------------------->
                             <div class="input-container">
                                 <input type="text" required="required" name="idapartment" id="idapartment"
-                                       style="width:145px"/>
+                                       style="width:213px"/>
                                 <label for="idapartment">Mã Căn Hộ </label>
                             </div>
                         </div>
@@ -174,7 +172,7 @@
                             <div>
                                 <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
                                         class="input-select">
-                                    <option> chọn loại xe </option>
+                                    <option> chọn loại xe</option>
                                     <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
                                 </select>
                             </div>

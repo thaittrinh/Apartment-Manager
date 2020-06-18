@@ -1,3 +1,4 @@
+
 package poly.com.security.service;
 
 import java.util.Collection;
@@ -11,14 +12,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import poly.com.entity.Account;
+import poly.com.entity.Employee;
+
 
 public class AccountDetailsImpl implements UserDetails {
 
 	private static final long serialVersionUID = -7679110777808967378L;
 
     private int id;
-	
+  
 	private String username;
 	
 	@JsonIgnore 
@@ -36,19 +38,16 @@ public class AccountDetailsImpl implements UserDetails {
 	}
 
 	
-	public static AccountDetailsImpl build(Account account) {
+	public static AccountDetailsImpl build(Employee account) {
 		/*
 		 * you can notice that we convert Set<Role> into List<GrantedAuthority>. 
 		 * It is important to work with Spring Security and Authentication object later.
-		 */
+		*/
 		List<GrantedAuthority> authorities = account.getRoles().stream()
 												.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 												.collect(Collectors.toList());
 		
-		return new AccountDetailsImpl(account.getId(),
-				                   account.getUsername(),						  
-				                   account.getPassword(),
-								   authorities);
+		return new AccountDetailsImpl(account.getId(), account.getUsername(), account.getPassword(), authorities);
 	}
 	
 	
@@ -109,3 +108,4 @@ public class AccountDetailsImpl implements UserDetails {
 	}
 	
 }
+
