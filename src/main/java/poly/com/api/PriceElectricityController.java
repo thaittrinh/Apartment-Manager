@@ -2,6 +2,8 @@ package poly.com.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,14 +41,14 @@ public class PriceElectricityController {
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping()
-	public ResponseEntity<PriceElectricity> createPriceElectricity(@RequestBody PriceElectricity priceElectricity) {
+	public ResponseEntity<PriceElectricity> createPriceElectricity(@Valid @RequestBody PriceElectricity priceElectricity) {
 		return priceElectricityService.createPriceElectricity(priceElectricity);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
 	public ResponseEntity<PriceElectricity> updatePriceElectricity(@PathVariable int id,
-			@RequestBody PriceElectricity priceElectricity) {
+			 													  @Valid @RequestBody PriceElectricity priceElectricity) {
 		return priceElectricityService.updatePriceElectricity(id, priceElectricity);
 	}
 

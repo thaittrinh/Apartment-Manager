@@ -1,5 +1,5 @@
 <!-- ---------------------------------- Sidenavbar ------------------------- -->
-<nav id="sidebar" style="  box-shadow: 5px 0 5px -5px #333;">
+<nav id="sidebar" style="  box-shadow: 5px 0 5px -5px #333;" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="custom-menu">
         <button type="button" id="sidebarCollapse" class="btn btn-primary">
             <i style="line-height: 12px" class="fa fa-bars"></i>
@@ -32,17 +32,10 @@
                             <span></span>
                            Danh SÃ¡ch CÄƒn Há»™
                         </a>
-                    </li>
-                    <!---------------------------->
+                    </li>             
+
                     <li>
-                        <a th:href="@{/ui/own-apartment/form}">
-                            <span></span>
-                            ThÃ´ng Tin Chá»§ CÄƒn Há»™
-                        </a>
-                    </li>
-                    <!---------------------------->
-                    <li>
-                        <a th:href="@{#}">
+                         <a th:href="@{/ui/own-apartment}">
                             <span></span>
                             Danh SÃ¡ch Chá»§ CÄƒn Há»™
                         </a>
@@ -57,13 +50,6 @@
                   CÆ° DÃ¢n
                 </a>
                 <ul class="collapse list-unstyled" id="cudan">
-                    <!---------------------------->
-                    <li>
-                        <a th:href="@{/ui/resdential/form}">
-                            <span class=""></span>
-                            ThÃ´ng Tin CÆ° DÃ¢n
-                        </a>
-                    </li>
                     <!---------------------------->
                     <li>
                         <a th:href="@{/ui/resdential}">
@@ -140,7 +126,7 @@
                 <!---------------------------->
                 <ul class="collapse list-unstyled" id="taikhoan">
                     <li>
-                        <a href="#">
+                        <a th:href="@{/ui/employee}">
                             <span></span>
                            Quáº£n LÃ½ NhÃ¢n ViÃªn
                         </a>

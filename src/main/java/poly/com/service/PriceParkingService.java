@@ -28,59 +28,55 @@ public class PriceParkingService {
     public ResponseEntity<PriceParking> findbyId(int id) {
         try {
             PriceParking priceParking = priceParkingRepository.findById(id).orElse(null);
-            if (priceParking == null)
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             return ResponseEntity.ok(priceParking);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-   
 
+    // < -------------------------------- Create ---------------------------------->
+    @SuppressWarnings("deprecation")
+    public ResponseEntity<PriceParking> createPriceParking(PriceParking priceParking) {
+        try {
+            PriceParking price = priceParkingRepository.findByYearMonthAndLimit(
+                    priceParking.getDate().getYear() + 1900,
+                    priceParking.getDate().getMonth() + 1,
+                    priceParking.getTypeVehicel());
+            if (price != null)
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
 
-	// < -------------------------------- Create ---------------------------------->
-	@SuppressWarnings("deprecation")
-	public ResponseEntity<PriceParking> createPriceParking(PriceParking priceParking) {	
-		try {
-			PriceParking price =  priceParkingRepository.findByYearMonthAndLimit(
-				                                                priceParking.getDate().getYear() + 1900,
-				                                                priceParking.getDate().getMonth() + 1,
-				                                                priceParking.getTypeVehicel()); 	
-			if (price != null) 
-				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-			
-			priceParking.setId(0);
-			priceParking = priceParkingRepository.save(priceParking);
-			return ResponseEntity.ok(priceParking);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}			
-	}
-	
+            priceParking.setId(0);
+            priceParking = priceParkingRepository.save(priceParking);
+            return ResponseEntity.ok(priceParking);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // < ----------------------------------- Update -------------------------------- >
-	@SuppressWarnings("deprecation")
-	public ResponseEntity<PriceParking> updatePriceParking(int id, PriceParking priceParking) {
-		
-		try {
-			if (!priceParkingRepository.existsById(id)) 
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			
-			PriceParking price =  priceParkingRepository.findByYearMonthAndLimit(
-										                    priceParking.getDate().getYear() + 1900,
-										                    priceParking.getDate().getMonth() + 1,
-										                    priceParking.getTypeVehicel()); 
-			if (price!= null && price.getId() != id) 
-				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-				
-			priceParking.setId(id);
-			priceParking= priceParkingRepository.save(priceParking);
-			return ResponseEntity.ok(priceParking);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
+    @SuppressWarnings("deprecation")
+    public ResponseEntity<PriceParking> updatePriceParking(int id, PriceParking priceParking) {
+
+        try {
+            if (!priceParkingRepository.existsById(id))
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+            PriceParking price = priceParkingRepository.findByYearMonthAndLimit(
+                    priceParking.getDate().getYear() + 1900,
+                    priceParking.getDate().getMonth() + 1,
+                    priceParking.getTypeVehicel());
+            if (price != null && price.getId() != id)
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+
+            priceParking.setId(id);
+            priceParking = priceParkingRepository.save(priceParking);
+            return ResponseEntity.ok(priceParking);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     // < --------------------------------- Delete -----------------------------------> 
     public ResponseEntity<String> deletePriceManagemet(int id) {

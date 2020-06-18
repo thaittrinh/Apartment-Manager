@@ -35,7 +35,12 @@ public class Regulation implements Serializable {
 	@Column(length = 10000)
 	@NotNull
 	private String content;
-	
+
+	@NotNull
+	@Temporal(TemporalType.DATE)	 
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date date;
+
 	
 	
 	

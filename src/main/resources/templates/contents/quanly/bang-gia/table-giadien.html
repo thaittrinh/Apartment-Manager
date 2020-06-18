@@ -9,7 +9,7 @@
 		<div th:replace="components/header"></div>
 	</div>
 	<!----------------------------------------- TABLE bảng phí rác ----------------------------->
-	<div class="card" style="width: 100%; margin-left: -3px">
+	<div class="card" >
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
@@ -18,25 +18,25 @@
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
 		<div class="card-body">
-			<table class="table table-hover table-bordered"  id="table-electricity">
+			<table class="table  table-condensed table-responsive-xl table-striped"  id="table-electricity">
 				<thead>
 				<tr>
 					<th>ID</th>
-					<th>Hạn Mức</th>
-					<th>Đơn Giá</th>
-					<th>Ngày</th>
-					<th>nhân Viên</th>
-					<th>Ghi Chú</th>
-					<th>Cập Nhật </th>
+					<th>Hạn mức</th>
+					<th>Đơn giá</th>
+					<th>Ngày </th>
+					<th>Người tạo</th>
+					<th>Ghi chú</th>
+					<th>Cập nhật </th>
 					<th> Xóa</th>
 				</tr>
 				</thead>
 			</table>
 			<!------------------------------- button open modal form  ---------------------------->
-			<button type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
-					onclick="document.querySelector('.modal-title').innerHTML ='Thêm giá mới' "
+			<button style="width: 150px" type="button" class="btn btn-primary" data-toggle="modal" id="show-form"
+					onclick="changetitle() "
 					data-target="#form-building">
-				<i class="icon-btn fa fa-plus"></i> Thêm giá mới
+				<i class="fas fa-plus-square"></i> Thêm giá mới
 			</button>
 		</div>
 	</div>
@@ -53,29 +53,31 @@
 				<!----------------------------------------- body-modal ------------------------------------->
 				<div class="modal-body">
 					<form>
-						<div class="row">
-							<!-- ------------------------------- Hạn mức ---------------------------------------->
-							<div class="input-container">
-								<input type="number"  id="id" hidden="true" required="required" />
-								<input type="number"  min="0" required="required" name="limits" id="limits" style="width: 100px" />
-								<label for="limits">Hạn Mức</label>
-							</div>
+						<div class="row">			
 							<!------------------------------ Don gia ------------------------------------>
 							<div class="input-container">
-								<input type="number" min="0"  required="required" name="price" id="price" style="width: 170px" />
+								<input type="number" min="0"  required="required" name="price" id="price" style="width: 220px" />
 								<label for="price">Đơn Giá</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
-								<input type="date"  required="required" name="date" id="date" style="width: 160px" />
+								<input type="date"  required="required" name="date" id="date" style="width: 220px" />
 								<label for="date">Ngày</label>
+							</div>
+						</div>
+						<!-- ------------------------------- Hạn mức ---------------------------------------->
+						<div class="row">
+							<div class="input-container">
+								<input type="number"  id="id" hidden="true" required="required" />
+								<input type="number"  min="0" required="required" name="limits" id="limits" style="width: 220px" />
+								<label for="limits">Hạn Mức</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
 						<div class="row">
 							<!------------------------------- Ghi Chu -------------------------------------->
 							<div class="input-container">
-								<textarea style="width: 465px" id="note" name="note"  required="required" rows="4"></textarea>
+								<textarea style="width: 465px" id="note" name="note"  required="required" rows="3"></textarea>
 								<label for="note">Ghi Chú</label>
 							</div>
 						</div>
@@ -84,11 +86,11 @@
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success"  id="save">
-						<i class="icon-btn fa fa-plus"></i> Lưu
+					<button style="width: 115px" type="button" class="btn btn-success" id="save">
+						<i class="fas fa-save mr-2"></i> Lưu Lại
 					</button>
-					<button type="button" class="btn btn-primary" id="clean-form">
-						<i class=" icon-btn fas fa-sync-alt"></i>Tạo mới
+					<button style="width: 115px" type="button" class="btn btn-danger" id="clean-form">
+						<i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
 					</button>
 				</div>
 			</div>

@@ -1,12 +1,16 @@
 $(document).ready(function () {
     // <- ------------------------- load data to table ---------------------------->
     $('#table-garbage').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
+        "scroller": true,
+        "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "scrollCollapse": true,
         "sAjaxSource": URL + "api/price-garbage",
         "sAjaxDataProp": "",
         "order": [[0, "asc"]],
@@ -60,12 +64,17 @@ let deletePrice = (id, e) => {
         }
     })
 }
+
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +'Thêm Giá Mới'
+}
 // < ----------------- show form update ------------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-garbage').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập nhập phí rác ";
+    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +"Cập nhập phí rác ";
     $.ajax({
         url: URL + `api/price-garbage/${id}`,
         type: 'GET',
@@ -98,7 +107,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', ' Đã cập nhật phí rác')
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
                 }
             });
         }
@@ -118,7 +134,14 @@ document.querySelector('#save').addEventListener('click', () => {
                     sweetalert(200, 'Success!', 'Đã tạo phí rác') // message
                 },
                 error: function (error) {
-                    sweetalert(error.status) // message
+                	if(error.status === 409){
+	            		 Swal.fire({
+	                         title : 'Error',
+	                         text: 'Giá trong tháng đã tồn tại!!!',
+	                         icon:'error'
+	                     })
+	            	}
+	            	sweetalert(error.status) 
                 }
             })
         }
@@ -146,13 +169,13 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 // < ---------------------------- get value form ----------------------------------->
 let getValueForm = () => {
     return {
-        'id': document.querySelector('#id').value,
-        'price': document.querySelector('#price').value,
-        'date': document.querySelector('#date').value,
+        'id': document.querySelector('#id').value.trim(),
+        'price': document.querySelector('#price').value.trim(),
+        'date': document.querySelector('#date').value.trim(),
         'employee': {
             'id': 1
         },
-        'note': document.querySelector('#note').value
+        'note': document.querySelector('#note').value.trim()
     }
 }
 // < -------------------------------- fill data to form ------------------------------->
@@ -166,17 +189,17 @@ let fillToForm = (garbage) => {
 
 let validate = (data) => {
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
     if (data.price < 0 ){
-        toastrError("Giá không được âm");
+        toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
     }
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
     }

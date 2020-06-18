@@ -2,7 +2,7 @@ package poly.com.api;
 
 import java.util.List;
 
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,14 +42,14 @@ public class PriceGarbageController {
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping()
-	public ResponseEntity<PriceGarbage> createPriceGarbage( @RequestBody PriceGarbage priceGarbage) {
+	public ResponseEntity<PriceGarbage> createPriceGarbage( @Valid @RequestBody PriceGarbage priceGarbage) {
 		return priceGarbageService.createPriceGarbage(priceGarbage);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
 	public ResponseEntity<PriceGarbage> updatePriceGarbage(@PathVariable int id,
-			@RequestBody PriceGarbage priceGarbage) {
+														   @Valid @RequestBody PriceGarbage priceGarbage) {
 		return priceGarbageService.updatePriceGarbage(id, priceGarbage);
 	}
 
