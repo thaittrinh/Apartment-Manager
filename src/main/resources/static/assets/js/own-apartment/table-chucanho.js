@@ -17,7 +17,7 @@ $(document).ready(function () {
         "aoColumns": [
         	 {"mData": "fullname"},
 			{"mRender": function (data, type, full) {
-					return full.gender ? "Nữ" : "Nam"}
+					return full.gender ? "Nam" : "Nữ"}
 			},
              {"mData": "homeTown"}, 
              {"mData": "phone"},
@@ -88,10 +88,8 @@ document.querySelector('#save').addEventListener('click', () => {
 	            success: function (result) {
 	                // annount
 	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
-	            	// update table
-	                console.log(result);
-	            	$('#table-chucanho').DataTable()       
-                    .row.add(result).draw().node();
+	                
+	            	 location.href = URL + 'ui/own-apartment' ; 
 	                // Clean form
 	                cleanForm();
 	            	              

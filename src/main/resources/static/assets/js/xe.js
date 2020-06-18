@@ -210,8 +210,12 @@ let validateFormVehicle = (data) => {
         toastrError("Mã cư dân không được để trống");
         document.querySelector('#idResident')
         return false
-
     }
+    if( data.resident != null && isNaN(data.resident.id) ){
+		toastrError("Id cư dân phải là số!");
+		document.querySelector('#idResident').focus();
+		return false;
+	}
     if (data.typeVehicle.id === '') {
         toastrError("Chưa chọn loại xe!");
         document.querySelector('#type').focus();
