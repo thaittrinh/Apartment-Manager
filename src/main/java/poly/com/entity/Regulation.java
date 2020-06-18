@@ -32,14 +32,11 @@ public class Regulation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; 
 	
+	@Column(length = 10000)
 	@NotNull
 	private String content;
 	
-	@NotNull
-	@Column(unique = true)
-	@Temporal(TemporalType.DATE)	 
-  	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
-	private Date date;
 	
-	private String note;
+	
+	
 }

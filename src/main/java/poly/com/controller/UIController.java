@@ -58,12 +58,6 @@ public class UIController {
         return "contents/quanly/table-lienhe";
     }
     
-    // return template page table thông báo  
-    @RequestMapping("/notification")
-    public String pageNotification() {
-        return "contents/quanly/thongbao/thongbao";
-    }
-    
     
     
 }
