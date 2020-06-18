@@ -50,22 +50,15 @@ public class OwnApartmentController {
 		
 		return ownApartmentService.createOwn(ownDTO);
 	}
-	/*
-	@PostMapping("/upload-file")
-	public boolean uploadFile( @RequestParam("file") MultipartFile mFile) {
-	  return ownApartmentService.saveImage(mFile);
-	}
-	*/
+
 	@PostMapping("/upload-file/{id}")
-	public ResponseEntity<OwnApartment> uploadFile(@PathVariable int id ,
-												   @RequestParam("file") MultipartFile mFile) {
+	public ResponseEntity<OwnApartment> uploadFile(@PathVariable int id , @RequestParam("file") MultipartFile mFile) {
 	  return ownApartmentService.uploadFile(mFile, id);
 	}
 	
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateOwn(@PathVariable int id,
-												  @Valid @RequestBody OwnApartmentDTO ownDTO) {
+	public ResponseEntity<?> updateOwn(@PathVariable int id, @Valid @RequestBody OwnApartmentDTO ownDTO) {
 		return ownApartmentService.updateOwn(id, ownDTO);
 	}
 
