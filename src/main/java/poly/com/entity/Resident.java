@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,32 +37,35 @@ public class Resident implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "fullname can  not  be null ")
+    @NotNull(message = "Fullname can  not  be null ")
     @Column(length = 50)
     private String fullname;
 
-    @NotNull(message = "gender can not be  null ")
+    @NotNull(message = "Gender can not be  null ")
     private Boolean gender;
 
-    @NotNull(message = "birthday can not be null")
+    @NotNull(message = "Birthday can not be null")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
 
-
-    @NotNull(message = " hometown can not be null ")
+    @NotNull(message = " Hometown can not be null ")
     private String hometown;
 
+    @NotNull(message = "Job is not null")
+	@Column(length = 50)
     private String job;
 
     @Column(length = 11 )
+    @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
     private String phone;
 
-    @Column(length = 50)
+    @Size( max = 50, message = "The email length is less than or equal to 50 characters")
     private String email;
 
-
-    @Column(length = 12)
+    @NotNull()
+	@Column(length = 12, unique = true)
+    @Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
     private String identitycard;
 
     @NotNull

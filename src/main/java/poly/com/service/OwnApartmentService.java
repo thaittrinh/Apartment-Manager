@@ -210,22 +210,6 @@ public class OwnApartmentService {
     							ownDTO.getImage(), ownDTO.getIdentitycard());
     }
    
-    /*
-    @Autowired
-	ServletContext context;
-	public boolean saveImage(MultipartFile photo) {
-		try {
-			//String photoPath = context.getRealPath("static/assets/photo/" + photo.getOriginalFilename());	
-			String local = System.getProperty("user.dir");
-			
-			String photoPath  = local+ "\\src\\main\\resources\\static\\assets\\photo\\" + photo.getOriginalFilename();
-			photo.transferTo(new File(photoPath));
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
-	}
-
-    */
+   
     
 }
