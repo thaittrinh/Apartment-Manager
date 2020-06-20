@@ -1,4 +1,7 @@
 
+
+
+
 let fillTypeVehicel = () => {
 	$.ajax({
         type: 'GET',
@@ -7,20 +10,21 @@ let fillTypeVehicel = () => {
         dataType: 'json',
         cache: false,
         success: function (result) {
+        	let data = result.data;
         	let html = "";
-        	for (let i = 0; i < result.length; i++) {      		
+        	for (let i = 0; i < data.length; i++) {      		
         	html +=   `<hr>		
-				        <strong style="text-transform: uppercase;">${result[i].name}</strong>
-				        <a style="float: right; margin:0px 10px; color:red;" href="#" onclick="deleteType(${result[i].id})">Delete</a>
-				        <a style="float: right;" onclick="formUpdateType(${result[i].id})"  href="#">Update</a>       
+				        <strong style="text-transform: uppercase;">${data[i].name}</strong>
+				        <a style="float: right; margin:0px 10px; color:red;" href="#" onclick="deleteType(${data[i].id})">Delete</a>
+				        <a style="float: right;" onclick="formUpdateType(${data[i].id})"  href="#">Update</a>       
 				        <br>
-				        ${result[i].note}`
+				        ${data[i].note}`
         	}
         	
         	document.querySelector('.body-modalType').innerHTML = html;
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     });
 	
@@ -50,10 +54,10 @@ let deleteType = (id) => {
                 	//reload type
                 	fillTypeVehicel()
 	            	// message
-	                sweetalert(200, 'Success!', 'Xóa thành công')
+                	sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                   sweetalert(error.status) //message
+                	sweetalertError(error);	
                 }
             });
         }
@@ -70,10 +74,10 @@ let formUpdateType = (id) => {
 	     type: 'GET',
 	     dataType: 'json',
 	     success: function (result) {
-	    	 fillToFormType(result)
+	    	 fillToFormType(result.data)
 	     },
 	     error: function (error) {
-	         sweetalert(error.status)
+	    	 sweetalertError(error);	
 	     }
 	 });
 	}
@@ -97,17 +101,10 @@ document.querySelector('#save-type').addEventListener('click', () => {
 	                // close modal
 	                $('#form-type-vehicel').modal('hide');   
 	                // annount
-	                sweetalert(200,'Success!' , ' Cập nhật thành công ')
+	                sweetalertSuccess(result.message);
 	            },
 	            error: function (error) {           
-	            	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Tên loại xe đã tồn tại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status) 
+	            	sweetalertError(error);	
 	            }
 	        });
 	
@@ -125,17 +122,10 @@ document.querySelector('#save-type').addEventListener('click', () => {
                 	// clean form
                 	cleanFormType();
 	            	// annount        
-	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
+                	sweetalertSuccess(result.message);
 	            },
 	            error: function (error) {
-	            	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Tên loại xe đã tồn tại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status) 
+	            	sweetalertError(error);	
 	            }
 	        });
 	    }

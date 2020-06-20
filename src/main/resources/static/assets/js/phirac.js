@@ -1,4 +1,20 @@
-$(document).ready(function () {
+
+(function(){
+	 $.ajax({
+	        url: URL + "api/price-garbage",
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+let table = (data) => {
     // <- ------------------------- load data to table ---------------------------->
     $('#table-garbage').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,8 +27,9 @@ $(document).ready(function () {
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + "api/price-garbage",
+       // "sAjaxSource": URL + "api/price-garbage",
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -32,7 +49,7 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
 
 // < ------------------------------- delete -------------------------------------> 
 let deletePrice = (id, e) => {
@@ -55,10 +72,10 @@ let deletePrice = (id, e) => {
                     $('#table-garbage').DataTable().row($(e).parents('tr'))
                         .remove()
                         .draw();
-                    sweetalert(200, 'Success!', 'Đã tạo phí rác ')
+                    sweetalertSuccess(result.message);  
                 },
                 error: function (error) {
-                    toastrmessage(error.status)
+                	sweetalertError(error)	
                 }
             });
         }
@@ -80,10 +97,10 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     });
 }
@@ -101,20 +118,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(garbage),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-garbage').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-garbage').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', ' Đã cập nhật phí rác')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status) 
+                	sweetalertError(error)	
                 }
             });
         }
@@ -128,20 +138,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(garbage),
                 success: function (result) {
-                    result.date = formatDate(result.date); // format date
-                    $('#table-garbage').DataTable().row.add(result).draw().node(); // add new data to table
+                	result.data.date = formatDate(result.data.date); // format date
+                    $('#table-garbage').DataTable().row.add(result.data).draw().node(); // add new data to table
                     cleanForm(); // clean form
-                    sweetalert(200, 'Success!', 'Đã tạo phí rác') // message
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status) 
+                	sweetalertError(error)
                 }
             })
         }

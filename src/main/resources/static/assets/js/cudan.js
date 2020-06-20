@@ -1,4 +1,19 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + `api/resident`,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-resident').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,8 +26,9 @@ $(document).ready(function () {
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + 'api/resident',
+       // "sAjaxSource": URL + 'api/resident',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -34,7 +50,7 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
 
 
 // <---------------------------------- Delete --------------------------->
@@ -56,10 +72,10 @@ let deleteResident = (id, e) => {
                 cache: false,
                 success: function (result) {
                     $('#table-resident').DataTable().row($(e).parents('tr')).remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa cư dân ')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error)	
                 }
             })
         }
@@ -84,10 +100,10 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToFrom(result)
+            fillToFrom(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error)	
         }
     })
 }
@@ -106,23 +122,16 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(resident),
                 success: function (result) {
-                    result.birthday = formatDate(result.birthday);
+                    result.data.birthday = formatDate(result.data.birthday);
                     // Convert date to yy-MM-dd
-                    $('#table-resident').DataTable().row(index).data(result).draw();
+                    $('#table-resident').DataTable().row(index).data(result.data).draw();
                     //update the row in dataTable
                     $('#form-resident').modal('hide');
                     // close modal
-                    sweetalert(200, 'Success!', 'Đã cập nhật thông tin cư dân ');
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Số chứng minh thư đã tồn tại, vui lòng kiểm tra lại ',
-                            icon: 'error'
-                        })
-                    }
-                    sweetalert(error.status)
+                	sweetalertError(error)	
                 }
             })
         } else {
@@ -135,20 +144,13 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(resident),
                 success: function (result) {
-                    result.birthday = formatDate(result.birthday)
-                    $('#table-resident').DataTable().row.add(result).draw().node();
-                    sweetalert(200, 'Success!', 'Đã thêm cư dân mới ')
+                	 result.data.birthday = formatDate(result.data.birthday);
+                    $('#table-resident').DataTable().row.add(result.data).draw().node();
+                    sweetalertSuccess(result.message);
                     cleanFrom();
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        swal.fire({
-                            title: 'Error',
-                            text: 'Số chứng minh nhân dân đã tồn tại, vui lòng kiểm tra lại!',
-                            icon: 'error'
-                        })
-                    }
-                    sweetalert(error.status)
+                	sweetalertError(error)
                 }
             })
         }

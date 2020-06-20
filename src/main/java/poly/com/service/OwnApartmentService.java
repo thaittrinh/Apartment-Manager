@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import poly.com.constant.MessageError;
+import poly.com.constant.MessageSuccess;
 import poly.com.dto.OwnApartmentDTO;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.Apartment;
 import poly.com.entity.OwnApartment;
 import poly.com.helper.FileHelper;
@@ -30,7 +33,7 @@ public class OwnApartmentService {
 	FileHelper fileHelper;
 
     // < --------------------------- find All convert to OwnApartmentDTO -------------------------->
-	 public ResponseEntity<List<OwnApartmentDTO>> findAll() {
+	 public ResponseEntity<ResponseDTO>  findAll() {
 		 try {
 			 List<OwnApartment> ownApartments =  ownApmtRepository.findAll();  
 			    List<OwnApartmentDTO> ownDTOs = new ArrayList<>(); 
@@ -38,34 +41,33 @@ public class OwnApartmentService {
 			    	 OwnApartmentDTO ownDTO = convertToDTO(own);
 			    	 ownDTOs.add(ownDTO);  	
 				}
-		    return ResponseEntity.ok(ownDTOs);
+			    return ResponseEntity.ok(new ResponseDTO(ownDTOs, null));
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	    
 	}
 	
-	
     // < -------------------------- find by Id ---------------------------->
-    public ResponseEntity<OwnApartmentDTO> findById(int id) {
+    public ResponseEntity<ResponseDTO>  findById(int id) {
         try {	
-        	OwnApartment ownApartment = ownApmtRepository.findById(id).orElse(null);
-            return ResponseEntity.ok(convertToDTO(ownApartment));
+        	OwnApartment ownApartment = ownApmtRepository.findById(id).orElse(null);      
+        	return ResponseEntity.ok(new ResponseDTO(convertToDTO(ownApartment), null));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     // < --------------------------- Create ---------------------------------->
-    public ResponseEntity<?> createOwn(OwnApartmentDTO ownDTO) {   	  	
+    public ResponseEntity<ResponseDTO> createOwn(OwnApartmentDTO ownDTO) {   	  	
         try {  
         	// Phone number already exists
         	if (ownApmtRepository.existsByPhone(ownDTO.getPhone())) 
-       		 	return new ResponseEntity<>("Số điện thoại đã tồn tại!", HttpStatus.CONFLICT);
+        		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_PHONE), HttpStatus.CONFLICT);
         	// Identitycard number already exists
         	if (ownApmtRepository.existsByIdentitycard(ownDTO.getIdentitycard())) 
-        		return new ResponseEntity<>("Số chứng minh đã tồn tại!", HttpStatus.CONFLICT);
+        		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_IDENTICARD), HttpStatus.CONFLICT);
         	
         	// Create new Own
         	OwnApartment ownApartment = convertToEntity(ownDTO);     
@@ -80,7 +82,7 @@ public class OwnApartmentService {
 					if (apartment == null) {
 						//Remove Own form database
 						ownApmtRepository.delete(ownApartment);
-						return new ResponseEntity<>(idA + " không tồn tại! ", HttpStatus.NOT_FOUND);
+						return new ResponseEntity<>(new ResponseDTO(null, idA + " không tồn tại! "), HttpStatus.NOT_FOUND);						
 					}
 			      //else
 					apartment.setOwnApartment(ownApartment);
@@ -88,33 +90,33 @@ public class OwnApartmentService {
 				}
         	}
         	 OwnApartmentDTO ownApartmentDTO = convertToDTO(ownApartment);
-        	
-            return ResponseEntity.ok(ownApartmentDTO);
+        	 
+        	 return ResponseEntity.ok(new ResponseDTO(ownApartmentDTO, MessageSuccess.INSERT_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ------------------------------ Update --------------------------------->
-    public ResponseEntity<?> updateOwn(int id, OwnApartmentDTO ownDTO) {
+    public ResponseEntity<ResponseDTO> updateOwn(int id, OwnApartmentDTO ownDTO) {
         try {
         	OwnApartment ownApartment = ownApmtRepository.findById(id).orElse(null);	
             if (ownApartment == null)
-                return new ResponseEntity<>("Người này không tồn tại!", HttpStatus.NOT_FOUND);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
             OwnApartment checkPhone =  ownApmtRepository.findByPhone(ownDTO.getPhone()).orElse(null);
             if (checkPhone != null && checkPhone.getId() != id) 
-            	return new ResponseEntity<>("Số điện thoại đã tồn tại!", HttpStatus.CONFLICT);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_PHONE), HttpStatus.CONFLICT);
             
             OwnApartment checkIdentitycard =  ownApmtRepository.findByIdentitycard(ownDTO.getIdentitycard()).orElse(null);
             if (checkIdentitycard != null && checkIdentitycard.getId() != id) 
-            	return new ResponseEntity<>("Số chứng minh đã tồn tại!", HttpStatus.CONFLICT);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_IDENTICARD), HttpStatus.CONFLICT);
             
            
     		for (String idA : ownDTO.getApartments()) {
     			Apartment apartment = apartmentRepository.findById(idA).orElse(null);
 				if (apartment == null) 	
-					return new ResponseEntity<>(idA + " không tồn tại! ", HttpStatus.NOT_FOUND);	    
+					return new ResponseEntity<>(new ResponseDTO(null, idA + " không tồn tại! "), HttpStatus.NOT_FOUND);	    
 			}
     	   
             OwnApartment newOwnApartment = convertToEntity(ownDTO); 
@@ -153,35 +155,34 @@ public class OwnApartmentService {
 				}
 				
 			}
-            
-                       
+                                 
             OwnApartmentDTO ownApartmentDTO = convertToDTO(newOwnApartment);
-            return ResponseEntity.ok(ownApartmentDTO);
+            return ResponseEntity.ok(new ResponseDTO(ownApartmentDTO, MessageSuccess.UPDATE_SUCCSESS));        
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     
     // < ------------------------------- Delete ----------------------------------->
-    public ResponseEntity<String> deleteOwn(int id) {
+    public ResponseEntity<ResponseDTO> deleteOwn(int id) {
         try {
         	 OwnApartment ownApartment = ownApmtRepository.findById(id).orElse(null);
              if (ownApartment == null) 		
-            	 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
         	ownApmtRepository.deleteById(id);
         	fileHelper.deleteFile(ownApartment.getImage());
-            return ResponseEntity.ok("delete success");
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));  
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
   
     // < ------------------------------- Upload file ----------------------------------->
-    public ResponseEntity<OwnApartment> uploadFile(MultipartFile mFile, int id){
+    public ResponseEntity<ResponseDTO>  uploadFile(MultipartFile mFile, int id){
     	if (mFile.isEmpty()) 
-    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_400), HttpStatus.BAD_REQUEST);
     	
     	try {
     		OwnApartment ownApartment = ownApmtRepository.findById(id).orElse(null);
@@ -192,9 +193,9 @@ public class OwnApartmentService {
 			String fileName =  fileHelper.saveFile(mFile, "user" + id); 
 			ownApartment.setImage(fileName);
 			ownApartment = ownApmtRepository.save(ownApartment);	
-			return ResponseEntity.ok(ownApartment);
+			return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPLOAD_FILE_SUCCSESS));
 		} catch (IOException e) {
-			 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
     

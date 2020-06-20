@@ -1,4 +1,20 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + `api/price-electricity`,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-electricity').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,8 +27,9 @@ $(document).ready(function () {
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + 'api/price-electricity',
+       // "sAjaxSource": URL + 'api/price-electricity',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -33,7 +50,8 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
+
 let deletePrice = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
@@ -51,11 +69,11 @@ let deletePrice = (id, e) => {
                 contentType: "application/json",
                 cache: false,
                 success: function (result) {
-                    $('#table-electricity').DataTable().row($(e).parents('tr')) //
-                    sweetalert(200, 'Success!', 'Đã xóa giá điện ')
+                    $('#table-electricity').DataTable().row($(e).parents('tr')).remove().draw(); //
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error);	
                 }
             });
         }
@@ -77,10 +95,10 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     })
 }
@@ -98,20 +116,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(electricity),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-electricity').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-electricity').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', 'Đã cập nhật giá điện ');
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
-                            icon: 'error'
-                        })
-                    }
-                    sweetalert(error.status)
+                	sweetalertError(error);	
                 }
             })
         }
@@ -125,20 +136,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(electricity),
                 success: function (result) {
-                    result.date = formatDate(result.date);
-                    $('#table-electricity').DataTable().row.add(result).draw().node();
+                	 result.data.date = formatDate(result.data.date);
+                    $('#table-electricity').DataTable().row.add(result.data).draw().node();
                     cleanForm();
-                    sweetalert(200, 'Success', 'Đã tạo giá điện')
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Giá trong tháng đã tồn tại. Trùng hạn mức!!!',
-                            icon: 'error'
-                        })
-                    }
-                    sweetalert(error.status)
+                	sweetalertError(error);	
                 }
 
             })

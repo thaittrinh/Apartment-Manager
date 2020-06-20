@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import poly.com.constant.MessageError;
+import poly.com.constant.MessageSuccess;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.PriceParking;
 import poly.com.repository.PriceParkingRepository;
 
@@ -19,75 +23,74 @@ public class PriceParkingService {
 // --------------------------------------------------------
 
     // < ------------------------------ find all ------------------------->
-    public ResponseEntity<List<PriceParking>> findAll() {
+    public ResponseEntity<ResponseDTO>  findAll() {
         List<PriceParking> priceParkings = priceParkingRepository.findAll();
-        return ResponseEntity.ok(priceParkings);
+        return ResponseEntity.ok(new ResponseDTO(priceParkings, null));
     }
 
     // <-------------------------------- find by Id ------------------------>
-    public ResponseEntity<PriceParking> findbyId(int id) {
+    public ResponseEntity<ResponseDTO>  findbyId(int id) {
         try {
             PriceParking priceParking = priceParkingRepository.findById(id).orElse(null);
-            return ResponseEntity.ok(priceParking);
+            return ResponseEntity.ok(new ResponseDTO(priceParking, null));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     // < -------------------------------- Create ---------------------------------->
     @SuppressWarnings("deprecation")
-    public ResponseEntity<PriceParking> createPriceParking(PriceParking priceParking) {
+    public ResponseEntity<ResponseDTO>  createPriceParking(PriceParking priceParking) {
         try {
             PriceParking price = priceParkingRepository.findByYearMonthAndLimit(
                     priceParking.getDate().getYear() + 1900,
                     priceParking.getDate().getMonth() + 1,
                     priceParking.getTypeVehicel());
             if (price != null)
-                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_PRICE_PARKING), HttpStatus.CONFLICT);
 
             priceParking.setId(0);
             priceParking = priceParkingRepository.save(priceParking);
-            return ResponseEntity.ok(priceParking);
+            return ResponseEntity.ok(new ResponseDTO(priceParking, MessageSuccess.INSERT_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ----------------------------------- Update -------------------------------- >
     @SuppressWarnings("deprecation")
-    public ResponseEntity<PriceParking> updatePriceParking(int id, PriceParking priceParking) {
+    public ResponseEntity<ResponseDTO>  updatePriceParking(int id, PriceParking priceParking) {
 
         try {
             if (!priceParkingRepository.existsById(id))
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_PARKING), HttpStatus.NOT_FOUND);
 
             PriceParking price = priceParkingRepository.findByYearMonthAndLimit(
                     priceParking.getDate().getYear() + 1900,
                     priceParking.getDate().getMonth() + 1,
                     priceParking.getTypeVehicel());
             if (price != null && price.getId() != id)
-                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_PRICE_PARKING), HttpStatus.CONFLICT);
 
             priceParking.setId(id);
             priceParking = priceParkingRepository.save(priceParking);
-            return ResponseEntity.ok(priceParking);
+            return ResponseEntity.ok(new ResponseDTO(priceParking, MessageSuccess.UPDATE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-
     // < --------------------------------- Delete -----------------------------------> 
-    public ResponseEntity<String> deletePriceManagemet(int id) {
+    public ResponseEntity<ResponseDTO>  deletePriceManagemet(int id) {
         try {
             if (!priceParkingRepository.existsById(id))
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_PARKING), HttpStatus.NOT_FOUND);
 
             priceParkingRepository.deleteById(id);
-            return ResponseEntity.ok("Delete success!");
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

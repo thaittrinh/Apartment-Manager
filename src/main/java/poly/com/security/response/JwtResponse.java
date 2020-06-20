@@ -1,4 +1,4 @@
-package poly.com.payload.response;
+package poly.com.security.response;
 
 import java.util.List;
 
