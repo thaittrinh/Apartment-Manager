@@ -186,7 +186,7 @@ let getValueForm = () => {
         'id': document.querySelector("#id").value.trim(),
         'fullname': document.querySelector('#fullname').value.trim(),
         'birthday': document.querySelector('#birthday').value.trim(),
-        'gender': $("input[name='gender']:checked").val() == 'female' ? true : false,
+        'gender': $("input[name='gender']:checked").val() === 'female',
         'hometown': document.querySelector("#hometown").value.trim(),
         'job': document.querySelector('#job').value.trim(),
         'phone': document.querySelector('#phone').value.trim(),

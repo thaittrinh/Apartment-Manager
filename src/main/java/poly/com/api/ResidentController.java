@@ -25,25 +25,25 @@ public class ResidentController {
 
     // < ------------------------- findById ---------------------->
     @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable int id) {
+    public ResponseEntity<Resident> findById(@PathVariable int id) {
         return residentService.findById(id);
     }
 
     // < ----------------------------- Create --------------------->
     @PostMapping()
-    public ResponseEntity create(@Valid @RequestBody Resident resident) {
+    public ResponseEntity<Resident> create(@Valid @RequestBody Resident resident) {
         return residentService.create(resident);
     }
 
     // < ----------------------------- Update --------------------->
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable int id, @Valid @RequestBody Resident resident) {
+    public ResponseEntity<Resident> update(@PathVariable int id, @Valid @RequestBody Resident resident) {
         return residentService.update(id, resident);
     }
 
     // < ----------------------------- Delete --------------------->
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
         return residentService.delete(id);
     }
 }

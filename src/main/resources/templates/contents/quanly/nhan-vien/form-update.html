@@ -6,7 +6,7 @@
 	<div layout:fragment="content">
 		<!------------------------------------------ Header -------------------------->
 		<div class="row">
-			<a class="title"> Cập nhật căn hộ </a>
+			<a class="title"> Cập nhật nhân viên </a>
 			<div th:replace="components/header"></div>
 		</div>
 		<!-- ----------------------------------- Form  ThÃƒÂ´ng tin chÃ¡Â»Â§ cÃ„Æ’n hÃ¡Â»â„¢ ----------------------------- -->
@@ -16,7 +16,7 @@
 				<div class="card-header" style="border-radius: 6px">
 					<div class="card-titles">
 						<h6 style="color: white">
-							<i class="fas fa-address-card mr-3"></i> Thông tin chủ căn hộ
+							<i class="fas fa-address-card mr-3"></i> Thông tin nhân viên
 						</h6>
 					</div>
 				</div>
@@ -24,13 +24,18 @@
 				<div class="card-body" style="padding: 30px 0;">
 
 					<form>
-						<input type="text" id="id_own" th:value="${idOwn}" hidden="true">
+						<!--  
+						<input type="text" id="id" th:value="${id}" hidden="true">
+						-->
+
 						<div class="row">
 							<!------------------------- HÃ¡Â»ï¿½ TÃƒÂªn ------------------------------->
 							<div class="input-container col-sm-4" style="padding: 0;">
 								<input type="text" required="required" name="fullname"
-									id="fullname" style="width: 100%" /> <label for="fullname">Họ tên</label>
+									id="fullname" style="width: 100%" /> <label for="fullname">Họ
+									tên</label>
 							</div>
+
 							<!------------------------ NgÃƒÂ y Sinh ------------------------------>
 							<div class="input-container col-sm-4" style="padding: 0;">
 								<input type="date" required="required" name="birthday"
@@ -38,12 +43,13 @@
 									for="birthday">Ngày sinh</label>
 							</div>
 
-							<!----------------------------- QuÃƒÂª QuÃƒÂ¡n  ---------------------------->
+							<!----------------------------- CMND ------------------------------>
 							<div class="input-container col-sm-3" style="padding: 0;">
-								<input type="text" required="required" name="homeTown"
-									id="homeTown" style="width: 100%" /> <label for="homeTown">Quê quán
-									</label>
+								<input type="text" required name="identityCard"
+									id="identityCard" style="width: 100%"> <label
+									for="identityCard">CMND</label>
 							</div>
+
 						</div>
 						<!-------------------------------- div End row ----------------------->
 						<div class="row">
@@ -61,41 +67,63 @@
 										class="custom-control-label" for="female">Nữ</label>
 								</div>
 							</div>
-							<!----------------------------- CMND ------------------------------>
+
+							<!----------------------------- Dia chi  ---------------------------->
 							<div class="input-container col-sm-4" style="padding: 0;">
-								<input type="text" required name="identityCard"
-									id="identityCard" style="width: 100%"> <label
-									for="identityCard">CMND</label>
+								<input type="text" required="required" name="address"
+									id="address" style="width: 100%" /> <label for="address">Địa
+									chỉ</label>
 							</div>
+
 							<!------------------------------ Ã„ï¿½iÃ¡Â»â€¡n ThoÃ¡ÂºÂ¡i ------------------------>
 							<div class="input-container col-sm-3" style="padding: 0;">
 								<input type="text" required="required" name="phone" id="phone"
-									style="width: 100%" /> <label for="phone">Số điện thoại</label>
+									style="width: 100%" /> <label for="phone">Số điện
+									thoại</label>
 							</div>
 
 						</div>
 
 						<!------------------------------------ End row ------------------------>
 						<div class="row">
-							<!--------------------------------- NghÃ¡Â»ï¿½ NghiÃ¡Â»â€¡p ----------------->
+							<!----------------------------------- Username ----------------------->
 							<div class="input-container col-sm-4" style="padding: 0;">
-								<input type="text" required="required" name="job" id="job"
-									style="width: 100%" /> <label for="job">Nghề nghiệp</label>
+								<input type="text" required name="username" id="username"
+									style="width: 100%;" /> <label for="username">Tên đăng
+									nhập</label>
 							</div>
-							<!----------------------------------- Email ----------------------->
+							<!----------------------------------- Password ----------------------->
 							<div class="input-container col-sm-4" style="padding: 0;">
-								<input type="email" required="required" name="email" id="email"
-									style="width: 100%;" /> <label for="email">Email</label>
+								<input type="password" required name="password" id="password"
+									style="width: 100%;" /> <label for="password">Mật khẩu</label>
 							</div>
-							<!------------------------------ Can ho so huu------------------------>
-							<div class="input-container col-sm-3" style="padding: 0;">
-								<input type="text" required name="id_apartment"
-									id="id_apartment" style="width: 100%" /> <label for="phone">Căn hộ</label>
+							<!----------------------------------- Roles ----------------------->
+							<div class="col-sm-3">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox"
+										id="role-admin" value="admin"> <label
+										class="form-check-label" for="role-admin">Admin</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="checkbox"
+										id="role-moderator" value="mod"> <label
+										class="form-check-label" for="role-moderator">Quản Lý</label>
+								</div>						
 							</div>
 
 						</div>
-						<div style="float: right;">
-							<a th:href="@{/ui/own-apartment}">
+						<div class="row">
+							
+							
+							<!----------------------------------- Email ----------------------->
+							<div class="input-container col-sm-6" style="padding: 0;">
+								<input type="email" required name="email" id="email"
+									style="width: 100%;" /> <label for="email">Email</label>
+							</div>
+							
+						</div>
+						<div style="float: right;" >
+							<a th:href="@{/ui/employee}">
 								<button type="button" class="btn btn-secondary"
 									data-toggle="modal" data-target="#modal-vehicel">
 									<i class="fas fa-sign-out-alt"></i> Thoát
@@ -128,14 +156,13 @@
 				</form>
 				<!------------------------------------------------>
 				<div class="card-title-name">
-					<h5 id="name-formImg"></h5>
-					<i id="email-formImg"></i>
+					<h5 id="name-formImg">Trần Quốc Vương</h5>
+					<i id="email-formImg">vuogn@cuteo.com</i>
 				</div>
 				<div class="card-body-information"></div>
 			</div>
 		</div>
-		<script th:inline="javascript"
-			th:src="@{/assets/js/own-apartment/update.js}" type="text/javascript"></script>
+
 	</div>
 </div>
 <!-------------------------------------------------- End Div content ------------------------------------------------->

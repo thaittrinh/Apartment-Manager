@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignupRequest {
+public class SigninRequest {
 
 	@NotNull
 	private int id;

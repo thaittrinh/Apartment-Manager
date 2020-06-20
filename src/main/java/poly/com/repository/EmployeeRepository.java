@@ -8,8 +8,10 @@ import poly.com.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-  Optional<Employee> findByIndentitycardAndPhone(String identitycard, String phone);
-  
+  Optional<Employee> findByPhone(String phone);
+
+  Optional<Employee>  findByIndentitycard(String identitycard);
+
   Optional<Employee> findByUsername(String username); 
   
   Boolean existsByUsername(String username); 
