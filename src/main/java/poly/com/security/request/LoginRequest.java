@@ -1,4 +1,4 @@
-package poly.com.payload.request;
+package poly.com.security.request;
 
 import javax.validation.constraints.NotBlank;
 

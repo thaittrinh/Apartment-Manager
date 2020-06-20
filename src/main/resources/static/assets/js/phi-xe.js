@@ -1,5 +1,21 @@
 
 (function(){
+	 $.ajax({
+	        url: URL + `api/price-parking`,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	        	sweetalertError(error);	
+	        }
+	    });
+})()
+
+
+
+let table = (data) => {
 	
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
@@ -13,8 +29,9 @@
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + 'api/price-parking',
+       // "sAjaxSource": URL + 'api/price-parking',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},          
@@ -35,7 +52,7 @@
             }
         ]
     });
-})()
+}
 
 //< ----------------------------- Delete ---------------------------->
 let deletePrice = (id, e) => {
@@ -57,10 +74,10 @@ let deletePrice = (id, e) => {
                 success: function (result) {
                     $('#my-table').DataTable().row($(e).parents('tr')) // format date
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa giá gửi xe') // message
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                   sweetalert(error.status) //message
+                	sweetalertError(error);	
                 }
             });
         }
@@ -83,10 +100,10 @@ let showFormUpdate = (id, e) => {
      type: 'GET',
      dataType: 'json',
      success: function (result) {
-         fillToForm(result)
+         fillToForm(result.data)
      },
      error: function (error) {
-         sweetalert(error.status)
+    	 sweetalertError(error);	
      }
  });
 }
@@ -105,23 +122,16 @@ document.querySelector('#save').addEventListener('click', () => {
 	            data: JSON.stringify(price),
 	            success: function (result) {
 	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date); 
+	                result.data.date = formatDate(result.data.date); 
 	                //update the row in dataTable
-	                $('#my-table').DataTable().row(index).data(result).draw(); 
+	                $('#my-table').DataTable().row(index).data(result.data).draw(); 
 	                // close modal
 	                $('#form-building').modal('hide');   
 	                // annount
-	                sweetalert(200,'Success!' , ' Cập nhật thành công ')
+	                sweetalertSuccess(result.message);
 	            },
 	            error: function (error) {           
-	            	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại. Trùng loại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status)  
+	            	sweetalertError(error);	  
 	            }
 	        });
 	
@@ -135,24 +145,17 @@ document.querySelector('#save').addEventListener('click', () => {
 	            data: JSON.stringify(price),
 	            success: function (result) {
 	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date);                
+	                result.data.date = formatDate(result.data.date);                
 	                // Add new data to DataTable
 	                $('#my-table').DataTable()       
-	                    .row.add(result).draw().node();
+	                    .row.add(result.data).draw().node();
 	                // Clean form
 	                cleanForm();
 	                // annount
-	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
+	                sweetalertSuccess(result.message);
 	            },
 	            error: function (error) {
-	            	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại. Trùng loại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status)  
+	            	sweetalertError(error);	  
 	            }
 	        });
 	    }

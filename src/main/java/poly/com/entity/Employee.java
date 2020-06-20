@@ -41,14 +41,14 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-    @NotNull(message = "fullname can  not  be null ")
+    @NotNull(message = "Fullname can  not  be null ")
     @Column(length = 50)
 	private String fullName;
 
-    @NotNull(message = "gender can not be  null ")
+    @NotNull(message = "Gender can not be  null ")
     private boolean gender;
 
-    @NotNull(message = "birthday can not be null")
+    @NotNull(message = "Birthday can not be null")
   	@Temporal(TemporalType.DATE)	 
   	@DateTimeFormat(pattern = "yyyy-MM-dd") //MM/dd/yyyy
     private Date birthday;
@@ -63,7 +63,7 @@ public class Employee implements Serializable {
     @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
     private String phone;
     
-    @NotNull(message = "address can not be null ")
+    @NotNull(message = "Address can not be null ")
     private String address;
     
     private String email;
@@ -73,7 +73,7 @@ public class Employee implements Serializable {
     
     @NotNull
 	@Column(unique = true, length = 20)
-    @Size(min = 5, max = 20, message = "Phone numbers from 5 to 20 characters")
+    @Size(min = 5, max = 20, message = "Username numbers from 5 to 20 characters")
 	private String username;
 	
 	@NotNull

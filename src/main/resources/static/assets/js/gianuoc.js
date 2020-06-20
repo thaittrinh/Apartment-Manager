@@ -1,4 +1,18 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + 'api/price-water',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,8 +25,9 @@ $(document).ready(function () {
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + 'api/price-water',
+       // "sAjaxSource": URL + 'api/price-water',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -33,7 +48,7 @@ $(document).ready(function () {
         ]
     });
 
-});
+}
 
 
 // < ----------------------------- Delete ---------------------------->
@@ -56,10 +71,10 @@ let deletePrice = (id, e) => {
                 success: function (result) {
                     $('#my-table').DataTable().row($(e).parents('tr'))
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa giá nước') // message
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    sweetalert(error.status) //message
+                	sweetalertError(error);	
                 }
             });
         }
@@ -82,10 +97,10 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     });
 }
@@ -105,25 +120,16 @@ document.querySelector('#save').addEventListener('click', () => {
                 data: JSON.stringify(water),
                 success: function (result) {
                     // Convert date to yy-MM-dd
-                    result.date = formatDate(result.date);
+                    result.data.date = formatDate(result.data.date);
                     //update the row in dataTable
-                    $('#my-table').DataTable().row(index).data(result).draw();
+                    $('#my-table').DataTable().row(index).data(result.data).draw();
                     // close modal
                     $('#form-building').modal('hide');
                     // annount
-                    sweetalert(200, 'Success!', ' Đã cập nhật giá nước ')
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Giá đã tồn tại!!!',
-                            icon: 'error'
-                        })
-                    }else{
-                    	 sweetalert(error.status)
-                    }
-                   
+                	sweetalertError(error);	      
                 }
             });
 
@@ -137,26 +143,17 @@ document.querySelector('#save').addEventListener('click', () => {
                 data: JSON.stringify(water),
                 success: function (result) {
                     // Convert date to yy-MM-dd
-                    result.date = formatDate(result.date);
+                	result.data.date = formatDate(result.data.date);
                     // Add new data to DataTable
                     $('#my-table').DataTable()
-                        .row.add(result).draw().node();
+                        .row.add(result.data).draw().node();
                     // Clean form
                     cleanForm();
                     // annount
-                    sweetalert(200, 'Success!', 'Đã tạo giá nước')
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'Giá đã tồn tại!!!',
-                            icon: 'error'
-                        })
-                    }else{
-                    	sweetalert(error.status)
-                    }
-                    
+                	sweetalertError(error);	
                 }
             });
         }
