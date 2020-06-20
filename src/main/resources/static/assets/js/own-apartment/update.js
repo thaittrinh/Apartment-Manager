@@ -63,7 +63,7 @@ document.querySelector('#save').addEventListener('click', () => {
 
 
 /* ------------------------         Upload  File      --------------------------*/
-document.querySelector('.card-img').addEventListener('click', () => {
+document.querySelector('.img').addEventListener('click', () => {
 	document.querySelector('#file').click();
 });
 
