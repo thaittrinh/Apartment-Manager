@@ -6,12 +6,12 @@ let OB = null;
 	     type: 'GET',
 	     dataType: 'json',
 	     success: function (result) {
-	    	 OB = result;
-	         fillToForm(result);
-	         fillToFormImage(result);
+	    	 OB = result.data;
+	         fillToForm(result.data);
+	         fillToFormImage(result.data);
 	     },
 	     error: function (error) {
-	         sweetalert(error.status)
+	    	 sweetalertError(error);	
 	     }
 	 });
 	
@@ -31,29 +31,11 @@ document.querySelector('#save').addEventListener('click', () => {
 	            dataType: 'json',
 	            cache: false,
 	            data: JSON.stringify(dto),
-	            success: function (result) {
-	                // annount
-	                sweetalert(200 ,'Success!' ,'Cập nhật thành công')          	              
+	            success: function (result) {               
+	            	sweetalertSuccess(result.message);         	              
 	            },
-	            error: function ( error) {
-	            	if(error.status === 409){     	
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text:  error.responseText,
-	                         icon:'error'
-	                     })
-	            	}
-	            	else if(error.status === 404){     	
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text:  error.responseText,
-	                         icon:'error'
-	                     })
-	            	}
-	            	else{
-	            		sweetalert(error.status) 
-	            	}
-	            	 
+	            error: function ( error) {	            	
+	            	sweetalertError(error);		            	 
 	            }
 	        });
 	        
@@ -63,7 +45,7 @@ document.querySelector('#save').addEventListener('click', () => {
 
 
 /* ------------------------         Upload  File      --------------------------*/
-document.querySelector('.card-img').addEventListener('click', () => {
+document.querySelector('.img').addEventListener('click', () => {
 	document.querySelector('#file').click();
 });
 
@@ -94,16 +76,12 @@ $("#file-upload-form").on("submit", function (e) {
         processData: false,
         contentType: false,
         cache: false,
-        success: function (res) {
-        	sweetalert(200 ,'Success!' ,'Lưu hình thành công');
+        success: function (result) {
+        	sweetalertSuccess(result.message); 
         },
-        error: function (err) {
+        error: function (error) {
         	fillToFormImage(OB);
-        	Swal.fire({
-                title : 'Error',
-                text :  'Lưu hình thất bại',
-                icon: 'error'
-            })
+        	sweetalertError(error);	
         }
     });
 });
@@ -112,6 +90,8 @@ $("#file-upload-form").on("submit", function (e) {
 
 
 let fillToForm = (data) => {
+	console.log(data);
+	
 	document.querySelector('#id_own').value = data.id;
 	document.querySelector('#fullname').value = data.fullname,
     document.querySelector('#birthday').value = data.birthday,
@@ -121,7 +101,7 @@ let fillToForm = (data) => {
     document.querySelector('#phone').value = data.phone,
     document.querySelector('#job').value = data.job,
     document.querySelector('#email').value = data.email,
-    document.querySelector('#id_apartment').value = data.apartments	
+    document.querySelector('#id_apartment').value = data.apartments;
 }
 
 

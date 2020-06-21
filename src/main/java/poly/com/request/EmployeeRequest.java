@@ -1,4 +1,4 @@
-package poly.com.payload.request;
+package poly.com.request;
 
 import java.util.Date;
 import java.util.Set;
@@ -19,12 +19,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SigninRequest {
+public class EmployeeRequest {
 
 	@NotNull
 	private int id;
 	
-	@NotBlank
+	@NotBlank(message = "Fullname is not null!")
 	@Size(max = 50)
 	private String fullName;
 
@@ -34,15 +34,15 @@ public class SigninRequest {
   	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-	@NotBlank
-	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long")
+	@NotBlank()
+	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long!")
     private String indentitycard;
 
 	@NotBlank
-	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
+	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long!")
     private String phone;
     
-	@NotBlank
+	@NotBlank(message = "Address is not null!")
     private String address;
     
     private String email;
@@ -50,13 +50,13 @@ public class SigninRequest {
     private String image;
 	
 	@NotBlank
-	@Size(min = 5, max = 20)
+	@Size(min = 5, max = 20, message = "Username numbers from 5 to 20 characters!")
 	private String username;
 	
 	@NotBlank
-	@Size(min = 6, max = 50)
+	@Size(min = 3, max = 8, message = "Password from 3 to 8 characters!")
 	private String password;
 	
-	private Set<String> role;
+	private Set<String> roles;
 	
 }

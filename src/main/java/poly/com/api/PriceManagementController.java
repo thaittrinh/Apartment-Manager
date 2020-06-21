@@ -1,7 +1,5 @@
 package poly.com.api;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import poly.com.constant.URL_API;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.PriceManagement;
 import poly.com.service.PriceManagementService;
 
 @RestController
-@RequestMapping("/api/price-management")
+@RequestMapping(URL_API.PRICE_MANAGEMENT)
 public class PriceManagementController {
 
 // < ----------------------------------- Class PriceElectricity RestController ---------------------------->
@@ -30,32 +30,32 @@ public class PriceManagementController {
 	
 	// <------------------------- findAll --------------------------->
 	@GetMapping
-	public ResponseEntity<List<PriceManagement>> findAll() {
+	public ResponseEntity<ResponseDTO> findAll() {
 		return priceManagementService.findAll();
 	}
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<PriceManagement> findbyId(@PathVariable int id) {
+	public ResponseEntity<ResponseDTO> findbyId(@PathVariable int id) {
 		return priceManagementService.findbyId(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping
-	public ResponseEntity<PriceManagement> createPriceManagement( @Valid @RequestBody PriceManagement priceManagement) {
+	public ResponseEntity<ResponseDTO> createPriceManagement( @Valid @RequestBody PriceManagement priceManagement) {
 		return priceManagementService.createPriceManagement(priceManagement);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceManagement> updatePriceManagement(@PathVariable int id,
+	public ResponseEntity<ResponseDTO> updatePriceManagement(@PathVariable int id,
 																 @Valid @RequestBody PriceManagement priceManagement) {
 		return priceManagementService.updatePriceManagement(id, priceManagement);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deletePricemanagement(@PathVariable int id) {
+	public ResponseEntity<ResponseDTO> deletePricemanagement(@PathVariable int id) {
 		return priceManagementService.deletePriceManagemet(id);
 	}
 }

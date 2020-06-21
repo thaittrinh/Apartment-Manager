@@ -1,4 +1,19 @@
+
 (function(){
+	 $.ajax({
+	        url: URL + `api/apartment`,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
         "scrollCollapse": true,
@@ -10,8 +25,9 @@
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + 'api/apartment',
-        "sAjaxDataProp": "",
+       // "sAjaxSource": URL + 'api/apartment', 
+        "sAjaxDataProp": "",          
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -23,7 +39,7 @@
             {"mData": "acreage"},
             {"mData": "password"},
             {
-                "mRender": function (data, type, full) {
+                "mRender": function (aaData, type, full) {           	
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate("${full.id}",this)'  type="button">edit</i>`
                 },"mWidth": "5%"
             },
@@ -34,7 +50,7 @@
             }
         ]
     });
-})() ;
+}
 
 
 // < ----------------------------- Delete ---------------------------->
@@ -57,10 +73,10 @@ let deleteApartment = (id,e) => {
                 success: function (result) {
                     $('#my-table').DataTable().row($(e).parents('tr'))
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Xóa thành công') // message
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    sweetalert(error.status) //message
+                	sweetalertError(error);	 
                 }
             });
         }
@@ -84,31 +100,14 @@ document.querySelector('#insert').addEventListener('click', () => {
             success: function (result) {
                 // Add new data to DataTable
                 $('#my-table').DataTable()
-                    .row.add(result).draw().node();
+                    .row.add(result.data).draw().node();
                 // Clean form
                 cleanForm();
                 // annount
-                sweetalert(200, 'Success!', 'Thêm mới thành công')
+                sweetalertSuccess(result.message);
             },
             error: function (error) {
-                if (error.status === 409) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: `${data.id} đã tồn tại!!!`,
-                        icon: 'error'
-                    })
-                }
-                if (error.status === 404) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: `Chủ căn hộ không tồn tại!!!`,
-                        icon: 'error'
-                    })
-                }
-                else{
-                    sweetalert(error.status)
-                }
-
+            	sweetalertError(error);	            
             }
         });
     }
@@ -209,10 +208,10 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToFormUpdate(result)
+            fillToFormUpdate(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     });
 
@@ -229,26 +228,16 @@ document.querySelector('#update').addEventListener('click', () => {
             dataType: 'json',
             cache: false,
             data: JSON.stringify(data),
-            success: function (result) {
-
+            success: function (result) {     
                 //update the row in dataTable
-                $('#my-table').DataTable().row(index).data(result).draw();
+                $('#my-table').DataTable().row(index).data(result.data).draw();
                 // close modal
                 $('#form-update').modal('hide');
                 // annount
-                sweetalert(200, 'Success!', 'Cập nhật thành công')
+                sweetalertSuccess(result.message);
             },
             error: function (error) {
-                if (error.status === 404) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: error.responseText + '!!!',
-                        icon: 'error'
-                    })
-                }
-                else{
-                    sweetalert(error.status)
-                }
+            	sweetalertError(error);	
             }
         });
     }

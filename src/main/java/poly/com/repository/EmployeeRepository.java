@@ -14,6 +14,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
   Optional<Employee> findByUsername(String username); 
   
-  Boolean existsByUsername(String username); 
+  
 
 }

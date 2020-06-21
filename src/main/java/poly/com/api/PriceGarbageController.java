@@ -1,7 +1,5 @@
 package poly.com.api;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import poly.com.constant.URL_API;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.PriceGarbage;
 import poly.com.service.PriceGarbageService;
 
 @RestController
-@RequestMapping("/api/price-garbage")
+@RequestMapping(URL_API.PRICE_GARBAGE)
 public class PriceGarbageController {
 	
 	// < ----------------------------------- Class PriceGarbage RestController  ---------------------------->
@@ -30,32 +30,32 @@ public class PriceGarbageController {
 	
 	// <------------------------- findAll --------------------------->
 	@GetMapping()
-	public ResponseEntity<List<PriceGarbage>> findPriceGarbageAll() {
+	public ResponseEntity<ResponseDTO> findPriceGarbageAll() {
 		return priceGarbageService.findPriceGarbageAll();
 	}
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<PriceGarbage> findPriceGarbagebyId(@PathVariable int id) {
+	public ResponseEntity<ResponseDTO> findPriceGarbagebyId(@PathVariable int id) {
 		return priceGarbageService.findPriceGarbageById(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping()
-	public ResponseEntity<PriceGarbage> createPriceGarbage( @Valid @RequestBody PriceGarbage priceGarbage) {
+	public ResponseEntity<ResponseDTO> createPriceGarbage( @Valid @RequestBody PriceGarbage priceGarbage) {
 		return priceGarbageService.createPriceGarbage(priceGarbage);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<PriceGarbage> updatePriceGarbage(@PathVariable int id,
+	public ResponseEntity<ResponseDTO> updatePriceGarbage(@PathVariable int id,
 														   @Valid @RequestBody PriceGarbage priceGarbage) {
 		return priceGarbageService.updatePriceGarbage(id, priceGarbage);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deletePriceGarbage(@PathVariable int id) {
+	public ResponseEntity<ResponseDTO> deletePriceGarbage(@PathVariable int id) {
 		return priceGarbageService.deletePriceGarbage(id);
 	}
 

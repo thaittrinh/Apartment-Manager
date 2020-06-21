@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import poly.com.constant.MessageError;
+import poly.com.constant.MessageSuccess;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.Apartment;
 import poly.com.repository.ApartmentRepository;
 import poly.com.repository.OwnApartmentRepository;
@@ -21,67 +24,67 @@ public class ApartmentService {
 	OwnApartmentRepository ownApartmentRepository;
 	
     // < -------------------- find All ---------------------------->
-    public ResponseEntity<List<Apartment>> findAll() {	
+    public ResponseEntity<ResponseDTO> findAll() {	
         List<Apartment> apartments = apartmentRepository.findAll();
-        return ResponseEntity.ok(apartments);
+        return ResponseEntity.ok(new ResponseDTO(apartments, null));
     }
 
     // < -------------------- find by Id ---------------------------->
-    public ResponseEntity<Apartment> findById(String id) {
+    public  ResponseEntity<ResponseDTO> findById(String id) {
         try {
         	Apartment apartment = apartmentRepository.findById(id).orElse(null);    
-            return ResponseEntity.ok(apartment);
+        	 return ResponseEntity.ok(new ResponseDTO(apartment, null));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ---------------------------- Create ------------------------->
  
-    public ResponseEntity<Apartment> createApartment(Apartment apartment) {
+    public ResponseEntity<ResponseDTO> createApartment(Apartment apartment) {
         try { 
         	// Id already exists  
         	Apartment apartment2 = apartmentRepository.findById(apartment.getId()).orElse(null);
         	if (apartment2 != null)
-        		 return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_ID_APARTMENT), HttpStatus.CONFLICT);
         	
-        	 if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))
-                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
+        	 if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))		 
+                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
+        	
         	apartment = apartmentRepository.save(apartment);
-            return ResponseEntity.ok(apartment);
+        	return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.INSERT_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ----------------------------- update ------------------------- 
-    public ResponseEntity<?> updateApartment(String id, Apartment apartment) {
+    public ResponseEntity<ResponseDTO> updateApartment(String id, Apartment apartment) {
         try {
             if (!apartmentRepository.existsById(id))
-                return new ResponseEntity<>( id + " không tồn tại", HttpStatus.NOT_FOUND);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
             
             if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))
-                  return new ResponseEntity<>("Chủ căn hộ không tồn tại", HttpStatus.NOT_FOUND);
+            	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
             apartment.setId(id);
             apartment = apartmentRepository.save(apartment);
-            return ResponseEntity.ok(apartment);
+            return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.UPDATE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ----------------------------- Delete -------------------------->
-    public ResponseEntity<String> deleteApartment(String id) {
+    public ResponseEntity<ResponseDTO> deleteApartment(String id) {
         try {
         	if (!apartmentRepository.existsById(id))
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
             
         	apartmentRepository.deleteById(id);
-            return ResponseEntity.ok("Delete success");
+        	 return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 	
