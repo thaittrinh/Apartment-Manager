@@ -1,4 +1,21 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + "api/own-apartment",
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+
+
+let table = (data) => {
     // <- ------------------------- load data to table ---------------------------->
      $('#table-chucanho').DataTable({
 		 fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,13 +28,14 @@ $(document).ready(function () {
 		 "autoWidth": true,
 		 "processing": true,
 		 "scrollY": "250px",
-        "sAjaxSource": URL + "api/own-apartment",
-        "sAjaxDataProp": "",     
+        //"sAjaxSource": URL + "api/own-apartment",
+        "sAjaxDataProp": "",  
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
         	 {"mData": "fullname"},
 			{"mRender": function (data, type, full) {
-					return full.gender ? "Nữ" : "Nam"}
+					return full.gender ? "Nam" : "Nữ"}
 			},
              {"mData": "homeTown"}, 
              {"mData": "phone"},
@@ -35,7 +53,7 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
 
 
 //< ----------------------------- Delete ---------------------------->
@@ -58,10 +76,10 @@ let deleteOwn = (id, e) => {
                 success: function (result) {
                     $('#table-chucanho').DataTable().row($(e).parents('tr')) // format date
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Xóa thành công') // message
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                   sweetalert(error.status) //message
+                	sweetalertError(error);	
                 }
             });
         }
@@ -76,7 +94,6 @@ let showFormUpdate = (id) => {
 
 document.querySelector('#save').addEventListener('click', () => {
 	 var dto  = getValueForm();
-	 console.log(dto.identitycard);
 	 if(validate(dto)){
 	        $.ajax({
 	            type: 'POST',
@@ -86,35 +103,15 @@ document.querySelector('#save').addEventListener('click', () => {
 	            cache: false,
 	            data: JSON.stringify(dto),
 	            success: function (result) {
-	                // annount
-	                sweetalert(200 ,'Success!' ,'Tạo mới thành công') 
-	            	// update table
-	                console.log(result);
-	            	$('#table-chucanho').DataTable()       
-                    .row.add(result).draw().node();
+	                // annount         
+	            	sweetalertSuccess(result.message);
+	            	
+	            	location.href = URL + 'ui/own-apartment' ; 
 	                // Clean form
-	                cleanForm();
-	            	              
+	                cleanForm();	            	              
 	            },
-	            error: function ( error) {
-	            	if(error.status === 409){     	
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text:  error.responseText,
-	                         icon:'error'
-	                     })
-	            	}
-	            	else if(error.status === 404){     	
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text:  error.responseText,
-	                         icon:'error'
-	                     })
-	            	}
-	            	else{
-	            		sweetalert(error.status) 
-	            	}
-	            	 
+	            error: function ( error) {	            
+	            	sweetalertError(error);	 
 	            }
 	        });
 	        

@@ -37,10 +37,7 @@
                         onclick="changetitle() "
                         data-target="#form-building">
                     <i class="icon-btn fa fa-plus"></i> Thêm giá mới
-                </button>
-                <button style="width: 150px" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-vehicel">
-                    <i class="fas fa-list-alt"></i> Các loại xe
-                </button>
+                </button>         
             </div>
         </div>
         <!------------------------------------------------ Form modal  ---------------------------------->
@@ -64,7 +61,7 @@
                                 <div class="input-container">
                                     <input type="number" id="id" hidden="true" required="required"/>
                                     <input type="number" required="required" name="price" id="price"
-                                           min="0" style="width: 220px"/> <label for="price">Đơn Giá</label>
+                                           min="0" style="width: 220px"/> <label for="price">Đơn giá</label>
                                 </div>
                                 <!-------------------------------- Ngay ------------------------------------>
                                 <div class="input-container">
@@ -86,7 +83,7 @@
                                 <div class="input-container">
 								<textarea style="width: 465px;" id="note" name="note"
                                           required="required" rows="3"></textarea>
-                                    <label for="note">Ghi Chú</label>
+                                    <label for="note">Ghi chú</label>
                                 </div>
                             </div>
                             <!------------------------------------ End row -------------------------------------->
@@ -104,81 +101,8 @@
                 </div>
             </div>
         </div>
-
-        <!---------------------------------------- Modal  Các loại xe-------------------------------------- -->
-        <!-- Modal -->
-        <div class="modal fade" id="modal-vehicel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="#exampleModalLongTitle">Các loại xe</h5>
-                        <i class="material-icons " data-dismiss="modal">close</i>
-                    </div>
-                    <div class="modal-body">
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal"
-                                onclick="document.querySelector('#title-formVehicel').textContent = 'Thêm loại xe' "
-                                data-target="#form-type-vehicel">
-                            <i class="fas fa-plus-circle"></i> Thêm
-                        </button>
-                        <div class="body-modalType">
-
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!---------------------------------------- Modal form các loại xe-------------------------------------- -->
-        <div class="modal fade" id="form-type-vehicel" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="title-formVehicel"></h5>
-                        <i class="material-icons " data-dismiss="modal">close</i>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <!------------------------------ Don gia ------------------------------------>
-                                <div class="input-container">
-                                    <input type="number" id="id-type" hidden="true" required="required"/>
-                                    <input type="text" required="required" id="name-type" style="width: 465px"/>
-                                    <label for="price">Tên loại </label>
-                                </div>
-                            </div>
-                            <!---------------------------- End row ----------------------->
-                            <div class="row">
-                                <!------------------------------- Ghi Chu -------------------------------------->
-                                <div class="input-container">
-                                    <textarea style="width: 465px" id="note-type" required="required"
-                                              rows="3"></textarea>
-                                    <label for="note">Ghi chú</label>
-                                </div>
-                            </div>
-                            <!------------------------------------ End row -------------------------------------->
-                            <div style="float: right;">
-                                <button type="button" class="btn btn-success" id="save-type" style="width:103.05px;">
-                                    <i class="fas fa-folder-plus"></i> Lưu
-                                </button>
-                                <button type="button" class="btn btn-primary" id="clean-formType">
-                                    <i class=" icon-btn fas fa-sync-alt"></i>Làm mới
-                                </button>
-                            </div>
-                        </form>
-                        <!-- No footer -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         <script th:src="@{/assets/js/phi-xe.js}" type="text/javascript"></script>
-        <script th:src="@{/assets/js/loai-xe.js}" type="text/javascript"></script>
+        
     </div>
     <!-------------------------------------------------------- End Div content ------------------------------------------->
 </div>

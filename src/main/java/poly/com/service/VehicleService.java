@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import poly.com.constant.MessageError;
+import poly.com.constant.MessageSuccess;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.Vehicle;
 import poly.com.repository.VehicleRespository;
 
@@ -17,57 +21,57 @@ public class VehicleService {
     // -------------------------------
 
     //< ----------------------------- FindAll ------------------------->
-    public ResponseEntity<List<Vehicle>> findAll() {
+    public ResponseEntity<ResponseDTO> findAll() {
         List<Vehicle> vehicles = vehicleRespository.findAll();
-        return ResponseEntity.ok(vehicles);
+        return ResponseEntity.ok(new ResponseDTO(vehicles, null));
     }
 
     // <----------------------------- findById --------------------->
-    public ResponseEntity<Vehicle> findById(int id) {
+    public ResponseEntity<ResponseDTO> findById(int id) {
         try {
             Vehicle vehicle = vehicleRespository.findById(id).orElse(null);
-            return ResponseEntity.ok(vehicle);
+            return ResponseEntity.ok(new ResponseDTO(vehicle, null));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     // < --------------------------- Create -------------------------->
-    public ResponseEntity<Vehicle> create( Vehicle newVehicle){
+    public ResponseEntity<ResponseDTO> create( Vehicle newVehicle){
        try {
            Vehicle vehicle = vehicleRespository.findByLicensePlates(
                    newVehicle.getLicensePlates()).orElse(null);
            if (vehicle != null)
-               return new  ResponseEntity<>(null,HttpStatus.CONFLICT);
+               return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_VEHICEL_LICENSEPLATES),HttpStatus.CONFLICT);
            newVehicle.setId(0);
            newVehicle = vehicleRespository.save(newVehicle);
-           return ResponseEntity.ok(newVehicle);
+           return ResponseEntity.ok(new ResponseDTO(newVehicle, MessageSuccess.INSERT_SUCCSESS));
        }catch (Exception e){
-           return  new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    	   return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
        }
     }
 
-    public  ResponseEntity<Vehicle> update(int id, Vehicle newVehicle){
+    public  ResponseEntity<ResponseDTO> update(int id, Vehicle newVehicle){
         try {
             if(!vehicleRespository.existsById(id))
-                return new  ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_VEHICEL), HttpStatus.NOT_FOUND);
             Vehicle vehicle = vehicleRespository.findByLicensePlates( newVehicle.getLicensePlates()).orElse(null);
             if (vehicle != null && vehicle.getId() != id )
-                return  new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            	 return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_VEHICEL_LICENSEPLATES),HttpStatus.CONFLICT);
             newVehicle.setId(id);
             newVehicle = vehicleRespository.save(newVehicle);
-            return ResponseEntity.ok(newVehicle);
+            return ResponseEntity.ok(new ResponseDTO(newVehicle, MessageSuccess.UPDATE_SUCCSESS));
         }catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    public  ResponseEntity<String> delete(int id ){
+    public  ResponseEntity<ResponseDTO> delete(int id ){
         try {
             if (!vehicleRespository.existsById(id))
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            	return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_VEHICEL), HttpStatus.NOT_FOUND);
             vehicleRespository.deleteById(id);
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -11,31 +11,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.payload.request.LoginRequest;
-import poly.com.payload.request.SignupRequest;
+import poly.com.security.request.LoginRequest;
 import poly.com.security.service.AccountService;
 
+/* *
+ * Login, Logout, change password
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	@Autowired
-	AccountService accountService;
+    @Autowired
+    AccountService accountService;
 
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		
-		return accountService.authenticateUser(loginRequest);
-	}
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {	
-		
-		return accountService.registerUser(signUpRequest);
-		
-	}
-	
-	
+        return accountService.authenticateUser(loginRequest);
+    }
 
+ 
+  
 }

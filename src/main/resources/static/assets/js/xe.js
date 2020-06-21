@@ -1,4 +1,20 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + 'api/vehicle',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table_vihecle(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+
+let table_vihecle = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-vehicle').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,8 +27,9 @@ $(document).ready(function () {
         "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "sAjaxSource": URL + 'api/vehicle',
+        //"sAjaxSource": URL + 'api/vehicle',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -33,7 +50,7 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
 
 // < ---------------------------- Delete --------------------->
 let deleteVehicle = (id, e) => {
@@ -54,10 +71,10 @@ let deleteVehicle = (id, e) => {
                 cache: false,
                 success: function (result) {
                     $('#table-vehicle').DataTable().row($(e).parents('tr')).remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa xe đăng ký gửi')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error)	
                 }
             })
         }
@@ -78,20 +95,13 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(vehicle),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-vehicle').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-vehicle').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-vehicle').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', 'Đã cập nhật thông tin Xe  ');
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Biển số xe đã tồn tại, vui lòng kiểm tra lại! ',
-                            icon: 'error'
-                        })
-                    }
-                    sweetalert(error.status)
+                	sweetalertError(error)
                 }
             })
         } else {
@@ -104,20 +114,13 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(vehicle),
                 success: function (result) {
-                    result.date = formatDate(result.date)
-                    $('#table-vehicle').DataTable().row.add(result).draw().node();
-                    sweetalert(200, 'Success!', 'Đã đăng ký gửi xe gửi ')
+                    result.data.date = formatDate(result.data.date)
+                    $('#table-vehicle').DataTable().row.add(result.data).draw().node();
+                    sweetalertSuccess(result.message)
                     cleanFrom();
                 },
                 error: function (error) {
-                    if (error.status === 409) {
-                        swal.fire({
-                            title: 'Error',
-                            text: 'Biển số xe đã tồn tại, vui lòng kiểm tra lại',
-                            icon: 'error'
-                        })
-                    }
-                    sweetalert(error.status)
+                	sweetalertError(error)
                 }
             })
         }
@@ -137,10 +140,10 @@ let showFormUpdateVehicle = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToFormVehicle(result)
+            fillToFormVehicle(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error)
         }
     })
 }
@@ -210,8 +213,12 @@ let validateFormVehicle = (data) => {
         toastrError("Mã cư dân không được để trống");
         document.querySelector('#idResident')
         return false
-
     }
+    if( data.resident != null && isNaN(data.resident.id) ){
+		toastrError("Id cư dân phải là số!");
+		document.querySelector('#idResident').focus();
+		return false;
+	}
     if (data.typeVehicle.id === '') {
         toastrError("Chưa chọn loại xe!");
         document.querySelector('#type').focus();

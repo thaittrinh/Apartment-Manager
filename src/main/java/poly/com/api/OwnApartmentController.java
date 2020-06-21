@@ -1,7 +1,5 @@
 package poly.com.api;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import poly.com.constant.URL_API;
 import poly.com.dto.OwnApartmentDTO;
-import poly.com.entity.OwnApartment;
+import poly.com.dto.ResponseDTO;
 import poly.com.service.OwnApartmentService;
 
 @RestController
-@RequestMapping("/api/own-apartment")
+@RequestMapping(URL_API.OWN_APARTMENT)
 public class OwnApartmentController {
 
 	@Autowired
@@ -32,46 +31,39 @@ public class OwnApartmentController {
 	// <------------------------- findAll --------------------------->
 
 	@GetMapping()
-	public ResponseEntity<List<OwnApartmentDTO>> findAll() {
+	public ResponseEntity<ResponseDTO> findAll() {
 		return ownApartmentService.findAll();
 	}
 	
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<OwnApartmentDTO> findById(@PathVariable int id) {
+	public ResponseEntity<ResponseDTO> findById(@PathVariable int id) {
 		return ownApartmentService.findById(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
    
 	@PostMapping()
-	public ResponseEntity<?> createOwn(@Valid @RequestBody OwnApartmentDTO ownDTO ){
+	public ResponseEntity<ResponseDTO> createOwn(@Valid @RequestBody OwnApartmentDTO ownDTO ){
 		
 		return ownApartmentService.createOwn(ownDTO);
 	}
-	/*
-	@PostMapping("/upload-file")
-	public boolean uploadFile( @RequestParam("file") MultipartFile mFile) {
-	  return ownApartmentService.saveImage(mFile);
-	}
-	*/
+
 	@PostMapping("/upload-file/{id}")
-	public ResponseEntity<OwnApartment> uploadFile(@PathVariable int id ,
-												   @RequestParam("file") MultipartFile mFile) {
+	public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id , @RequestParam("file") MultipartFile mFile) {
 	  return ownApartmentService.uploadFile(mFile, id);
 	}
 	
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateOwn(@PathVariable int id,
-												  @Valid @RequestBody OwnApartmentDTO ownDTO) {
+	public ResponseEntity<ResponseDTO> updateOwn(@PathVariable int id, @Valid @RequestBody OwnApartmentDTO ownDTO) {
 		return ownApartmentService.updateOwn(id, ownDTO);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteOwn(@PathVariable int id) {
+	public ResponseEntity<ResponseDTO> deleteOwn(@PathVariable int id) {
 		return ownApartmentService.deleteOwn(id);
 	}
 

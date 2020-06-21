@@ -1,4 +1,20 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + 'api/price-management',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-phiquanly').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
@@ -11,8 +27,9 @@ $(document).ready(function () {
             "autoWidth": true,
             "processing": true,
             "scrollY": "250px",
-            "sAjaxSource": URL + 'api/price-management',
+           // "sAjaxSource": URL + 'api/price-management',
             "sAjaxDataProp": "",
+            "aaData": data,
             "order": [[0, "asc"]],
             "aoColumns": [
                 {"mData": "id"},
@@ -32,7 +49,7 @@ $(document).ready(function () {
                 }
             ]
         });
-});
+}
 
 
 let changetitle = () => {
@@ -49,10 +66,10 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error)
         }
     });
 }
@@ -70,20 +87,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(management),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-phiquanly').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-phiquanly').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', ' Đã cập nhật phí quản lý ')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status) 
+                	sweetalertError(error)
                 }
             });
 
@@ -97,24 +107,17 @@ document.querySelector('#save').addEventListener('click', () => {
                 data: JSON.stringify(management),
                 success: function (result) {
                     // Convert date to yy-MM-dd
-                    result.date = formatDate(result.date);
+                	result.data.date = formatDate(result.data.date);
                     // Add new data to DataTable
                     $('#table-phiquanly').DataTable()
-                        .row.add(result).draw().node();
+                        .row.add(result.data).draw().node();
                     // Clean form
                     cleanForm();
                     // message
-                    sweetalert(200, 'Success!', 'Đã tạo phí quản lý')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    if(error.status === 409){
-	            		 Swal.fire({
-	                         title : 'Error',
-	                         text: 'Giá trong tháng đã tồn tại!!!',
-	                         icon:'error'
-	                     })
-	            	}
-	            	sweetalert(error.status);
+                	sweetalertError(error)
                 }
             });
         }
@@ -144,10 +147,10 @@ let deletePrice = (id, e) => {
                 success: function (result) {
                     $('#table-phiquanly').DataTable().row($(e).parents('tr')) // format date
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Xóa thành công') // message
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status) //message
+                	sweetalertError(error)
                 }
             });
         }
@@ -191,6 +194,11 @@ let validate = (data) => {
         document.querySelector('#price').focus();
         return false;
     }
+    if(data.price < 0){
+		toastrError("Giá không được âm!");
+		document.querySelector('#price').focus();
+		return false;
+	}
     if (data.date === '') {
         toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
