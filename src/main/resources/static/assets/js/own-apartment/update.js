@@ -31,7 +31,8 @@ document.querySelector('#save').addEventListener('click', () => {
 	            dataType: 'json',
 	            cache: false,
 	            data: JSON.stringify(dto),
-	            success: function (result) {               
+	            success: function (result) {  
+	            	fillToFormImage(result.data);
 	            	sweetalertSuccess(result.message);         	              
 	            },
 	            error: function ( error) {	            	
