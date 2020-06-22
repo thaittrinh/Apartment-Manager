@@ -27,6 +27,8 @@ public class MessageError {
 	
 	public static final String ERROR_404_RESIDENT  = "Cư dân không tồn tại!";
 	
+	public static final String ERROR_404_CONTACT  = "Liên hệ không tồn tại!";
+	
 	
 	public static final String ERROR_409_USERNAME = "Tên đăng nhập đã tồn tại!";
 	

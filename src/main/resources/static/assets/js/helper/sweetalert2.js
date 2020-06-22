@@ -7,9 +7,10 @@ let sweetalertError = (error) => {
         case 400:
             Swal.fire({
                 title :'Error',
-                text: message ,
+                text: "Dữ liệu đầu vào không đúng!" ,
                 icon: 'error'
-            })
+            });
+            console.log(message);
             break;
         case 404:
             Swal.fire({
@@ -21,7 +22,7 @@ let sweetalertError = (error) => {
         case 403:
             Swal.fire({
                 title: 'Warning',
-                text : 'Truy cập bị hạn chế',
+                text : 'Truy cập bị hạn chế!',
                 icon: 'warning'
             })
             break;           
@@ -35,9 +36,10 @@ let sweetalertError = (error) => {
         case 500:
             Swal.fire({
                 title: 'Error',
-                text: message,
+                text: 'Lỗi server!',
                 icon: 'error'
-            })
+            });
+            console.log(message);
             break;
         default:
 
