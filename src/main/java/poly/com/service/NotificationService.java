@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import poly.com.constant.MessageError;
+import poly.com.constant.MessageSuccess;
+import poly.com.dto.ResponseDTO;
 import poly.com.entity.Notification;
 import poly.com.repository.NotificationRepository;
 
@@ -19,58 +22,61 @@ public class NotificationService {
 	// ---------------------------------------------------------
 
     // < --------------------------- find All -------------------------->
-    public ResponseEntity<List<Notification>> findAll() {
+    public ResponseEntity<ResponseDTO> findAll() {
         List<Notification> notifications = notificationRepository.findAll();
-        return ResponseEntity.ok(notifications);
+        return ResponseEntity.ok(new ResponseDTO(notifications, null));
     }
 
     // < -------------------------- find by Id ---------------------------->
-    public ResponseEntity<Notification> findById(int id) {
+    public ResponseEntity<ResponseDTO> findById(int id) {
         try {
         	Notification notification = notificationRepository.findById(id).orElse(null);
-            return ResponseEntity.ok(notification);
+        	return ResponseEntity.ok(new ResponseDTO(notification, null));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < --------------------------- Create ---------------------------------->
  
-    public ResponseEntity<Notification> createNotification(Notification notification) {
+    public ResponseEntity<ResponseDTO> createNotification(Notification notification) {
         try {
             notification.setId(0);
-            Notification notification3 = notificationRepository.save(notification);
-            return ResponseEntity.ok(notification3);
+            notification = notificationRepository.save(notification);
+            return ResponseEntity.ok(new ResponseDTO(notification, MessageSuccess.INSERT_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ------------------------------ Update --------------------------------->
   
-    public ResponseEntity<Notification> updateNotification(Integer id,Notification notification) {
+    public ResponseEntity<ResponseDTO> updateNotification(Integer id,Notification notification) {
         try {
         	Notification notification2 = notificationRepository.findById(id).orElse(null);
         	if (notification2 == null)
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_NOTIFICATION), HttpStatus.NOT_FOUND);
+        	
             notification.setId(id);
-            Notification notification3 = notificationRepository.save(notification);
-            return ResponseEntity.ok(notification3);
+            notification = notificationRepository.save(notification);
+            return ResponseEntity.ok(new ResponseDTO(notification, MessageSuccess.UPDATE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ------------------------------- Delete ----------------------------------->
-    public ResponseEntity<String> deleteNotification(int id) {
+    public ResponseEntity<ResponseDTO> deleteNotification(int id) {
         try {
             if (!notificationRepository.existsById(id))
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_NOTIFICATION), HttpStatus.NOT_FOUND);
             
             notificationRepository.deleteById(id);
-            return ResponseEntity.ok("delete success");
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    
 }

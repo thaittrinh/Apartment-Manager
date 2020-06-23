@@ -1,11 +1,28 @@
 // add ckeditor
 CKEDITOR.replace('note');
+const ID = document.querySelector('#id').value;
+(function(){
+	 $.ajax({
+	     url: URL + `api/notification/${ID}`,
+	     type: 'GET',
+	     dataType: 'json',
+	     success: function (result) {
+	    	 fillToForm(result.data);
+	     },
+	     error: function (error) {
+	    	 sweetalertError(error);	
+	     }
+	 });
+	
+})()
+
+
 //< ------------------------ insert or update  ---------------------->
 document.querySelector('#save').addEventListener('click', () => {	
     let notification = getValueForm();
    
     if(validate(notification)){
-	    if (notification.id) {
+	    if (notification.id > 0) {
 	        $.ajax({
 	            type: 'PUT',
 	            url: URL + `api/notification/${notification.id}`,
@@ -13,18 +30,11 @@ document.querySelector('#save').addEventListener('click', () => {
 	            dataType: 'json',
 	            cache: false,
 	            data: JSON.stringify(notification),
-	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date);
-	               //update the row in dataTable
-	                $('#table-notification').DataTable().row(index).data(result).draw();
-	               // close modal
-	                $('#form-building').modal('hide');   
-	               // annount
-	                sweetalert(200,'Success!' , ' Đã cập nhật thông báo ')
+	            success: function (result) {     		
+	            	location.href =URL + `ui/notification`; 		
 	            },
 	            error: function (error) {
-	                sweetalert(error.status)
+	            	sweetalert(error.status)
 	            }
 	        });
 	
@@ -37,28 +47,17 @@ document.querySelector('#save').addEventListener('click', () => {
 	            cache: false,
 	            data: JSON.stringify(notification),
 	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date);
-	                // Add new data to DataTable
-	                $('#table-notification').DataTable()  
-	                    .row.add(result).draw().node();
-	                // Clean form
-	                cleanForm(); 
-	                // annount
-	                sweetalert(200 ,'Success!' ,'Đã thêm thông báo') 
+	            	cleanForm();
+	                sweetalertSuccess(result.message);
 	            },
 	            error: function (error) {
-	                sweetalert(error.status)
+	            	sweetalert(error.status);
 	            }
 	        });
 	    }
     }
     
     
-});
-//<------------- When modal close -> clean form modal  ----------->
-$("#form-building").on("hidden.bs.modal", function () {
-    cleanForm();
 });
 
 // < ---------------------- Clean form ---------------------------->
@@ -71,8 +70,6 @@ let cleanForm = () => {
     });
 }
 
-// < -------------- clean form when click button clean ------------>
-document.querySelector('#clean-form').addEventListener('click', cleanForm);
 
 // < ------------------- get value form --------------------------->
 let getValueForm = () => {
@@ -87,6 +84,16 @@ let getValueForm = () => {
         
     }
 }
+
+let fillToForm = (data) => {
+	document.querySelector('#id').value = data.id;
+	document.querySelector('#title').value = data.title;
+	document.querySelector('#date').value = data.date;
+	CKEDITOR.instances['note'].setData(data.content)
+}
+
+
+
 let validate = (data) =>  {
 	if(data.title === ''){
 		toastrError("Tiêu đề không được để trống");
@@ -108,9 +115,3 @@ let validate = (data) =>  {
 return true;
 }
 
-let fillToForm = (notification) => {
-    document.querySelector('#id').value = notification.id;
-    document.querySelector('#title').value = notification.title;
-    document.querySelector('#date').value = notification.date;
-    document.querySelector('#note').value = notification.note;
-}
