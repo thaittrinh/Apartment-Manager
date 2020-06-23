@@ -36,7 +36,7 @@ public class EmployeeRequest {
 
 	@NotBlank()
 	@Pattern(regexp = "[0-9]{9,12}", message = "Identitycard from 9 to 12 digits long!")
-    private String indentitycard;
+    private String identitycard;
 
 	@NotBlank
 	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long!")
