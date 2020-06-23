@@ -187,7 +187,7 @@ let getValueFormVehicle = () => {
         "licensePlates": document.querySelector('#licensePlates').value.trim(),
         'color': document.querySelector('#color').value.trim(),
         'date': document.querySelector('#date').value.trim(),
-        'resident': {'id': document.querySelector('#idResident').value.trim()},
+        'resident': {'id': document.querySelector('#idResident').value.trim()},   
         "typeVehicle": {"id": document.querySelector('#type').value.trim()},
     }
 }
