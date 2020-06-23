@@ -9,7 +9,7 @@ import poly.com.entity.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 
-
+    Employee findByPassword(String password);
     Optional<Employee> findByPhone(String phone);
 
     Optional<Employee> findByIdentitycard(String identitycard);

@@ -13,8 +13,6 @@
 })()
 
 
-
-
 let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-notification').DataTable({

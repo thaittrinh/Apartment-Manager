@@ -83,23 +83,23 @@ public class EmployeeService {
     // < ------------------------------------ Update ----------------------------------------->
     public ResponseEntity<ResponseDTO> updateEmployee(int id, EmployeeRequest employeeRequest) {
         try {
-        	Employee employeeExists = employeeRepository.findById(id).orElse(null);
-        	if(employeeExists == null)
+            Employee employeeExists = employeeRepository.findById(id).orElse(null);
+            if (employeeExists == null)
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-        	
+
             // < -----------------  Check conflict ----------------------->
             ResponseEntity<ResponseDTO> reponseConflict = checkConflict(id, employeeRequest.getUsername(),
                     employeeRequest.getPhone(), employeeRequest.getIdentitycard());
             if (reponseConflict != null)
                 return reponseConflict;
-   
+
             // < -----------------  Check change password ----------------------->
             if (employeeRequest.getPassword() != null) {
-				employeeRequest.setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
-			}else {
-				employeeRequest.setPassword(employeeExists.getPassword());
-			}
- 
+                employeeRequest.setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
+            } else {
+                employeeRequest.setPassword(employeeExists.getPassword());
+            }
+
             // --------------------------------------------------------------
             Employee employee = new Employee(
                     id, employeeRequest.getFullName(),
@@ -205,5 +205,4 @@ public class EmployeeService {
             return roles;
         }
     }
-
 }
