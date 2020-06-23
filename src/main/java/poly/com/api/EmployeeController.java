@@ -18,17 +18,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
+import poly.com.entity.Employee;
 import poly.com.request.EmployeeRequest;
 import poly.com.service.EmployeeService;
 
 @RestController
 @RequestMapping(URL_API.EMPLOYEE)
 public class EmployeeController {
-	
-	 @Autowired
-	 EmployeeService employeeService;
-	
-	// <-------------------------- findAll ----------------------------->
+
+    @Autowired
+    EmployeeService employeeService;
+
+    // <-------------------------- findAll ----------------------------->
     @GetMapping
     public ResponseEntity<ResponseDTO> findAll() {
         return employeeService.findAll();
@@ -39,21 +40,22 @@ public class EmployeeController {
     public ResponseEntity<ResponseDTO> findById(@PathVariable int id) {
         return employeeService.findById(id);
     }
-	
+
     @PostMapping()
     public ResponseEntity<ResponseDTO> registerUser(@Valid @RequestBody EmployeeRequest signUpRequest) {
 
         return employeeService.insertEmployee(signUpRequest);
 
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDTO> update(@PathVariable int id,  @Valid @RequestBody EmployeeRequest employeeRequest) {
-    	
+    public ResponseEntity<ResponseDTO> update(@PathVariable int id, @Valid @RequestBody EmployeeRequest employeeRequest) {
+
         return employeeService.updateEmployee(id, employeeRequest);
     }
-    
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDTO>  delete(@PathVariable int id) {
+    public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
         return employeeService.deleteEmployee(id);
     }
 
@@ -62,6 +64,6 @@ public class EmployeeController {
         return employeeService.uploadFile(mFile, id);
     }
 
-    
+
 
 }
