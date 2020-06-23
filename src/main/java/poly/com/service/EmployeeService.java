@@ -2,13 +2,11 @@ package poly.com.service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -85,14 +83,23 @@ public class EmployeeService {
     // < ------------------------------------ Update ----------------------------------------->
     public ResponseEntity<ResponseDTO> updateEmployee(int id, EmployeeRequest employeeRequest) {
         try {
-            if (!employeeRepository.existsById(id))
+        	Employee employeeExists = employeeRepository.findById(id).orElse(null);
+        	if(employeeExists == null)
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-
-            // < -----------------  check conflict ----------------------->
+        	
+            // < -----------------  Check conflict ----------------------->
             ResponseEntity<ResponseDTO> reponseConflict = checkConflict(id, employeeRequest.getUsername(),
                     employeeRequest.getPhone(), employeeRequest.getIdentitycard());
             if (reponseConflict != null)
                 return reponseConflict;
+   
+            // < -----------------  Check change password ----------------------->
+            if (employeeRequest.getPassword() != null) {
+				employeeRequest.setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
+			}else {
+				employeeRequest.setPassword(employeeExists.getPassword());
+			}
+ 
             // --------------------------------------------------------------
             Employee employee = new Employee(
                     id, employeeRequest.getFullName(),
@@ -100,7 +107,7 @@ public class EmployeeService {
                     employeeRequest.getIdentitycard(), employeeRequest.getPhone(),
                     employeeRequest.getAddress(), employeeRequest.getEmail(),
                     employeeRequest.getImage(), employeeRequest.getUsername(),
-                    passwordEncoder.encode(employeeRequest.getPassword()), null);
+                    employeeRequest.getPassword(), null);
 
             // ----------------------------- Role ----------------------------->      
 

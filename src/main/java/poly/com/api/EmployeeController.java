@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
-import poly.com.entity.Employee;
 import poly.com.request.EmployeeRequest;
 import poly.com.service.EmployeeService;
 
