@@ -5,15 +5,16 @@ data-layout-decorate="~{/layout-admin}">
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
 	<div class="row">
-		<a class="title"> Quản Lý Bảng Giá</a>
+		<a class="title"> Quáº£n LÃ½ Báº£ng GiÃ¡</a>
 		<div th:replace="components/header"></div>
 	</div>
+
 	<!----------------------------------------- TABLE bảng gia nuoc  ----------------------------->
 	<div class="card" >
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white"><i class="fas fa-tint mr-3"></i> Bảng giá nước </h6>
+				<h6 style="color: white"><i class="fas fa-tint mr-3"></i> Báº£ng giÃ¡ nÆ°á»›c </h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
@@ -22,12 +23,12 @@ data-layout-decorate="~{/layout-admin}">
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Ngày</th>
-						<th>Đơn giá</th>	
-						<th>Người tạo</th>	
-						<th>Ghi chú</th>						
-						<th >Cập nhật</th>	
-						<th >Xóa</th>				
+						<th>NgÃ y</th>
+						<th>Ä�Æ¡n giÃ¡</th>	
+						<th>NgÆ°á»�i táº¡o</th>	
+						<th>Ghi chÃº</th>						
+						<th >Cáº­p nháº­t</th>	
+						<th >XÃ³a</th>				
 					</tr>
 				</thead>
 			</table>
@@ -60,12 +61,13 @@ data-layout-decorate="~{/layout-admin}">
 							<div class="input-container">
 							    <input type="number"  id="id" hidden="true" required="required" />
 								<input type="number" min="0" required="required" name="price" id="price"
+
 									style="width: 220px" /> <label for="price">Đơn giá</label>
 							</div>
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
 								<input type="date" required="required" name="date" id="date"
-									style="width: 220px"  /> <label for="date">Ngày</label>
+									style="width: 220px"  /> <label for="date">NgÃ y</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
@@ -74,6 +76,7 @@ data-layout-decorate="~{/layout-admin}">
 							<div class="input-container">
 								<textarea style="width: 465px" id="note" name="note"
 									required="required" rows="4"></textarea>
+
 								<label for="note">Ghi chú</label>
 							</div>
 						</div>
@@ -82,7 +85,9 @@ data-layout-decorate="~{/layout-admin}">
 				</div>
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
+
 					<button style="width: 115px" type="button" class="btn btn-sm btn-success"  id="save">
+
 						<i class="fas fa-save mr-2"></i> Lưu Lại
 					</button>
 					<button style="width: 115px" type="button" class="btn btn-sm btn-danger" id="clean-form">

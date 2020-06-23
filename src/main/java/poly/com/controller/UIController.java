@@ -55,7 +55,9 @@ public class UIController {
     // return template page table thong tin liên hệ  
     @RequestMapping("/contact")
     public String pageTableLienhe() {
-        return "contents/quanly/table-lienhe";
+        return "contents/quanly/lien-he/form-lienhe";
     }
+    
+    
     
 }

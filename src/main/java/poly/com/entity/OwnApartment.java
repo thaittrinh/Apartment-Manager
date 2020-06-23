@@ -51,9 +51,9 @@ public class OwnApartment implements Serializable {
 	@Column(length = 50)
 	private String job;
 
-	@NotNull
 	@Column(length = 11)
-	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
+	@NotNull
+	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 9 to 11 digits long")
 	private String phone;
 
 	@Size( max = 50, message = "The email length is less than or equal to 50 characters")

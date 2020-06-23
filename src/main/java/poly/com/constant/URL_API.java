@@ -23,4 +23,6 @@ public class URL_API {
 	public static final String TYPE_VEHICEL = "/api/type-vehicel";
 	
 	public static final String VEHICEL = "/api/vehicle";
+	
+	public static final String CONTACT =  "/api/contact";
 }
