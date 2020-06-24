@@ -117,7 +117,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                     result.data.date = formatDate(result.data.date)
                     $('#table-vehicle').DataTable().row.add(result.data).draw().node();
                     sweetalertSuccess(result.message)
-                    cleanFrom();
+                    cleanFormVehicle();
                 },
                 error: function (error) {
                 	sweetalertError(error)
@@ -193,11 +193,6 @@ let getValueFormVehicle = () => {
 }
 
 let validateFormVehicle = (data) => {
-    if (data.licensePlates === '') {
-        toastrError("Biển số xe không được để trống!");
-        document.querySelector('#licensePlates').focus();
-        return false;
-    }
     if (data.color === '') {
         toastrError("Màu xe không được để trống");
         document.querySelector('#color').focus();

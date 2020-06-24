@@ -58,7 +58,6 @@ public class MessageError {
 	
 	public static final String ERROR_409_TYPE_VEHICEL  = "Loại xe đã tồn tại!";
 	
-	public static final String ERROR_409_VEHICEL_LICENSEPLATES  = "Biển số xe đã tồn tại!";
 	
 	
 	

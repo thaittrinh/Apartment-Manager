@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
+import poly.com.entity.PriceElectricity;
 import poly.com.request.CreateIndexRequest;
 import poly.com.service.ApartmentIndexService;
 
@@ -19,6 +20,17 @@ public class ApartmentIndexController {
 
 	@Autowired
 	ApartmentIndexService apartmentIndexService;
+	
+	@PostMapping("/test")
+	public double test(@RequestBody PriceElectricity priceWater){
+		
+	
+		System.out.println(priceWater.getDate());
+		
+		return  apartmentIndexService.test(priceWater.getDate());
+	}
+	
+	
 	
 	@GetMapping
 	public ResponseEntity<ResponseDTO> findAll(){
