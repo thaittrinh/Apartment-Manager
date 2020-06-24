@@ -1,14 +1,35 @@
-$(document).ready(function () {
+
+(function(){
+	 $.ajax({
+	        url: URL + "api/price-garbage",
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+let table = (data) => {
     // <- ------------------------- load data to table ---------------------------->
     $('#table-garbage').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
+        "scroller": true,
+        "autoWidth": true,
         "processing": true,
         "scrollY": "250px",
-        "scrollCollapse": true,
-        "sAjaxSource": URL + "api/price-garbage",
+       // "sAjaxSource": URL + "api/price-garbage",
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -28,7 +49,7 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
 
 // < ------------------------------- delete -------------------------------------> 
 let deletePrice = (id, e) => {
@@ -51,30 +72,35 @@ let deletePrice = (id, e) => {
                     $('#table-garbage').DataTable().row($(e).parents('tr'))
                         .remove()
                         .draw();
-                    sweetalert(200, 'Success!', 'Đã tạo phí rác ')
+                    sweetalertSuccess(result.message);  
                 },
                 error: function (error) {
-                    toastrmessage(error.status)
+                	sweetalertError(error)	
                 }
             });
         }
     })
+}
+
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +'Thêm Giá Mới'
 }
 // < ----------------- show form update ------------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-garbage').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập nhập phí rác ";
+    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +"Cập nhập phí rác ";
     $.ajax({
         url: URL + `api/price-garbage/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     });
 }
@@ -92,13 +118,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(garbage),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-garbage').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-garbage').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', ' Đã cập nhật phí rác')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error)	
                 }
             });
         }
@@ -112,13 +138,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(garbage),
                 success: function (result) {
-                    result.date = formatDate(result.date); // format date
-                    $('#table-garbage').DataTable().row.add(result).draw().node(); // add new data to table
+                	result.data.date = formatDate(result.data.date); // format date
+                    $('#table-garbage').DataTable().row.add(result.data).draw().node(); // add new data to table
                     cleanForm(); // clean form
-                    sweetalert(200, 'Success!', 'Đã tạo phí rác') // message
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status) // message
+                	sweetalertError(error)
                 }
             })
         }
@@ -146,13 +172,13 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 // < ---------------------------- get value form ----------------------------------->
 let getValueForm = () => {
     return {
-        'id': document.querySelector('#id').value,
-        'price': document.querySelector('#price').value,
-        'date': document.querySelector('#date').value,
+        'id': document.querySelector('#id').value.trim(),
+        'price': document.querySelector('#price').value.trim(),
+        'date': document.querySelector('#date').value.trim(),
         'employee': {
             'id': 1
         },
-        'note': document.querySelector('#note').value
+        'note': document.querySelector('#note').value.trim()
     }
 }
 // < -------------------------------- fill data to form ------------------------------->
@@ -166,17 +192,17 @@ let fillToForm = (garbage) => {
 
 let validate = (data) => {
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
     if (data.price < 0 ){
-        toastrError("Giá không được âm");
+        toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
     }
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
     }
