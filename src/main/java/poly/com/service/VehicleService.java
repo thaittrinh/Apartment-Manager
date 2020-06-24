@@ -37,11 +37,7 @@ public class VehicleService {
     }
     // < --------------------------- Create -------------------------->
     public ResponseEntity<ResponseDTO> create( Vehicle newVehicle){
-       try {
-           Vehicle vehicle = vehicleRespository.findByLicensePlates(
-                   newVehicle.getLicensePlates()).orElse(null);
-           if (vehicle != null)
-               return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_VEHICEL_LICENSEPLATES),HttpStatus.CONFLICT);
+       try {   
            newVehicle.setId(0);
            newVehicle = vehicleRespository.save(newVehicle);
            return ResponseEntity.ok(new ResponseDTO(newVehicle, MessageSuccess.INSERT_SUCCSESS));
@@ -54,9 +50,7 @@ public class VehicleService {
         try {
             if(!vehicleRespository.existsById(id))
                 return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_VEHICEL), HttpStatus.NOT_FOUND);
-            Vehicle vehicle = vehicleRespository.findByLicensePlates( newVehicle.getLicensePlates()).orElse(null);
-            if (vehicle != null && vehicle.getId() != id )
-            	 return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_VEHICEL_LICENSEPLATES),HttpStatus.CONFLICT);
+            
             newVehicle.setId(id);
             newVehicle = vehicleRespository.save(newVehicle);
             return ResponseEntity.ok(new ResponseDTO(newVehicle, MessageSuccess.UPDATE_SUCCSESS));

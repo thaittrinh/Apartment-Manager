@@ -58,7 +58,7 @@ public class ApartmentIndex implements Serializable {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_apartment", referencedColumnName = "id")
-	private Apartment Apartment;
+	private Apartment apartment;
 
 	@NotNull
 	@ManyToOne

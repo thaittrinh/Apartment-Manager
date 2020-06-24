@@ -24,7 +24,6 @@ public class Vehicle implements Serializable {
     private Integer id;
 
 
-    @NotNull(message = "licensePlates vehicle can not be null" )
     @Column(length = 20)
     private String licensePlates;
 
