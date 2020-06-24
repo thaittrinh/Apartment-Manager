@@ -1,16 +1,35 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + 'api/price-management',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
-    $('#table-phiquanly').DataTable(
-        {
+    $('#table-phiquanly').DataTable({
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        "scrollCollapse": true,
+            "paging": true,
+            "serverSize": true,
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
             "responsive": true,
-            "scroller": {loadingIndicator: true},
-            "autoWidth": false,
+            "scroller": true,
+            "autoWidth": true,
             "processing": true,
-            "autoWidth": false,
-            "scrollY": "300px",
-            "scrollCollapse": true,
-            "sAjaxSource": URL + 'api/price-management',
+            "scrollY": "250px",
+           // "sAjaxSource": URL + 'api/price-management',
             "sAjaxDataProp": "",
+            "aaData": data,
             "order": [[0, "asc"]],
             "aoColumns": [
                 {"mData": "id"},
@@ -30,23 +49,27 @@ $(document).ready(function () {
                 }
             ]
         });
-});
+}
 
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" +'Thêm Giá Mới'
+}
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
     index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập nhật phí quản lý";
+    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "Cập nhật phí quản lý";
     $.ajax({
         url: URL + `api/price-management/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error)
         }
     });
 }
@@ -64,13 +87,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(management),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-phiquanly').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-phiquanly').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', ' Đã cập nhật phí quản lý ')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error)
                 }
             });
 
@@ -84,17 +107,17 @@ document.querySelector('#save').addEventListener('click', () => {
                 data: JSON.stringify(management),
                 success: function (result) {
                     // Convert date to yy-MM-dd
-                    result.date = formatDate(result.date);
+                	result.data.date = formatDate(result.data.date);
                     // Add new data to DataTable
                     $('#table-phiquanly').DataTable()
-                        .row.add(result).draw().node();
+                        .row.add(result.data).draw().node();
                     // Clean form
                     cleanForm();
                     // message
-                    sweetalert(200, 'Success!', 'Đã tạo phí quản lý')
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error)
                 }
             });
         }
@@ -124,10 +147,10 @@ let deletePrice = (id, e) => {
                 success: function (result) {
                     $('#table-phiquanly').DataTable().row($(e).parents('tr')) // format date
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Xóa thành công') // message
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                    sweetalert(error.status) //message
+                	sweetalertError(error)
                 }
             });
         }
@@ -155,24 +178,29 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 //< ------------------- get value form --------------------------->
 let getValueForm = () => {
     return {
-        "id": document.querySelector('#id').value,
-        "price": document.querySelector('#price').value,
-        "date": document.querySelector('#date').value,
+        "id": document.querySelector('#id').value.trim(),
+        "price": document.querySelector('#price').value.trim(),
+        "date": document.querySelector('#date').value.trim(),
         "employee": {
             "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
         },
-        "note": document.querySelector('#note').value
+        "note": document.querySelector('#note').value.trim()
     }
 }
 
 let validate = (data) => {
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
+    if(data.price < 0){
+		toastrError("Giá không được âm!");
+		document.querySelector('#price').focus();
+		return false;
+	}
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
     }
@@ -185,3 +213,5 @@ let fillToForm = (management) => {
     document.querySelector('#date').value = management.date;
     document.querySelector('#note').value = management.note;
 }
+
+

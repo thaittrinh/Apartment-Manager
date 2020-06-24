@@ -26,7 +26,10 @@ public class URL_API {
 	
 	public static final String CONTACT =  "/api/contact";
 	
+	public static final String REGULATION =  "/api/regulation";
+
 	public static final String NOTIFICATION =  "/api/notification";
 	
 	public static final String APARTMENT_INDEX =  "/api/apartment-index";
+
 }
