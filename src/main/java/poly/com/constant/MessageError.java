@@ -3,8 +3,9 @@ package poly.com.constant;
 public class MessageError {
 
 	public static final String ERROR_400 = "Dữ liệu đầu vào không đúng!";
-	
-		
+
+	public static final String ERROR_403_EMPLOYEE = "Mật khẩu cũ không đúng ";
+  
 	public static final String ERROR_404_EMPLOYEE = "Nhân viên không tồn tại!";
 	
 	public static final String ERROR_404_OWN_APARTMENT = "Chủ căn hộ không tồn tại!";
@@ -30,6 +31,9 @@ public class MessageError {
 	public static final String ERROR_404_CONTACT  = "Liên hệ không tồn tại!";
 	
 	public static final String ERROR_404_REGULATION  = "Nội quy không tồn tại!";
+
+	public static final String ERROR_404_NOTIFICATION  = "Thông báo không tồn tại!";
+
 	
 	
 	public static final String ERROR_409_USERNAME = "Tên đăng nhập đã tồn tại!";

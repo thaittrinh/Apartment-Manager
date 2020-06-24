@@ -1,0 +1,46 @@
+<div class="modal fade" id="form-change-password" tabindex="-1"
+     role="dialog" aria-labelledby="form-label" aria-hidden="true">
+    <div class="  modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!------------------------------------- Header-modal ----------------------------------->
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-key mr-3"></i>
+                    Đổi Mật Khẩu
+                </h5>
+                <i class="material-icons " data-dismiss="modal">close</i>
+            </div>
+            <!--------------------------------------- body-modal ------------------------------------->
+            <div class="modal-body">
+                <form>
+                    <!----------------------------------- Password ----------------------->
+                    <div class="input-container col-sm-8 " style="padding: 0; margin-left: 70px;margin-right:70px">
+                        <input type="password" required name="password" id="Password"
+                               style="width:100%;"/> <label for="Password">Mật khẩu cũ</label>
+                    </div>
+                    <!----------------------------------- Password ----------------------->
+                    <div class="input-container col-sm-8" style="padding: 0; margin-left: 70px;margin-right:70px">
+                        <input type="password" required name="newPassword" id="newPassword"
+                               style="width:100%;"/> <label for="newPassword">Mật khẩu mới</label>
+                    </div>
+                    <!----------------------------------- Password ----------------------->
+                    <div class="input-container col-sm-8" style="padding: 0; margin-left: 70px;margin-right:70px">
+                        <input type="password" required name="confirmPassword" id="confirmPassword"
+                               style="width:100%;"/> <label for="confirmPassword"> Xác nhận mật khẩu</label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-success" >
+                    <i class="fas fa-save mr-2"></i> Lưu Lại
+                </button>
+                <button type="button" class="btn btn-sm btn-danger">
+                    <i class="fas fa-window-close mr-2"></i> Hủy bỏ
+                </button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

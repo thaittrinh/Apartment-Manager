@@ -1,6 +1,5 @@
 package poly.com.api;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,44 +14,46 @@ import org.springframework.web.bind.annotation.RestController;
 
 import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
-import poly.com.entity.Resident;
-import poly.com.service.ResidentService;
+import poly.com.entity.Notification;
+import poly.com.service.NotificationService;
+
 
 @RestController
-@RequestMapping(URL_API.RESIDENT)
-public class ResidentController {
-    // < -------------------------------- Class Residential RestController ----------------------------->
-    @Autowired
-    ResidentService residentService;
-    // --------------------------------
+@RequestMapping(URL_API.NOTIFICATION)
+public class NotificationController {
 
-    // < ---------------------- findAll ------------------------->
+	@Autowired
+    NotificationService  notificationService;
+    // ----------------------------------------
+
+    // < ------------------------ findAll ------------------>
     @GetMapping()
     public ResponseEntity<ResponseDTO> findAll() {
-        return residentService.findAll();
+        return notificationService.findAll();
     }
 
     // < ------------------------- findById ---------------------->
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO> findById(@PathVariable int id) {
-        return residentService.findById(id);
+        return notificationService.findById(id);
     }
 
     // < ----------------------------- Create --------------------->
     @PostMapping()
-    public ResponseEntity<ResponseDTO> create(@Valid @RequestBody Resident resident) {
-        return residentService.create(resident);
+    public ResponseEntity<ResponseDTO> create(@RequestBody Notification notification) {
+        return notificationService.createNotification(notification);
     }
 
     // < ----------------------------- Update --------------------->
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDTO> update(@PathVariable int id, @Valid @RequestBody Resident resident) {
-        return residentService.update(id, resident);
+    public ResponseEntity<ResponseDTO> update(@PathVariable int id, @RequestBody Notification notification) {
+        return notificationService.updateNotification(id, notification);
     }
 
     // < ----------------------------- Delete --------------------->
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
-        return residentService.delete(id);
+        return notificationService.deleteNotification(id);
     }
+	
 }

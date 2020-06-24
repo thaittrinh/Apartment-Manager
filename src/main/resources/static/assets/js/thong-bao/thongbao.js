@@ -1,16 +1,36 @@
+(function(){
+	 $.ajax({
+	        url: URL + `api/notification`,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
 
-$(document).ready(function () {
+
+
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-notification').DataTable({
-        "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
-        "processing": true,
-        "autoWidth": false,
-        "scrollY": "300px",
-        "scrollCollapse": true,
-        "sAjaxSource": URL + 'api/notification',
+    	 fixedColumns:   {leftColumns: 1, rightColumns: 1},
+         fixedHeader: true,
+         "scrollCollapse": true,
+         "responsive": true,
+         "serverSize": true,
+         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+         "scroller": true,
+         "autoWidth": true,
+         "processing": true,
+         "scrollY": "250px",
+       // "sAjaxSource": URL + 'api/notification',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -20,7 +40,7 @@ $(document).ready(function () {
             {"mData": "employee.fullName"},         
             {
                 "mRender": function (data, type, full) {
-                    return `<i  class="material-icons icon-table icon-update" id="mybtn" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
+                    return `<i  class="material-icons icon-table icon-update" id="mybtn" onclick='showFormUpdate(${full.id})' type="button">edit</i>`
                 }
             },
             {
@@ -30,28 +50,21 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
 
+
+
+// sweetalertSuccess(result.message)
+//sweetalertError(error)
 
 
 
 
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id) => {
-   location.href ='http://localhost:8081/apartment-manage.com.vn/ui/notification/form';
+   location.href =URL + `ui/notification/form/${id}`;
    
 }
-
-
-
-// < ------------------- fill to form------------------------------>
-let fillToForm = (notification) => {
-    document.querySelector('#id').value = notification.id;
-    document.querySelector('#title').value = notification.title;
-    document.querySelector('#date').value = notification.date;
-    document.querySelector('#note').value = notification.note;
-}
-
 
 
 //< ----------------------------- Delete ---------------------------->
@@ -74,10 +87,10 @@ let deleteNotification = (id, e) => {
                 success: function (result) {
                     $('#table-notification').DataTable().row($(e).parents('tr'))
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa thông báo') // message
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                   sweetalert(error.status) //message
+                	sweetalertError(error) //message
                 }
             });
         }

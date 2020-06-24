@@ -18,7 +18,7 @@ public class URL_API {
 	
 	public static final String PRICE_WATER = "/api/price-water";
 	
-	public static final String PRICE_RESIDENT = "/api/resident";
+	public static final String RESIDENT = "/api/resident";
 	
 	public static final String TYPE_VEHICEL = "/api/type-vehicel";
 	
@@ -27,4 +27,9 @@ public class URL_API {
 	public static final String CONTACT =  "/api/contact";
 	
 	public static final String REGULATION =  "/api/regulation";
+
+	public static final String NOTIFICATION =  "/api/notification";
+	
+	public static final String APARTMENT_INDEX =  "/api/apartment-index";
+
 }
