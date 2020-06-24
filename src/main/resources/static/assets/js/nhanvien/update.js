@@ -19,7 +19,7 @@ let OB = null;
 
 /* --------------------- Update Employee --------------- */
 document.querySelector('#save').addEventListener('click', () => {
-    var employee = getValueForm();
+    var employee = getValueForm();  
     if (validate(employee)) {
         $.ajax({
             type: 'PUT',
@@ -29,7 +29,8 @@ document.querySelector('#save').addEventListener('click', () => {
             cache: false,
             data: JSON.stringify(employee),
             success: function (result) {
-                sweetalertError(result.message);
+               sweetalertSuccess(result.message)
+                console.log(result)
             },
             error: function (error) {
                 sweetalertError(error)
@@ -87,9 +88,10 @@ let fillToForm = (data) => {
     document.querySelector('#birthday').value = data.birthday;
     $(data.gender ? "#male" : "#female").prop('checked', true);
     document.querySelector('#address').value = data.address,
-        document.querySelector('#identitycard').value = data.identitycard;
+        document.querySelector('#identitycard').value = data.identitycard
     document.querySelector('#phone').value = data.phone;
     document.querySelector('#username').value = data.username;
+    document.querySelector('#fakepassword').value = 'tgFxcP4bQG3uaMp'
     document.querySelector('#email').value = data.email
     checked(data.roles)
 
@@ -141,9 +143,15 @@ let fillToFormImage = (data) => {
     document.querySelector('#email-formImg').innerHTML = data.email;
 }
 
-
 /*  ------------------------------------- get value form ------------------------------------ */
-let getValueForm = (data) => {
+let getValueForm = () => {
+  let password
+    if (document.querySelector('#fakepassword').value === 'tgFxcP4bQG3uaMp' ){
+         password = null
+    }else {
+        password = document.querySelector('#fakepassword').value
+
+    }
     return {
         'id': document.querySelector('#id_employee').value.trim(),
         'fullName': document.querySelector('#fullName').value.trim(),
@@ -154,11 +162,17 @@ let getValueForm = (data) => {
         'phone': document.querySelector('#phone').value.trim(),
         'username': document.querySelector('#username').value.trim(),
         'email': document.querySelector('#email').value.trim(),
+        'password':password,
         'roles': $('input[type=checkbox]:checked').map(function (_, role) {
             return $(role).val();
         }).get()
     }
+
 }
+
+/* -----------------------
+
+/* ------------------------- ---------------------------------------------*/
 let validate = (data) => {
 
     if (data.fullName === '') {
@@ -212,11 +226,6 @@ let validate = (data) => {
     }
     if (data.username === '') {
         toastrError("Tên đăng nhập không được để trống!");
-        document.querySelector('#username').focus();
-        return false;
-    }
-    if (data.password === '') {
-        toastrError("Mật khẩu không được để trống");
         document.querySelector('#username').focus();
         return false;
     }

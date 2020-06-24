@@ -44,7 +44,7 @@ let table = (data) => {
                     let role_name = "";
                     let roles = data.roles;
                     for (i = 0; i < roles.length; i++) {
-                        role_name += "" + roles[i].name;
+                        role_name += "" + roles[i].name + ",";
                     }
                     return role_name;
                 }
