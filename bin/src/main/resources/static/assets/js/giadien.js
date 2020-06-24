@@ -1,15 +1,35 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + `api/price-electricity`,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-electricity').DataTable({
-        "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
-        "processing": true,
-        "autoWidth": false,
-        "scrollY": "300px",
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
         "scrollCollapse": true,
-        "sAjaxSource": URL + 'api/price-electricity',
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+        "responsive": true,
+        "scroller": true,
+        "autoWidth": true,
+        "processing": true,
+        "scrollY": "250px",
+       // "sAjaxSource": URL + 'api/price-electricity',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
@@ -30,7 +50,8 @@ $(document).ready(function () {
             }
         ]
     });
-});
+}
+
 let deletePrice = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
@@ -48,32 +69,36 @@ let deletePrice = (id, e) => {
                 contentType: "application/json",
                 cache: false,
                 success: function (result) {
-                    $('#table-electricity').DataTable().row($(e).parents('tr')) //
-                        .remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa giá điện ')
+                    $('#table-electricity').DataTable().row($(e).parents('tr')).remove().draw(); //
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    toastrmessage(error.status)
+                	sweetalertError(error);	
                 }
             });
         }
     })
 }
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-bolt mr-3'></i>" +'Thêm Giá Mới'
+}
+
 // < ----------------------- show form update ---------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-electricity').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập Nhật Giá Điện";
+    document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-bolt mr-3 '></i>" + "Cập Nhật Giá Điện";
     $.ajax({
         url: URL + `api/price-electricity/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     })
 }
@@ -81,20 +106,23 @@ let showFormUpdate = (id, e) => {
 document.querySelector('#save').addEventListener('click', () => {
     let electricity = getValueForm();
     //< -------------- update --------------->
-    if(validate(electricity)) {
+    if (validate(electricity)) {
         if (electricity.id) {
             $.ajax({
                 type: 'PUT',
                 url: URL + `api/price-electricity/${electricity.id}`,
                 contentType: 'application/json',
-                date: 'json',
+                dataType: 'json',
                 cache: false,
                 data: JSON.stringify(electricity),
                 success: function (result) {
-                    result.date = formatDate(result.date);  // Convert date to yy-MM-dd
-                    $('#table-electricity').DataTable().row(index).data(result).draw();  //update the row in dataTable
+                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
+                    $('#table-electricity').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalert(200, 'Success!', 'Đã cập nhật giá điện ');
+                    sweetalertSuccess(result.message);
+                },
+                error: function (error) {
+                	sweetalertError(error);	
                 }
             })
         }
@@ -108,13 +136,13 @@ document.querySelector('#save').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(electricity),
                 success: function (result) {
-                    result.date = formatDate(result.date);
-                    $('#table-electricity').DataTable().row.add(result).draw().node();
+                	 result.data.date = formatDate(result.data.date);
+                    $('#table-electricity').DataTable().row.add(result.data).draw().node();
                     cleanForm();
-                    sweetalert(200, 'Success', 'Đã tạo giá điện')
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    sweetalert(error.status)
+                	sweetalertError(error);	
                 }
 
             })
@@ -145,14 +173,14 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 // < ---------------- get value form ------------------------->
 let getValueForm = () => {
     return {
-        'id': document.querySelector('#id').value,
-        'limits': document.querySelector('#limits').value,
-        'price': document.querySelector('#price').value,
-        'date': document.querySelector('#date').value,
+        'id': document.querySelector('#id').value.trim(),
+        'limits': document.querySelector('#limits').value.trim(),
+        'price': document.querySelector('#price').value.trim(),
+        'date': document.querySelector('#date').value.trim(),
         'employee': {
             'id': 1
         },
-        'note': document.querySelector('#note').value
+        'note': document.querySelector('#note').value.trim()
     }
 }
 
@@ -167,30 +195,30 @@ let fillToForm = (electricity) => {
 }
 
 let validate = (data) => {
-    if(data.limits === ''){
-        toastrError("hạn mức không được để trống")
-        document.querySelector('#limits').focus();
-        return false
-    }
-    if(data.limits < 0 ){
-        toastrError("hạn mức không được âm")
-        document.querySelector('#limits').focus();
-        return false
-    }
     if (data.price === '') {
-        toastrError("Giá không được để trống");
+        toastrError("Giá không được để trống!");
         document.querySelector('#price').focus();
         return false;
     }
-    if (data.price < 0 ){
-        toastrError("Giá không được âm");
+    if (data.price < 0) {
+        toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
     }
     if (data.date === '') {
-        toastrError("Ngày không được để trống");
+        toastrError("Ngày không được để trống!");
         document.querySelector('#date').focus();
         return false;
+    }
+    if (data.limits === '') {
+        toastrError("Hạn mức không được để trống!")
+        document.querySelector('#limits').focus();
+        return false
+    }
+    if (data.limits < 0) {
+        toastrError("Hạn mức không được âm!")
+        document.querySelector('#limits').focus();
+        return false
     }
     return true;
 }

@@ -25,4 +25,6 @@ public class URL_API {
 	public static final String VEHICEL = "/api/vehicle";
 	
 	public static final String CONTACT =  "/api/contact";
+	
+	public static final String REGULATION =  "/api/regulation";
 }
