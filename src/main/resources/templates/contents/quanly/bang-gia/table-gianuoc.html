@@ -4,8 +4,8 @@ data-layout-decorate="~{/layout-admin}">
 
 <div layout:fragment="content">
 	<!------------------------------------------- Header----------------------------------->
-	<div class="row">
-		<a class="title"> Quáº£n LÃ½ Báº£ng GiÃ¡</a>
+	<div style="margin-top: -35px">
+		<a class="title"> Quản Lý Bảng Giá </a>
 		<div th:replace="components/header"></div>
 	</div>
 
@@ -14,7 +14,7 @@ data-layout-decorate="~{/layout-admin}">
 		<!---------------------------------- card title table ----------------------------->
 		<div class="card-header" style="border-radius: 6px;">
 			<div class="card-titles">
-				<h6 style="color: white"><i class="fas fa-tint mr-3"></i> Báº£ng giÃ¡ nÆ°á»›c </h6>
+				<h6 style="color: white"><i class="fas fa-tint mr-3"></i> Bảng Giá Nước  </h6>
 			</div>
 		</div>
 		<!----------------------------------- card-body-table ---------------------------->
@@ -23,12 +23,12 @@ data-layout-decorate="~{/layout-admin}">
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>NgÃ y</th>
-						<th>Ä�Æ¡n giÃ¡</th>	
-						<th>NgÆ°á»�i táº¡o</th>	
-						<th>Ghi chÃº</th>						
-						<th >Cáº­p nháº­t</th>	
-						<th >XÃ³a</th>				
+						<th>Ngày</th>
+						<th>Đơn giá</th>
+						<th>Người tạo</th>
+						<th>Ghi chú</th>
+						<th >Cập nhật</th>
+						<th >Xóa</th>
 					</tr>
 				</thead>
 			</table>
@@ -67,7 +67,7 @@ data-layout-decorate="~{/layout-admin}">
 							<!-------------------------------- Ngay ------------------------------------>
 							<div class="input-container">
 								<input type="date" required="required" name="date" id="date"
-									style="width: 220px"  /> <label for="date">NgÃ y</label>
+									style="width: 220px"  /> <label for="date">Ngày</label>
 							</div>
 						</div>
 						<!---------------------------- End row ----------------------->
@@ -97,6 +97,6 @@ data-layout-decorate="~{/layout-admin}">
 			</div>
 		</div>
 	</div>
-	<script th:src="@{/assets/js/gianuoc.js}" type="text/javascript"></script>
+	<script th:src="@{/assets/js/bang-gia/gianuoc.js}" type="text/javascript"></script>
 </div>
 <!-------------------------------------------------------- End Div content ------------------------------------------->

@@ -5,7 +5,7 @@
 <div layout:fragment="content">
 
     <!-------------------------------------------------- Header----------------------------------------------->
-    <div class="row">
+    <div style="margin-top: -35px">
         <a class="title"> Quản Lý Cư Dân</a>
         <div th:replace="components/header"></div>
     </div>
@@ -68,12 +68,14 @@
                             <input type="number" id="id" hidden="true" required="required"/>
                             <!------------------------- Họ Tên ------------------------------>
                             <div class="input-container col-md-4" style="padding: 0px">
-                                <input type="text" required="required" name="fullname" id="fullname" style="width: 100%"/>
+                                <input type="text" required="required" name="fullname" id="fullname"
+                                       style="width: 100%"/>
                                 <label for="fullname">Họ tên</label>
                             </div>
                             <!------------------------ Ngày Sinh ---------------------------->
                             <div class="input-container col-md-4" style="padding: 0">
-                                <input type="date" required="required" name="birthday" id="birthday" style="width:100%;">
+                                <input type="date" required="required" name="birthday" id="birthday"
+                                       style="width:100%;">
                                 <label for="birthday">Ngày sinh</label>
                             </div>
                             <!------------------------- Giới tính --------------------------->
@@ -82,8 +84,10 @@
                                 <input type="radio" id="male" name="gender" value="male" class="custom-control-input">
                                 <label class="custom-control-label" for="male">Nam</label>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline" style="margin-left:10px; margin-top: 15px;">
-                                <input type="radio" id="female" name="gender" value="female" class="custom-control-input">
+                            <div class="custom-control custom-radio custom-control-inline"
+                                 style="margin-left:10px; margin-top: 15px;">
+                                <input type="radio" id="female" name="gender" value="female"
+                                       class="custom-control-input">
                                 <label class="custom-control-label" for="female">Nữ</label>
                             </div>
                         </div>
@@ -91,7 +95,8 @@
                         <div class="row">
                             <!---------------------------- CMND ------------------------------>
                             <div class="input-container col-md-4" style="padding: 0">
-                                <input type="text" required="required" name="identitycard" id="identitycard" style="width:100%">
+                                <input type="text" required="required" name="identitycard" id="identitycard"
+                                       style="width:100%">
                                 <label for="identitycard">CMND</label>
                             </div>
 
@@ -113,7 +118,8 @@
 
                             <!--------------------------- Quê Quán  -------------------------->
                             <div class="input-container col-md-5" style="padding: 0">
-                                <input type="text" required="required" name="hometown" id="hometown" style="width:100%"/>
+                                <input type="text" required="required" name="hometown" id="hometown"
+                                       style="width:100%"/>
                                 <label for="hometown">Quê quán</label>
                             </div>
                             <!---------------------------- Email --------------------------->
@@ -123,7 +129,8 @@
                             </div>
                             <!--------------------------- ID Căn hộ  ------------------------->
                             <div class="input-container col-md-2" style="padding: 0">
-                                <input type="text" required="required" name="idapartment" id="idapartment" style="width:100%"/>
+                                <input type="text" required="required" name="idapartment" id="idapartment"
+                                       style="width:100%"/>
                                 <label for="idapartment">Mã căn hộ </label>
                             </div>
                         </div>
@@ -165,14 +172,14 @@
                             <div class="col-md-6" style="padding: 0">
                                 <select style="width: 100%;margin: 2px 0 0 12px;padding-bottom: 12px;" id="type"
                                         class="input-select">
-                                    <option> Chọn loại xe</option>
                                     <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
                                 </select>
                             </div>
                             <!------------- bien so xe --------------->
                             <div class="input-container col-md-5 ml-4" style="padding: 0">
                                 <input type="number" id="idVehicle" hidden="true" required="required"/>
-                                <input type="text" required="required" name="licensePlates" id="licensePlates" style="width:100%"/>
+                                <input type="text" required="required" name="licensePlates" id="licensePlates"
+                                       style="width:100%"/>
                                 <label for="licensePlates">Biển số xe</label>
                             </div>
                             <!----------------- MAU XE --------------->
@@ -187,7 +194,8 @@
                             </div>
                             <!------------------- id cư dan ------------>
                             <div class="input-container col-sm-2" style="padding: 0">
-                                <input type="text" required="required" name="idResident" id="idResident" style="width:100%"/>
+                                <input type="text" required="required" name="idResident" id="idResident"
+                                       style="width:100%"/>
                                 <label for="idResident">ID cư dân</label>
                             </div>
                             <!---------------------------------------->
@@ -208,7 +216,7 @@
             </div>
         </div>
     </div>
-    <script th:src="@{/assets/js/cudan.js}" type="text/javascript"></script>
-    <script th:src="@{/assets/js/xe.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/cu-dan/cudan.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/cu-dan/xe.js}" type="text/javascript"></script>
 </div>
 <!------------------------------------------------------- end div content --------------------------------------------->

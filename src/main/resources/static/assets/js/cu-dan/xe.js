@@ -1,23 +1,22 @@
-(function(){
-	 $.ajax({
-	        url: URL + 'api/vehicle',
-	        type: 'GET',
-	        dataType: 'json',
-	        success: function (result) {
-	        	table_vihecle(result.data)
-	        },
-	        error: function (error) {
-	            sweetalert(error.status)
-	        }
-	    });
+(function () {
+    $.ajax({
+        url: URL + 'api/vehicle',
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            table_vihecle(result.data)
+        },
+        error: function (error) {
+            sweetalert(error.status)
+        }
+    });
 })()
-
 
 
 let table_vihecle = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-vehicle').DataTable({
-        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
         "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
@@ -74,7 +73,7 @@ let deleteVehicle = (id, e) => {
                     sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	sweetalertError(error)	
+                    sweetalertError(error)
                 }
             })
         }
@@ -101,7 +100,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                     sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	sweetalertError(error)
+                    sweetalertError(error)
                 }
             })
         } else {
@@ -120,7 +119,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                     cleanFormVehicle();
                 },
                 error: function (error) {
-                	sweetalertError(error)
+                    sweetalertError(error)
                 }
             })
         }
@@ -143,7 +142,7 @@ let showFormUpdateVehicle = (id, e) => {
             fillToFormVehicle(result.data)
         },
         error: function (error) {
-        	sweetalertError(error)
+            sweetalertError(error)
         }
     })
 }
@@ -187,12 +186,26 @@ let getValueFormVehicle = () => {
         "licensePlates": document.querySelector('#licensePlates').value.trim(),
         'color': document.querySelector('#color').value.trim(),
         'date': document.querySelector('#date').value.trim(),
-        'resident': {'id': document.querySelector('#idResident').value.trim()},   
+        'resident': {'id': document.querySelector('#idResident').value.trim()},
         "typeVehicle": {"id": document.querySelector('#type').value.trim()},
     }
 }
 
 let validateFormVehicle = (data) => {
+
+    if (data.typeVehicle.id === '') {
+        toastrError("Chưa chọn loại xe!");
+        document.querySelector('#type').focus();
+        return false;
+    }
+    if (data.licensePlates != '') {
+        if (data.licensePlates.length < 10 || data.licensePlates.length > 15) {
+            toastrError("Biển số xe phải từ 10 - 15 kí tự ")
+            document.querySelector('#licensePlates').focus()
+            return false
+        }
+    }
+
     if (data.color === '') {
         toastrError("Màu xe không được để trống");
         document.querySelector('#color').focus();
@@ -209,15 +222,11 @@ let validateFormVehicle = (data) => {
         document.querySelector('#idResident')
         return false
     }
-    if( data.resident != null && isNaN(data.resident.id) ){
-		toastrError("Id cư dân phải là số!");
-		document.querySelector('#idResident').focus();
-		return false;
-	}
-    if (data.typeVehicle.id === '') {
-        toastrError("Chưa chọn loại xe!");
-        document.querySelector('#type').focus();
+    if (data.resident != null && isNaN(data.resident.id)) {
+        toastrError("Id cư dân phải là số!");
+        document.querySelector('#idResident').focus();
         return false;
     }
+
     return true;
 }

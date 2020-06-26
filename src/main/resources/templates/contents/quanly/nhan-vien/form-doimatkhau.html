@@ -1,5 +1,5 @@
 <div class="modal fade" id="form-change-password" tabindex="-1"
-     role="dialog" aria-labelledby="form-label" aria-hidden="true">
+     role="dialog" aria-labelledby="form-label" aria-hidden="true" xmlns:th="http://www.thymeleaf.org">
     <div class="  modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!------------------------------------- Header-modal ----------------------------------->
@@ -13,34 +13,41 @@
             <!--------------------------------------- body-modal ------------------------------------->
             <div class="modal-body">
                 <form>
-                    <!----------------------------------- Password ----------------------->
-                    <div class="input-container col-sm-8 " style="padding: 0; margin-left: 70px;margin-right:70px">
-                        <input type="password" required name="password" id="Password"
-                               style="width:100%;"/> <label for="Password">Mật khẩu cũ</label>
-                    </div>
-                    <!----------------------------------- Password ----------------------->
-                    <div class="input-container col-sm-8" style="padding: 0; margin-left: 70px;margin-right:70px">
-                        <input type="password" required name="newPassword" id="newPassword"
-                               style="width:100%;"/> <label for="newPassword">Mật khẩu mới</label>
-                    </div>
-                    <!----------------------------------- Password ----------------------->
-                    <div class="input-container col-sm-8" style="padding: 0; margin-left: 70px;margin-right:70px">
-                        <input type="password" required name="confirmPassword" id="confirmPassword"
-                               style="width:100%;"/> <label for="confirmPassword"> Xác nhận mật khẩu</label>
-                    </div>
+
+                        <!----------------------------------- Password ----------------------->
+                        <div class="input-container ml-2 mr-2" style="padding: 0;">
+                            <input type="password" required name="password" id="Password" style="width:100%;"/>
+                            <label for="Password">Mật khẩu cũ</label>
+                        </div>
+
+
+                        <!----------------------------------- New Password ----------------------->
+                        <div class="input-container ml-2 mr-2 " style="padding: 0;">
+                            <input type="password" required name="newPassword" id="newPassword" style="width:100%;"/>
+                            <label for="newPassword">Mật khẩu mới</label>
+                        </div>
+
+                        <!----------------------------------- confirmPassword ----------------------->
+                        <div class="input-container ml-2 mr-2" style="padding: 0;">
+                            <input type="password" required name="confirmPassword" id="confirmPassword" style="width:100%;"/>
+                            <label for="confirmPassword">Xác nhận mật khẩu</label>
+                        </div>
+
+                    <input type="checkbox" class="ml-2" onclick="TogglePassword()"> hiển thị mật khẩu
                 </form>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-success" >
-                    <i class="fas fa-save mr-2"></i> Lưu Lại
+                <button type="button" class="btn btn-sm btn-success" id="changepassword">
+                    <i class="fas fa-save mr-2"></i> Lưu thay đổi
                 </button>
-                <button type="button" class="btn btn-sm btn-danger">
-                    <i class="fas fa-window-close mr-2"></i> Hủy bỏ
+                <button type="button" class="btn btn-sm btn-danger" id="clean-form-change-password">
+                    <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
                 </button>
             </div>
 
 
         </div>
     </div>
+    <script th:src="@{/assets/js/nhan-vien/doi-mat-khau.js}" type="text/javascript"></script>
 </div>
