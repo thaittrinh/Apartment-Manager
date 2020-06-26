@@ -4,7 +4,7 @@
 
 <div layout:fragment="content">
     <!------------------------------------------- Header----------------------------------->
-    <div style="margin-top: -35px">
+    <div class="row">
         <a class="title"> Quản Lý Bảng Giá</a>
         <div th:replace="components/header"></div>
     </div>
@@ -54,10 +54,10 @@
                 <div class="modal-body">
                     <form>
                         <div class="row">
+                            <input type="number"  id="id" hidden="true" required="required" />
                             <!------------------------------ Don gia ------------------------------------>
                             <div class="input-container col-md-6" style="padding: 0;">
-                                <input type="number" min="0" required="required" name="price" id="price"
-                                       style="width:100%"/>
+                                <input type="number" min="0" required="required" name="price" id="price" style="width:100%"/>
                                 <label for="price">Đơn giá</label>
                             </div>
                             <!-------------------------------- Ngay ------------------------------------>

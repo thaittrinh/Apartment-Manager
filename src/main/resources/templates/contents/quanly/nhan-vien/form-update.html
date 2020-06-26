@@ -5,7 +5,7 @@
 
     <div layout:fragment="content">
         <!------------------------------------------ Header -------------------------->
-        <div style="margin-top: -35px">
+        <div class="row">
             <a class="title"> Cập nhật nhân viên </a>
             <div th:replace="components/header"></div>
         </div>
@@ -88,7 +88,7 @@
                             <!----------------------------------- Password ----------------------->
                             <div class="input-container col-sm-3" style="padding: 0;">
                                 <input  type="password"  required="required" name="fakepassword" id="fakepassword"
-                                       style="width:100%;"/> <label for="fakepassword">Mật khẩu</label>
+                                        style="width:100%;"/> <label for="fakepassword">Mật khẩu</label>
                             </div>
                             <input hidden="true"  type="password"  required="required" name="password" id="password" style="width:100%;"/>
                             <!----------------------------------- Email ----------------------->

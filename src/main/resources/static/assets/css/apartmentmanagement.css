@@ -20,6 +20,7 @@
     --white: #fff;
     --gray: #6c757d;
     --gray-dark: #343a40;
+    --primary: #007bff;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -207,7 +208,7 @@ a:hover, a:focus {
 }
 
 #sidebar .custom-menu .btn.btn-primary {
-    background-color: #0648b3 !important;
+    background-color:#0648b3 !important;
     border-color: #0648b3 !important;
 }
 
@@ -384,6 +385,17 @@ label {
     margin: 0 10px 0 10px;
 }
 
+.title {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    margin-top: -30px;
+    position: relative;
+    color: inherit;
+    font-size: 15px;
+    font-weight: 300;
+    padding: .625rem 0;
+    margin-left: 4rem;
+    text-transform: uppercase;
+}
 
 .dropdown-menu.dropdown-menu-right.show {
     margin-top: 20px;
@@ -438,8 +450,9 @@ input:valid::-webkit-datetime-edit {
     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 .align-left {
-    width:50%;
-    float: right;
+    top: 10px;
+    position: absolute;
+    right: 45px;
 }
 
 i.material-icons {
@@ -654,7 +667,7 @@ p {
     padding-right: 0 !important;
     width: 1054px;
     border: 0;
-    margin: 100px 0 0px 15px;
+    margin: 65px 0 0px 15px;
     border-radius: 6px;
     color: #333;
     background: #fff;
@@ -783,17 +796,7 @@ label {
     margin: 0 10px 0 10px;
 }
 
-.title {
-    margin-top: 6px;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    position: fixed;
-    color: inherit !important;
-    font-size: 15px;
-    font-weight: 300;
-    padding: .625rem 0;
-    margin-left: 4rem;
-    text-transform: uppercase;
-}
+
 
 .dropdown-menu.dropdown-menu-right.show {
     margin-top: 20px;
@@ -834,7 +837,7 @@ input:valid::-webkit-datetime-edit {
     color: black;
 }
 
-.row .dropdown .avatar {
+.align-left .dropdown .avatar {
     background-image: none;
     background-repeat: no-repeat;
     object-fit: cover;

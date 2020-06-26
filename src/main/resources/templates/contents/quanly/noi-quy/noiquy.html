@@ -3,7 +3,7 @@
 
     <!-------------------------------------------------------------------------------------------->
     <div layout:fragment="content">
-        <div style="margin-top: -35px">
+        <div class="row">
             <a class="title"> Quản Lý nội quy</a>
             <div th:replace="components/header"></div>
         </div>
@@ -21,30 +21,20 @@
                         <!------------------------------ Title------------------------------------>
                         <div class="input-container col-sm-7" style="padding:0;">
                             <input type="number" id="id" hidden="true" required="required"/>
-
                         </div>
-
                     </div>
                     <!---------------------------- End row ----------------------->
                     <br/>
                     <label>NỘI QUY</label>
                     <div class="row" style=>
-
                         <!------------------------------- Ghi Chu -------------------------------------->
-
-
-                        <textarea style="width: 800px; height: 1000px;" id="note" name="note"
-                                  required="required" rows=""></textarea>
-
-
+                        <textarea style="width: 800px; height: 1000px;" id="note" name="note" required="required" rows=""></textarea>
                     </div>
                     <!------------------------------------ End row -------------------------------------->
                 </form>
-                <div class="modal-footer">
-                    <button style="width: 115px" type="button" class="btn btn-sm btn-success" id="save">
-                        <i class="fas fa-save mr-2"></i> Lưu Lại
-                    </button>
-                </div>
+                <button style="width: 115px" type="button" class=" float-right btn btn-sm btn-success mt-3" id="save">
+                    <i class="fas fa-save mr-2"></i> Lưu Lại
+                </button>
             </div>
         </div>
         <script>
