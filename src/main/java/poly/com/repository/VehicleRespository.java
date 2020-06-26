@@ -11,6 +11,7 @@ import poly.com.entity.Vehicle;
 @Repository
 public interface VehicleRespository extends JpaRepository<Vehicle, Integer> {
 
+	
     Optional<Vehicle> findByLicensePlates(String licensePlates );
 
     @Query(value = "SELECT count(v.id) as i " + 

@@ -27,34 +27,53 @@ public class Bill {
 	private Integer electricityNumber;
 	
 	@NotNull(message = "Electricity price is not null") 
-	private Double electricityPrice;
+	private Double electricityPrice1;
+	
+	@NotNull(message = "Electricity price is not null") 
+	private Double electricityPrice2;
+	
+	@NotNull(message = "Electricity price is not null") 
+	private Double electricityPrice3;
+	
+	@NotNull(message = "Electricity price is not null") 
+	private Double electricityPrice4;
+	
+	@NotNull(message = "Electricity price is not null") 
+	private Double electricityPrice5;
+	
+	@NotNull(message = "Electricity price is not null") 
+	private Double electricityPrice6;
 	
 	@NotNull(message = "Water number is not null") 
 	private Integer waterNumber;
 	
 	@NotNull(message = "Water price is not null") 
-	private Integer waterPrice;
+	private Double waterPrice;
 	
 	@NotNull(message = "Bicycle number is not null") 
 	private Integer bicycleNumber;
 	
 	@NotNull(message = "Bicycle price is not null") 
-	private Integer bicyclePrice;
+	private Double bicyclePrice;
 	
 	@NotNull(message = "Motocycle number is not null") 
 	private Integer motocycleNumber;
 	
 	@NotNull(message = "Motocycle price is not null") 
-	private Integer motocyclePrice;
+	private Double motocyclePrice;
 	
 	@NotNull(message = "Car number is not null") 
 	private Integer carNumber;
 	
 	@NotNull(message = "Car price is not null") 
-	private Integer carPrice;
+	private Double carPrice;
 	
 	@NotNull(message = "Management fee is not null") 
-	private Integer managementPrice;
+	private Double managementPrice;
+	
+	@NotNull(message = "Management fee is not null") 
+	private Double garbagesPrice;
+	
 	
 	@NotNull(message = "Total price is not null") 
 	private Integer totalPrice;

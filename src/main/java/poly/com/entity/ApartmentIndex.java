@@ -65,8 +65,4 @@ public class ApartmentIndex implements Serializable {
 	@JoinColumn(name = "id_employee", referencedColumnName = "id")
 	private Employee employee;
 	
-	/*
-	@OneToOne(mappedBy = "apartmentIndex", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private Bill bill;	
-	*/
 }

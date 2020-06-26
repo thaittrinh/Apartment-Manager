@@ -19,7 +19,7 @@ public class ApartmentBillDTO {
 	
 	private double totalPrice;
 	
-	private String nameEmployee;
+	private String username;
 	
 	private boolean paid;
 }

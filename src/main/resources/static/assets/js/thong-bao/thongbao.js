@@ -35,7 +35,7 @@ let table = (data) => {
             {"mData": "title"},
             {"mData": "date"},
           
-            {"mData": "employee.fullName"},         
+            {"mData": "employee.username"},         
             {
                 "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-update" id="mybtn" onclick='showFormUpdate(${full.id})' type="button">edit</i>`
