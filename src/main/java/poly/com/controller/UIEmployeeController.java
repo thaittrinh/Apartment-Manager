@@ -18,7 +18,7 @@ public class UIEmployeeController {
     // return template page chu can ho
  	@GetMapping("/form/{id}")
  	public String formUpdate(@PathVariable int id, ModelMap model) {
- 			
+ 			model.addAttribute("idEmployee" , id);
  		return "contents/quanly/nhan-vien/form-update";
  	}
     

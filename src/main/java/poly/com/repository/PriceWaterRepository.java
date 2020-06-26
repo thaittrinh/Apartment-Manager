@@ -18,4 +18,8 @@ public interface PriceWaterRepository extends JpaRepository<PriceWater,Integer> 
 	@Query("select w from PriceWater w where year(w.date) = ?1 and month(w.date) = ?2")
 	PriceWater findByYearAndMonth(int year, int month);
 	
+	Optional<PriceWater> findFirstByDateLessThanEqualOrderByDateDesc(Date date);
+	
+
+	
 }

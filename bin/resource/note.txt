@@ -6,3 +6,13 @@
  - 409 CONFLICT : unique  
  - 500 INTERNAL_SERVER_ERROR: Lỗi server! 
  
+ 
+ -- delete cascase null id_own cho bảng căn hộ
+ 
+ -- delete cu dan -> delete xe ky gui
+ 
+ 
+ -- Contact chỉ update
+ 
+  -- Nội quy chỉ update
+ 

@@ -117,7 +117,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                     result.data.date = formatDate(result.data.date)
                     $('#table-vehicle').DataTable().row.add(result.data).draw().node();
                     sweetalertSuccess(result.message)
-                    cleanFrom();
+                    cleanFormVehicle();
                 },
                 error: function (error) {
                 	sweetalertError(error)
@@ -187,17 +187,12 @@ let getValueFormVehicle = () => {
         "licensePlates": document.querySelector('#licensePlates').value.trim(),
         'color': document.querySelector('#color').value.trim(),
         'date': document.querySelector('#date').value.trim(),
-        'resident': {'id': document.querySelector('#idResident').value.trim()},
+        'resident': {'id': document.querySelector('#idResident').value.trim()},   
         "typeVehicle": {"id": document.querySelector('#type').value.trim()},
     }
 }
 
 let validateFormVehicle = (data) => {
-    if (data.licensePlates === '') {
-        toastrError("Biển số xe không được để trống!");
-        document.querySelector('#licensePlates').focus();
-        return false;
-    }
     if (data.color === '') {
         toastrError("Màu xe không được để trống");
         document.querySelector('#color').focus();

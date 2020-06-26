@@ -22,7 +22,6 @@ let OB = null;
 
 document.querySelector('#save').addEventListener('click', () => {
 	 var dto  = getValueForm();
-	 console.log(dto);
 	 if(validate(dto)){
 	        $.ajax({
 	            type: 'PUT',
@@ -31,7 +30,8 @@ document.querySelector('#save').addEventListener('click', () => {
 	            dataType: 'json',
 	            cache: false,
 	            data: JSON.stringify(dto),
-	            success: function (result) {               
+	            success: function (result) {  
+	            	fillToFormImage(result.data);
 	            	sweetalertSuccess(result.message);         	              
 	            },
 	            error: function ( error) {	            	
@@ -90,8 +90,6 @@ $("#file-upload-form").on("submit", function (e) {
 
 
 let fillToForm = (data) => {
-	console.log(data);
-	
 	document.querySelector('#id_own').value = data.id;
 	document.querySelector('#fullname').value = data.fullname,
     document.querySelector('#birthday').value = data.birthday,

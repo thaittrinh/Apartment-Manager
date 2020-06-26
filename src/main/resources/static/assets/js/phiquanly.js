@@ -35,7 +35,7 @@ let table = (data) => {
                 {"mData": "id"},
                 {"mData": "date"},
                 {"mData": "price"},
-                {"mData": "employee.fullName"},
+                {"mData": "employee.username"},
                 {"mData": "note"},
                 {
                     "mRender": function (data, type, full) {

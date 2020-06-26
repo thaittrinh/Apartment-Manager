@@ -10,3 +10,15 @@
  -- delete cascase null id_own cho bảng căn hộ
  
  -- delete cu dan -> delete xe ky gui
+ 
+ 
+ -- Contact chỉ update
+ 
+  -- Nội quy chỉ update
+  
+  
+  -- các loại xe
+  			Xe đạp
+  			Xe máy
+  			Xe ô tô
+ 

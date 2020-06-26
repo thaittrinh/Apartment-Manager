@@ -19,7 +19,7 @@ import poly.com.entity.Resident;
 import poly.com.service.ResidentService;
 
 @RestController
-@RequestMapping(URL_API.PRICE_RESIDENT)
+@RequestMapping(URL_API.RESIDENT)
 public class ResidentController {
     // < -------------------------------- Class Residential RestController ----------------------------->
     @Autowired

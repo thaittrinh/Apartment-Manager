@@ -1,22 +1,40 @@
-$(document).ready(function () {
+(function(){
+	 $.ajax({
+	        url: URL + 'api/price-water',
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function (result) {
+	        	table(result.data)
+	        },
+	        error: function (error) {
+	            sweetalert(error.status)
+	        }
+	    });
+})()
+
+let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
-        "responsive": true,
-        "scroller": {loadingIndicator: true},
-        "autoWidth": false,
-        "processing": true,
-        "autoWidth": false,
-        "scrollY": "300px",
+        fixedColumns:   {leftColumns: 1, rightColumns: 1},
         "scrollCollapse": true,
-        "sAjaxSource": URL + 'api/price-water',
+        "paging": true,
+        "serverSize": true,
+        "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+        "responsive": true,
+        "scroller": true,
+        "autoWidth": true,
+        "processing": true,
+        "scrollY": "250px",
+       // "sAjaxSource": URL + 'api/price-water',
         "sAjaxDataProp": "",
+        "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
             {"mData": "date"},
             {"mData": "price"},
             {"mData": "employee.fullName"},
-            {"mData": "note"},         
+            {"mData": "note"},
             {
                 "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
@@ -29,8 +47,8 @@ $(document).ready(function () {
             }
         ]
     });
-});
 
+}
 
 
 // < ----------------------------- Delete ---------------------------->
@@ -53,97 +71,105 @@ let deletePrice = (id, e) => {
                 success: function (result) {
                     $('#my-table').DataTable().row($(e).parents('tr'))
                         .remove().draw();
-                    sweetalert(200, 'Success!', 'Đã xóa giá nước') // message
+                    sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                   sweetalert(error.status) //message
+                	sweetalertError(error);	
                 }
             });
         }
     })
 }
 
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-tint mr-3'></i>" +'Thêm Giá Mới'
+}
+
+
 var index = -1;
 // < -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
     index = $('#my-table').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "Cập nhập giá nước";
+    document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-tint mr-3'></i>" +"Cập nhập giá nước";
     $.ajax({
         url: URL + `api/price-water/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result)
+            fillToForm(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error);	
         }
     });
 }
 
+
 // < ------------------------ insert or update  ---------------------->
-document.querySelector('#save').addEventListener('click', () => {	
+document.querySelector('#save').addEventListener('click', () => {
     let water = getValueForm();
-    if(validate(water)){
-	    if (water.id) {
-	        $.ajax({
-	            type: 'PUT',
-	            url: URL + `api/price-water/${water.id}`,
-	            contentType: "application/json",
-	            dataType: 'json',
-	            cache: false,
-	            data: JSON.stringify(water),
-	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date);
-	               //update the row in dataTable
-	                $('#my-table').DataTable().row(index).data(result).draw();
-	               // close modal
-	                $('#form-building').modal('hide');   
-	               // annount
-	                sweetalert(200,'Success!' , ' Đã cập nhật giá nước ')
-	            },
-	            error: function (error) {
-	                sweetalert(error.status)
-	            }
-	        });
-	
-	    } else {
-	        $.ajax({
-	            type: 'POST',
-	            url: URL + `api/price-water`,
-	            contentType: "application/json",
-	            dataType: 'json',
-	            cache: false,
-	            data: JSON.stringify(water),
-	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.date = formatDate(result.date);
-	                // Add new data to DataTable
-	                $('#my-table').DataTable()  
-	                    .row.add(result).draw().node();
-	                // Clean form
-	                cleanForm(); 
-	                // annount
-	                sweetalert(200 ,'Success!' ,'Đã tạo giá nước') 
-	            },
-	            error: function (error) {
-	                sweetalert(error.status)
-	            }
-	        });
-	    }
+    if (validate(water)) {
+        if (water.id) {
+            $.ajax({
+                type: 'PUT',
+                url: URL + `api/price-water/${water.id}`,
+                contentType: "application/json",
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(water),
+                success: function (result) {
+                    // Convert date to yy-MM-dd
+                    result.data.date = formatDate(result.data.date);
+                    //update the row in dataTable
+                    $('#my-table').DataTable().row(index).data(result.data).draw();
+                    // close modal
+                    $('#form-building').modal('hide');
+                    // annount
+                    sweetalertSuccess(result.message);
+                },
+                error: function (error) {
+                	sweetalertError(error);	      
+                }
+            });
+
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: URL + `api/price-water`,
+                contentType: "application/json",
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(water),
+                success: function (result) {
+                    // Convert date to yy-MM-dd
+                	result.data.date = formatDate(result.data.date);
+                    // Add new data to DataTable
+                    $('#my-table').DataTable()
+                        .row.add(result.data).draw().node();
+                    // Clean form
+                    cleanForm();
+                    // annount
+                    sweetalertSuccess(result.message);
+                },
+                error: function (error) {
+                	sweetalertError(error);	
+                }
+            });
+        }
     }
-    
-    
+
+
 });
+
 
 // <------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
     cleanForm();
 });
 
-// < ---------------------- Clean form ---------------------------->
+
+// < ---------------------------------------- Clean form ---------------------------->
 let cleanForm = () => {
     fillToForm({
         "id": "",
@@ -153,21 +179,24 @@ let cleanForm = () => {
     });
 }
 
+
 // < -------------- clean form when click button clean ------------>
 document.querySelector('#clean-form').addEventListener('click', cleanForm);
+
 
 // < ------------------- get value form --------------------------->
 let getValueForm = () => {
     return {
-        "id": document.querySelector('#id').value,
-        "price": document.querySelector('#price').value,
-        "date": document.querySelector('#date').value,
+        "id": document.querySelector('#id').value.trim(),
+        "price": document.querySelector('#price').value.trim(),
+        "date": document.querySelector('#date').value.trim(),
         "employee": {
             "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
         },
-        "note": document.querySelector('#note').value
+        "note": document.querySelector('#note').value.trim()
     }
 }
+
 
 // < ------------------- fill to form------------------------------>
 let fillToForm = (water) => {
@@ -177,18 +206,25 @@ let fillToForm = (water) => {
     document.querySelector('#note').value = water.note;
 }
 
-let validate = (data) =>  {
-		if(data.price === ''){
-			toastrError("Giá không được để trống");
-			document.querySelector('#price').focus();
-			return false;
-		}
-		if(data.date === ''){
-			toastrError("Ngày không được để trống");
-			document.querySelector('#date').focus();
-			return false;
-		}
-	return true;
+
+// < ------------------- validate ----------------------------->
+let validate = (data) => {
+    if (data.price === '') {
+        toastrError("Giá không được để trống!");
+        document.querySelector('#price').focus();
+        return false;
+    }
+    if(data.price < 0){
+		toastrError("Giá không được âm!");
+		document.querySelector('#price').focus();
+		return false;
+	}
+    if (data.date === '') {
+        toastrError("Ngày không được để trống!");
+        document.querySelector('#date').focus();
+        return false;
+    }
+    return true;
 }
 
 
