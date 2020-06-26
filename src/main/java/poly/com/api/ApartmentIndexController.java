@@ -20,7 +20,6 @@ public class ApartmentIndexController {
 
 	@Autowired
 	ApartmentIndexService apartmentIndexService;
-	
 		
 	@GetMapping
 	public ResponseEntity<ResponseDTO> findAll(){
@@ -33,7 +32,6 @@ public class ApartmentIndexController {
 		
 		return  apartmentIndexService.findById(id);
 	}
-	
 	
 	@PostMapping
 	public ResponseEntity<ResponseDTO> create(@RequestBody CreateIndexRequest request){
