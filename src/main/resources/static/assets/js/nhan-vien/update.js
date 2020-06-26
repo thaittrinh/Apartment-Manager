@@ -8,7 +8,7 @@ let OB = null;
         success: function (result) {
             OB = result.data;
             fillToForm(result.data);
-            fillToFormImage(result.data);
+            fillToFormImage(result.data)
         },
         error: function (error) {
             sweetalertError(error)
@@ -19,7 +19,7 @@ let OB = null;
 
 /* --------------------- Update Employee --------------- */
 document.querySelector('#save').addEventListener('click', () => {
-    var employee = getValueForm();  
+    var employee = getValueForm();
     if (validate(employee)) {
         $.ajax({
             type: 'PUT',
@@ -29,8 +29,8 @@ document.querySelector('#save').addEventListener('click', () => {
             cache: false,
             data: JSON.stringify(employee),
             success: function (result) {
-               sweetalertSuccess(result.message)
-                console.log(result)
+                fillToFormImage(result.data)
+                sweetalertSuccess(result.message)
             },
             error: function (error) {
                 sweetalertError(error)
@@ -83,17 +83,17 @@ $("#file-upload-form").on("submit", function (e) {
 
 /* ------------------------------- fill  data to form employee ------------------------------ */
 let fillToForm = (data) => {
-    document.querySelector('#id_employee').value = data.id;
-    document.querySelector('#fullName').value = data.fullName;
-    document.querySelector('#birthday').value = data.birthday;
-    $(data.gender ? "#male" : "#female").prop('checked', true);
-    document.querySelector('#address').value = data.address,
-        document.querySelector('#identitycard').value = data.identitycard
-    document.querySelector('#phone').value = data.phone;
-    document.querySelector('#username').value = data.username;
-    document.querySelector('#fakepassword').value = 'tgFxcP4bQG3uaMp'
-    document.querySelector('#email').value = data.email
-    checked(data.roles)
+    document.querySelector('#id_employee').value = data.id,
+        document.querySelector('#fullName').value = data.fullName,
+        document.querySelector('#birthday').value = data.birthday,
+        $(data.gender ? "#male" : "#female").prop('checked', true),
+        document.querySelector('#address').value = data.address,
+        document.querySelector('#identitycard').value = data.identitycard,
+        document.querySelector('#phone').value = data.phone,
+        document.querySelector('#username').value = data.username,
+        document.querySelector('#fakepassword').value = 'tgFxcP4bQG3uaMp',
+        document.querySelector('#email').value = data.email,
+        checked(data.roles)
 
 }
 
@@ -145,10 +145,10 @@ let fillToFormImage = (data) => {
 
 /*  ------------------------------------- get value form ------------------------------------ */
 let getValueForm = () => {
-  let password
-    if (document.querySelector('#fakepassword').value === 'tgFxcP4bQG3uaMp' ){
-         password = null
-    }else {
+    let password
+    if (document.querySelector('#fakepassword').value === 'tgFxcP4bQG3uaMp') {
+        password = null
+    } else {
         password = document.querySelector('#fakepassword').value
 
     }
@@ -162,7 +162,7 @@ let getValueForm = () => {
         'phone': document.querySelector('#phone').value.trim(),
         'username': document.querySelector('#username').value.trim(),
         'email': document.querySelector('#email').value.trim(),
-        'password':password,
+        'password': password,
         'roles': $('input[type=checkbox]:checked').map(function (_, role) {
             return $(role).val();
         }).get()

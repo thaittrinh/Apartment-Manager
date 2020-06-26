@@ -3,7 +3,9 @@ package poly.com.constant;
 public class MessageSuccess {
 
 	public static final String INSERT_SUCCSESS = "Thêm mới thành công!";
-	
+
+	public static final String UPDATE_PASSWORD_SUCCSESS = "Đổi mật khẩu thành công";
+
 	public static final String UPDATE_SUCCSESS = "Cập nhật thành công!";
 	
 	public static final String DELETE_SUCCSESS = "Xóa thành công!";

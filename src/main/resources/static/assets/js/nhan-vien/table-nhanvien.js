@@ -226,7 +226,12 @@ let validate = (data) =>{
     }
     if(data.password === ''){
         toastrError("Mật khẩu không được để trống");
-        document.querySelector('#username').focus();
+        document.querySelector('#password').focus();
+        return false;
+    }
+    if(data.password.length <8 || data.password.length > 12 ){
+        toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
+        document.querySelector('#password').focus();
         return false;
     }
     if( !$('input[type=checkbox]:checked').val()){

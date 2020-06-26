@@ -208,13 +208,13 @@ a:hover, a:focus {
 }
 
 #sidebar .custom-menu .btn.btn-primary {
-    background-color: #59287a;
-    border-color: #59287a;
+    background-color:#0648b3 !important;
+    border-color: #0648b3 !important;
 }
 
 #sidebar .custom-menu .btn.btn-primary:hover, #sidebar .custom-menu .btn.btn-primary:focus {
-    background: #59287a !important;
-    border-color: #59287a !important;
+    background: #0648b3 !important;
+    border-color: #0648b3 !important;
 }
 
 a[data-toggle="collapse"] {
@@ -796,17 +796,7 @@ label {
     margin: 0 10px 0 10px;
 }
 
-.title {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    margin-top: -30px;
-    position: relative;
-    color: inherit;
-    font-size: 15px;
-    font-weight: 300;
-    padding: .625rem 0;
-    margin-left: 4rem;
-    text-transform: uppercase;
-}
+
 
 .dropdown-menu.dropdown-menu-right.show {
     margin-top: 20px;

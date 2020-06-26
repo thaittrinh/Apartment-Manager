@@ -21,6 +21,7 @@ import poly.com.entity.Employee;
 import poly.com.repository.EmployeeRepository;
 import poly.com.repository.RoleRepository;
 import poly.com.security.jwt.JwtUtils;
+import poly.com.security.request.ChangePasswordRequest;
 import poly.com.security.request.LoginRequest;
 import poly.com.security.response.JwtResponse;
 
@@ -70,16 +71,27 @@ public class AccountService {
     }
 
     /*------------------------------------------  change password -------------------------------------*/
-    public ResponseEntity<ResponseDTO> changepassword(int id, Employee employee) {
-        if (!employeeRepository.existsById(id))
-            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-        Employee employeePassword = employeeRepository.findByPassword(employee.getPassword());
-        if (employeePassword.equals(employee.getPassword())) {
-            System.out.println(employee.getPassword());
-            employeeRepository.updatepassword(employee.getPassword(), id);
-            return ResponseEntity.ok(new ResponseDTO(employeePassword, MessageSuccess.UPDATE_SUCCSESS));
+    public ResponseEntity<ResponseDTO> changepassword(ChangePasswordRequest passwordRequest) {
+        try {
+            Employee employee = employeeRepository.findById(passwordRequest.getId()).orElse(null);
+            if (employee == null)
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
+            String oldPassword = passwordRequest.getPassword();
+            String dbPassword = employee.getPassword();
+            if (passwordEncoder.matches(oldPassword, dbPassword)) {
+                employee.setPassword(passwordEncoder.encode(passwordRequest.getNewpassword()));
+                employee = employeeRepository.save(employee);
+                return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPDATE_PASSWORD_SUCCSESS));
+            } else {
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE_PASSWORD), HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+            /* oldPassword nhận password của client truyền về server ( không mã hóa )
+             * dbPassword lấy password từ database ( đã mã hóa )
+             *   passwordEncoder.matches(Boolean) so sánh 2 chuỗi  oldpassword với dbpassword
+             * nếu kết quả passwordEncoder.matches là true  thì mã hóa  lại mật khẩu mới và lưu vào database
+             *  nếu kết quả passwordEncoder.matches là fale thì trả về status code 400 ,mật khẩu cũ không đúng  */
     }
 }

@@ -9,6 +9,7 @@ import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Vehicle;
+import poly.com.repository.ResidentRepository;
 import poly.com.repository.VehicleRespository;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.List;
 @Service
 public class VehicleService {
     // < ------------------------------ Class Vehicle Service ----------------------->
+    @Autowired
+    ResidentRepository residentRepository;
     @Autowired
     VehicleRespository vehicleRespository;
     // -------------------------------
@@ -37,7 +40,18 @@ public class VehicleService {
     }
     // < --------------------------- Create -------------------------->
     public ResponseEntity<ResponseDTO> create( Vehicle newVehicle){
-       try {   
+       try {
+           if (!residentRepository.existsById(newVehicle.getResident().getId()))
+               return new ResponseEntity<>(new ResponseDTO(null,MessageError.ERROR_404_RESIDENT), HttpStatus.NOT_FOUND);
+
+           if(newVehicle.getLicensePlates() != null){
+               Vehicle vehicleLicensePlates = vehicleRespository
+                       .findByLicensePlates(newVehicle.getLicensePlates()).orElse(null);
+               if(vehicleLicensePlates != null)
+                   return  new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_VEHICLE_LICENSEPLATES),HttpStatus.CONFLICT);
+           }else {
+               newVehicle.setLicensePlates(null);
+           }
            newVehicle.setId(0);
            newVehicle = vehicleRespository.save(newVehicle);
            return ResponseEntity.ok(new ResponseDTO(newVehicle, MessageSuccess.INSERT_SUCCSESS));
@@ -45,12 +59,24 @@ public class VehicleService {
     	   return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
        }
     }
-
+    // < --------------------------- Update-------------------------->
     public  ResponseEntity<ResponseDTO> update(int id, Vehicle newVehicle){
         try {
+            if (!residentRepository.existsById(newVehicle.getResident().getId()))
+                return new ResponseEntity<>(new ResponseDTO(null,MessageError.ERROR_404_RESIDENT), HttpStatus.NOT_FOUND);
+
             if(!vehicleRespository.existsById(id))
                 return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_VEHICEL), HttpStatus.NOT_FOUND);
-            
+
+            if(newVehicle.getLicensePlates() != null){
+                Vehicle vehicleLicensePlates = vehicleRespository
+                        .findByLicensePlates(newVehicle.getLicensePlates()).orElse(null);
+                if(vehicleLicensePlates != null && vehicleLicensePlates.getId() != id )
+                    return  new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_VEHICLE_LICENSEPLATES),HttpStatus.CONFLICT);
+            }
+            else {
+                newVehicle.setLicensePlates(null);
+            }
             newVehicle.setId(id);
             newVehicle = vehicleRespository.save(newVehicle);
             return ResponseEntity.ok(new ResponseDTO(newVehicle, MessageSuccess.UPDATE_SUCCSESS));
@@ -58,6 +84,7 @@ public class VehicleService {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    // < --------------------------- Delete-------------------------->
     public  ResponseEntity<ResponseDTO> delete(int id ){
         try {
             if (!vehicleRespository.existsById(id))
