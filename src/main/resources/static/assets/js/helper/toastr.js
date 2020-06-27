@@ -1,6 +1,6 @@
 
 let toastrError = (message) => {
-	toastr.error(message,"Error", {
+	toastr.error(message,"", {
         progressBar: true,
         positionClass: "toast-top-right",
         preventDuplicates: true,
@@ -8,3 +8,4 @@ let toastrError = (message) => {
         hideMethod: "hide",
     })
 }
+

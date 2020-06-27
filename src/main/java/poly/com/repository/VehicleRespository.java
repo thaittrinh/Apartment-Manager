@@ -19,6 +19,7 @@ public interface VehicleRespository extends JpaRepository<Vehicle, Integer> {
     		"		INNER JOIN residents r  ON v.id_resident = r.id " + 
     		"       INNER JOIN apartments a  ON r.id_apartment = a.id " +
     		"WHERE a.id =?1 and v.id_typevehicle =?2 ", nativeQuery = true)
+
     Integer findTotalVehicelByType(String name , int id);
     
     

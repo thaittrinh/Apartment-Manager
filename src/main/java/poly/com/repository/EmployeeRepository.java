@@ -9,6 +9,7 @@ import poly.com.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
+<<<<<<< HEAD
     @Query("Update Employee c set c.password = :password where  c.id = :id ")
     Employee updatepassword(String password, int id);
 
@@ -17,6 +18,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     
     Employee findByPassword(String password);
 
+=======
+>>>>>>> 86d27f26949d1f3f326523d24bc9a3f4497fdae7
     Optional<Employee> findByPhone(String phone);
 
     Optional<Employee> findByIdentitycard(String identitycard);
