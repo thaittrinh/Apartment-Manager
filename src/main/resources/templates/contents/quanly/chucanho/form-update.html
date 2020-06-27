@@ -111,6 +111,7 @@
                 <!------------------------------------ hÃ¬nh áº£nh  ---------------------------------->
                     <a class="img" style="margin-top: 15px">
                         <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/photo/someone.png}">
+                        
                     </a>
                 <form id="file-upload-form">
                     <button type="submit" id="upload-now" hidden="true">Start
@@ -121,6 +122,7 @@
                 </form>
                 <!------------------------------------------------>
                 <div class="card-title-name">
+                  <i class="fas fa-camera" style="font-size: 24px;" onclick = "document.querySelector('#file').click()"></i>
                     <h5 id="name-formImg"></h5>
                     <h6 style="margin-left: 5px" id="email-formImg"></h6>
                 </div>

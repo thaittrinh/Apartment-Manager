@@ -20,12 +20,7 @@ public class UIController {
     }
 
  
-    // return template page table hoa don
-    @RequestMapping("/bill")
-    public String pageTableHoadon() {
-        return "contents/quanly/table-Hoadon";
-    }
-    
+   
    
    
     

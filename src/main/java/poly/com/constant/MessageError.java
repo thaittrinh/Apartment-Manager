@@ -3,11 +3,14 @@ package poly.com.constant;
 public class MessageError {
 
 	public static final String ERROR_400 = "Dữ liệu đầu vào không đúng!";
+	
 
 	public static final String ERROR_400_EMPLOYEE = "Mật khẩu  không đúng ";
-
+	
 	public static final String ERROR_403_EMPLOYEE = "Mật khẩu cũ không đúng ";
-
+	
+	
+	
 	public static final String ERROR_404_EMPLOYEE = "Nhân viên không tồn tại!";
 	
 	public static final String ERROR_404_OWN_APARTMENT = "Chủ căn hộ không tồn tại!";
@@ -16,15 +19,39 @@ public class MessageError {
 	
 	public static final String ERROR_404_PRICE_ELECTRICITY  = "Giá không tồn tại!";
 	
+	public static final String ERROR_404_ELECTRICITY_LIMIT_1  = "Giá điện hạn mức 1 không tồn tại!";
+	
+	public static final String ERROR_404_ELECTRICITY_LIMIT_2  = "Giá điện hạn mức 2 không tồn tại!";
+	
+	public static final String ERROR_404_ELECTRICITY_LIMIT_3  = "Giá điện hạn mức 3 không tồn tại!";
+	
+	public static final String ERROR_404_ELECTRICITY_LIMIT_4  = "Giá điện hạn mức 4 không tồn tại!";
+	
+	public static final String ERROR_404_ELECTRICITY_LIMIT_5  = "Giá điện hạn mức 5 không tồn tại!";
+	
+	public static final String ERROR_404_ELECTRICITY_LIMIT_6  = "Giá điện hạn mức 6 không tồn tại!";
+		
 	public static final String ERROR_404_PRICE_GARBAGE  = "Giá không tồn tại!";
 	
 	public static final String ERROR_404_PRICE_MANAGEMENT  = "Giá không tồn tại!";
 	
 	public static final String ERROR_404_PRICE_PARKING  = "Giá không tồn tại!";
 	
+	public static final String ERROR_404_PRICE_BICYCEL  = "Giá gửi xe đạp không tồn tại!";
+	
+	public static final String ERROR_404_PRICE_MOTOCYCEL  = "Giá gửi xe máy không tồn tại!";
+	
+	public static final String ERROR_404_PRICE_CAR  = "Giá gửi xe ô tô không tồn tại!";
+	
 	public static final String ERROR_404_PRICE_WATER  = "Giá không tồn tại!";
 	
 	public static final String ERROR_404_TYPE_VEHICEL  = "Loại xe không tồn tại!";
+	
+	public static final String ERROR_404_BICYCEL  = "Loại xe đạp không tồn tại!";
+	
+	public static final String ERROR_404_MOTOCYCLE  = "Loại xe máy không tồn tại!";
+	
+	public static final String ERROR_404_CAR = "Loại xe ô tô không tồn tại!";
 	
 	public static final String ERROR_404_VEHICEL  = "Xe không tồn tại!";
 	
@@ -58,6 +85,11 @@ public class MessageError {
 	
 	public static final String ERROR_409_TYPE_VEHICEL  = "Loại xe đã tồn tại!";
 	
+	public static final String ERROR_409_APARTMENT_INDEX  = "Chỉ số trong tháng đã tồn tại!";
+	
+	public static final String ERROR_409_LECTRICITY_NUMBER = "Số điện nhỏ hơn số điện hiện tại!";
+	
+	public static final String ERROR_409_WATER_NUMBER = "Số nước nhỏ hơn số nước hiện tại!";
 	
 	
 	
