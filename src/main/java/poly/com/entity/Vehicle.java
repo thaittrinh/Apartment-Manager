@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,7 +25,7 @@ public class Vehicle implements Serializable {
     private Integer id;
 
 
-    @Column(length = 20)
+    @Column( unique = true)
     private String licensePlates;
 
     @NotNull(message = " color vehicle can not be null" )

@@ -52,7 +52,10 @@ public class UIController {
     public String pageTableLienhe() {
         return "contents/quanly/lien-he/form-lienhe";
     }
-    
-    
+// tets ui page login
+    @RequestMapping("/login")
+    public String pageLogin() {
+        return "contents/login/login.html";
+    }
     
 }

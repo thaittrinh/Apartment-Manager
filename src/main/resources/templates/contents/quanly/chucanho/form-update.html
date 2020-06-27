@@ -5,7 +5,7 @@
 
     <div layout:fragment="content">
         <!------------------------------------------ Header -------------------------->
-        <div class="row">
+        <div >
             <a class="title"> Cập nhật chủ căn hộ </a>
             <div th:replace="components/header"></div>
         </div>
@@ -68,7 +68,7 @@
                             </div>
 
                         </div>
-	
+
 
                         <!------------------------------------ End row ------------------------>
                         <div class="row">
@@ -109,10 +109,16 @@
             <div class="card col-sm-3"
                  style="width: 200px; height: 356px; margin-left: 30px; padding: 0;">
                 <!------------------------------------ hÃ¬nh áº£nh  ---------------------------------->
+<<<<<<< HEAD
                     <a class="img" style="margin-top: 15px">
                         <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/photo/someone.png}">
                         
                     </a>
+=======
+                <a class="img" style="margin-top: 15px">
+                    <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/photo/someone.png}">
+                </a>
+>>>>>>> 86d27f26949d1f3f326523d24bc9a3f4497fdae7
                 <form id="file-upload-form">
                     <button type="submit" id="upload-now" hidden="true">Start
                         Upload
@@ -132,6 +138,6 @@
         <script th:inline="javascript"
                 th:src="@{/assets/js/own-apartment/update.js}" type="text/javascript"></script>
     </div>
-	
+
 </div>
 <!-------------------------------------------------- End Div content ------------------------------------------------->

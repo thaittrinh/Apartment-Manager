@@ -23,25 +23,25 @@ public class PriceParkingService {
 // --------------------------------------------------------
 
     // < ------------------------------ find all ------------------------->
-    public ResponseEntity<ResponseDTO>  findAll() {
+    public ResponseEntity<ResponseDTO> findAll() {
         List<PriceParking> priceParkings = priceParkingRepository.findAll();
         return ResponseEntity.ok(new ResponseDTO(priceParkings, null));
     }
 
     // <-------------------------------- find by Id ------------------------>
-    public ResponseEntity<ResponseDTO>  findbyId(int id) {
+    public ResponseEntity<ResponseDTO> findbyId(int id) {
         try {
             PriceParking priceParking = priceParkingRepository.findById(id).orElse(null);
             return ResponseEntity.ok(new ResponseDTO(priceParking, null));
         } catch (Exception e) {
-        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     // < -------------------------------- Create ---------------------------------->
     @SuppressWarnings("deprecation")
-    public ResponseEntity<ResponseDTO>  createPriceParking(PriceParking priceParking) {
+    public ResponseEntity<ResponseDTO> createPriceParking(PriceParking priceParking) {
         try {
             PriceParking price = priceParkingRepository.findByYearMonthAndLimit(
                     priceParking.getDate().getYear() + 1900,
@@ -54,13 +54,13 @@ public class PriceParkingService {
             priceParking = priceParkingRepository.save(priceParking);
             return ResponseEntity.ok(new ResponseDTO(priceParking, MessageSuccess.INSERT_SUCCSESS));
         } catch (Exception e) {
-        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < ----------------------------------- Update -------------------------------- >
     @SuppressWarnings("deprecation")
-    public ResponseEntity<ResponseDTO>  updatePriceParking(int id, PriceParking priceParking) {
+    public ResponseEntity<ResponseDTO> updatePriceParking(int id, PriceParking priceParking) {
 
         try {
             if (!priceParkingRepository.existsById(id))
@@ -71,26 +71,26 @@ public class PriceParkingService {
                     priceParking.getDate().getMonth() + 1,
                     priceParking.getTypeVehicel());
             if (price != null && price.getId() != id)
-            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_PRICE_PARKING), HttpStatus.CONFLICT);
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_PRICE_PARKING), HttpStatus.CONFLICT);
 
             priceParking.setId(id);
             priceParking = priceParkingRepository.save(priceParking);
             return ResponseEntity.ok(new ResponseDTO(priceParking, MessageSuccess.UPDATE_SUCCSESS));
         } catch (Exception e) {
-        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // < --------------------------------- Delete -----------------------------------> 
-    public ResponseEntity<ResponseDTO>  deletePriceManagemet(int id) {
+    public ResponseEntity<ResponseDTO> deletePriceManagemet(int id) {
         try {
             if (!priceParkingRepository.existsById(id))
-            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_PARKING), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_PARKING), HttpStatus.NOT_FOUND);
 
             priceParkingRepository.deleteById(id);
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
-        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

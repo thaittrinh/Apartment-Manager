@@ -20,7 +20,7 @@ public class ApartmentIndexController {
 
 	@Autowired
 	ApartmentIndexService apartmentIndexService;
-		
+
 	@GetMapping
 	public ResponseEntity<ResponseDTO> findAll(){
 		
