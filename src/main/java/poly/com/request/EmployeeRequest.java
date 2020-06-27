@@ -53,7 +53,7 @@ public class EmployeeRequest {
 	@Size(min = 5, max = 20, message = "Username numbers from 5 to 20 characters!")
 	private String username;
 	
-	@Size(min = 8 ,max = 8, message = "Password must have 8 characters!")
+	@Size(min = 6 ,max = 12, message = "Password from 6 to 12 characters!")
 	private String password;
 	
 	private Set<String> roles;

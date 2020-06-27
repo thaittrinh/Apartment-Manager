@@ -259,12 +259,6 @@ public class ApartmentIndexService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	public int calculatorTotal(Bill bill) {
 		
 		double priceElectricity = ( getInt(bill.getElectricityNumber(), 0, ElectricityLimits.LIMIT_1)*bill.getElectricityPrice1()

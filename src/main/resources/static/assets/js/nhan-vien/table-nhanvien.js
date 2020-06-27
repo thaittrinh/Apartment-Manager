@@ -18,15 +18,11 @@ let table = (data) => {
     $('#table-employee').DataTable({
         fixedColumns: {leftColumns: 1, rightColumns: 1},
         fixedHeader: true,
-        "scrollCollapse": true,
         "responsive": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
-        "scroller": true,
         "autoWidth": true,
         "processing": true,
-        "scrollY": "250px",
-        // "sAjaxSource": URL + 'api/resident',
         "sAjaxDataProp": "",
         "aaData": data,
         "order": [[0, "asc"]],
@@ -226,7 +222,12 @@ let validate = (data) =>{
     }
     if(data.password === ''){
         toastrError("Mật khẩu không được để trống");
-        document.querySelector('#username').focus();
+        document.querySelector('#password').focus();
+        return false;
+    }
+    if(data.password.length <8 || data.password.length > 12 ){
+        toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
+        document.querySelector('#password').focus();
         return false;
     }
     if( !$('input[type=checkbox]:checked').val()){

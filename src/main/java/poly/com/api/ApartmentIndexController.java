@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
+
 import poly.com.dto.ResponseDTO;
 import poly.com.request.CreateIndexRequest;
 import poly.com.service.ApartmentIndexService;
 
 @RestController
-@RequestMapping(URL_API.APARTMENT_INDEX)
+@RequestMapping("/api/apartment-index")
 public class ApartmentIndexController {
 
 	@Autowired
 	ApartmentIndexService apartmentIndexService;
-		
+
 	@GetMapping
 	public ResponseEntity<ResponseDTO> findAll(){
 		

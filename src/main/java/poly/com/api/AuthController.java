@@ -5,10 +5,15 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import poly.com.dto.ResponseDTO;
-import poly.com.entity.Employee;
+import poly.com.security.request.ChangePasswordRequest;
 import poly.com.security.request.LoginRequest;
 import poly.com.security.service.AccountService;
 
@@ -29,9 +34,9 @@ public class AuthController {
         return accountService.authenticateUser(loginRequest);
     }
 
-    @PutMapping("/change/password/{id}")
-    public ResponseEntity<ResponseDTO> changepasssword(@PathVariable int id, @RequestBody Employee employee) {
-        return accountService.changepassword(id, employee);
+    @PutMapping("/change/password")
+    public ResponseEntity<ResponseDTO> changepasssword(@Valid @RequestBody ChangePasswordRequest passwordRequest) {
+        return accountService.changepassword(passwordRequest);
     }
 
 }

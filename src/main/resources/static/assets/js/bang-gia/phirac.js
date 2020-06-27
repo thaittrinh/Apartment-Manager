@@ -1,6 +1,7 @@
+
 (function(){
 	 $.ajax({
-	        url: URL + `api/price-electricity`,
+	        url: URL + "api/price-garbage",
 	        type: 'GET',
 	        dataType: 'json',
 	        success: function (result) {
@@ -13,29 +14,23 @@
 })()
 
 
-
 let table = (data) => {
-    // < ----------------------- load data to table  ------------------------------->
-    $('#table-electricity').DataTable({
+    // <- ------------------------- load data to table ---------------------------->
+    $('#table-garbage').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
-        "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": true,
         "autoWidth": true,
         "processing": true,
-        "scrollY": "250px",
-       // "sAjaxSource": URL + 'api/price-electricity',
         "sAjaxDataProp": "",
         "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
-            {"mData": "limits"},
-            {"mData": "price"},
             {"mData": "date"},
+            {"mData": "price"},
             {"mData": "employee.username"},
             {"mData": "note"},
             {
@@ -52,6 +47,7 @@ let table = (data) => {
     });
 }
 
+// < ------------------------------- delete -------------------------------------> 
 let deletePrice = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
@@ -65,33 +61,35 @@ let deletePrice = (id, e) => {
         if (result.value) {
             $.ajax({
                 type: `DELETE`,
-                url: URL + `api/price-electricity/${id}`,
+                url: URL + `api/price-garbage/${id}`,
                 contentType: "application/json",
                 cache: false,
                 success: function (result) {
-                    $('#table-electricity').DataTable().row($(e).parents('tr')).remove().draw(); //
-                    sweetalertSuccess(result.message);
+                    $('#table-garbage').DataTable().row($(e).parents('tr'))
+                        .remove()
+                        .draw();
+                    sweetalertSuccess(result.message);  
                 },
                 error: function (error) {
-                	sweetalertError(error);	
+                	sweetalertError(error)	
                 }
             });
         }
     })
 }
 
-let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-bolt mr-3'></i>" +'Thêm Giá Mới'
-}
 
-// < ----------------------- show form update ---------------->
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +'Thêm Giá Mới'
+}
+// < ----------------- show form update ------------------------->
 var index = -1;
 let showFormUpdate = (id, e) => {
-    index = $('#table-electricity').DataTable().row($(e).parents('tr')).index();
+    index = $('#table-garbage').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-bolt mr-3 '></i>" + "Cập Nhật Giá Điện";
+    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +"Cập nhập phí rác ";
     $.ajax({
-        url: URL + `api/price-electricity/${id}`,
+        url: URL + `api/price-garbage/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
@@ -100,81 +98,77 @@ let showFormUpdate = (id, e) => {
         error: function (error) {
         	sweetalertError(error);	
         }
-    })
+    });
 }
-// < ------------------------ inser or update ---------------->
+// <-------------------------------- insert or update ----------------------------->
 document.querySelector('#save').addEventListener('click', () => {
-    let electricity = getValueForm();
-    //< -------------- update --------------->
-    if (validate(electricity)) {
-        if (electricity.id) {
+    let garbage = getValueForm();
+    // ------------------ update ----------------------->
+    if (validate(garbage)) {
+        if (garbage.id) {
             $.ajax({
                 type: 'PUT',
-                url: URL + `api/price-electricity/${electricity.id}`,
-                contentType: 'application/json',
+                url: URL + `api/price-garbage/${garbage.id}`,
+                contentType: "application/json",
                 dataType: 'json',
                 cache: false,
-                data: JSON.stringify(electricity),
+                data: JSON.stringify(garbage),
                 success: function (result) {
                     result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
-                    $('#table-electricity').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
+                    $('#table-garbage').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
                     $('#form-building').modal('hide');     // close modal
-                    sweetalertSuccess(result.message);
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	sweetalertError(error);	
+                	sweetalertError(error)	
                 }
-            })
+            });
         }
-        // < --------------- insert ---------->
+        // <---------------------- insert ---------------------->
         else {
             $.ajax({
                 type: 'POST',
-                url: URL + `api/price-electricity`,
+                url: URL + 'api/price-garbage/',
                 contentType: 'application/json',
                 dataType: 'json',
                 cache: false,
-                data: JSON.stringify(electricity),
+                data: JSON.stringify(garbage),
                 success: function (result) {
-                	 result.data.date = formatDate(result.data.date);
-                    $('#table-electricity').DataTable().row.add(result.data).draw().node();
-                    cleanForm();
-                    sweetalertSuccess(result.message);
+                	result.data.date = formatDate(result.data.date); // format date
+                    $('#table-garbage').DataTable().row.add(result.data).draw().node(); // add new data to table
+                    cleanForm(); // clean form
+                    sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	sweetalertError(error);	
+                	sweetalertError(error)
                 }
-
             })
         }
     }
 });
+
 
 // <------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
     cleanForm();
 });
 
-// <------------------ clean form ---------------------------->
+// < ---------------------- Clean form ---------------------------->
 let cleanForm = () => {
-    fillToForm(
-        {
-            'id': '',
-            'limits': '',
-            'price': '',
-            'date': '',
-            'note': ''
-        }
-    )
+    fillToForm({
+        "id": "",
+        "price": "",
+        "date": "",
+        "note": ""
+    });
 }
+
 // < -------------- clean form when click button clean ------------>
 document.querySelector('#clean-form').addEventListener('click', cleanForm);
-
-// < ---------------- get value form ------------------------->
+// < ---------------------------- get value form ----------------------------------->
 let getValueForm = () => {
     return {
         'id': document.querySelector('#id').value.trim(),
-        'limits': document.querySelector('#limits').value.trim(),
         'price': document.querySelector('#price').value.trim(),
         'date': document.querySelector('#date').value.trim(),
         'employee': {
@@ -183,16 +177,14 @@ let getValueForm = () => {
         'note': document.querySelector('#note').value.trim()
     }
 }
-
-// < ------------- fill to form ---------------------------->
-let fillToForm = (electricity) => {
-    document.querySelector('#id').value = electricity.id;
-    document.querySelector('#limits').value = electricity.limits;
-    document.querySelector('#price').value = electricity.price;
-    document.querySelector('#date').value = electricity.date;
-    document.querySelector('#note').value = electricity.note;
-
+// < -------------------------------- fill data to form ------------------------------->
+let fillToForm = (garbage) => {
+    document.querySelector('#id').value = garbage.id;
+    document.querySelector('#price').value = garbage.price;
+    document.querySelector('#date').value = garbage.date;
+    document.querySelector('#note').value = garbage.note;
 }
+
 
 let validate = (data) => {
     if (data.price === '') {
@@ -200,7 +192,7 @@ let validate = (data) => {
         document.querySelector('#price').focus();
         return false;
     }
-    if (data.price < 0) {
+    if (data.price < 0 ){
         toastrError("Giá không được âm!");
         document.querySelector('#price').focus();
         return false
@@ -210,15 +202,6 @@ let validate = (data) => {
         document.querySelector('#date').focus();
         return false;
     }
-    if (data.limits === '') {
-        toastrError("Hạn mức không được để trống!")
-        document.querySelector('#limits').focus();
-        return false
-    }
-    if (data.limits < 0) {
-        toastrError("Hạn mức không được âm!")
-        document.querySelector('#limits').focus();
-        return false
-    }
     return true;
 }
+

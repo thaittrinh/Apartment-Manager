@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Vehicle;
 import poly.com.service.VehicleService;
 
 @RestController
-@RequestMapping(URL_API.VEHICEL)
+@RequestMapping("/api/vehicle")
 public class VehicleController {
 
     // < --------------------------------- Class RestController Vehicle ----------------------->

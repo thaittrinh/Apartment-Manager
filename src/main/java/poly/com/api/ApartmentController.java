@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Apartment;
 import poly.com.service.ApartmentService;
 
 @RestController
-@RequestMapping(URL_API.APARTMENT)
+@RequestMapping("/api/apartment")
 public class ApartmentController {
 
 	@Autowired

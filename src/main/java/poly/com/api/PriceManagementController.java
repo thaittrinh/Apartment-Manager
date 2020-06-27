@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.PriceManagement;
 import poly.com.service.PriceManagementService;
 
 @RestController
-@RequestMapping(URL_API.PRICE_MANAGEMENT)
+@RequestMapping("/api/price-management")
 public class PriceManagementController {
 
 // < ----------------------------------- Class PriceElectricity RestController ---------------------------->

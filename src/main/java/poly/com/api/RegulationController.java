@@ -10,15 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
-
 import poly.com.entity.Regulation;
-
 import poly.com.service.RegulationService;
 
 @RestController
-@RequestMapping(URL_API.REGULATION)
+@RequestMapping("/api/regulation")
 public class RegulationController {
 
 	@Autowired

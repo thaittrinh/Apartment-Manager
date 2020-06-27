@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Resident;
 import poly.com.service.ResidentService;
 
 @RestController
-@RequestMapping(URL_API.RESIDENT)
+@RequestMapping("/api/resident")
 public class ResidentController {
     // < -------------------------------- Class Residential RestController ----------------------------->
     @Autowired

@@ -11,19 +11,12 @@ public class UIController {
     public String pageadmin() {
         return "layout-admin";
     }
-
    
     // return template page can ho
     @RequestMapping("/apartment")
     public String pageCanho() {
         return "contents/quanly/can-ho/table-canho";
     }
-
- 
-   
-   
-   
-    
     
     // return template page table phi rac
     @RequestMapping("price/garbage")
@@ -52,7 +45,10 @@ public class UIController {
     public String pageTableLienhe() {
         return "contents/quanly/lien-he/form-lienhe";
     }
-    
-    
+// tets ui page login
+    @RequestMapping("/login")
+    public String pageLogin() {
+        return "contents/login/login.html";
+    }
     
 }
