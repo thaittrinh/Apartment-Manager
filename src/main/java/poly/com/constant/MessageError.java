@@ -5,17 +5,12 @@ public class MessageError {
 	public static final String ERROR_400 = "Dữ liệu đầu vào không đúng!";
 	
 
-<<<<<<< HEAD
 	public static final String ERROR_400_EMPLOYEE = "Mật khẩu  không đúng ";
 	
 	public static final String ERROR_403_EMPLOYEE = "Mật khẩu cũ không đúng ";
 	
-	
-	
-=======
 	public static final String ERROR_404_EMPLOYEE_PASSWORD = "Mật khẩu không đúng ";
 
->>>>>>> 86d27f26949d1f3f326523d24bc9a3f4497fdae7
 	public static final String ERROR_404_EMPLOYEE = "Nhân viên không tồn tại!";
 	
 	public static final String ERROR_404_OWN_APARTMENT = "Chủ căn hộ không tồn tại!";
