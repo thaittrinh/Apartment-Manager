@@ -18,16 +18,12 @@ let table = (data) => {
     // <- ------------------------- load data to table ---------------------------->
     $('#table-garbage').DataTable({
         fixedColumns:   {leftColumns: 1, rightColumns: 1},
-        "scrollCollapse": true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "scroller": true,
         "autoWidth": true,
         "processing": true,
-        "scrollY": "250px",
-       // "sAjaxSource": URL + "api/price-garbage",
         "sAjaxDataProp": "",
         "aaData": data,
         "order": [[0, "asc"]],

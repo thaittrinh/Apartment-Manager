@@ -11,19 +11,12 @@ public class UIController {
     public String pageadmin() {
         return "layout-admin";
     }
-
    
     // return template page can ho
     @RequestMapping("/apartment")
     public String pageCanho() {
         return "contents/quanly/can-ho/table-canho";
     }
-
- 
-   
-   
-   
-    
     
     // return template page table phi rac
     @RequestMapping("price/garbage")

@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import poly.com.constant.URL_API;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.PriceGarbage;
 import poly.com.service.PriceGarbageService;
 
 @RestController
-@RequestMapping(URL_API.PRICE_GARBAGE)
+@RequestMapping("/api/price-garbage")
 public class PriceGarbageController {
 	
 	// < ----------------------------------- Class PriceGarbage RestController  ---------------------------->
