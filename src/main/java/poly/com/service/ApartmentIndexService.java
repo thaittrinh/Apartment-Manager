@@ -106,11 +106,6 @@ public class ApartmentIndexService {
 
 	}
 	
-	
-	
-	
-	
-	
 
 	@SuppressWarnings("deprecation")
 	public ResponseEntity<ResponseDTO> create(CreateIndexRequest request) {
