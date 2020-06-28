@@ -59,6 +59,7 @@ public class EmployeeService {
         try {
             ResponseEntity<ResponseDTO> reponseConflict = checkConflict(0, signUpRequest.getUsername(),
                     signUpRequest.getPhone(), signUpRequest.getIdentitycard());
+
             if (reponseConflict != null)
                 return reponseConflict;
 
@@ -177,7 +178,6 @@ public class EmployeeService {
     public Set<Role> getRoles(Set<String> strRoles) {
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
-            System.out.println(1);
             return null;
         } else {
             strRoles.forEach(role -> {

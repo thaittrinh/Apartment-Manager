@@ -37,7 +37,7 @@ public class ResidentExportExcel {
         cellStyle.setFont(font);
        // -------------------------
         Cell cell = row.createCell(0);
-        cell.setCellValue("ID cư dân");
+        cell.setCellValue("ID Cư dân");
         cell.setCellStyle(cellStyle);
         sheet.autoSizeColumn(0);
         // -------------------------
@@ -90,38 +90,62 @@ public class ResidentExportExcel {
     /* - ---------------- write data in row in Excel -----------------  */
     private void writeDataRows() {
         int rowcount = 1;
+        CellStyle cellStyle = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+        font.setFontHeight(12);
+        cellStyle.setFont(font);
         for (Resident resident : residentList) {
             Row row = sheet.createRow(rowcount++);
             // -------------------------
             Cell cell = row.createCell(0);
             cell.setCellValue(resident.getId());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(0);
             // -------------------------
             cell = row.createCell(1);
             cell.setCellValue(resident.getFullname());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(1);
             // -------------------------
             cell = row.createCell(2);
             cell.setCellValue(resident.getGender() ? "Nam" : "Nữ");
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(2);
             // -------------------------
             cell = row.createCell(3);
             cell.setCellValue(resident.getBirthday() + "");
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(3);
             // -------------------------
             cell = row.createCell(4);
             cell.setCellValue(resident.getHometown());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(4);
             // -------------------------
             cell = row.createCell(5);
             cell.setCellValue(resident.getJob());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(5);
             // -------------------------
             cell = row.createCell(6);
             cell.setCellValue(resident.getPhone());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(6);
             // -------------------------
             cell = row.createCell(7);
             cell.setCellValue(resident.getEmail());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(7);
             // -------------------------
             cell = row.createCell(8);
             cell.setCellValue(resident.getIdentitycard());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(8);
             // -------------------------
             cell = row.createCell(9);
             cell.setCellValue(resident.getApartment().getId());
+            cell.setCellStyle(cellStyle);
+            sheet.autoSizeColumn(9);
         }
     }
 

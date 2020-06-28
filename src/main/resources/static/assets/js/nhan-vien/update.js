@@ -29,8 +29,8 @@ document.querySelector('#save').addEventListener('click', () => {
             cache: false,
             data: JSON.stringify(employee),
             success: function (result) {
-                fillToFormImage(result.data)
                 sweetalertSuccess(result.message)
+                fillToFormImage(result.data);
             },
             error: function (error) {
                 sweetalertError(error)
@@ -134,14 +134,15 @@ let checked = (roles) => {
 
 /* -------------------------------------  fill image ----------------------------------- */
 let fillToFormImage = (data) => {
-    if (data.image) {
+    if(data.image){
         document.querySelector('#imgs').src = URL + `assets/photo/${data.image}`;
-    } else {
+    }else{
         document.querySelector('#imgs').src = URL + `assets/photo/someone.png`;
     }
     document.querySelector('#name-formImg').innerHTML = data.fullName;
     document.querySelector('#email-formImg').innerHTML = data.email;
 }
+
 
 /*  ------------------------------------- get value form ------------------------------------ */
 let getValueForm = () => {
