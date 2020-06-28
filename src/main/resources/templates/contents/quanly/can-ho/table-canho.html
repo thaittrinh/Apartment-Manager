@@ -73,12 +73,14 @@
                             <!---------------------------- End row ----------------------->
                             <div class="row">
                                 <!-------------------------------- Diá»‡n TÃ­ch ------------------------------------>
-                                <div class="input-container">
-                                    <input type="number" min="0"  required="required" name="acreage" id="acreage"
-                                           style="width:100px"/>
-                                    <label for="acreage">Diện tích <i style="font-size:14px;">(m2)</i></label>
+                                <div>
+                                    <select style="width:100px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="acreage"
+                                            class="input-select">
+                                        <option value="45"> 45 m2</option>
+                                        <option value="75"> 75 m2</option>
+                                        <option value="110"> 110 m2</option>
+                                    </select>
                                 </div>
-
                                 <!------------------------------- Vá»‹ trÃ­  -------------------------------------->
                                 <div class="input-container">
                                     <input type="text"  required="required" name="location" id="location"
