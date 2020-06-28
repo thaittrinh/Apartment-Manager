@@ -86,6 +86,12 @@ document.querySelector('#clean-form-insert').addEventListener('click', () => {
 	cleanFormInsert();
 });
 
+//<------------- When modal close -> clean form modal  ----------->
+$("#form-building").on("hidden.bs.modal", function () {
+	cleanFormInsert();
+});
+
+
 
 let getValueFormInsert = () => {
 	return {
