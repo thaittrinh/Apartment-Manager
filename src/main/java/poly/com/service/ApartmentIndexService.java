@@ -34,6 +34,7 @@ import poly.com.repository.PriceWaterRepository;
 import poly.com.repository.TypeVehicelRepository;
 import poly.com.repository.VehicleRespository;
 import poly.com.request.CreateIndexRequest;
+import poly.com.request.UpdateIndexRequest;
 
 @Service
 public class ApartmentIndexService {
@@ -109,10 +110,12 @@ public class ApartmentIndexService {
 
 	@SuppressWarnings("deprecation")
 	public ResponseEntity<ResponseDTO> create(CreateIndexRequest request) {
-		try {		
+		try {	
+				
 			if (!apartmentRepository.existsById(request.getApartment().getId())) 
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
 			
+	
 			ApartmentIndex apartmentIndex = apartmentIndexRepository.findByYearAndMonth(request.getDate().getYear() + 1900,
 																	 request.getDate().getMonth()+ 1).orElse(null);
 			if (apartmentIndex != null) 
@@ -121,7 +124,9 @@ public class ApartmentIndexService {
 			apartmentIndex = new ApartmentIndex(null, request.getElectricityNumber(),
 							request.getWarterNumber(), null, null, null, request.getDate(), request.getApartment(),
 							request.getEmployee());
-						
+				
+	
+			// Get price paking
 			TypeVehicel bicycleType =  typeVehicelRepository.findByName(NameTypeVehicel.BICYCLE).orElse(null);
 			if (bicycleType == null) {
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_BICYCEL), HttpStatus.NOT_FOUND);
@@ -156,7 +161,9 @@ public class ApartmentIndexService {
 									apartmentIndex.getDate(),carType ).orElse(null);
 			if (carPrice == null)
 			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_CAR), HttpStatus.NOT_FOUND);
+          
 			
+			// Get price water		
 			PriceWater priceWater = priceWaterRepository.findFirstByDateLessThanEqualOrderByDateDesc(apartmentIndex.getDate()).orElse(null);
 			if (priceWater == null) 
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_WATER), HttpStatus.NOT_FOUND);
@@ -207,20 +214,20 @@ public class ApartmentIndexService {
 			if (electricityPrice_6 == null)
 			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_6), HttpStatus.NOT_FOUND);
 			
-			
 			ApartmentIndex apartmentIndexOld = apartmentIndexRepository
 					.findFirstByApartmentAndDateLessThanOrderByDateDesc(request.getApartment(), request.getDate())
 					.orElse(null);	
+			
 			if ( apartmentIndexOld != null  &&  apartmentIndex.getNewElectricityNumber() < apartmentIndexOld.getNewElectricityNumber() ) {
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_LECTRICITY_NUMBER), HttpStatus.CONFLICT);
 			}
 			if ( apartmentIndexOld != null  &&   apartmentIndex.getNewWaterNumber()  < apartmentIndexOld.getNewWaterNumber() ) {
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_WATER_NUMBER ), HttpStatus.CONFLICT);
 			}
-			
+					
 			// Insert into table ApartmentIndex
 			apartmentIndex = apartmentIndexRepository.save(apartmentIndex);
-			
+		
 		   // Insert into table Bills							
 			Bill bill = new Bill(apartmentIndex.getId(),
 					apartmentIndexOld != null ? apartmentIndex.getNewElectricityNumber() - apartmentIndexOld.getNewElectricityNumber() : apartmentIndex.getNewElectricityNumber(),
@@ -254,8 +261,162 @@ public class ApartmentIndexService {
 	
 	
 	
-	public int calculatorTotal(Bill bill) {
+	@SuppressWarnings("deprecation")
+	public ResponseEntity<ResponseDTO> update(int id, UpdateIndexRequest request) {
+		try {	
+			// Check exist apartmentIndex
+			ApartmentIndex apartmentIndexOld =  apartmentIndexRepository.findById(id).orElse(null);
+			if (apartmentIndexOld == null) 
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT_INDEX), HttpStatus.NOT_FOUND);
+			
+			// Check exist apartmentIndex in month-year		
+			ApartmentIndex apartmentIndexExist = apartmentIndexRepository.findByYearAndMonth(request.getDate().getYear() + 1900,
+																	 request.getDate().getMonth()+ 1).orElse(null);
+			if (apartmentIndexExist != null && apartmentIndexExist.getId() != id) 
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_APARTMENT_INDEX), HttpStatus.CONFLICT);
 		
+			// Get price paking
+			PriceParking bicyclePrice =  priceParkingRepository.findFirstByDateLessThanEqualAndTypeVehicelOrderByDateDesc(
+																request.getDate(),typeVehicelRepository.findByName(NameTypeVehicel.BICYCLE).orElse(null) )
+														     	.orElse(null);
+			if (bicyclePrice == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_BICYCEL), HttpStatus.NOT_FOUND);
+			
+			PriceParking motocyclePrice =  priceParkingRepository.findFirstByDateLessThanEqualAndTypeVehicelOrderByDateDesc(
+																  request.getDate(),typeVehicelRepository.findByName(NameTypeVehicel.MOTOCYCLE).orElse(null) )
+																 .orElse(null);
+			if (motocyclePrice == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_MOTOCYCEL), HttpStatus.NOT_FOUND);
+			
+			PriceParking carPrice =  priceParkingRepository.findFirstByDateLessThanEqualAndTypeVehicelOrderByDateDesc(
+															request.getDate(),typeVehicelRepository.findByName(NameTypeVehicel.CAR).orElse(null) )
+														   .orElse(null);
+			if (carPrice == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_CAR), HttpStatus.NOT_FOUND);
+			
+			
+			// Get price water
+			PriceWater priceWater = priceWaterRepository.findFirstByDateLessThanEqualOrderByDateDesc(request.getDate()).orElse(null);
+			if (priceWater == null) 
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_WATER), HttpStatus.NOT_FOUND);
+				
+			// Get price manage
+			PriceManagement managementPrice = priceManagementRepository.findFirstByDateLessThanEqualOrderByDateDesc(request.getDate())
+																	   .orElse(null);
+			if (managementPrice == null)
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_MANAGEMENT), HttpStatus.NOT_FOUND);
+			
+			// Get price garbage
+			PriceGarbage priceGarbage = priceGarbageRepository.findFirstByDateLessThanEqualOrderByDateDesc(request.getDate())
+																		.orElse(null);
+			if (priceGarbage == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_PRICE_GARBAGE), HttpStatus.NOT_FOUND);
+					
+		
+			//Get price electricity
+			PriceElectricity electricityPrice_1 = priceElectricityRepository.findFirstByDateLessThanEqualAndLimitsOrderByDateDesc(
+																	 request.getDate(),ElectricityLimits.LIMIT_1)
+																	 .orElse(null);
+			if (electricityPrice_1 == null)
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_1), HttpStatus.NOT_FOUND);
+			
+			PriceElectricity electricityPrice_2 = priceElectricityRepository.findFirstByDateLessThanEqualAndLimitsOrderByDateDesc(
+																			 request.getDate(),ElectricityLimits.LIMIT_2)
+																			 .orElse(null);
+			if (electricityPrice_2 == null)
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_2), HttpStatus.NOT_FOUND);
+			
+			PriceElectricity electricityPrice_3 = priceElectricityRepository.findFirstByDateLessThanEqualAndLimitsOrderByDateDesc(
+																			 request.getDate(),ElectricityLimits.LIMIT_3)
+																			 .orElse(null);
+			if (electricityPrice_3 == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_3), HttpStatus.NOT_FOUND);
+			
+			PriceElectricity electricityPrice_4 = priceElectricityRepository.findFirstByDateLessThanEqualAndLimitsOrderByDateDesc(
+																			 request.getDate(),ElectricityLimits.LIMIT_4)
+																			 .orElse(null);
+			if (electricityPrice_4 == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_4), HttpStatus.NOT_FOUND);
+						
+			PriceElectricity electricityPrice_5 = priceElectricityRepository.findFirstByDateLessThanEqualAndLimitsOrderByDateDesc(
+																			 request.getDate(),ElectricityLimits.LIMIT_5)
+																			 .orElse(null);
+			if (electricityPrice_5 == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_5), HttpStatus.NOT_FOUND);
+						
+			PriceElectricity electricityPrice_6 = priceElectricityRepository.findFirstByDateLessThanEqualAndLimitsOrderByDateDesc(
+					request.getDate(),ElectricityLimits.LIMIT_6)
+					 .orElse(null);
+			if (electricityPrice_6 == null)
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_6), HttpStatus.NOT_FOUND);
+			
+			// Get old index
+			ApartmentIndex apartmentIndexprevious = apartmentIndexRepository
+												.findFirstByApartmentAndDateLessThanOrderByDateDesc(apartmentIndexOld.getApartment(), request.getDate())
+												.orElse(null);	
+			
+			// Check the number is smaller than the old number
+			if ( apartmentIndexprevious != null  &&  request.getElectricityNumber() < apartmentIndexprevious.getNewElectricityNumber() ) {
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_LECTRICITY_NUMBER), HttpStatus.CONFLICT);
+			}
+			if ( apartmentIndexprevious != null  &&   request.getWarterNumber()  < apartmentIndexprevious.getNewWaterNumber() ) {
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_WATER_NUMBER ), HttpStatus.CONFLICT);
+			}
+			
+		
+			// Insert into table ApartmentIndex
+			ApartmentIndex apartmentIndex = new ApartmentIndex(id, request.getElectricityNumber(), request.getWarterNumber(), request.getBicycleNumber(),
+														request.getMotocycleNumber(), request.getCarNumber(), request.getDate(), 
+														apartmentIndexOld.getApartment(), request.getEmployee());	
+			
+			apartmentIndex = apartmentIndexRepository.save(apartmentIndex);
+		
+						
+		   // Insert into table Bills							
+			Bill bill = new Bill(apartmentIndex.getId(),
+					apartmentIndexprevious != null ? apartmentIndex.getNewElectricityNumber() - apartmentIndexprevious.getNewElectricityNumber() : apartmentIndex.getNewElectricityNumber(),
+					electricityPrice_1.getPrice(), electricityPrice_2.getPrice(), electricityPrice_3.getPrice(),
+					electricityPrice_4.getPrice(), electricityPrice_5.getPrice(), electricityPrice_6.getPrice(),
+					apartmentIndexprevious != null ? apartmentIndex.getNewWaterNumber() - apartmentIndexprevious.getNewWaterNumber() : apartmentIndex.getNewWaterNumber(),
+					priceWater.getPrice(),
+					apartmentIndex.getBicycleNumber(), bicyclePrice.getPrice(),
+					apartmentIndex.getMotocycleNumber(), motocyclePrice.getPrice(),
+					apartmentIndex.getCarNumber(), carPrice.getPrice(), 
+					managementPrice.getPrice(),priceGarbage.getPrice(), 0,
+					false, apartmentIndex);
+			
+			bill.setTotalPrice(calculatorTotal(bill));	
+			bill =  billRepository.save(bill);
+			
+			return ResponseEntity.ok(new ResponseDTO(bill, MessageSuccess.UPDATE_SUCCSESS));
+		} catch (Exception e) {
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	
+	
+	
+
+	public ResponseEntity<ResponseDTO> payment(int id, boolean paid) {
+		try {
+		Bill bill = billRepository.findById(id).orElse(null);
+		if (bill == null) 		
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_BILL), HttpStatus.NOT_FOUND);				
+			
+		bill.setPaid(paid);
+		billRepository.save(bill);		
+			return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPDATE_SUCCSESS));
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	
+	public int calculatorTotal(Bill bill) {	
 		double priceElectricity = ( getInt(bill.getElectricityNumber(), 0, ElectricityLimits.LIMIT_1)*bill.getElectricityPrice1()
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_1, ElectricityLimits.LIMIT_2)*bill.getElectricityPrice2()
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_2, ElectricityLimits.LIMIT_3)*bill.getElectricityPrice3()
@@ -264,13 +425,12 @@ public class ApartmentIndexService {
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_5, 9999)*bill.getElectricityPrice6())*1.1;
 		
 	   double total = priceElectricity + bill.getWaterNumber()*bill.getWaterPrice() + bill.getCarNumber()*bill.getCarPrice() 
-						+ bill.getBicycleNumber()*bill.getBicyclePrice() + bill.getMotocycleNumber()*bill.getMotocyclePrice()  +   bill.getManagementPrice() + bill.getGarbagesPrice();
+						+ bill.getBicycleNumber()*bill.getBicyclePrice() + bill.getMotocycleNumber()*bill.getMotocyclePrice() + bill.getManagementPrice() + bill.getGarbagesPrice();
 
 	   return (int) total ;
 	}
 	
 	
-
 	public int getInt(int number, int start, int end){
 		  if (number <= start) return 0;
 		  if (number >= end) return end-start;

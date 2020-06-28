@@ -5,11 +5,11 @@
 
     <div layout:fragment="content">
         <!------------------------------------------ Header -------------------------->
-        <div class="row">
-            <a class="title"> Cập nhật nhân viên </a>
+        <div class="row" style="margin-top: -45px">
+            <a class="title mt-3"> Cập nhật nhân viên </a>
             <div th:replace="components/header"></div>
         </div>
-        <!-- ----------------------------------- Form  ThÃƒÂ´ng tin chÃ¡Â»Â§ cÃ„Æ’n hÃ¡Â»â„¢ ----------------------------- -->
+        <!-- ----------------------------------- Form  thông tin nhân viên----------------------------- -->
         <div class="row">
             <div class="card col-sm-8">
                 <!-- --------------------------------- card title form ---------------------->
@@ -27,14 +27,14 @@
                         <div class="row">
 
                             <input type="text" id="id_employee" th:value="${idEmployee}" hidden="true">
-                            <!------------------------- HÃ¡Â»ï¿½ TÃƒÂªn ------------------------------->
+                            <!------------------------- Họ tên ------------------------------->
                             <div class="input-container col-sm-4" style="padding: 0;">
                                 <input type="text" required="required" name="fullName"
                                        id="fullName" style="width: 100%"/> <label for="fullName">Họ
                                 tên</label>
                             </div>
 
-                            <!------------------------ NgÃƒÂ y Sinh ------------------------------>
+                            <!------------------------ Ngày sinh ------------------------------>
                             <div class="input-container col-sm-4" style="padding: 0;">
                                 <input type="date" required="required" name="birthday"
                                        id="birthday" style="width: 100%"> <label
@@ -148,6 +148,7 @@
                 </form>
                 <!------------------------------------------------>
                 <div class="card-title-name">
+                    <i class="fas fa-camera" style="font-size: 24px;" onclick="document.querySelector('#file').click()"></i>
                     <h5 id="name-formImg"></h5>
                     <h6 style="margin-left: 5px" id="email-formImg"></h6>
                 </div>

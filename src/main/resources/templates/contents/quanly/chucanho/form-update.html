@@ -5,8 +5,8 @@
 
     <div layout:fragment="content">
         <!------------------------------------------ Header -------------------------->
-        <div >
-            <a class="title"> Cập nhật chủ căn hộ </a>
+        <div class="row" style="margin-top: -45px">
+            <a class="title mt-3"> Cập nhật chủ căn hộ </a>
             <div th:replace="components/header"></div>
         </div>
         <!-- ----------------------------------- Form  ThÃ´ng tin chá»§ cÄƒn há»™ ----------------------------- -->
@@ -28,7 +28,8 @@
                         <div class="row">
                             <!------------------------- Há»� TÃªn ------------------------------->
                             <div class="input-container col-sm-4" style="padding: 0;">
-                                <input type="text" required="required" name="fullname" id="fullname" style="width: 100%"/>
+                                <input type="text" required="required" name="fullname" id="fullname"
+                                       style="width: 100%"/>
                                 <label for="fullname">Họ tên</label>
                             </div>
                             <!------------------------ NgÃ y Sinh ------------------------------>
@@ -40,11 +41,13 @@
                             <!------------------------- gioi tinh ---------------------------->
                             <div style="margin: 15px 0 0 36px">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="male" name="gender" value="male" class="custom-control-input">
+                                    <input type="radio" id="male" name="gender" value="male"
+                                           class="custom-control-input">
                                     <label class="custom-control-label" for="male">Nam</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="female" name="gender" value="female" class="custom-control-input">
+                                    <input type="radio" id="female" name="gender" value="female"
+                                           class="custom-control-input">
                                     <label class="custom-control-label" for="female">Nữ</label>
                                 </div>
                             </div>
@@ -53,7 +56,8 @@
                         <div class="row">
                             <!----------------------------- QuÃª QuÃ¡n  ---------------------------->
                             <div class="input-container col-sm-4" style="padding: 0;">
-                                <input type="text" required="required" name="homeTown" id="homeTown" style="width: 100%"/>
+                                <input type="text" required="required" name="homeTown" id="homeTown"
+                                       style="width: 100%"/>
                                 <label for="homeTown">Quê quán</label>
                             </div>
                             <!----------------------------- CMND ------------------------------>
@@ -109,26 +113,18 @@
             <div class="card col-sm-3"
                  style="width: 200px; height: 356px; margin-left: 30px; padding: 0;">
                 <!------------------------------------ hÃ¬nh áº£nh  ---------------------------------->
-<<<<<<< HEAD
-                    <a class="img" style="margin-top: 15px">
-                        <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/photo/someone.png}">
-                        
-                    </a>
-=======
                 <a class="img" style="margin-top: 15px">
                     <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/photo/someone.png}">
                 </a>
->>>>>>> 86d27f26949d1f3f326523d24bc9a3f4497fdae7
                 <form id="file-upload-form">
                     <button type="submit" id="upload-now" hidden="true">Start
                         Upload
                     </button>
-                    <input type="file" hidden="true" name="file" id="file"
-                           onchange="readURL(this);" accept="image/*">
+                    <input type="file" hidden="true" name="file" id="file" onchange="readURL(this);" accept="image/*">
                 </form>
                 <!------------------------------------------------>
                 <div class="card-title-name">
-                  <i class="fas fa-camera" style="font-size: 24px;" onclick = "document.querySelector('#file').click()"></i>
+                    <i class="fas fa-camera" style="font-size: 24px;" onclick="document.querySelector('#file').click()"></i>
                     <h5 id="name-formImg"></h5>
                     <h6 style="margin-left: 5px" id="email-formImg"></h6>
                 </div>

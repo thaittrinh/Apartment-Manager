@@ -110,7 +110,6 @@ let cleanFormInsert = () => {
 
 
 let validateFormInsert = (data) => {
-	console.log(data.apartment.id);
     if (data.apartment.id === '') {
         toastrError("Căn hộ không được để trống!");
         document.querySelector('#id-apartment').focus();
