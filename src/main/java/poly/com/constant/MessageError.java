@@ -9,6 +9,8 @@ public class MessageError {
 	public static final String ERROR_404_EMPLOYEE = "Nhân viên không tồn tại!";
 	
 	public static final String ERROR_404_OWN_APARTMENT = "Chủ căn hộ không tồn tại!";
+	
+	public static final String ERROR_404_OWN_APARTMENT_INDEX = "Chỉ số hóa đơn không tồn tại!";
 
 	public static final String ERROR_404_APARTMENT = "Căn hộ không tồn tại!";
 	
@@ -57,6 +59,8 @@ public class MessageError {
 	public static final String ERROR_404_REGULATION  = "Nội quy không tồn tại!";
 
 	public static final String ERROR_404_NOTIFICATION  = "Thông báo không tồn tại!";
+	
+	public static final String ERROR_404_BILL  = "Hoá đơn không tồn tại!";
 
 	
 	
