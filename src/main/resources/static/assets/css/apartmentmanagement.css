@@ -852,3 +852,8 @@ input:valid::-webkit-datetime-edit {
 a.dropdown-item:hover{
     color:#0648b3 !important;
 }
+.card .card-body .btn-excel{
+    width: 70px ;
+    background-color: rgb(34,116,70);
+    color: white;
+}

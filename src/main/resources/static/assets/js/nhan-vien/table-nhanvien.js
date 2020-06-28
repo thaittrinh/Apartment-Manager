@@ -196,7 +196,7 @@ let validate = (data) =>{
         return false;
     }
     if(data.identitycard.length <9 || data.identitycard.length > 12 ){
-        toastrError("Số chứng minh - căn cước công dân phải từ 9 đến 12 chữ số!");
+        toastrError("Số chứng minh - căn cước công dân  9  hoặc  12 chữ số!");
         document.querySelector('#identitycard').focus();
         return false;
     }
@@ -228,10 +228,6 @@ let validate = (data) =>{
     if(data.password.length <8 || data.password.length > 12 ){
         toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
         document.querySelector('#password').focus();
-        return false;
-    }
-    if( !$('input[type=checkbox]:checked').val()){
-        toastrError("chưa phân quyền cho tài khoản");
         return false;
     }
     return true;
