@@ -76,8 +76,7 @@ let validate = (data) =>  {
 		document.querySelector('#phone').focus();
 		return false;
 	}
-	var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;	
-	
+	var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
 	if(!vnf_regex.test(data.phone)){
 		toastrError("Số điện thoại sai định dạng!");
 		document.querySelector('#phone').focus();
