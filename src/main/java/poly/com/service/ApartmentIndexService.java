@@ -115,9 +115,11 @@ public class ApartmentIndexService {
 			if (!apartmentRepository.existsById(request.getApartment().getId())) 
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
 			
-	
-			ApartmentIndex apartmentIndex = apartmentIndexRepository.findByYearAndMonth(request.getDate().getYear() + 1900,
+		
+			ApartmentIndex apartmentIndex = apartmentIndexRepository.findByApartmentAndYearAndMonth(request.getApartment(),
+																	 request.getDate().getYear() + 1900,
 																	 request.getDate().getMonth()+ 1).orElse(null);
+			
 			if (apartmentIndex != null) 
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_APARTMENT_INDEX), HttpStatus.CONFLICT);
 
@@ -270,8 +272,11 @@ public class ApartmentIndexService {
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT_INDEX), HttpStatus.NOT_FOUND);
 			
 			// Check exist apartmentIndex in month-year		
-			ApartmentIndex apartmentIndexExist = apartmentIndexRepository.findByYearAndMonth(request.getDate().getYear() + 1900,
+			ApartmentIndex apartmentIndexExist = apartmentIndexRepository.findByApartmentAndYearAndMonth( request.getApartment(),
+																	 request.getDate().getYear() + 1900,
 																	 request.getDate().getMonth()+ 1).orElse(null);
+			
+			
 			if (apartmentIndexExist != null && apartmentIndexExist.getId() != id) 
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_APARTMENT_INDEX), HttpStatus.CONFLICT);
 		

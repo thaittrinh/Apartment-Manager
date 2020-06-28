@@ -78,11 +78,10 @@ document.querySelector('#save').addEventListener('click', () => {
 });
 
 
-
 let hiddenPayment = (chk) => {
 		document.getElementById("paid-false").hidden = 	!chk;
 		document.getElementById("paid-true").hidden = chk;
-	
+		document.getElementById("update").hidden = chk;
 }
 
 let getValueForm = () => {

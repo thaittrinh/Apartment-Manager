@@ -13,6 +13,6 @@ public interface ApartmentIndexRepository extends JpaRepository<ApartmentIndex, 
 
 	Optional<ApartmentIndex> findFirstByApartmentAndDateLessThanOrderByDateDesc(Apartment apartment,Date date);	
 	
-	@Query("select a from ApartmentIndex a where year(a.date) = ?1 and month(a.date) = ?2")
-	Optional<ApartmentIndex> findByYearAndMonth(int year, int month);
+	@Query("select a from ApartmentIndex a where  a.apartment = ?1 and  year(a.date) = ?2 and month(a.date) = ?3")
+	Optional<ApartmentIndex> findByApartmentAndYearAndMonth(Apartment apartment ,int year, int month);
 }
