@@ -82,7 +82,12 @@ public class OwnApartmentService {
 					if (apartment == null) {
 						//Remove Own form database
 						ownApmtRepository.delete(ownApartment);
-						return new ResponseEntity<>(new ResponseDTO(null, idA + " không tồn tại! "), HttpStatus.NOT_FOUND);						
+						return new ResponseEntity<>(new ResponseDTO(null, "Căn hộ " +idA + " không tồn tại! "), HttpStatus.NOT_FOUND);						
+					}
+					if(apartment.getOwnApartment() != null) {
+						//Remove Own form database
+						ownApmtRepository.delete(ownApartment);
+						return new ResponseEntity<>(new ResponseDTO(null, "Căn hộ " +idA + " đã có chủ!"), HttpStatus.CONFLICT);	
 					}
 			      //else
 					apartment.setOwnApartment(ownApartment);
@@ -116,7 +121,10 @@ public class OwnApartmentService {
     		for (String idA : ownDTO.getApartments()) {
     			Apartment apartment = apartmentRepository.findById(idA).orElse(null);
 				if (apartment == null) 	
-					return new ResponseEntity<>(new ResponseDTO(null, idA + " không tồn tại! "), HttpStatus.NOT_FOUND);	    
+					return new ResponseEntity<>(new ResponseDTO(null, idA + " không tồn tại! "), HttpStatus.NOT_FOUND);	  
+				if(apartment.getOwnApartment() != null && apartment.getOwnApartment().getId() != id ) {
+					return new ResponseEntity<>(new ResponseDTO(null, "Căn hộ " +idA + " đã có chủ!"), HttpStatus.CONFLICT);	
+				}
 			}
     	   
             OwnApartment newOwnApartment = convertToEntity(ownDTO); 
@@ -149,6 +157,7 @@ public class OwnApartmentService {
 					}
 				}
 				if (chk) {
+					
 					Apartment apartment = apartmentRepository.findById(listIdNew.get(i)).orElse(null);
 					apartment.setOwnApartment(newOwnApartment);// update id_own					
 					apartmentRepository.save(apartment);

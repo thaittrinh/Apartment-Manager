@@ -177,11 +177,27 @@ let validate = (data) =>{
 		document.querySelector('#phone').focus();
 		return false;
 	}
+	var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
+	if(!vnf_regex.test(data.phone)){
+		toastrError("Số điện thoại sai định dạng!");
+		document.querySelector('#phone').focus();
+		return false;
+	}
 	if(data.job === ''){
 		toastrError("Nghề nghiệp không được để trống!");
 		document.querySelector('#job').focus();
 		return false;
 	}
+	if(data.email != ''){ 
+    	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+    	if(!filter.test(data.email))
+    		{
+    		toastrError("Email sai định dạng!");
+    		document.querySelector('#email').focus();
+    		return false;
+    		}
+    }
+	
 	if(data.apartments[0] === ''){  
 		toastrError("Mã căn hộ không được để trống!");
 		document.querySelector('#id_apartment').focus();

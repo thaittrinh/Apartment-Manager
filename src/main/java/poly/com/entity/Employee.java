@@ -61,12 +61,13 @@ public class Employee implements Serializable {
 
     @NotNull
     @Column(length = 11 )
-    @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long")
+    @Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 9 to 11 digits long")
     private String phone;
     
     @NotNull(message = "Address can not be null ")
     private String address;
     
+    @NotNull(message = "Email can not be null ")
     private String email;
 
     @Size( max = 50, message = "The image length is less than or equal to 50 characters")

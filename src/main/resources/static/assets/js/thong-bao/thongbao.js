@@ -46,14 +46,6 @@ let table = (data) => {
     });
 }
 
-
-
-// sweetalertSuccess(result.message)
-//sweetalertError(error)
-
-
-
-
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id) => {
    location.href =URL + `ui/notification/form/${id}`;

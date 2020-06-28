@@ -56,13 +56,14 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "Cập nhật phí quản lý";
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "Cập nhật phí quản lý";
     $.ajax({
         url: URL + `api/price-management/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
             fillToForm(result.data)
+            document.querySelector('#id').value = result.data.id;
         },
         error: function (error) {
         	sweetalertError(error)
@@ -155,8 +156,7 @@ let deletePrice = (id, e) => {
 
 //< ---------------------- Clean form ---------------------------->
 let cleanForm = () => {
-    fillToForm({
-        "id": "",
+    fillToForm({ 
         "price": "",
         "date": "",
         "note": ""
@@ -166,6 +166,7 @@ let cleanForm = () => {
 //<------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
     cleanForm();
+    document.querySelector('#id').value = '';
 });
 // < -------------- clean form when click button clean ------------>
 document.querySelector('#clean-form').addEventListener('click', cleanForm);
@@ -183,6 +184,15 @@ let getValueForm = () => {
         "note": document.querySelector('#note').value.trim()
     }
 }
+
+let fillToForm = (management) => {
+    document.querySelector('#price').value = management.price;
+    document.querySelector('#date').value = management.date;
+    document.querySelector('#note').value = management.note;
+}
+
+
+
 
 let validate = (data) => {
     if (data.price === '') {
@@ -203,11 +213,5 @@ let validate = (data) => {
     return true;
 }
 
-let fillToForm = (management) => {
-    document.querySelector('#id').value = management.id;
-    document.querySelector('#price').value = management.price;
-    document.querySelector('#date').value = management.date;
-    document.querySelector('#note').value = management.note;
-}
 
 

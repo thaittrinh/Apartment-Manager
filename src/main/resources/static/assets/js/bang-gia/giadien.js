@@ -89,13 +89,14 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-electricity').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-bolt mr-3 '></i>" + "Cập Nhật Giá Điện";
+    document.querySelector('#form-label').innerHTML =  "<i class='fas fa-bolt mr-3 '></i>" + "Cập Nhật Giá Điện";
     $.ajax({
         url: URL + `api/price-electricity/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
             fillToForm(result.data)
+            document.querySelector('#id').value = result.data.id;
         },
         error: function (error) {
         	sweetalertError(error);	
@@ -153,14 +154,14 @@ document.querySelector('#save').addEventListener('click', () => {
 // <------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
     cleanForm();
+    document.querySelector('#id').value = '';
 });
 
 // <------------------ clean form ---------------------------->
 let cleanForm = () => {
     fillToForm(
-        {
-            'id': '',
-            'limits': '',
+        {        
+            'limits': 50,
             'price': '',
             'date': '',
             'note': ''
@@ -186,7 +187,6 @@ let getValueForm = () => {
 
 // < ------------- fill to form ---------------------------->
 let fillToForm = (electricity) => {
-    document.querySelector('#id').value = electricity.id;
     document.querySelector('#limits').value = electricity.limits;
     document.querySelector('#price').value = electricity.price;
     document.querySelector('#date').value = electricity.date;

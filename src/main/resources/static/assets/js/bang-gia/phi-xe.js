@@ -90,12 +90,13 @@ var index = -1;
 let showFormUpdate = (id, e) => {
  index = $('#my-table').DataTable().row($(e).parents('tr')).index();
  $('#form-building').modal('show')
- document.querySelector('.modal-title').innerHTML =  "<i class='fas fa-car mr-3'></i>" + "Cập nhập giá"
+ document.querySelector('#form-label').innerHTML =  "<i class='fas fa-car mr-3'></i>" + "Cập nhập giá"
  $.ajax({
      url: URL + `api/price-parking/${id}`,
      type: 'GET',
      dataType: 'json',
      success: function (result) {
+    	 document.querySelector('#id').value = result.data.id;
          fillToForm(result.data)
      },
      error: function (error) {
@@ -163,17 +164,18 @@ document.querySelector('#save').addEventListener('click', () => {
 //<------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
     cleanForm();
+    document.querySelector('#id').value = '';
 });
 
 // < ---------------------- Clean form ---------------------------->
 let cleanForm = () => {
-    fillToForm({
-        "id": "",
+    fillToForm({      
         "price": "",
         "date": "",
         "typeVehicel":"",
         "note": ""
     });
+    document.querySelector('#type').selectedIndex = 0
 }
 
 // < -------------- clean form when click button clean ------------>
@@ -181,7 +183,6 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 
 
 let fillToForm = (water) => {
-    document.querySelector('#id').value = water.id;
     document.querySelector('#price').value = water.price;
     document.querySelector('#date').value = water.date;
     document.querySelector('#type').value = water.typeVehicel.id;

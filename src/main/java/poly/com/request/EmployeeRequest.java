@@ -39,12 +39,13 @@ public class EmployeeRequest {
     private String identitycard;
 
 	@NotBlank
-	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 6 to 11 digits long!")
+	@Pattern(regexp = "[0-9]{9,11}", message = "Phone numbers from 9 to 11 digits long!")
     private String phone;
     
 	@NotBlank(message = "Address is not null!")
     private String address;
     
+	@NotBlank(message = "Email is not null!")
     private String email;
 
     private String image;
@@ -53,7 +54,7 @@ public class EmployeeRequest {
 	@Size(min = 5, max = 20, message = "Username numbers from 5 to 20 characters!")
 	private String username;
 	
-	@Size(min = 6 ,max = 12, message = "Password from 6 to 12 characters!")
+	@Size(min = 8 ,max = 12, message = "Password from 6 to 12 characters!")
 	private String password;
 	
 	private Set<String> roles;

@@ -89,7 +89,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-resident').DataTable().row($(e).parents('tr')).index();
     $('#form-resident').modal('show')
-    document.querySelector('.modal-title').innerHTML =
+    document.querySelector('#form-label').innerHTML =
         "<i class='fas fa-address-card mr-3'></i>" + "Cập Nhật Thông Tin Cư Dân";
     $.ajax({
         url: URL + `api/resident/${id}`,
@@ -157,12 +157,12 @@ document.querySelector('#saveResident').addEventListener('click', () => {
 //< ---------------- clean form when modal close ---------->
 $("#form-resident").on("hidden.bs.modal", function () {
     cleanFrom();
+    document.querySelector("#id").value = "";
 });
 
 
 // < -------------------- clean form ----- ---------------->
-let cleanFrom = () => {
-    document.querySelector("#id").value = "",
+let cleanFrom = () => {    
         document.querySelector('#fullname').value = "",
         document.querySelector('#birthday').value = "",
         $('input[name="gender"]').prop('checked', false),
@@ -197,7 +197,7 @@ let getValueForm = () => {
 }
 // < ------------------ fill to form -------------------------->
 let fillToFrom = (resident) => {
-    document.querySelector("#id").value = resident.id,
+        document.querySelector("#id").value = resident.id,
         document.querySelector('#fullname').value = resident.fullname,
         document.querySelector('#birthday').value = resident.birthday,
         $(resident.gender ? "#female" : "#male").prop('checked', true),
@@ -237,25 +237,49 @@ let validate = (data) => {
             return false;
         }
     }
-    if(data.phone != ''){
-        if(isNaN(data.phone)){
-            toastrError("Số điện thoại phải là số!");
-            document.querySelector('#phone').focus();
-            return false;
-        }
-        if(data.phone.length <9 || data.phone.length > 11 ){
-            toastrError("Số điện thoại phải từ 9 đến 11 chữ số!");
-            document.querySelector('#phone').focus();
-            return false;
-        }
+    if(data.phone === ''){
+        toastrError("Số điện thoại không được để trống!");
+        document.querySelector('#phone').focus();
+        return false;
+    }
+    if(isNaN(data.phone)){
+        toastrError("Số điện thoại phải là số!");
+        document.querySelector('#phone').focus();
+        return false;
+    }
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
+	if(!vnf_regex.test(data.phone)){
+		toastrError("Số điện thoại sai định dạng!");
+		document.querySelector('#phone').focus();
+		return false;
+	}
+    if(data.phone.length <9 || data.phone.length > 11 ){
+        toastrError("Số điện thoại phải từ 9 đến 11 chữ số!");
+        document.querySelector('#phone').focus();
+        return false;
     }
     if (data.hometown === '') {
-        toastrError("Quê quán không được để trống");
+        toastrError("Quê quán không được để trống!");
         document.querySelector('#hometown').focus();
         return false
     }
+    if(data.email != ''){ 
+    	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+    	if(!filter.test(data.email))
+    		{
+    		toastrError("Email sai định dạng!");
+    		document.querySelector('#email').focus();
+    		return false;
+    		}
+    }
+    
+    if (data.job === '') {
+        toastrError("Nghề nghiệp không được để trống!");
+        document.querySelector('#job').focus();
+        return false
+    }
     if (data.apartment.id === '') {
-        toastrError("Mã căn hộ không được để trống");
+        toastrError("Mã căn hộ không được để trống!");
         document.querySelector('#idapartment')
         return false
 
