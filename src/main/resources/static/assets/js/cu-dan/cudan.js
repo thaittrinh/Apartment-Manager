@@ -232,7 +232,7 @@ let validate = (data) => {
             return false;
         }
         if(data.identitycard.length <9 || data.identitycard.length > 12 ){
-            toastrError("Số chứng minh - căn cước công dân phải từ 9 đến 12 chữ số!");
+            toastrError("Số chứng minh - căn cước công dân 9 hoặc  12 chữ số!");
             document.querySelector('#identityCard').focus();
             return false;
         }

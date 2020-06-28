@@ -35,16 +35,21 @@
                 <tbody></tbody>
             </table>
             <!--------------------------------- Button open modal form  -------------------------->
-            <button style="width: 160px" type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="show-form"
+            <button style="width: 150px" type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="show-form"
                     onclick="changetitle()"
                     data-target="#form-resident">
-                <i class=" fas fa-user-plus mr-2"></i> Thêm cư dân
+                <i class=" fas fa-user-plus mr-1 ml-0"></i> Thêm cư dân
             </button>
             <!------------------------------------------------------>
-            <button style="width: 160px" type="button" class="btn btn-sm btn-warning" data-toggle="modal"
+            <button style="width: 150px" type="button" class="btn btn-sm btn-warning" data-toggle="modal"
                     data-target="#form-vehicle">
-                <i class="fas fa-motorcycle mr-1"></i> Đăng ký xe gửi
+                <i class="fas fa-motorcycle mr-1 ml-0"></i> Đăng ký xe gửi
             </button>
+            <a th:href="@{/api/resident/export-excel}">
+            <button type="button" class="btn btn-sm btn-excel">
+                <i class="fas fa-file-export"></i> Excel
+            </button>
+            </a>
         </div>
 
     </div>

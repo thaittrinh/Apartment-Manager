@@ -229,10 +229,6 @@ let validate = (data) => {
         document.querySelector('#username').focus();
         return false;
     }
-    if (!$('input[type=checkbox]:checked').val()) {
-        toastrError("chưa phân quyền cho tài khoản");
-        return false;
-    }
     return true;
 
 }
