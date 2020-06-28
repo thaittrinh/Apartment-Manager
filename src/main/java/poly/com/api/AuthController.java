@@ -1,4 +1,4 @@
-
+/* *
 package poly.com.api;
 
 import javax.validation.Valid;
@@ -17,9 +17,9 @@ import poly.com.security.request.ChangePasswordRequest;
 import poly.com.security.request.LoginRequest;
 import poly.com.security.service.AccountService;
 
-/* *
+
  * Login, Logout, change password
- */
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -40,3 +40,4 @@ public class AuthController {
     }
 
 }
+ */
