@@ -21,6 +21,9 @@ let OB = null;
 document.querySelector('#save').addEventListener('click', () => {
     var employee = getValueForm();
     if (validate(employee)) {
+    	  if ( employee.password === 'tgFxcP4b') 
+    		  employee.password = null ;
+    	   console.log(employee);
         $.ajax({
             type: 'PUT',
             url: URL + `api/employee/${ID}`,
@@ -29,13 +32,16 @@ document.querySelector('#save').addEventListener('click', () => {
             cache: false,
             data: JSON.stringify(employee),
             success: function (result) {
-                fillToFormImage(result.data)
                 sweetalertSuccess(result.message)
+                fillToFormImage(result.data);
             },
             error: function (error) {
                 sweetalertError(error)
             }
         });
+        
+        
+        
     }
 });
 
@@ -91,7 +97,7 @@ let fillToForm = (data) => {
         document.querySelector('#identitycard').value = data.identitycard,
         document.querySelector('#phone').value = data.phone,
         document.querySelector('#username').value = data.username,
-        document.querySelector('#fakepassword').value = 'tgFxcP4bQG3uaMp',
+        document.querySelector('#fakepassword').value = 'tgFxcP4b',
         document.querySelector('#email').value = data.email,
         checked(data.roles)
 
@@ -134,24 +140,18 @@ let checked = (roles) => {
 
 /* -------------------------------------  fill image ----------------------------------- */
 let fillToFormImage = (data) => {
-    if (data.image) {
+    if(data.image){
         document.querySelector('#imgs').src = URL + `assets/photo/${data.image}`;
-    } else {
+    }else{
         document.querySelector('#imgs').src = URL + `assets/photo/someone.png`;
     }
     document.querySelector('#name-formImg').innerHTML = data.fullName;
     document.querySelector('#email-formImg').innerHTML = data.email;
 }
 
+
 /*  ------------------------------------- get value form ------------------------------------ */
 let getValueForm = () => {
-    let password
-    if (document.querySelector('#fakepassword').value === 'tgFxcP4bQG3uaMp') {
-        password = null
-    } else {
-        password = document.querySelector('#fakepassword').value
-
-    }
     return {
         'id': document.querySelector('#id_employee').value.trim(),
         'fullName': document.querySelector('#fullName').value.trim(),
@@ -162,7 +162,7 @@ let getValueForm = () => {
         'phone': document.querySelector('#phone').value.trim(),
         'username': document.querySelector('#username').value.trim(),
         'email': document.querySelector('#email').value.trim(),
-        'password': password,
+        'password': document.querySelector('#fakepassword').value,
         'roles': $('input[type=checkbox]:checked').map(function (_, role) {
             return $(role).val();
         }).get()
@@ -219,6 +219,12 @@ let validate = (data) => {
         document.querySelector('#phone').focus();
         return false;
     }
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
+	if(!vnf_regex.test(data.phone)){
+		toastrError("Số điện thoại sai định dạng!");
+		document.querySelector('#phone').focus();
+		return false;
+	}
     if (data.phone.length < 9 || data.phone.length > 11) {
         toastrError("Số điện thoại phải từ 9 đến 11 chữ số!");
         document.querySelector('#phone').focus();
@@ -229,10 +235,33 @@ let validate = (data) => {
         document.querySelector('#username').focus();
         return false;
     }
-    if (!$('input[type=checkbox]:checked').val()) {
-        toastrError("chưa phân quyền cho tài khoản");
+    if(data.username.length < 5 || data.username.length > 20){
+        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
+        document.querySelector('#username').focus();
         return false;
     }
+    if(data.password === ''){
+        toastrError("Mật khẩu không được để trống");
+        document.querySelector('#fakepassword').focus();
+        return false;
+    }
+    if(data.password.length <8 || data.password.length > 12 ){
+        toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
+        document.querySelector('#fakepassword').focus();
+        return false;
+    }
+    if(data.email === ''){
+		toastrError("Email không được để trống!");
+		document.querySelector('#email').focus();
+		return false;
+	}
+	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+	if(!filter.test(data.email))
+		{
+		toastrError("Email sai định dạng!");
+		document.querySelector('#email').focus();
+		return false;
+		}
     return true;
 
 }

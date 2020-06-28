@@ -188,9 +188,6 @@ let validateInsert = (data) => {
 }
 
 
-
-
-
 //< --------------------------------------- UPDATE  ------------------------------------->
 
 var index = -1;
@@ -204,7 +201,8 @@ let showFormUpdate = (id, e) => {
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToFormUpdate(result.data)
+            fillToFormUpdate(result.data);
+            document.querySelector('#id-update').value = result.data.id;
         },
         error: function (error) {
         	sweetalertError(error);	
@@ -241,7 +239,6 @@ document.querySelector('#update').addEventListener('click', () => {
 
 
 let fillToFormUpdate = (data) => {
-    document.querySelector('#id-update').value = data.id;
     document.querySelector('#password-update').value = data.password;
     document.querySelector('#id-own-update').value = data.ownApartment ? data.ownApartment.id : '';
     document.querySelector('#acreage-update').value = data.acreage;
@@ -260,7 +257,6 @@ $("#form-update").on("hidden.bs.modal", function () {
 // < ---------------------------------------- Clean form ---------------------------->
 let cleanFormUpdate = () => {
     fillToFormUpdate({
-        "id": "",
         "password": "",
         "ownApartment": null,
         "acreage": "",

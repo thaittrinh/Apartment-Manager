@@ -87,13 +87,14 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-garbage').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('.modal-title').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +"Cập nhập phí rác ";
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" +"Cập nhập phí rác ";
     $.ajax({
         url: URL + `api/price-garbage/${id}`,
         type: 'GET',
         dataType: 'json',
         success: function (result) {
-            fillToForm(result.data)
+            fillToForm(result.data);
+            document.querySelector('#id').value = result.data.id;
         },
         error: function (error) {
         	sweetalertError(error);	
@@ -151,12 +152,12 @@ document.querySelector('#save').addEventListener('click', () => {
 // <------------- When modal close -> clean form modal  ----------->
 $("#form-building").on("hidden.bs.modal", function () {
     cleanForm();
+    document.querySelector('#id').value = '';
 });
 
 // < ---------------------- Clean form ---------------------------->
 let cleanForm = () => {
     fillToForm({
-        "id": "",
         "price": "",
         "date": "",
         "note": ""
@@ -178,8 +179,7 @@ let getValueForm = () => {
     }
 }
 // < -------------------------------- fill data to form ------------------------------->
-let fillToForm = (garbage) => {
-    document.querySelector('#id').value = garbage.id;
+let fillToForm = (garbage) => { 
     document.querySelector('#price').value = garbage.price;
     document.querySelector('#date').value = garbage.date;
     document.querySelector('#note').value = garbage.note;

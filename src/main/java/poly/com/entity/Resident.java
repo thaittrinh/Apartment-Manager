@@ -55,6 +55,7 @@ public class Resident implements Serializable {
 	@Column(length = 50)
     private String job;
 
+    @NotNull(message = "Phone can not be null ")
     @Column(length = 11 )
     private String phone;
 

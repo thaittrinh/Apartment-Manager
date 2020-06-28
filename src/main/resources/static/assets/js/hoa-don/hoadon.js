@@ -86,6 +86,12 @@ document.querySelector('#clean-form-insert').addEventListener('click', () => {
 	cleanFormInsert();
 });
 
+//<------------- When modal close -> clean form modal  ----------->
+$("#form-building").on("hidden.bs.modal", function () {
+	cleanFormInsert();
+});
+
+
 
 let getValueFormInsert = () => {
 	return {
@@ -110,7 +116,6 @@ let cleanFormInsert = () => {
 
 
 let validateFormInsert = (data) => {
-	console.log(data.apartment.id);
     if (data.apartment.id === '') {
         toastrError("Căn hộ không được để trống!");
         document.querySelector('#id-apartment').focus();

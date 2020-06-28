@@ -4,13 +4,11 @@
 
 <div layout:fragment="content">
     <!------------------------------------------- Header----------------------------------->
-    <div style="margin-top: -35px">
-        <a class="title"> Quản lý thông tin liên hệ </a>
+    <div class="row" style="margin-top: -45px">
+        <a class="title mt-3"> Quản lý thông tin liên hệ </a>
         <div th:replace="components/header"></div>
     </div>
     <!----------------------------------------- Form liên hệ  ----------------------------->
-
-
     <div class="row" style="margin: 0;">
         <div class="card col">
             <!-- --------------------------------- card title form ---------------------->
@@ -29,7 +27,7 @@
                         <!------------------------- Há»� TÃªn ------------------------------->
                         <div class="input-container col-sm-8" style="padding: 0;">
                             <input type="text" required id="name" style="width: 100%"/>
-                            <label for="name">Tên trung cư</label>
+                            <label for="name">Tên chung cư</label>
                         </div>
                         <!------------------------ NgÃ y Sinh ------------------------------>
                         <div class="input-container col-sm-3" style="padding: 0;">
@@ -67,7 +65,8 @@
                                    style="width: 100%"/> <label for="address">Địa chỉ</label>
                         </div>
                     </div>
-                    <button style="width: 115px" type="button" class=" float-right btn btn-sm btn-success mt-3" id="save">
+                    <button style="width: 115px" type="button" class=" float-right btn btn-sm btn-success mt-3"
+                            id="save">
                         <i class="fas fa-save mr-2"></i> Cập nhật
                     </button>
                 </form>

@@ -195,8 +195,8 @@ let validate = (data) =>{
         document.querySelector('#identitycard').focus();
         return false;
     }
-    if(data.identitycard.length <9 || data.identitycard.length > 12 ){
-        toastrError("Số chứng minh - căn cước công dân phải từ 9 đến 12 chữ số!");
+    if(data.identitycard.length < 9 || data.identitycard.length > 12 ){
+        toastrError("Số chứng minh - căn cước công dân  9  hoặc  12 chữ số!");
         document.querySelector('#identitycard').focus();
         return false;
     }
@@ -210,6 +210,12 @@ let validate = (data) =>{
         document.querySelector('#phone').focus();
         return false;
     }
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
+	if(!vnf_regex.test(data.phone)){
+		toastrError("Số điện thoại sai định dạng!");
+		document.querySelector('#phone').focus();
+		return false;
+	}
     if(data.phone.length <9 || data.phone.length > 11 ){
         toastrError("Số điện thoại phải từ 9 đến 11 chữ số!");
         document.querySelector('#phone').focus();
@@ -217,6 +223,11 @@ let validate = (data) =>{
     }
     if(data.username === ''){
         toastrError("Tên đăng nhập không được để trống!");
+        document.querySelector('#username').focus();
+        return false;
+    }
+    if(data.username.length < 5 || data.username.length > 20){
+        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
         document.querySelector('#username').focus();
         return false;
     }
@@ -230,10 +241,20 @@ let validate = (data) =>{
         document.querySelector('#password').focus();
         return false;
     }
-    if( !$('input[type=checkbox]:checked').val()){
-        toastrError("chưa phân quyền cho tài khoản");
-        return false;
-    }
+    if(data.email === ''){
+		toastrError("Email không được để trống!");
+		document.querySelector('#email').focus();
+		return false;
+	}
+	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+	if(!filter.test(data.email))
+		{
+		toastrError("Email sai định dạng!");
+		document.querySelector('#email').focus();
+		return false;
+		}
+    
+    
     return true;
 
 }

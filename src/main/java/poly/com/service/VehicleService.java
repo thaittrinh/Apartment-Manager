@@ -44,7 +44,7 @@ public class VehicleService {
            if (!residentRepository.existsById(newVehicle.getResident().getId()))
                return new ResponseEntity<>(new ResponseDTO(null,MessageError.ERROR_404_RESIDENT), HttpStatus.NOT_FOUND);
 
-           if(newVehicle.getLicensePlates() != null){
+           if(newVehicle.getLicensePlates() != ""){
                Vehicle vehicleLicensePlates = vehicleRespository
                        .findByLicensePlates(newVehicle.getLicensePlates()).orElse(null);
                if(vehicleLicensePlates != null)
@@ -68,7 +68,7 @@ public class VehicleService {
             if(!vehicleRespository.existsById(id))
                 return new  ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_VEHICEL), HttpStatus.NOT_FOUND);
 
-            if(newVehicle.getLicensePlates() != null){
+            if(newVehicle.getLicensePlates() != ""){
                 Vehicle vehicleLicensePlates = vehicleRespository
                         .findByLicensePlates(newVehicle.getLicensePlates()).orElse(null);
                 if(vehicleLicensePlates != null && vehicleLicensePlates.getId() != id )

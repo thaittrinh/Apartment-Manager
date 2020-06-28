@@ -387,7 +387,6 @@ label {
 
 .title {
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    margin-top: -30px;
     position: relative;
     color: inherit;
     font-size: 15px;
@@ -449,11 +448,7 @@ input:valid::-webkit-datetime-edit {
     background-size: cover;
     box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
-.align-left {
-    top: 10px;
-    position: absolute;
-    right: 45px;
-}
+
 
 i.material-icons {
     font-size: 1.5rem !important;
@@ -665,7 +660,7 @@ p {
 .card {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    width: 1054px;
+    width: 1060px;
     border: 0;
     margin: 65px 0 0px 15px;
     border-radius: 6px;
@@ -837,7 +832,7 @@ input:valid::-webkit-datetime-edit {
     color: black;
 }
 
-.align-left .dropdown .avatar {
+.row .dropdown .avatar {
     background-image: none;
     background-repeat: no-repeat;
     object-fit: cover;
@@ -856,4 +851,9 @@ input:valid::-webkit-datetime-edit {
 
 a.dropdown-item:hover{
     color:#0648b3 !important;
+}
+.card .card-body .btn-excel{
+    width: 100px ;
+    background-color: rgb(34,116,70);
+    color: white;
 }

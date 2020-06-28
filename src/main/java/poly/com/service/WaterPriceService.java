@@ -73,7 +73,7 @@ public class WaterPriceService {
 
             priceWater.setId(id);
             priceWater = priceWaterRepository.save(priceWater);
-            return ResponseEntity.ok(new ResponseDTO(priceWater, MessageSuccess.INSERT_SUCCSESS));
+            return ResponseEntity.ok(new ResponseDTO(priceWater, MessageSuccess.UPDATE_SUCCSESS));
         } catch (Exception e) {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }

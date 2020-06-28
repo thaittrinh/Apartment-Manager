@@ -51,7 +51,6 @@ public class AccountService {
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
 
         Employee user = null;
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -92,6 +91,6 @@ public class AccountService {
              * dbPassword lấy password từ database ( đã mã hóa )
              *   passwordEncoder.matches(Boolean) so sánh 2 chuỗi  oldpassword với dbpassword
              * nếu kết quả passwordEncoder.matches là true  thì mã hóa  lại mật khẩu mới và lưu vào database
-             *  nếu kết quả passwordEncoder.matches là fale thì trả về status code 400 ,mật khẩu cũ không đúng  */
+             *  nếu kết quả passwordEncoder.matches là fale thì trả về status code 404 ,mật khẩu cũ không đúng  */
     }
 }
