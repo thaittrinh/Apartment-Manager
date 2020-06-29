@@ -9,19 +9,18 @@ import poly.com.repository.TypeVehicelRepository;
 
 
 @Controller
-@RequestMapping("/ui/resdential")
+@RequestMapping("/ui/quan-ly")
 public class ResdentialController {
     @Autowired
     TypeVehicelRepository typeVehicelRepository;
     // return template page table residential
-    @GetMapping("")
+    @GetMapping("/cu-dan")
     public String pageTableCudan( ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
         return "contents/quanly/cudan/table-Cudan";
     }
 
-
-    @GetMapping("/vehicle")
+    @GetMapping("/xe-dang-ky-gui")
     public String pageTableXe( ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
         return "contents/quanly/cudan/table-xe";
