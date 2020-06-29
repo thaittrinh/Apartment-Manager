@@ -36,10 +36,13 @@
                 </div>
             </div>
             <div th:if="${param.error}" class="error-login">
-                Tên đăng nhập và mật khẩu không đúng <br>
-                vui lòng kiểm tra lạ!
+                Sai tên đăng nhập hoặc mật khẩu
             </div>
             <p th:if="${param.logout != null}" class="success">You have been logged out</p>
+            <!-- 
+            <input name="remember-me" type="checkbox" id="user-checkbox">
+		<label for="user-checkbox">Ghi nhớ tài khoản</label>
+		 -->
             <a href="#">Forgot Password?</a>
             <input type="submit" class="btn" value="Login">
         </form>

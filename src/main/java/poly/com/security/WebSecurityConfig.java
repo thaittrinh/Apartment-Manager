@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -52,6 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override  /* --------------- configure HttpSecurity --------------- */
     protected void configure(HttpSecurity http) throws Exception {
+    	
+    	http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400);  // nhớ mật khẩu
+    	
         http
         	.csrf()
         		  .disable();
@@ -65,22 +67,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.authorizeRequests()
         	.antMatchers("/assets/**").permitAll()
-          // .antMatchers("/ui/own-apartment").hasAnyRole("USER")
-        //   .antMatchers("/ui/employee").hasAnyRole("ADMIN")
-         //  .antMatchers("/ui/bill").hasAnyRole("MODERATOR")
+            .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER","MODERATOR")
+            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
+            .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("MODERATOR")
         	.anyRequest().authenticated().and()                // tat cac request khac  phai duoc xac thuc
         	.formLogin()                                       // cho phep nguoi dung xac thuc bang form login
            		.loginPage("/authentication/account/login").permitAll()// cho phep truy cap trang login
            		.loginProcessingUrl("/login")                      // url login
            		.usernameParameter("username")                     // username
            		.passwordParameter("password")                     // password
-           		.defaultSuccessUrl("/quan-ly")                  // dang nhap thanh cong thi vao trang nay
+           		.defaultSuccessUrl("/quan-ly/welcome")                  // dang nhap thanh cong thi vao trang nay
            	.and()                                             //-------------------
            	.logout()                                          // cho phep dang xuat
            		.invalidateHttpSession(true)                       // Hủy session của người dùng
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout
-           		.logoutSuccessUrl("/authentication/account/login").permitAll();        // dang xuat thanh cong ve trang login
+           	.logoutSuccessUrl("/authentication/account/login").permitAll();        // dang xuat thanh cong ve trang login
     }
 }
