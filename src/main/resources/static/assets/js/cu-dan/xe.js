@@ -31,7 +31,7 @@ let table_vihecle = (data) => {
             {"mData": "licensePlates"},
             {"mData": "color"},
             {"mData": "date"},
-            {"mData": "resident.fullname"},
+            {"mData": "resident.id"},
             {"mData": "typeVehicle.name"},
             {
                 "mRender": function (data, type, full) {

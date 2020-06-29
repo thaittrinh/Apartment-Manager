@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ui/quan-ly/nhan-vien")
+@RequestMapping("/quan-ly/nhan-vien")
 public class EmployeeController {
 
     @GetMapping()
@@ -16,7 +16,7 @@ public class EmployeeController {
     }
     
     // return template page chu can ho
- 	@GetMapping("/form/{id}")
+ 	@GetMapping("/{id}")
  	public String formUpdate(@PathVariable int id, ModelMap model) {
  			model.addAttribute("idEmployee" , id);
  		return "contents/quanly/nhan-vien/form-update";

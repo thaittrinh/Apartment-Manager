@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ui/quan-ly")
+@RequestMapping("/quan-ly/hoa-don")
 public class BillController {
 
 	 // return template page table hoa don
-    @GetMapping("/hoa-don")
+    @GetMapping()
     public String pageTableHoadon() {
         return "contents/quanly/hoa-don/table-hoadon";
     }
     
     
-    @GetMapping("/chi-tiet-hoa-don/{id}")
+    @GetMapping("/{id}")
     public String pageUpdate(@PathVariable int id, ModelMap model){
     	
     	model.addAttribute("id", id);

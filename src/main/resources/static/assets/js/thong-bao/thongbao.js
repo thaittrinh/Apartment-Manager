@@ -48,7 +48,7 @@ let table = (data) => {
 
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id) => {
-   location.href =URL + `ui/notification/form/${id}`;
+   location.href =URL + `quan-ly/thong-bao/${id}`;
    
 }
 
