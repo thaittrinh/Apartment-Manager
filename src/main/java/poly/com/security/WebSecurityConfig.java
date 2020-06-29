@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -19,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /* ------------------------------------ WebSecurityConfig -------------------------------- */
 
     @Autowired
-    EmployeeDetailService employeeDetailService;
+    UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override /* ------------cung cap account cho spring security  -----------------*/
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(employeeDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -58,9 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and()
                 .authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
-                // .antMatchers("/api/test/user").hasAnyRole("USER")
-                //.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
-                //.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
+                .antMatchers("/ui/own-apartment").hasAnyRole("USER")
+                .antMatchers("/ui/employee").hasAnyRole("ADMIN")
+                .antMatchers("/ui/bill").hasAnyRole("MODERATOR")
                 .anyRequest().authenticated().and()                // tat cac request khac  phai duoc xac thuc
                 .formLogin()                                      // cho phep nguoi dung xac thuc bang form login
                 .loginPage("/ui/login").permitAll()                // cho phep truy cap trang login

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import poly.com.entity.Employee;
 import poly.com.repository.EmployeeRepository;
 @Service
-public class EmployeeDetailService implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
 
     /* ------------------------------------- Class EmployeeDetailService -------------------------------------*/
     @Autowired
@@ -23,7 +23,8 @@ public class EmployeeDetailService implements UserDetailsService {
         Employee employee = employeeRepository.findByUsername(username).orElse(null);
         if (employee == null)
             throw new UsernameNotFoundException(username);
-        return new CustomEmployeeDetail(employee);
+        
+        return new UserDetailsImpl(employee);
 
     }
 

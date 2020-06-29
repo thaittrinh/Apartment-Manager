@@ -19,7 +19,7 @@ import poly.com.service.VehicleService;
 
 @RestController
 @RequestMapping("/api/vehicle")
-public class VehicleController {
+public class VehicleAPI {
 
     // < --------------------------------- Class RestController Vehicle ----------------------->
     @Autowired
