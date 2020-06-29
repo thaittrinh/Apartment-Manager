@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /* ------------------------------------ WebSecurityConfig -------------------------------- */
 
     @Autowired
-    UserDetailsService userDetailsService;
+   UserDetailServiceImpl userDetailService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override /* ------------cung cap account cho spring security  -----------------*/
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -57,24 +57,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().cacheControl();                             // khong cho browser tu dong cache
         http.cors().and()
-                .authorizeRequests()
-                .antMatchers("/assets/**").permitAll()
-                .antMatchers("/ui/own-apartment").hasAnyRole("USER")
-                .antMatchers("/ui/employee").hasAnyRole("ADMIN")
-                .antMatchers("/ui/bill").hasAnyRole("MODERATOR")
-                .anyRequest().authenticated().and()                // tat cac request khac  phai duoc xac thuc
-                .formLogin()                                      // cho phep nguoi dung xac thuc bang form login
-                .loginPage("/ui/login").permitAll()                // cho phep truy cap trang login
-                .loginProcessingUrl("/login")                      // url login
-                .usernameParameter("username")                     // username
-                .passwordParameter("password")                     // password
-                .defaultSuccessUrl("/ui")                          // dang nhap thanh cong thi vao trang nay
-                .and()                                             //-------------------
-                .logout()                                          // cho phep dang xuat
-                .invalidateHttpSession(true)                       // Hủy session của người dùng
-                .clearAuthentication(true)                         //-------------------
-                .deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
-                .logoutUrl("/logout")                              //  url logout
-                .logoutSuccessUrl("/ui/login").permitAll();        // dang xuat thanh cong ve trang login
+           .authorizeRequests()
+           .antMatchers("/assets/**").permitAll()
+           .antMatchers("/ui/own-apartment").hasAnyRole("USER")
+           .antMatchers("/ui/employee").hasAnyRole("ADMIN")
+           .antMatchers("/ui/bill").hasAnyRole("MODERATOR")
+           .anyRequest().authenticated().and()                // tat cac request khac  phai duoc xac thuc
+           .formLogin()                                       // cho phep nguoi dung xac thuc bang form login
+           .loginPage("/authentication/account/login").permitAll()// cho phep truy cap trang login
+           .loginProcessingUrl("/login")                      // url login
+           .usernameParameter("username")                     // username
+           .passwordParameter("password")                     // password
+           .defaultSuccessUrl("/ui/quan-ly")                  // dang nhap thanh cong thi vao trang nay
+           .and()                                             //-------------------
+           .logout()                                          // cho phep dang xuat
+           .invalidateHttpSession(true)                       // Hủy session của người dùng
+           .clearAuthentication(true)                         //-------------------
+           .deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
+           .logoutUrl("/logout")                              //  url logout
+           .logoutSuccessUrl("/authentication/account/login").permitAll();        // dang xuat thanh cong ve trang login
     }
 }

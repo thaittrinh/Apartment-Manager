@@ -14,12 +14,13 @@ document.querySelector('#changepassword').addEventListener('click', () => {
             if (result.value) {
                 $.ajax({
                     type: 'PUT',
-                    url: URL + `api/auth/change/password`,
+                    url: URL + `api/employee/change-password`,
                     contentType: 'application/json',
                     dataType: 'json',
                     cache: false,
                     data: JSON.stringify(changepassword),
                     success: function (result) {
+                        $('#form-change-password').modal('hide');
                         sweetalertSuccess(result.message)
                     },
                     error: function (error) {
@@ -59,7 +60,7 @@ let getValueFormPassword = () => {
 
 
 /* ------------------- clean form ------------------------- */
-let cleanFormChangePassword= () => {
+let cleanFormChangePassword = () => {
     document.getElementById('Password').value = "";
     document.getElementById('newPassword').value = "";
     document.getElementById('confirmPassword').value = ""
@@ -89,6 +90,17 @@ let validateFormChangePassword = (data) => {
         document.querySelector('#Password').focus();
         return false
     }
+    if (data.newpassword === '') {
+        toastrError('Chưa nhập mật khẩu mới')
+        document.querySelector('#newPassword').focus();
+        return false
+    }
+    let special = data.newpassword.match((/[!@#$%^&*_]+/g));
+    if (special != null) {
+        toastrError('Mật khẩu không được chứa ký tự đặc biệt');
+        document.querySelector('#newPassword').focus();
+        return false
+    }
     if (data.newpassword.search(/[a-z]/) < 0) {
         toastrError("Mật khẩu phải có ít nhất một chữ cái")
         document.querySelector('#newPassword').focus();
@@ -101,11 +113,6 @@ let validateFormChangePassword = (data) => {
     }
     if (data.newpassword.search(/[0-9]/) < 0) {
         toastrError("Mật khẩu phải có ít nhất một chữ số")
-        document.querySelector('#newPassword').focus();
-        return false
-    }
-    if (data.newpassword === '') {
-        toastrError('Chưa nhập mật khẩu mới')
         document.querySelector('#newPassword').focus();
         return false
     }

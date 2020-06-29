@@ -82,7 +82,7 @@ let deleteOwn = (id, e) => {
 
 
 let showFormUpdate = (id) => {
-	 location.href= URL + `ui/own-apartment/form/${id}`;  
+	 location.href= URL + `ui/quan-ly/chu-can-ho/form/${id}`;
 }
 
 

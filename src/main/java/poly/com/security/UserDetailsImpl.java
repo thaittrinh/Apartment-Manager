@@ -77,9 +77,7 @@ public class UserDetailsImpl implements UserDetails {
         return employee.getImage();
     }
 
-    public Set<Role> getRole() {
-        return employee.getRoles();
-    }
+    public Set<Role> getRole() { return employee.getRoles(); }
 
     @Override
     public boolean isAccountNonExpired() {

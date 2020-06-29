@@ -49,7 +49,7 @@ public class ResidentService {
             // --------------------------------------------------------
             if (newResident.getIdentitycard() != "") {
                 Resident resident = residentRepository.findByIdentitycard(
-                        newResident.getIdentitycard()).orElse(null);
+                    newResident.getIdentitycard()).orElse(null);
                 if (resident != null)
                     return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_IDENTICARD), HttpStatus.CONFLICT);
             } // ---------------------------------------------------
