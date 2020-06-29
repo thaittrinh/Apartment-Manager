@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ui/own-apartment")
+@RequestMapping("/ui/quan-ly/chu-can-ho")
 public class OwnApartmetController {
 
 	// return template page table chu can ho

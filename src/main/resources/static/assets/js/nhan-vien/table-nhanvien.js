@@ -114,7 +114,7 @@ document.querySelector('#save').addEventListener('click', () => {
 
 /*  ----------------- show form update ----------------*/
 let showFormUpdate = (id) => {
-    location.href = URL + `ui/employee/form/${id}`;
+    location.href = URL + `ui/quan-ly/nhan-vien/form/${id}`;
 }
 
 //< ---------------- clean form when modal close ---------->
@@ -235,6 +235,12 @@ let validate = (data) =>{
         toastrError("Mật khẩu không được để trống");
         document.querySelector('#password').focus();
         return false;
+    }
+    let special = data.newpassword.match((/[!@#$%^&*_]+/g));
+    if (special != null) {
+        toastrError('Mật khẩu không được chứa ký tự đặc biệt');
+        document.querySelector('#password').focus();
+        return false
     }
     if(data.password.length <8 || data.password.length > 12 ){
         toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
