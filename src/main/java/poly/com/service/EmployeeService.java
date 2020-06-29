@@ -227,8 +227,8 @@ public class EmployeeService {
         }
         /* oldPassword nhận password của client truyền về server ( không mã hóa )
          * dbPassword lấy password từ database ( đã mã hóa )
-         *   passwordEncoder.matches(Boolean) so sánh 2 chuỗi  oldpassword với dbpassword
+         * passwordEncoder.matches(Boolean) so sánh 2 chuỗi  oldpassword với dbpassword
          * nếu kết quả passwordEncoder.matches là true  thì mã hóa  lại mật khẩu mới và lưu vào database
-         *  nếu kết quả passwordEncoder.matches là fale thì trả về status code 404 ,mật khẩu cũ không đúng */
+         * nếu kết quả passwordEncoder.matches là fale thì trả về status code 404 ,mật khẩu cũ không đúng */
     }
 }
