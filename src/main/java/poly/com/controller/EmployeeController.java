@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/ui/employee")
-public class UIEmployeeController {
+public class EmployeeController {
 
     @GetMapping()
     public String pageEmployee(){

@@ -11,59 +11,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import poly.com.dto.OwnApartmentDTO;
 import poly.com.dto.ResponseDTO;
-import poly.com.service.OwnApartmentService;
+import poly.com.entity.PriceElectricity;
+import poly.com.service.PriceElectricityService;
 
 @RestController
-@RequestMapping("/api/own-apartment")
-public class OwnApartmentController {
+@RequestMapping("/api/price-electricity")
+public class PriceElectricityAPI {
 
+// < ----------------------------------- Class PriceElectricity RestController ---------------------------->
 	@Autowired
-	OwnApartmentService ownApartmentService;
+	PriceElectricityService priceElectricityService;
 // ------------------------------------------------
 
 	// <------------------------- findAll --------------------------->
-
 	@GetMapping()
-	public ResponseEntity<ResponseDTO> findAll() {
-		return ownApartmentService.findAll();
+	public ResponseEntity<ResponseDTO> findPriceElectricityAll() {
+		return priceElectricityService.findAllElectricity();
 	}
-	
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<ResponseDTO> findById(@PathVariable int id) {
-		return ownApartmentService.findById(id);
+	public ResponseEntity<ResponseDTO> findPriceElectricitybyId(@PathVariable int id) {
+		return priceElectricityService.findPriceElectricitybyId(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
-   
 	@PostMapping()
-	public ResponseEntity<ResponseDTO> createOwn(@Valid @RequestBody OwnApartmentDTO ownDTO ){
-		
-		return ownApartmentService.createOwn(ownDTO);
+	public ResponseEntity<ResponseDTO> createPriceElectricity(@Valid @RequestBody PriceElectricity priceElectricity) {
+		return priceElectricityService.createPriceElectricity(priceElectricity);
 	}
 
-	@PostMapping("/upload-file/{id}")
-	public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id , @RequestParam("file") MultipartFile mFile) {
-	  return ownApartmentService.uploadFile(mFile, id);
-	}
-	
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<ResponseDTO> updateOwn(@PathVariable int id, @Valid @RequestBody OwnApartmentDTO ownDTO) {
-		return ownApartmentService.updateOwn(id, ownDTO);
+	public ResponseEntity<ResponseDTO> updatePriceElectricity(@PathVariable int id,
+			 													  @Valid @RequestBody PriceElectricity priceElectricity) {
+		return priceElectricityService.updatePriceElectricity(id, priceElectricity);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseDTO> deleteOwn(@PathVariable int id) {
-		return ownApartmentService.deleteOwn(id);
+	public ResponseEntity<ResponseDTO> deletePriceElectricity(@PathVariable int id) {
+		return priceElectricityService.deletePriceElectricity(id);
 	}
 
 }

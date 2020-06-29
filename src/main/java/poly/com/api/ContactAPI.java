@@ -17,7 +17,7 @@ import poly.com.service.ContactService;
 
 @RestController
 @RequestMapping("/api/contact")
-public class ContactController {
+public class ContactAPI {
 
 // <---------------------------- Class  Contact RestController ------------------------------------> 
 	@Autowired

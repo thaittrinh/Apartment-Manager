@@ -19,7 +19,7 @@ import poly.com.service.NotificationService;
 
 @RestController
 @RequestMapping("/api/notification")
-public class NotificationController {
+public class NotificationAPI {
 
 	@Autowired
     NotificationService  notificationService;

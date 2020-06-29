@@ -14,47 +14,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.com.dto.ResponseDTO;
-import poly.com.entity.PriceManagement;
-import poly.com.service.PriceManagementService;
+import poly.com.entity.PriceParking;
+import poly.com.service.PriceParkingService;
 
 @RestController
-@RequestMapping("/api/price-management")
-public class PriceManagementController {
+@RequestMapping("/api/price-parking")
+public class PriceParkingAPI {
 
-// < ----------------------------------- Class PriceElectricity RestController ---------------------------->
+// < ----------------------------------- Class PriceParking RestController ---------------------------->
 	@Autowired
-	PriceManagementService priceManagementService;
+	PriceParkingService priceParkingService;
 	// ------------------------------------------------
 	
 	
 	// <------------------------- findAll --------------------------->
 	@GetMapping
-	public ResponseEntity<ResponseDTO> findAll() {
-		return priceManagementService.findAll();
+	public ResponseEntity<ResponseDTO>  findAll() {
+		return priceParkingService.findAll();
 	}
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<ResponseDTO> findbyId(@PathVariable int id) {
-		return priceManagementService.findbyId(id);
+	public ResponseEntity<ResponseDTO>  findbyId(@PathVariable int id) {
+		return priceParkingService.findbyId(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping
-	public ResponseEntity<ResponseDTO> createPriceManagement( @Valid @RequestBody PriceManagement priceManagement) {
-		return priceManagementService.createPriceManagement(priceManagement);
+	public ResponseEntity<ResponseDTO>  createPriceParking(@Valid @RequestBody PriceParking priceParking) {
+		return priceParkingService.createPriceParking(priceParking);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<ResponseDTO> updatePriceManagement(@PathVariable int id,
-																 @Valid @RequestBody PriceManagement priceManagement) {
-		return priceManagementService.updatePriceManagement(id, priceManagement);
+	public ResponseEntity<ResponseDTO>  updatePriceParking(@PathVariable int id,
+														  @Valid @RequestBody PriceParking priceParking) {
+		return priceParkingService.updatePriceParking(id, priceParking);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseDTO> deletePricemanagement(@PathVariable int id) {
-		return priceManagementService.deletePriceManagemet(id);
+	public ResponseEntity<ResponseDTO>  deletePriceParking(@PathVariable int id) {
+		return priceParkingService.deletePriceManagemet(id);
 	}
+
 }

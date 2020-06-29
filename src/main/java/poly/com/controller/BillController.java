@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/ui/bill")
-public class UIBillController {
+public class BillController {
 
 	 // return template page table hoa don
     @GetMapping()

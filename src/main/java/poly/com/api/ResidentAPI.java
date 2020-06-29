@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/resident")
-public class ResidentController {
+public class ResidentAPI {
     // < -------------------------------- Class Residential RestController ----------------------------->
     @Autowired
     ResidentService residentService;

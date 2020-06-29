@@ -19,7 +19,7 @@ import poly.com.service.PriceGarbageService;
 
 @RestController
 @RequestMapping("/api/price-garbage")
-public class PriceGarbageController {
+public class PriceGarbageAPI {
 	
 	// < ----------------------------------- Class PriceGarbage RestController  ---------------------------->
 	@Autowired

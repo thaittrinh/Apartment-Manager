@@ -16,7 +16,7 @@ import poly.com.service.RegulationService;
 
 @RestController
 @RequestMapping("/api/regulation")
-public class RegulationController {
+public class RegulationAPI {
 
 	@Autowired
 	RegulationService regulationService;

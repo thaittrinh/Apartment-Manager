@@ -7,18 +7,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import poly.com.repository.TypeVehicelRepository;
 
-@Controller
-@RequestMapping("/ui/price/vehicle")
-public class UIPriceParkingController {
 
+@Controller
+@RequestMapping("/ui/resdential")
+public class ResdentialController {
     @Autowired
     TypeVehicelRepository typeVehicelRepository;
-
+    // return template page table residential
     @GetMapping("")
-    public String pageTableXe(ModelMap model) {
-
+    public String pageTableCudan( ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
-        return "contents/quanly/bang-gia/table-phixe";
+        return "contents/quanly/cudan/table-Cudan";
+    }
+
+
+    @GetMapping("/vehicle")
+    public String pageTableXe( ModelMap model) {
+        model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
+        return "contents/quanly/cudan/table-xe";
     }
 
 
