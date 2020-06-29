@@ -14,48 +14,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import poly.com.dto.ResponseDTO;
-import poly.com.entity.PriceParking;
-import poly.com.service.PriceParkingService;
+import poly.com.entity.Apartment;
+import poly.com.service.ApartmentService;
 
 @RestController
-@RequestMapping("/api/price-parking")
-public class PriceParkingController {
+@RequestMapping("/api/apartment")
+public class ApartmentAPI {
 
-// < ----------------------------------- Class PriceParking RestController ---------------------------->
 	@Autowired
-	PriceParkingService priceParkingService;
-	// ------------------------------------------------
-	
+	ApartmentService apartmentService;
 	
 	// <------------------------- findAll --------------------------->
 	@GetMapping
-	public ResponseEntity<ResponseDTO>  findAll() {
-		return priceParkingService.findAll();
+	public ResponseEntity<ResponseDTO>findAll() {
+		
+		return apartmentService.findAll();
 	}
 
 	// < ----------------------- findById --------------------------->
 	@GetMapping("/{id}")
-	public ResponseEntity<ResponseDTO>  findbyId(@PathVariable int id) {
-		return priceParkingService.findbyId(id);
+	public ResponseEntity<ResponseDTO> findbyId(@PathVariable String id) {
+		return apartmentService.findById(id);
 	}
 
 	// < ------------------------ Create ----------------------------->
 	@PostMapping
-	public ResponseEntity<ResponseDTO>  createPriceParking(@Valid @RequestBody PriceParking priceParking) {
-		return priceParkingService.createPriceParking(priceParking);
+	public ResponseEntity<ResponseDTO> createPriceManagement( @Valid @RequestBody Apartment apartment) {
+		return apartmentService.createApartment(apartment);
 	}
 
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")
-	public ResponseEntity<ResponseDTO>  updatePriceParking(@PathVariable int id,
-														  @Valid @RequestBody PriceParking priceParking) {
-		return priceParkingService.updatePriceParking(id, priceParking);
+	public ResponseEntity<ResponseDTO> updatePriceManagement(@PathVariable String id,
+																 @Valid @RequestBody Apartment apartment) {
+		return apartmentService.updateApartment(id, apartment);
 	}
 
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ResponseDTO>  deletePriceParking(@PathVariable int id) {
-		return priceParkingService.deletePriceManagemet(id);
+	public ResponseEntity<ResponseDTO> deletePricemanagement(@PathVariable String id) {
+		return apartmentService.deleteApartment(id);
+	
 	}
-
 }

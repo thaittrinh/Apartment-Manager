@@ -18,7 +18,7 @@ import poly.com.service.ApartmentIndexService;
 
 @RestController
 @RequestMapping("/api/apartment-index")
-public class ApartmentIndexController {
+public class ApartmentIndexAPI {
 
 	@Autowired
 	ApartmentIndexService apartmentIndexService;

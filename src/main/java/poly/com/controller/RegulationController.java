@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/ui/regulation")
-public class UIRegulationController {
+public class RegulationController {
 	// return template page table thông báo  
     @GetMapping()
     public String pageRegulation() {

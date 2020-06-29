@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/ui/notification")
-public class UINotificationController {
+public class NotificationController {
 	
 	// return template page table thông báo  
     @GetMapping()

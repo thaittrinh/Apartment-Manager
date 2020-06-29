@@ -25,7 +25,7 @@ import poly.com.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api/employee")
-public class EmployeeController {
+public class EmployeeAPI {
 
     @Autowired
     EmployeeService employeeService;

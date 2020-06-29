@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/ui/own-apartment")
-public class UIOwnApartmetController {
+public class OwnApartmetController {
 
 	// return template page table chu can ho
 	@GetMapping()
