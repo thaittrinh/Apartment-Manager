@@ -114,7 +114,7 @@ document.querySelector('#save').addEventListener('click', () => {
 
 /*  ----------------- show form update ----------------*/
 let showFormUpdate = (id) => {
-    location.href = URL + `ui/quan-ly/nhan-vien/form/${id}`;
+    location.href = URL + `quan-ly/nhan-vien/${id}`;
 }
 
 //< ---------------- clean form when modal close ---------->

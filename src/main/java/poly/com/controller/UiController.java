@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ui/quan-ly")
+@RequestMapping("/quan-ly")
 public class UiController {
 
     // return template page admin
-    @RequestMapping()
+    @RequestMapping("/welcome")
     public String pageadmin() {
         return "layout-admin";
     }
@@ -29,13 +29,13 @@ public class UiController {
     }
 
     // return template page table thông báo
-    @GetMapping("/danh-sach-thong-bao")
+    @GetMapping("/thong-bao")
     public String pageNotification() {
         return "contents/quanly/thong-bao/thongbao";
     }
 
     // return template page form table thông báo
-    @GetMapping("/form/{id}")
+    @GetMapping("/thong-bao/{id}")
     public String pageFormNotification(@PathVariable int id, ModelMap model) {
         model.addAttribute("id", id);
         return "contents/quanly/thong-bao/form-thongbao";

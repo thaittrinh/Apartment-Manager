@@ -9,7 +9,7 @@ import poly.com.repository.TypeVehicelRepository;
 
 
 @Controller
-@RequestMapping("/ui/quan-ly")
+@RequestMapping("/quan-ly")
 public class ResdentialController {
     @Autowired
     TypeVehicelRepository typeVehicelRepository;
@@ -20,7 +20,7 @@ public class ResdentialController {
         return "contents/quanly/cudan/table-Cudan";
     }
 
-    @GetMapping("/xe-dang-ky-gui")
+    @GetMapping("/xe")
     public String pageTableXe( ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
         return "contents/quanly/cudan/table-xe";

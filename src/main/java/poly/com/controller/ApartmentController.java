@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ui/quan-ly/")
-public class CanHoController {
+@RequestMapping("/quan-ly/can-ho")
+public class ApartmentController {
     // return template page can ho
-    @RequestMapping("/can-ho")
+    @RequestMapping()
     public String pageCanho() {
         return "contents/quanly/can-ho/table-canho";
     }

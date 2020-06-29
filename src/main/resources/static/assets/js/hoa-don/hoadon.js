@@ -50,7 +50,7 @@ let table_bill = (data) => {
 
 
 let showFormUpdate = (id) => {
-	 location.href= URL + `ui/bill/${id}`;  
+	 location.href= URL + `quan-ly/hoa-don/${id}`;  
 }
 
 
