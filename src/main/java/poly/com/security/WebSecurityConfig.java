@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /* ------------------------------------ WebSecurityConfig -------------------------------- */
 
     @Autowired
-    EmployeeDetailService employeeDetailService;
+    UserDetailServiceImpl userDetailService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override /* ------------cung cap account cho spring security  -----------------*/
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(employeeDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -53,16 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override  /* --------------- configure HttpSecurity --------------- */
     protected void configure(HttpSecurity http) throws Exception {
+    //	http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400);
+    	
         http.csrf().disable();
         http.headers().cacheControl();                             // khong cho browser tu dong cache
         http.cors().and()
                 .authorizeRequests()
                 .antMatchers("/assets/**").permitAll()
-                // .antMatchers("/api/test/user").hasAnyRole("USER")
-                //.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
-                //.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
+                .antMatchers("/api/test/user").hasAnyRole("USER")
+                .antMatchers("/api/test/admin").hasAnyRole("ADMIN")
+                .antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
                 .anyRequest().authenticated().and()                // tat cac request khac  phai duoc xac thuc
-                .formLogin()                                      // cho phep nguoi dung xac thuc bang form login
+                .formLogin()                                       // cho phep nguoi dung xac thuc bang form login
                 .loginPage("/ui/login").permitAll()                // cho phep truy cap trang login
                 .loginProcessingUrl("/login")                      // url login
                 .usernameParameter("username")                     // username

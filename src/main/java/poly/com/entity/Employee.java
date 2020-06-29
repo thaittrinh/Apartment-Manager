@@ -83,7 +83,7 @@ public class Employee implements Serializable {
 	private String password;// no set size
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany()
 	@JoinTable(name = "user_roles",//user_roles bảng trung gian
 					joinColumns = @JoinColumn(name= "userId"),
 					inverseJoinColumns = @JoinColumn(name="roleId"))
