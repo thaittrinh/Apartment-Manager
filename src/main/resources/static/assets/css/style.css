@@ -227,3 +227,17 @@ a:hover{
 	margin-bottom: 15px;
 	color: red;
 }
+.remember-password{
+	font-size: 14px;
+	margin-left: 10px;
+	text-align: left !important;
+	margin-top: 15px !important;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.success-logout{
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	margin-top: 20px;
+	font-size: 16px;
+	margin-bottom: 15px;
+	color: #1c7430;
+}

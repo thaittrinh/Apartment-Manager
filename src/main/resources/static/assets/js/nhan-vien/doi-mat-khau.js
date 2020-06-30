@@ -3,13 +3,14 @@ document.querySelector('#changepassword').addEventListener('click', () => {
     var changepassword = getValueFormPassword();
     if (validateFormChangePassword(changepassword)) {
         Swal.fire({
-            title: 'Warning',
-            text: "Bạn có chắc chắn muốn đổi mật  không!",
+            title: 'Cảnh báo',
+            text: "Bạn có chắc chắn muốn đổi mật khẩu không!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#28a745',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Xác nhận đổi mật khẩu '
+            cancelButtonText: 'Hủy Bỏ',
+            confirmButtonText: 'Xác nhận '
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -22,6 +23,7 @@ document.querySelector('#changepassword').addEventListener('click', () => {
                     success: function (result) {
                         $('#form-change-password').modal('hide');
                         sweetalertSuccess(result.message)
+                        LogoutAfterChangePassword();
                     },
                     error: function (error) {
                         sweetalertError(error)
@@ -32,6 +34,31 @@ document.querySelector('#changepassword').addEventListener('click', () => {
     }
 });
 
+//  auto logout after when change pasword success
+function LogoutAfterChangePassword() {
+    let timerInterval
+    Swal.fire({
+        text: "Đang đăng xuất tài khoản !",
+        timer: 2000,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                    }
+                }
+            }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        document.getElementById("logout").click();
+    })
+}
 
 /* ----------------------Toggle Password ------------------- */
 function TogglePassword() {
@@ -76,7 +103,7 @@ document.querySelector('#clean-form-change-password').addEventListener('click', 
 
 /* --------------------- validate form  ---------------------------------  */
 let validateFormChangePassword = (data) => {
-
+    let password = document.querySelector('#Password').value
     let newPassword = document.querySelector('#newPassword').value
     let confirmPassword = document.querySelector('#confirmPassword').value
 
@@ -90,11 +117,17 @@ let validateFormChangePassword = (data) => {
         document.querySelector('#Password').focus();
         return false
     }
+    if (password === newPassword) {
+        toastrWarning('Bạn đã nhập mật khẩu cũ! hãy thử một mật khẩu khác ')
+        document.querySelector('#newPassword').focus();
+        return false
+    }
     if (data.newpassword === '') {
         toastrError('Chưa nhập mật khẩu mới')
         document.querySelector('#newPassword').focus();
         return false
     }
+
     let special = data.newpassword.match((/[!@#$%^&*_]+/g));
     if (special != null) {
         toastrError('Mật khẩu không được chứa ký tự đặc biệt');

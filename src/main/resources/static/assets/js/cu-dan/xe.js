@@ -51,12 +51,13 @@ let table_vihecle = (data) => {
 let deleteVehicle = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
-        text: "Bạn chắc chắn muốn xóa",
+        text: "Bạn chắc chắn muốn xóa Không!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
+        cancelButtonText: 'Hủy Bỏ',
+        confirmButtonText: 'Xác nhận'
     }).then((reslut) => {
         if (reslut.value) {
             $.ajax({
@@ -90,8 +91,10 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(vehicle),
                 success: function (result) {
-                    result.data.date = formatDate(result.data.date);  // Convert date to yy-MM-dd
-                    $('#table-vehicle').DataTable().row(index).data(result.data).draw();  //update the row in dataTable
+                    // Convert date to yy-MM-dd
+                    result.data.date = formatDate(result.data.date);
+                    //update the row in dataTable
+                    $('#table-vehicle').DataTable().row(index).data(result.data).draw();
                     $('#form-vehicle').modal('hide');     // close modal
                     sweetalertSuccess(result.message)
                 },
