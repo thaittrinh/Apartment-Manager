@@ -53,12 +53,13 @@ let table = (data) => {
 let deleteResident = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
-        text: "Bạn chắc chắn muốn xóa",
+        text: "Bạn có  chắc chắn muốn xóa không!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes'
+        cancelButtonText: 'Hủy Bỏ',
+        confirmButtonText: 'Xác nhận'
     }).then((reslut) => {
         if (reslut.value) {
             $.ajax({
