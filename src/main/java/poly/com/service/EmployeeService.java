@@ -108,7 +108,7 @@ public class EmployeeService {
                     employeeRequest.isGender(), employeeRequest.getBirthday(),
                     employeeRequest.getIdentitycard(), employeeRequest.getPhone(),
                     employeeRequest.getAddress(), employeeRequest.getEmail(),
-                    employeeRequest.getImage(), employeeRequest.getUsername(),
+                    employeeExists.getImage(), employeeRequest.getUsername(),
                     employeeRequest.getPassword(), null);
 
             // ----------------------------- Role ----------------------------->      
@@ -146,7 +146,7 @@ public class EmployeeService {
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
             fileHelper.deleteFile(employee.getImage());
             String fileName = fileHelper.saveFile(mfile, "admin" + id);
-            employee.setImage(fileName);
+            employee.setImage(fileName);            
             employee = employeeRepository.save(employee);
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPLOAD_FILE_SUCCSESS));
         } catch (Exception e) {
