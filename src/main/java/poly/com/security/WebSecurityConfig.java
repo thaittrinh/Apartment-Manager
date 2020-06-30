@@ -51,16 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override  /* --------------- configure HttpSecurity --------------- */
     protected void configure(HttpSecurity http) throws Exception {
-    	
     	http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400); 
-    	
-        http
-        	.csrf()
-        		  .disable();    
-        
-        http
-        	.headers()
-        		.cacheControl();                             // khong cho browser tu dong cache
+        http.csrf().disable();
+        http.headers().cacheControl();    // khong cho browser tu dong cache
        
         http
         	.cors()
@@ -78,15 +71,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.passwordParameter("password")                     // password
            		.defaultSuccessUrl("/quan-ly/welcome")                  // dang nhap thanh cong thi vao trang nay
            	.and()    
-           	.exceptionHandling().accessDeniedPage("/403")
+           		.exceptionHandling().accessDeniedPage("/403")
         	.and()
            	.logout()                                          // cho phep dang xuat
            		.invalidateHttpSession(true)                       // Hủy session của người dùng
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout
-           	.logoutSuccessUrl("/authentication/account/login").permitAll();        // dang xuat thanh cong ve trang login
-       
-        
+           		.logoutSuccessUrl("/authentication/account/login?logout").permitAll(); // dang xuat thanh cong ve trang login
+
+
     }
+       
+
 }

@@ -60,7 +60,8 @@ let deleteNotification = (id, e) => {
         text: "Bạn có chắc chắn muốn xóa không!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#28a745',
+        cancelButtonText: 'Hủy Bỏ',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then((result) => {
