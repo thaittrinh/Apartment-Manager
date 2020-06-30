@@ -54,7 +54,17 @@ public class EmployeeService {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+ 
+    public ResponseEntity<ResponseDTO> findByUsername(String username) {
+        try {
+            Employee employee = employeeRepository.findByUsername(username).orElse(null);
+            return ResponseEntity.ok(new ResponseDTO(employee, null));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+     
     // < ---------------------------------------- Insert --------------------------------------------->
     public ResponseEntity<ResponseDTO> insertEmployee(EmployeeRequest signUpRequest) {
         try {
@@ -148,7 +158,7 @@ public class EmployeeService {
             String fileName = fileHelper.saveFile(mfile, "admin" + id);
             employee.setImage(fileName);            
             employee = employeeRepository.save(employee);
-            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPLOAD_FILE_SUCCSESS));
+            return ResponseEntity.ok(new ResponseDTO(employee, MessageSuccess.UPLOAD_FILE_SUCCSESS));
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
