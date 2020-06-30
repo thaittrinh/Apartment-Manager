@@ -31,7 +31,7 @@ document.querySelector('#save').addEventListener('click', () => {
 	            cache: false,
 	            data: JSON.stringify(notification),
 	            success: function (result) {     		
-	            	location.href =URL + `ui/notification`; 		
+	            	location.href =URL + `quan-ly/thong-bao`; 		
 	            },
 	            error: function (error) {
 	            	sweetalert(error.status)
