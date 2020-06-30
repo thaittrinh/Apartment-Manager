@@ -56,7 +56,7 @@ let deleteVehicle = (id, e) => {
         showCancelButton: true,
         confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
-        cancelButtonText: 'Hủy Bỏ',
+        cancelButtonText: 'Hủy bỏ',
         confirmButtonText: 'Xác nhận'
     }).then((reslut) => {
         if (reslut.value) {
