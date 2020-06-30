@@ -30,6 +30,11 @@
 	          
 					</div>
 					<div style="margin: 0" class="float-right">
+							<a th:href="@{/quan-ly/hoa-don/export-pdf(id=${id})}">
+					            <button type="button" class="btn btn-sm btn-excel">
+					                <i class="fas fa-file-excel mr-1"></i> Export Pdf
+					            </button>
+				            </a>
 					 		 <button  type="button" class="btn btn-sm btn-danger" id="paid-false">
                                 <i class="fas fa-save mr-2"></i> Hủy thanh toán
                             </button>

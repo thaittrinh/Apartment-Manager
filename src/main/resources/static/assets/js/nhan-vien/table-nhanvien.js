@@ -237,7 +237,7 @@ let validate = (data) =>{
         document.querySelector('#password').focus();
         return false;
     }
-    let special = data.newpassword.match((/[!@#$%^&*_]+/g));
+    let special = data.password.match((/[!@#$%^&*_]+/g));
     if (special != null) {
         toastrError('Mật khẩu không được chứa ký tự đặc biệt');
         document.querySelector('#password').focus();
