@@ -58,7 +58,7 @@ let deleteApartment = (id,e) => {
         showCancelButton: true,
         confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
-        cancelButtonText: 'Hủy Bỏ',
+        cancelButtonText: 'Hủy bỏ',
         confirmButtonText: 'Xác nhận'
     }).then((result) => {
         if (result.value) {
@@ -83,6 +83,10 @@ let deleteApartment = (id,e) => {
 
 
 //< -------------------------------------------- INSERT  ------------------------------------->
+$.ajaxSetup({
+    headers:
+        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+});
 
 document.querySelector('#insert').addEventListener('click', () => {
     let data = getValueForm();

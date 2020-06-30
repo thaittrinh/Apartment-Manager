@@ -40,4 +40,8 @@ public class UiController {
         model.addAttribute("id", id);
         return "contents/quanly/thong-bao/form-thongbao";
     }
+    @GetMapping("/thong-tin-tai-khoan")
+    public  String pageFormAccount(){
+        return  "contents/quanly/nhan-vien/form-account";
+    }
 }

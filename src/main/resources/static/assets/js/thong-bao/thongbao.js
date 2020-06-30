@@ -61,7 +61,7 @@ let deleteNotification = (id, e) => {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#28a745',
-        cancelButtonText: 'Hủy Bỏ',
+        cancelButtonText: 'Hủy bỏ',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes'
     }).then((result) => {

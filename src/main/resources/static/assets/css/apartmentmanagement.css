@@ -857,3 +857,14 @@ a.dropdown-item:hover{
     background-color: rgb(34,116,70);
     color: white;
 }
+.btn-success{
+    background-color: #28a745 !important;
+}
+.btn-danger {
+    background-color: #d33333 !important;
+}
+
+.btn-primary{
+    background-color: #3c44b1 !important;
+}
+
