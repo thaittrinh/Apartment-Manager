@@ -7,7 +7,13 @@ let ID = document.getElementById("id").value;
 	        dataType: 'json',
 	        success: function (result) {
 	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
-	        	setValueForm(result.data.apartmentIndex)
+	        	document.getElementById("title-detail").innerHTML =  `<i class="fas fa-address-card mr-3"></i> Thông tin chi tiết hóa đơn căn hộ
+	        															${result.data.apartmentIndex.apartment.id}`;
+	        		        	
+	        	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);
+	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
+	        
+	        	setValueForm(result.data.apartmentIndex);
 	        	hiddenPayment(result.data.paid);
 	        },
 	        error: function (error) {
@@ -36,7 +42,7 @@ document.querySelector('#paid-false').addEventListener('click', () => {
 
 document.querySelector('#paid-true').addEventListener('click', () => {
 	 $.ajax({
-	        url: URL + `api/apartment-index/payment/${ID}?paid=true`,
+	        url: URL + `api/apartment-index/payment/${ID}?paid=true&&id_nv=${ID_NV}`,
 	        type: 'PUT',
 	        dataType: 'json',
 	        success: function (result) {   
@@ -64,6 +70,7 @@ document.querySelector('#save').addEventListener('click', () => {
 	            data: JSON.stringify(input),
 	            success: function (result) {
 	            	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
+	            	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);
 		        	setValueForm(result.data.apartmentIndex)
 		        	hiddenPayment(result.data.paid);
 	            	sweetalertSuccess(result.message);
@@ -76,6 +83,14 @@ document.querySelector('#save').addEventListener('click', () => {
     }
        
 });
+
+let getMonthYear = (data) => {
+	var date = new Date(data);
+	var month = date.getMonth() + 1; 
+	var year = date.getFullYear();
+	 
+	return  month + "/" + year;
+}
 
 
 let hiddenPayment = (chk) => {
@@ -93,7 +108,7 @@ let getValueForm = () => {
 	    "motocycleNumber": document.querySelector('#motocycleNumber').value,
 		"carNumber": document.querySelector('#carNumber').value,
 		"employee": {
-	        "id" : 1
+	        "id" : ID_NV
 	    } 
 	}
 
@@ -102,7 +117,7 @@ let getValueForm = () => {
 let setValueForm = (data) => {
 		document.querySelector('#electricityNumber').value = data.newElectricityNumber;
 	    document.querySelector('#waterNumber').value = data.newWaterNumber;
-		document.querySelector('#date').value = data.date; // fortmat date khi update lên lại kiểu khác
+		document.querySelector('#date').value =  formatDate(data.date);
 	    document.querySelector('#bicycleNumber').value = data.bicycleNumber;	
 	    document.querySelector('#motocycleNumber').value = data.motocycleNumber;
 		document.querySelector('#carNumber').value = data.carNumber;

@@ -65,4 +65,5 @@ public class ApartmentIndex implements Serializable {
 	@JoinColumn(name = "id_employee", referencedColumnName = "id")
 	private Employee employee;
 	
+	
 }

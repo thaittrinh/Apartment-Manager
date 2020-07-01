@@ -16,6 +16,7 @@ import poly.com.dto.ApartmentBillDTO;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.ApartmentIndex;
 import poly.com.entity.Bill;
+import poly.com.entity.Employee;
 import poly.com.entity.PriceElectricity;
 import poly.com.entity.PriceGarbage;
 import poly.com.entity.PriceManagement;
@@ -404,14 +405,22 @@ public class ApartmentIndexService {
 	
 	
 
-	public ResponseEntity<ResponseDTO> payment(int id, boolean paid) {
+	public ResponseEntity<ResponseDTO> payment(int id, boolean paid, int id_nv) {
 		try {
 		Bill bill = billRepository.findById(id).orElse(null);
 		if (bill == null) 		
 			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_BILL), HttpStatus.NOT_FOUND);				
 			
+		ApartmentIndex apartmentIndex = apartmentIndexRepository.findById(id).orElse(null);
+		Employee employee = new Employee();
+			
+		apartmentIndex.setEmployee(employee);
+		employee.setId(id_nv);	
+		
 		bill.setPaid(paid);
-		billRepository.save(bill);		
+		billRepository.save(bill);	
+		apartmentIndexRepository.save(apartmentIndex);
+		
 			return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPDATE_SUCCSESS));
 		} catch (Exception e) {
 			

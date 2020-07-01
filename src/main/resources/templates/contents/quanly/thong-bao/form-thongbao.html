@@ -20,20 +20,31 @@
                     <div class="row">
                         <input type="number" id="id" hidden="true" th:value="${id}"/>
                         <!------------------------------ Title------------------------------------>
-                        <div class="input-container col-sm-7" style="padding:0;">
+                        <div class="input-container col-sm-8" style="padding:0;">
                             <input type="text" required="required" name="title" id="title"
-                                   style="width:100%;"/> <label for="title">Title</label>
+                                   style="width:100%;"/> <label for="title">Tiêu đề</label>
                         </div>
                         <!-------------------------------- Ngay ------------------------------------>
                         <div class="input-container col-sm-3" style="padding:0;">
                             <input type="date" required="required" name="date" id="date"
-                                   style="width:100%;"/> <label for="date">Ngày</label>
+                                   style="width:240px;"/> <label for="date">Ngày</label>
                         </div>
                     </div>
-                    <div class="input-container col-sm-3" style="padding:0;">
-                        <input type="text" required="required" name="image" id="image"
+                    <div class="row">
+                    	<div class="input-container col-sm-11" style="padding:0;">
+                        	<input type="text" required="required" name="image" id="image"
                                style="width:100%;"/> <label for="image">Hình ảnh</label>
+                   		 </div>
                     </div>
+                     <div class="row" >                       
+                           <div class="input-container col-sm-11" style="padding:0;">
+							<textarea  id="description" name="description"
+                                    style="width:100%;" required rows="3"></textarea>
+                               <label for="note">Mô tả ngắn</label>
+                           </div>
+                    </div>
+                    
+                    
                     <!---------------------------- End row ----------------------->
                     <br/>
                     <label>Nội dung</label>

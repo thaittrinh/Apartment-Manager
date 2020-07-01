@@ -180,7 +180,7 @@ let getValueForm = () => {
         'price': document.querySelector('#price').value.trim(),
         'date': document.querySelector('#date').value.trim(),
         'employee': {
-            'id': 1
+            'id': ID_NV
         },
         'note': document.querySelector('#note').value.trim()
     }

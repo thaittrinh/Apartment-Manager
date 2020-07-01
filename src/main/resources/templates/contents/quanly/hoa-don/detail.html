@@ -14,7 +14,7 @@
                 <!-- --------------------------------- card title form ---------------------->
                 <div class="card-header" style="border-radius: 6px">
                     <div class="card-titles">
-                        <h6 style="color: white">
+                        <h6 style="color: white" id="title-detail">
                             <i class="fas fa-address-card mr-3"></i> Thông tin chi tiết hóa đơn căn hộ NEW
                         </h6>
                     </div>
@@ -22,7 +22,7 @@
                 <!-- ---------------------------------- card body form   table-borderless-------------------------->
                 <div class="card-body" style="padding: 30px 0;">
 						
-				    <em style="float:right;">06/2020</em>
+				    <em style="float:right;" id="date-detail">06/2020</em>
 					<br/>
 					<input id="id" type="text" hidden = "true"  th:value="${id}">
 					<div id="content-detail">

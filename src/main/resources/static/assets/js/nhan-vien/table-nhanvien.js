@@ -53,7 +53,12 @@ let table = (data) => {
             },
             {
                 "mRender": function (data, type, full) {
-                    return `<i  class="material-icons icon-table icon-delete " onclick='deleteEmployee(${full.id},this)' type="button">delete</i>`
+                	if(full.id === ID_NV){
+                		 return ''
+                	}else{
+                		 return `<i  class="material-icons icon-table icon-delete " onclick='deleteEmployee(${full.id},this)' type="button">delete</i>`
+                	}
+                   
                 }
             }
         ]

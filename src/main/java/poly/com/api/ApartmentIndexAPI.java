@@ -1,5 +1,7 @@
 package poly.com.api;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,21 +38,23 @@ public class ApartmentIndexAPI {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ResponseDTO> create(@RequestBody CreateIndexRequest request){
+	public ResponseEntity<ResponseDTO> create(@Valid @RequestBody CreateIndexRequest request){
 		
 		return  apartmentIndexService.create(request );
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<ResponseDTO> payment(@PathVariable int id, @RequestBody UpdateIndexRequest request) {		
+	public ResponseEntity<ResponseDTO> payment(@PathVariable int id, @Valid @RequestBody UpdateIndexRequest request) {		
 	
 		return	apartmentIndexService.update(id, request);
 	}
 	
 	@PutMapping("/payment/{id}")
-	public ResponseEntity<ResponseDTO> payment(@PathVariable int id, @RequestParam boolean paid) {		
+	public ResponseEntity<ResponseDTO> payment(@PathVariable int id,
+												@RequestParam("paid") boolean paid,
+												@RequestParam("id_nv") int id_nv) {		
 	
-		return	apartmentIndexService.payment(id, paid);
+		return	apartmentIndexService.payment(id, paid, id_nv);
 	}
 	
 }

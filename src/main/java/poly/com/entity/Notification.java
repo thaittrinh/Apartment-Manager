@@ -19,12 +19,17 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Title is not null")
     private String title;
 
+    
     @Column(length = 10000)
-    @NotNull
+    @NotNull(message = "Content is not null")
     private String content;
+    
+    @NotNull(message = "Description is not null")
+    @Column(length = 1000)
+    private String description;
 
     private String image;
 
