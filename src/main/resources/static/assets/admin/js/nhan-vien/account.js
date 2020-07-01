@@ -77,7 +77,7 @@ let fillToForm = (data) => {
     document.querySelector('#address').value = data.address;
     document.querySelector('#identitycard').value = data.identitycard;
     document.querySelector('#phone').value = data.phone;
-    document.querySelector('#username').value = data.username;
+    document.querySelector('#username').value = "Username" + data.username;
     document.querySelector('#email').innerHTML = "Email: " +  data.email;
     document.querySelector('#gender').innerHTML =  "Giới tính: "  +   ( data.gender ?  "Nam" : "Nữ" ) ;
    

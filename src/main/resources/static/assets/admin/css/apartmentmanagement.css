@@ -867,4 +867,9 @@ a.dropdown-item:hover{
 .btn-primary{
     background-color: #3c44b1 !important;
 }
+.btn-logout:focus{
+    color: #0b2e13 !important;
+    border: none !important;
+    outline: none !important;
+}
 

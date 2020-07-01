@@ -1,24 +1,27 @@
 <div lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
      data-layout-decorate="~{/layout-admin}">
     <!-------------------------------------------------------------------------------------------->
     <div layout:fragment="content">
-        
+        <div class="row" style="margin-top: -45px">
+            <a class="title mt-3"> Thông tin tài khoản </a>
+            <div th:replace="components/header"></div>
+        </div>
         <div class="row">
             <div class="card ml-5" style="width: 350px;margin-left: 30px; padding: 0;">
                 <!------------------------------------ hÃƒÂ¬nh Ã¡ÂºÂ£nh  ---------------------------------->
-                
+
                 <a class="img" style="margin-top: 30px">
                     <img style="width: 200px;height: 200px;" class="rounded-circle mx-auto d-block" id="imgs"
                          th:src="@{/assets/photo/admin1.jpeg}">
                 </a>
-                
+
                 <div class="card-title-name">
-                    <i class="fas fa-camera" style="font-size: 24px;" onclick="document.querySelector('#file').click()"></i>
-                    <h5 >Tên đăng nhập </h5>
-                    <i class="fas fa-pencil-alt"></i><span id="username" sec:authentication="name"> </span>
-                    <h6 style="margin-left: 5px" id="email">  </h6> <!-- email -->
-                    <h6 id="gender" >  </h6><!-- Giới tính: nam -->
+                    <i class="fas fa-camera" style="font-size: 24px;"
+                       onclick="document.querySelector('#file').click()"></i>
+                    <i class="fas fa-pencil-alt"></i><h5     id="username" sec:authentication="name"> </h5>
+                    <h6 style="margin-left: 5px" id="email"></h6> <!-- email -->
+                    <h6 id="gender"></h6><!-- Giới tính: nam -->
                 </div>
                 <form id="file-upload-form">
                     <button type="submit" id="upload-now" hidden="true">Start
@@ -27,7 +30,7 @@
                     <input type="file" hidden="true" name="file" id="file" onchange="readURL(this);" accept="image/*">
                 </form>
                 <!------------------------------------------------>
-               
+
                 <div class="card-body-information"></div>
             </div>
             <div class="card ml-5" style="width: 500px">
@@ -41,60 +44,45 @@
                 <div class="card-body">
                     <div class="login-content">
                         <form>
-                            <div class="input-div one">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="div ">
-                                    <h5>Họ tên</h5>
-                                    <input type="text" class="input" name="id" id="id" hidden="true">
-                                    <input type="text"  readonly class="input" name="nam" id="name">
-                                </div>
+                            <input type="number" id="id" hidden="true" required="required"/>
+                            <!------------------------- Họ tên------------------------------->
+                            <div class="input-container " style="padding: 0;">
+                                <input type="text" required="required" name="fullName"
+                                       id="name" style="width: 100%"/>
+                                <label for="name">Họ tên</label>
                             </div>
-                            <div class="input-div one ">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="div ">
-                                    <h5>Ngày sinh </h5>
-                                    <input type="text" readonly class="input" name="birthday" id="birthday">
-                                </div>
+                            <!------------------------ NgÃƒÂ y Sinh ------------------------------>
+                            <div class="input-container -" style="padding: 0;">
+                                <input type="date" required="required" name="birthday" id="birthday"
+                                       style="width: 100%">
+                                <label for="birthday">Ngày sinh</label>
                             </div>
-                            <div class="input-div one ">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="div ">
-                                    <h5>Địa chỉ</h5>
-                                    <input type="text" readonly class="input" name="address" id="address">
-                                </div>
+                            <!----------------------------- Dia chi  ---------------------------->
+                            <div class="input-container -" style="padding: 0;">
+                                <input type="text" required="required" name="address"
+                                       id="address" style="width: 100%"/>
+                                <label for="address">Địa chỉ</label>
                             </div>
-                            <div class="input-div one ">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="div ">
-                                    <h5>Số chứng minh</h5>
-                                    <input type="text" readonly class="input" name="identitycard" id="identitycard">
-                                </div>
+                            <!----------------------------- CMND ------------------------------>
+                            <div class="input-container -" style="padding: 0;">
+                                <input type="text" required name="identitycard"
+                                       id="identitycard" style="width: 100%">
+                                <label for="identitycard">Số chứng minh</label>
                             </div>
-                            <div class="input-div one ">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="div ">
-                                    <h5>Số điện thoại</h5>
-                                    <input type="text" readonly class="input" name="phone" id="phone" value="">
-                                </div>
+
+                            <!------------------------------ Ã„ï¿½iÃ¡Â»â€¡n ThoÃ¡ÂºÂ¡i ------------------------>
+                            <div class="input-container" style="padding: 0;">
+                                <input type="text" required="required" name="phone" id="phone"
+                                       style="width: 100%"/>
+                                <label for="phone">Số điện thoại</label>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
-        <script type="text/javascript" th:src="@{/assets/js/nhan-vien/account.js}"></script>
-        
+        <script type="text/javascript" th:src="@{/assets/admin/js/nhan-vien/account.js}"></script>
+
     </div>
 
     <!------------------------------------------------------- end div content --------------------------------------------->
