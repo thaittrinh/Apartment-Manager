@@ -30,8 +30,8 @@
                             <!------------------------- Họ tên ------------------------------->
                             <div class="input-container col-sm-4" style="padding: 0;">
                                 <input type="text" required="required" name="fullName"
-                                       id="fullName" style="width: 100%"/> <label for="fullName">Họ
-                                tên</label>
+                                       id="fullName" style="width: 100%"/>
+                                <label for="fullName">Họ tên</label>
                             </div>
 
                             <!------------------------ Ngày sinh ------------------------------>
@@ -120,9 +120,9 @@
                         <div style="float: right;">
                             <div style="margin: 33px 0 0 0" class="float-right">
                                 <button style="width: 115px" type="button" class="btn btn-sm btn-success" id="save">
-                                    <i class="fas fa-save mr-2"></i> Lưu Lại
+                                    <i class="fas fa-save mr-2"></i> Lưu lại
                                 </button>
-                                <a th:href="@{/ui/employee}">
+                                <a th:href="@{/quan-ly/nhan-vien}">
                                     <button style="width: 115px" type="button" class="btn btn-sm btn-warning"
                                             data-toggle="modal" data-target="#modal-vehicel">
                                         <i class="fas fa-sign-out-alt mr-2"></i> Thoát
@@ -138,7 +138,7 @@
                  style="width: 200px; height: 356px; margin-left: 30px; padding: 0;">
                 <!------------------------------------ hÃ¬nh áº£nh  ---------------------------------->
                 <a class="img" style="margin-top: 15px">
-                    <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/photo/someone.png}">
+                    <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/admin/photo/someone.png}">
                 </a>
                 <form id="file-upload-form">
                     <button type="submit" id="upload-now" hidden="true">Start
@@ -155,7 +155,7 @@
                 <div class="card-body-information"></div>
             </div>
         </div>
-        <script th:src="@{/assets/js/nhan-vien/update.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/admin/js/nhan-vien/update.js}" type="text/javascript"></script>
     </div>
 </div>
 

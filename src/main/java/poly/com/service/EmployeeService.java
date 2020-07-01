@@ -1,8 +1,5 @@
-package poly.com.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package poly.com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
@@ -21,6 +17,11 @@ import poly.com.helper.FileHelper;
 import poly.com.repository.EmployeeRepository;
 import poly.com.repository.RoleRepository;
 import poly.com.request.EmployeeRequest;
+import poly.com.security.request.ChangePasswordRequest;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeService {
@@ -53,7 +54,17 @@ public class EmployeeService {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+ 
+    public ResponseEntity<ResponseDTO> findByUsername(String username) {
+        try {
+            Employee employee = employeeRepository.findByUsername(username).orElse(null);
+            return ResponseEntity.ok(new ResponseDTO(employee, null));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+     
     // < ---------------------------------------- Insert --------------------------------------------->
     public ResponseEntity<ResponseDTO> insertEmployee(EmployeeRequest signUpRequest) {
         try {
@@ -107,7 +118,7 @@ public class EmployeeService {
                     employeeRequest.isGender(), employeeRequest.getBirthday(),
                     employeeRequest.getIdentitycard(), employeeRequest.getPhone(),
                     employeeRequest.getAddress(), employeeRequest.getEmail(),
-                    employeeRequest.getImage(), employeeRequest.getUsername(),
+                    employeeExists.getImage(), employeeRequest.getUsername(),
                     employeeRequest.getPassword(), null);
 
             // ----------------------------- Role ----------------------------->      
@@ -145,9 +156,9 @@ public class EmployeeService {
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
             fileHelper.deleteFile(employee.getImage());
             String fileName = fileHelper.saveFile(mfile, "admin" + id);
-            employee.setImage(fileName);
+            employee.setImage(fileName);            
             employee = employeeRepository.save(employee);
-            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPLOAD_FILE_SUCCSESS));
+            return ResponseEntity.ok(new ResponseDTO(employee, MessageSuccess.UPLOAD_FILE_SUCCSESS));
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -204,5 +215,30 @@ public class EmployeeService {
             });
             return roles;
         }
+    }
+
+    /*------------------------------------------  change password -------------------------------------*/
+    public ResponseEntity<ResponseDTO> changepassword(ChangePasswordRequest passwordRequest) {
+        try {
+            Employee employee = employeeRepository.findById(passwordRequest.getId()).orElse(null);
+            if (employee == null)
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
+            String oldPassword = passwordRequest.getPassword();
+            String dbPassword = employee.getPassword();
+            if (passwordEncoder.matches(oldPassword, dbPassword)) {
+                employee.setPassword(passwordEncoder.encode(passwordRequest.getNewpassword()));
+                employee = employeeRepository.save(employee);
+                return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPDATE_PASSWORD_SUCCSESS));
+            } else {
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE_PASSWORD), HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        /* oldPassword nhận password của client truyền về server ( không mã hóa )
+         * dbPassword lấy password từ database ( đã mã hóa )
+         * passwordEncoder.matches(Boolean) so sánh 2 chuỗi  oldpassword với dbpassword
+         * nếu kết quả passwordEncoder.matches là true  thì mã hóa  lại mật khẩu mới và lưu vào database
+         * nếu kết quả passwordEncoder.matches là fale thì trả về status code 404 ,mật khẩu cũ không đúng */
     }
 }

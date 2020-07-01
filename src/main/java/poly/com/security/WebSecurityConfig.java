@@ -1,75 +1,87 @@
-
 package poly.com.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import poly.com.security.jwt.AuthEntryPointJwt;
-import poly.com.security.jwt.AuthTokenFilter;
-import poly.com.security.service.AccountDetailsServiceImpl;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(//cung cấp bảo mật AOP trên các phương thức gồm 3 cái ở dưới
-		// securedEnabled = true,
-		// jsr250Enabled = true,
-		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	AccountDetailsServiceImpl accountDetailsService;
+    /* ------------------------------------ WebSecurityConfig -------------------------------- */
 
-	@Autowired //Class define a filter that executes once per request
-	private AuthEntryPointJwt unauthorizedHandler;
+    @Autowired
+   UserDetailServiceImpl userDetailService;
 
-	@Bean
-	public AuthTokenFilter authenticationJwtTokenFilter() {
-		return new AuthTokenFilter();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    /* ----------------------------------------------------------------------- */
 
-	@Override
-	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(accountDetailsService).passwordEncoder(passwordEncoder());
-	}
+    @Override /* ------------cung cap account cho spring security  -----------------*/
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+    }
 
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean /*  ------------------ config CorsOrigin ---------------------- */
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin("http://localhost:8081"); /* chi cho phep domain nay gui request*/
+        configuration.addAllowedHeader("*");
+        /* cho phep cac request method gui request len server */
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/assets/**" ).permitAll()
-			.antMatchers("/trang-chu/**").permitAll()
-			.antMatchers("/api/auth/signin").permitAll()
-			.antMatchers("/api/auth/signup").permitAll()
-			.antMatchers("/ui/**").permitAll()
-			.antMatchers("/api/**").permitAll()
-			//.antMatchers("/api/test/all/**").permitAll()
-		   // .antMatchers("/api/test/user").hasAnyRole("USER")
-			//.antMatchers("/api/test/admin").hasAnyRole("ADMIN")
-			//.antMatchers("/api/test/mod").hasAnyRole("MODERATOR")
-			.anyRequest().authenticated();
-		//lọc trước
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
+    @Override  /* --------------- configure HttpSecurity --------------- */
+    protected void configure(HttpSecurity http) throws Exception {
+    	http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400); 
+        http.csrf().disable();
+        http.headers().cacheControl();    // khong cho browser tu dong cache
+       
+        http
+        	.cors()
+        	.and()
+        	.authorizeRequests()
+        	.antMatchers("/assets/**").permitAll()
+            .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER","MODERATOR")
+            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
+            .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("MODERATOR")
+        	.anyRequest().authenticated().and()                // tat cac request khac  phai duoc xac thuc
+        	.formLogin()                                       // cho phep nguoi dung xac thuc bang form login
+           		.loginPage("/authentication/account/login").permitAll()// cho phep truy cap trang login
+           		.loginProcessingUrl("/login")                      // url login
+           		.usernameParameter("username")                     // username
+           		.passwordParameter("password")                     // password
+           		.defaultSuccessUrl("/quan-ly/welcome")                  // dang nhap thanh cong thi vao trang nay
+           	.and()    
+           		.exceptionHandling().accessDeniedPage("/403")
+        	.and()
+           	.logout()                                          // cho phep dang xuat
+           		.invalidateHttpSession(true)                       // Hủy session của người dùng
+           		.clearAuthentication(true)                         //-------------------
+           		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
+           		.logoutUrl("/logout")                              //  url logout
+           		.logoutSuccessUrl("/authentication/account/login?logout").permitAll(); // dang xuat thanh cong ve trang login
+
+
+    }
+       
+
 }

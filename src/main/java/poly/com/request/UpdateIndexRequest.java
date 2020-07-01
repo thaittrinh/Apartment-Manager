@@ -2,6 +2,8 @@ package poly.com.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +15,13 @@ import poly.com.entity.Employee;
 @Setter
 public class UpdateIndexRequest extends CreateIndexRequest {
 	
+	@NotBlank(message = "Bicycle number is not null!")
 	private int bicycleNumber;
 	
+	@NotBlank(message = "Motocycle number is not null!")
 	private int motocycleNumber;
 	
+	@NotBlank(message = "Car number is not null!")
 	private int carNumber;
 	
 	@Builder

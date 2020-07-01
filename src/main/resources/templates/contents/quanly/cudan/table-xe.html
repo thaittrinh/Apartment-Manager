@@ -4,10 +4,10 @@ data-layout-decorate="~{/layout-admin}">
 <div layout:fragment="content">
     <!-------------------- Header--------------->
     <div class="row" style="margin-top: -45px">
-        <a class="title mt-3"> Quản Lý Xe Đăng Ký Gửi</a>
+        <a class="title mt-3">Quản lý xe đăng ký gửi</a>
         <div th:replace="components/header"></div>
     </div>
-    <!-------------------------------------- Danh sách xe----------------------------->
+    <!-------------------------------------- Danh sÃ¡ch xe----------------------------->
     <div class="card"  >
         <!-------------------------- card title table --------------->
         <div class="card-header" style="border-radius: 6px;">
@@ -16,7 +16,7 @@ data-layout-decorate="~{/layout-admin}">
                 <i class="fas fa-bicycle mr-1"></i>
                 <i class="fas fa-motorcycle mr-1"></i>
                 <i class="fas fa-car mr-3"></i>
-                 Danh sách Xe Đăng ký Gửi </h6>
+                 Danh sách xe đăng ký gửi </h6>
             </div>
         </div>
         <!------------------------------------------------------------->
@@ -25,14 +25,14 @@ data-layout-decorate="~{/layout-admin}">
             <table class="table  table-condensed table-responsive-xl table-striped" id="table-vehicle">
                 <thead>
                 <tr>
-                    <th> ID</th>
-                    <th>Biển Số Xe</th>
-                    <th> Màu xe</th>
-                   <th>Ngày Đăng Ký</th>
-                    <th>Chủ Sỡ Hữu</th>
-                    <th>Loại Xe</th>
-                    <th> Cập Nhật</th>
-                    <th> Xóa</th>
+                    <th>Id</th>
+                    <th>Biển số xe</th>
+                    <th>Màu xe</th>
+                   <th>Ngày đăng ký</th>
+                    <th>Id cư dân</th>
+                    <th>Loại xe</th>
+                    <th>Cập nhật</th>
+                    <th>Xóa</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,7 +53,7 @@ data-layout-decorate="~{/layout-admin}">
                         <i class="fas fa-bicycle mr-1"></i>
                         <i class="fas fa-motorcycle mr-1"></i>
                         <i class="fas fa-car mr-3"></i>
-                        Thông Tin Xe của cư dân </h5>
+                       Cập nhật thông tin </h5>
                     <i class="material-icons " data-dismiss="modal">close</i>
                 </div>
                 <!------------------- body-modal ---------------->
@@ -80,17 +80,17 @@ data-layout-decorate="~{/layout-admin}">
                                 <input type="text" required="required" name="color" id="color" style="width:106px"/>
                                 <label for="color">Màu</label>
                             </div>
-                            <!------------------------ Ngày Sinh ---------------------------->
+                            <!------------------------ NgÃ y Sinh ---------------------------->
                             <div class="input-container">
                                 <input type="date" required="required" name="date" id="date"
                                        style="width:210px">
                                 <label for="date">Ngày đăng ký</label>
                             </div>
-                            <!------------------- id cư dan ------------>
+                            <!------------------- id cÆ° dan ------------>
                             <div class="input-container">
                                 <input type="text" required="required" name="idResident" id="idResident"
                                        style="width:120px"/>
-                                <label for="idResident">ID cư dân</label>
+                                <label for="idResident">Id cư dân</label>
                             </div>
                             <!---------------------------------------->
                         </div>
@@ -99,16 +99,16 @@ data-layout-decorate="~{/layout-admin}">
                 </div>
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="save-vehicle">
-                        <i class="fas fa-save mr-2"></i> Lưu Lại
+                    <button type="button" class="btn btn-sm btn-success" id="save-vehicle">
+                        <i class="fas fa-save mr-2"></i> Lưu lại
                     </button>
-                    <button type="button" class="btn btn-danger" id="clean-form-vehicle">
-                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
+                    <button type="button" class="btn btn-sm btn-danger" id="clean-form-vehicle">
+                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm mới
                     </button>
                 </div>
                 <!------------------------------------------------->
             </div>
         </div>
     </div>
-    <script th:src="@{/assets/js/cu-dan/xe.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/admin/js/cu-dan/xe.js}" type="text/javascript"></script>
 </div>

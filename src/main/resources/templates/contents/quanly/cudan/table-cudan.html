@@ -45,11 +45,15 @@
                     data-target="#form-vehicle">
                 <i class="fas fa-motorcycle mr-1 ml-0"></i> Đăng ký xe gửi
             </button>
-            <a th:href="@{/api/resident/export-excel}">
-            <button type="button" class="btn btn-sm btn-excel">
+            <a  hidden th:href="@{/api/resident/export-excel}">
+            <button id="export" type="button" class="btn btn-sm btn-excel">
                 <i class="fas fa-file-excel mr-1"></i> Excel
             </button>
             </a>
+                <button onclick="exportexcel()" type="button" class="btn btn-sm btn-excel">
+                    <i class="fas fa-file-excel mr-1"></i> Excel
+                </button>
+
         </div>
 
     </div>
@@ -210,17 +214,17 @@
                 <!------------------ footer-modal ----------------->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-success" id="save-vehicle">
-                        <i class="fas fa-save mr-2"></i> Lưu Lại
+                        <i class="fas fa-save mr-2"></i> Lưu lại
                     </button>
                     <button type="button" class="btn btn-sm btn-danger" id="clean-form-vehicle">
-                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
+                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm mới
                     </button>
                 </div>
                 <!------------------------------------------------->
             </div>
         </div>
     </div>
-    <script th:src="@{/assets/js/cu-dan/cudan.js}" type="text/javascript"></script>
-    <script th:src="@{/assets/js/cu-dan/xe.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/admin/js/cu-dan/cudan.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/admin/js/cu-dan/xe.js}" type="text/javascript"></script>
 </div>
 <!------------------------------------------------------- end div content --------------------------------------------->

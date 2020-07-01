@@ -27,14 +27,14 @@ public class Apartment implements Serializable {
 	@Column(length = 8, unique = true)
 	private String id;
 	
-	@NotNull
-	@Column(length = 8)
+	@NotNull(message = "Password is not null") 
+	@Column(length = 120)
 	private String password;
 	
-	@NotNull
+	@NotNull(message = "Acreage is not null") 
 	private Integer acreage;
 	
-	@NotNull
+	@NotNull(message = "Location is not null") 
 	@Column(length = 50)
 	private String location;
 	

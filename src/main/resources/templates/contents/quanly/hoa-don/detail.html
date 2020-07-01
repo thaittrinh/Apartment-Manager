@@ -14,7 +14,7 @@
                 <!-- --------------------------------- card title form ---------------------->
                 <div class="card-header" style="border-radius: 6px">
                     <div class="card-titles">
-                        <h6 style="color: white">
+                        <h6 style="color: white" id="title-detail">
                             <i class="fas fa-address-card mr-3"></i> Thông tin chi tiết hóa đơn căn hộ NEW
                         </h6>
                     </div>
@@ -22,7 +22,7 @@
                 <!-- ---------------------------------- card body form   table-borderless-------------------------->
                 <div class="card-body" style="padding: 30px 0;">
 						
-				    <em style="float:right;">06/2020</em>
+				    <em style="float:right;" id="date-detail">06/2020</em>
 					<br/>
 					<input id="id" type="text" hidden = "true"  th:value="${id}">
 					<div id="content-detail">
@@ -30,6 +30,11 @@
 	          
 					</div>
 					<div style="margin: 0" class="float-right">
+							<a th:href="@{/quan-ly/hoa-don/export-pdf(id=${id})}">
+					            <button type="button" class="btn btn-sm btn-excel">
+					                <i class="fas fa-file-excel mr-1"></i> Export Pdf
+					            </button>
+				            </a>
 					 		 <button  type="button" class="btn btn-sm btn-danger" id="paid-false">
                                 <i class="fas fa-save mr-2"></i> Hủy thanh toán
                             </button>
@@ -40,7 +45,7 @@
                             data-toggle="modal" data-target="#form-building">
                                 <i class="fas fa-save mr-2"></i> Cập nhật
                             </button>
-                            <a th:href="@{/ui/bill}">
+                            <a th:href="@{/quan-ly/hoa-don}">
                                 <button style="width: 115px" type="button" class="btn btn-sm btn-warning"
                                         data-toggle="modal" data-target="#modal-vehicel">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Thoát
@@ -108,17 +113,17 @@
 				<!----------------------------------------- footer-modal -------------------------------------->
 				<div class="modal-footer">
 					<button style="width: 115px" type="button" class="btn btn-sm btn-success" id="save">
-						<i class="fas fa-save mr-2"></i> Lưu Lại
+						<i class="fas fa-save mr-2"></i> Lưu lại
 					</button>
 					<button style="width: 115px" type="button" class="btn btn-sm btn-danger" id="clean-form">
-						<i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm Mới
+						<i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm mới
 					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
- 	<script th:src="@{/assets/js/hoa-don/view-detail.js}" type="text/javascript"></script>
-    <script th:src="@{/assets/js/hoa-don/detail.js}" type="text/javascript"></script>
+ 	<script th:src="@{/assets/admin/js/hoa-don/view-detail.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/admin/js/hoa-don/detail.js}" type="text/javascript"></script>
 </div>
 </div>
