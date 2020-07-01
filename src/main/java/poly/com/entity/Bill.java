@@ -1,5 +1,7 @@
 package poly.com.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bill {
+public class Bill implements Serializable {
+
+	private static final long serialVersionUID = 8913859421655009503L;
 
 	@Id
 	@Column(name = "id")	

@@ -1,6 +1,8 @@
 <!-- ---------------------------------- Sidenavbar ------------------------- -->
-<nav id="sidebar" style="  box-shadow: 5px 0 5px -5px #333;" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<nav id="sidebar" style="  box-shadow: 5px 0 5px -5px #333;"  xmlns:th="http://www.thymeleaf.org"
+							 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+							 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<span id="username_sidenavbar" sec:authentication="name" hidden="true" > </span>
     <div class="p-4">
         <div class="custom-menu">
             <button type="button" id="sidebarCollapse" class="btn btn-primary">
@@ -149,6 +151,11 @@
                             Liên Hệ
                         </a>
                     </li>
+                     <li>
+                        <a th:href="@{/quan-ly/lien-he}">
+                           Email
+                        </a>
+                    </li>
                     <!---------------------------->
                 </ul>
             </li>
@@ -164,5 +171,6 @@
             </p>
         </div>
         <!-------------------------------------------------------------------------------->
+        <script th:src="@{/assets/js/helper/authentication.js}" type="text/javascript"></script>
     </div>
 </nav>

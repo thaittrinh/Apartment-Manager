@@ -14,7 +14,6 @@
 })()
 
 
-
 let table_bill = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
@@ -102,7 +101,7 @@ let getValueFormInsert = () => {
 		"warterNumber": document.querySelector('#water-insert').value.trim(),
 		"date": document.querySelector('#date-insert').value.trim(),
 		"employee": {
-			"id": 1
+			"id": ID_NV
 		}
 	}
 }
@@ -116,6 +115,7 @@ let cleanFormInsert = () => {
 
 
 let validateFormInsert = (data) => {
+	
     if (data.apartment.id === '') {
         toastrError("Căn hộ không được để trống!");
         document.querySelector('#id-apartment').focus();
@@ -164,6 +164,5 @@ let validateFormInsert = (data) => {
  
     return true;
 }
-
 
 

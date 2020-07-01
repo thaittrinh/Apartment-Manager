@@ -196,7 +196,7 @@ let getValueForm = () => {
         "price": document.querySelector('#price').value.trim(),
         "date": document.querySelector('#date').value.trim(),
         "employee": {
-            "id": 1   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
+            "id": ID_NV   // set mặc định là nv id = 1  sau lm phần đăng nhập rồi get id sau
         },
         "typeVehicel": {
         	"id": document.querySelector('#type').value.trim(),
