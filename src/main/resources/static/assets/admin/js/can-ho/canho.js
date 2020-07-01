@@ -143,6 +143,7 @@ let getValueForm = () => {
             "id": id_own,
         }
     }
+ 
     return {
         "id": document.querySelector('#id').value.trim(),
         "password": document.querySelector('#password').value.trim(),
