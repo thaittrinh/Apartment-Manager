@@ -2,20 +2,20 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title> Login </title>
-    <link th:href="@{/assets/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/assets/admin/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{https://fonts.googleapis.com/css?family=Poppins:600&display=swap}" rel="stylesheet">
     <script th:src="@{https://kit.fontawesome.com/a81368914c.js}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<img class="wave" th:src="@{/assets/img/wave.png}">
+<img class="wave" th:src="@{/assets/admin/img/wave.png}">
 <div class="container">
     <div class="img">
-        <img th:src="@{/assets/img/undraw_Security_on_ff2u.svg}">
+        <img th:src="@{/assets/admin/img/undraw_Security_on_ff2u.svg}">
     </div>
     <div class="login-content">
         <form name="formlogin" th:action="@{/login}" method="post" onsubmit="return validateForm()" >
-            <img th:src="@{/assets/img/avatar.svg}">
+            <img th:src="@{/assets/admin/img/avatar.svg}">
             <h2 class="title">Welcome</h2>
             <div class="input-div one">
                 <div class="i">
@@ -48,6 +48,6 @@
         </form>
     </div>
 </div>
-<script type="text/javascript" th:src="@{/assets/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/assets/admin/js/main.js}"></script>
 </body>
 </html>

@@ -1,22 +1,22 @@
-(function(){
-	 $.ajax({
-	        url: URL + `api/resident`,
-	        type: 'GET',
-	        dataType: 'json',
-	        success: function (result) {
-	        	table(result.data)
-	        },
-	        error: function (error) {
-	           sweetalert(error.status)
-	        }
-	    });
+(function () {
+    $.ajax({
+        url: URL + `api/resident`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            table(result.data)
+        },
+        error: function (error) {
+            sweetalert(error.status)
+        }
+    });
 })()
 
 
 let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-resident').DataTable({
-        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
         fixedHeader: true,
         "responsive": true,
         "serverSize": true,
@@ -29,18 +29,22 @@ let table = (data) => {
         "aoColumns": [
             {"mData": "id"},
             {"mData": "fullname"},
-            {"mRender": function (data, type, full) {
-                return full.gender ? "Nữ" : "Nam"}
+            {
+                "mRender": function (data, type, full) {
+                    return full.gender ? "Nữ" : "Nam"
+                }
             },
             {"mData": "birthday"},
             {"mData": "job"},
             {"mData": "phone"},
             {"mData": "apartment.id"},
-            {"mRender": function (data, type, full) {
-                return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
-            }
+            {
+                "mRender": function (data, type, full) {
+                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
+                }
             },
-            {"mRender": function (data, type, full) {
+            {
+                "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-delete " onclick='deleteResident(${full.id},this)' type="button">delete</i>`
                 }
             }
@@ -72,14 +76,14 @@ let deleteResident = (id, e) => {
                     sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	sweetalertError(error)	
+                    sweetalertError(error)
                 }
             })
         }
     })
 }
 
- // ------------------- change title ------------------------
+// ------------------- change title ------------------------
 let changetitle = () => {
     document.querySelector('#form-label').innerHTML =
         "<i class='fas fa-address-card mr-3'></i>" + 'Thêm Cư Dân'
@@ -100,7 +104,7 @@ let showFormUpdate = (id, e) => {
             fillToFrom(result.data)
         },
         error: function (error) {
-        	sweetalertError(error)	
+            sweetalertError(error)
         }
     })
 }
@@ -128,7 +132,7 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                     sweetalertSuccess(result.message)
                 },
                 error: function (error) {
-                	sweetalertError(error)	
+                    sweetalertError(error)
                 }
             })
         } else {
@@ -141,13 +145,13 @@ document.querySelector('#saveResident').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(resident),
                 success: function (result) {
-                	 result.data.birthday = formatDate(result.data.birthday);
+                    result.data.birthday = formatDate(result.data.birthday);
                     $('#table-resident').DataTable().row.add(result.data).draw().node();
                     sweetalertSuccess(result.message);
                     cleanFrom();
                 },
                 error: function (error) {
-                	sweetalertError(error)
+                    sweetalertError(error)
                 }
             })
         }
@@ -163,8 +167,8 @@ $("#form-resident").on("hidden.bs.modal", function () {
 
 
 // < -------------------- clean form ----- ---------------->
-let cleanFrom = () => {    
-        document.querySelector('#fullname').value = "",
+let cleanFrom = () => {
+    document.querySelector('#fullname').value = "",
         document.querySelector('#birthday').value = "",
         $('input[name="gender"]').prop('checked', false),
         document.querySelector("#hometown").value = "",
@@ -198,7 +202,7 @@ let getValueForm = () => {
 }
 // < ------------------ fill to form -------------------------->
 let fillToFrom = (resident) => {
-        document.querySelector("#id").value = resident.id,
+    document.querySelector("#id").value = resident.id,
         document.querySelector('#fullname').value = resident.fullname,
         document.querySelector('#birthday').value = resident.birthday,
         $(resident.gender ? "#female" : "#male").prop('checked', true),
@@ -226,35 +230,35 @@ let validate = (data) => {
         return false
     }
 
-    if(data.identitycard != ''){
-        if(isNaN(data.identitycard)){
+    if (data.identitycard != '') {
+        if (isNaN(data.identitycard)) {
             toastrError("Số chứng minh - căn cước công dân phải là số!");
             document.querySelector('#identityCard').focus();
             return false;
         }
-        if(data.identitycard.length <9 || data.identitycard.length > 12 ){
+        if (data.identitycard.length < 9 || data.identitycard.length > 12) {
             toastrError("Số chứng minh - căn cước công dân 9 hoặc  12 chữ số!");
             document.querySelector('#identityCard').focus();
             return false;
         }
     }
-    if(data.phone === ''){
+    if (data.phone === '') {
         toastrError("Số điện thoại không được để trống!");
         document.querySelector('#phone').focus();
         return false;
     }
-    if(isNaN(data.phone)){
+    if (isNaN(data.phone)) {
         toastrError("Số điện thoại phải là số!");
         document.querySelector('#phone').focus();
         return false;
     }
-    var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
-	if(!vnf_regex.test(data.phone)){
-		toastrError("Số điện thoại sai định dạng!");
-		document.querySelector('#phone').focus();
-		return false;
-	}
-    if(data.phone.length <9 || data.phone.length > 11 ){
+    var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;
+    if (!vnf_regex.test(data.phone)) {
+        toastrError("Số điện thoại sai định dạng!");
+        document.querySelector('#phone').focus();
+        return false;
+    }
+    if (data.phone.length < 9 || data.phone.length > 11) {
         toastrError("Số điện thoại phải từ 9 đến 11 chữ số!");
         document.querySelector('#phone').focus();
         return false;
@@ -264,16 +268,15 @@ let validate = (data) => {
         document.querySelector('#hometown').focus();
         return false
     }
-    if(data.email != ''){ 
-    	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
-    	if(!filter.test(data.email))
-    		{
-    		toastrError("Email sai định dạng!");
-    		document.querySelector('#email').focus();
-    		return false;
-    		}
+    if (data.email != '') {
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(data.email)) {
+            toastrError("Email sai định dạng!");
+            document.querySelector('#email').focus();
+            return false;
+        }
     }
-    
+
     if (data.job === '') {
         toastrError("Nghề nghiệp không được để trống!");
         document.querySelector('#job').focus();
@@ -288,3 +291,29 @@ let validate = (data) => {
     return true;
 }
 
+
+function exportexcel() {
+    let timerInterval
+    Swal.fire({
+        text: "Đang xuất file excel",
+        timer: 2000,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                    }
+                }
+            }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        document.getElementById("export").click();
+       sweetalertSuccess("Xuất file execl thành công")
+    })
+}

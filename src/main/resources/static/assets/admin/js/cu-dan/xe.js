@@ -80,6 +80,7 @@ let deleteVehicle = (id, e) => {
 // < ------------------------- insert or update -------------------->
 document.querySelector('#save-vehicle').addEventListener('click', () => {
     let vehicle = getValueFormVehicle();
+    console.log(vehicle)
     if (validateFormVehicle(vehicle)) {
         if (vehicle.id) {
             // < ------------------- update ---------------------->
@@ -91,11 +92,12 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(vehicle),
                 success: function (result) {
+                    result.data.date = formatDate(result.date);
                     // Convert date to yy-MM-dd
-                    result.data.date = formatDate(result.data.date);
-                    //update the row in dataTable
                     $('#table-vehicle').DataTable().row(index).data(result.data).draw();
-                    $('#form-vehicle').modal('hide');     // close modal
+                    //update the row in dataTable
+                    $('#form-vehicle').modal('hide');
+                    // close modal
                     sweetalertSuccess(result.message)
                 },
                 error: function (error) {
@@ -129,7 +131,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
 // < -------------------- show form upate ------------->
 var index = -1;
 let showFormUpdateVehicle = (id, e) => {
-    index = $('#table-vehicle').DataTable().row($(e).parent('tr')).index()
+    index = $('#table-vehicle').DataTable().row($(e).parent('tr')).index();
     $('#form-vehicle').modal('show')
     document.querySelector('.modal-title').innerHTML =
         "  <i class='fas fa-motorcycle mr-1'></i>" + "Cập Nhật Thông Tin Xe ";

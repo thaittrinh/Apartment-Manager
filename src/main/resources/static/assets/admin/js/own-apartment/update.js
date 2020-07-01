@@ -105,9 +105,9 @@ let fillToForm = (data) => {
 
 let fillToFormImage = (data) => {
 	if(data.image){	
-		document.querySelector('#imgs').src = URL + `assets/photo/${data.image}`;  
+		document.querySelector('#imgs').src = URL + `assets/admin/photo/${data.image}`;
 	}else{
-		document.querySelector('#imgs').src = URL + `assets/photo/someone.png`;  
+		document.querySelector('#imgs').src = URL + `assets/admin/photo/someone.png`;
 	}
 	document.querySelector('#name-formImg').innerHTML = data.fullname;
 	document.querySelector('#email-formImg').innerHTML = data.email;
