@@ -101,7 +101,8 @@ document.querySelector('#save').addEventListener('click', () => {
 	                // annount         
 	            	sweetalertSuccess(result.message);
 	            	
-	            	location.href = URL + 'ui/own-apartment' ; 
+	            	 $('#table-chucanho').DataTable()
+                     .row.add(result.data).draw().node();
 	                // Clean form
 	                cleanForm();	            	              
 	            },
