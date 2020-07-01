@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import poly.com.constant.MessageError;
@@ -22,6 +23,9 @@ public class ApartmentService {
 	
 	@Autowired
 	OwnApartmentRepository ownApartmentRepository;
+	
+	 @Autowired
+	 PasswordEncoder passwordEncoder;
 	
     // < -------------------- find All ---------------------------->
     public ResponseEntity<ResponseDTO> findAll() {	
@@ -51,6 +55,7 @@ public class ApartmentService {
         	 if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))		 
                  return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
         	
+        	apartment.setPassword(passwordEncoder.encode(apartment.getPassword()));
         	apartment = apartmentRepository.save(apartment);
         	return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.INSERT_SUCCSESS));
         } catch (Exception e) {
@@ -67,6 +72,9 @@ public class ApartmentService {
             if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
+            if (apartment.getPassword().length() < 20) 
+            	apartment.setPassword(passwordEncoder.encode(apartment.getPassword()));
+            
             apartment.setId(id);
             apartment = apartmentRepository.save(apartment);
             return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.UPDATE_SUCCSESS));
