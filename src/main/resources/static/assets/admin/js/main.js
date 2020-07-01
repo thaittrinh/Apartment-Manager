@@ -1,4 +1,4 @@
-const inputs = document.querySelectorAll(".input");
+const inputs = document.querySelectorAll(".input")
 
 
 function addcl() {
@@ -8,7 +8,7 @@ function addcl() {
 
 function remcl() {
     let parent = this.parentNode.parentNode;
-    if (this.value == "") {
+    if (this.value === "") {
         parent.classList.remove("focus");
     }
 }

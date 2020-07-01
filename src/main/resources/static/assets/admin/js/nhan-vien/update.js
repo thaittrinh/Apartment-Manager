@@ -92,7 +92,7 @@ let fillToForm = (data) => {
     document.querySelector('#id_employee').value = data.id,
         document.querySelector('#fullName').value = data.fullName,
         document.querySelector('#birthday').value = data.birthday,
-        $(data.gender ? "#male" : "#female").prop('checked', true),
+        $(data.gender ? "#female" : "#male").prop('checked', true),
         document.querySelector('#address').value = data.address,
         document.querySelector('#identitycard').value = data.identitycard,
         document.querySelector('#phone').value = data.phone,
@@ -141,9 +141,9 @@ let checked = (roles) => {
 /* -------------------------------------  fill image ----------------------------------- */
 let fillToFormImage = (data) => {
     if(data.image){
-        document.querySelector('#imgs').src = URL + `assets/photo/${data.image}`;
+        document.querySelector('#imgs').src = URL + `assets/admin/photo/${data.image}`;
     }else{
-        document.querySelector('#imgs').src = URL + `assets/photo/someone.png`;
+        document.querySelector('#imgs').src = URL + `assets/admin/photo/someone.png`;
     }
     document.querySelector('#name-formImg').innerHTML = data.fullName;
     document.querySelector('#email-formImg').innerHTML = data.email;

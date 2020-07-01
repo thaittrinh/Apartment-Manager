@@ -38,7 +38,7 @@ document.querySelector('#changepassword').addEventListener('click', () => {
 function LogoutAfterChangePassword() {
     let timerInterval
     Swal.fire({
-        text: "Đang đăng xuất tài khoản !",
+        text: "Đang đăng xuất tài khoản",
         timer: 2000,
         onBeforeOpen: () => {
             Swal.showLoading()
@@ -134,7 +134,7 @@ let validateFormChangePassword = (data) => {
         document.querySelector('#newPassword').focus();
         return false
     }
-    if (data.newpassword.search(/[a-z]/) < 0) {
+ /*   if (data.newpassword.search(/[a-z]/) < 0) {
         toastrError("Mật khẩu phải có ít nhất một chữ cái")
         document.querySelector('#newPassword').focus();
         return false
@@ -143,7 +143,7 @@ let validateFormChangePassword = (data) => {
         toastrError("Mật khẩu phải có ít nhất một chữ cái viết hoa")
         document.querySelector('#newPassword').focus();
         return false
-    }
+    }*/
     if (data.newpassword.search(/[0-9]/) < 0) {
         toastrError("Mật khẩu phải có ít nhất một chữ số")
         document.querySelector('#newPassword').focus();
