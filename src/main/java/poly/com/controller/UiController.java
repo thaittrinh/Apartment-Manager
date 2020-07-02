@@ -22,12 +22,6 @@ public class UiController {
         return "contents/quanly/noi-quy/noiquy";
     }
 
-    // return template page table thong tin liên hệ
-    @RequestMapping("/lien-he")
-    public String pageTableLienhe() {
-        return "contents/quanly/lien-he/form-lienhe";
-    }
-
     // return template page table thông báo
     @GetMapping("/thong-bao")
     public String pageNotification() {

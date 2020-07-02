@@ -72,9 +72,6 @@ public class ApartmentService {
             if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
-            if (apartment.getPassword().length() < 20) 
-            	apartment.setPassword(passwordEncoder.encode(apartment.getPassword()));
-            
             apartment.setId(id);
             apartment = apartmentRepository.save(apartment);
             return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.UPDATE_SUCCSESS));
