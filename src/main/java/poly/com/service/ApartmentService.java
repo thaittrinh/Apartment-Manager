@@ -64,17 +64,25 @@ public class ApartmentService {
     }
 
     // < ----------------------------- update ------------------------- 
-    public ResponseEntity<ResponseDTO> updateApartment(String id, Apartment apartment) {
+    public ResponseEntity<ResponseDTO> updateApartment(String id, Apartment newApartment) {
         try {
-            if (!apartmentRepository.existsById(id))
+            Apartment apartment = apartmentRepository.findById(id).orElse(null);
+            if (apartment == null)
             	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
             
-            if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))
+            if ( newApartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(newApartment.getOwnApartment().getId()))
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
-            apartment.setId(id);
-            apartment = apartmentRepository.save(apartment);
-            return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.UPDATE_SUCCSESS));
+            if(newApartment.getPassword() != null && newApartment.getId() != id){ 
+                newApartment.setPassword(passwordEncoder.encode(newApartment.getPassword()));
+
+            } else {
+                newApartment.setPassword(apartment.getPassword());
+            }
+            newApartment.setId(id);
+            newApartment = apartmentRepository.save(newApartment);
+            return ResponseEntity.ok(new ResponseDTO(newApartment, MessageSuccess.UPDATE_SUCCSESS));
+
         } catch (Exception e) {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
