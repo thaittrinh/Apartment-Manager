@@ -73,9 +73,6 @@ public class ApartmentService {
             if ( newApartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(newApartment.getOwnApartment().getId()))
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
-        /*    if (newApartment.getPassword().length() < 20)
-                newApartment.setPassword(passwordEncoder.encode(newApartment.getPassword()));*/
-
             if(newApartment.getPassword() != null && newApartment.getId() != id){ 
                 newApartment.setPassword(passwordEncoder.encode(newApartment.getPassword()));
 
@@ -85,6 +82,7 @@ public class ApartmentService {
             newApartment.setId(id);
             newApartment = apartmentRepository.save(newApartment);
             return ResponseEntity.ok(new ResponseDTO(newApartment, MessageSuccess.UPDATE_SUCCSESS));
+
         } catch (Exception e) {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
