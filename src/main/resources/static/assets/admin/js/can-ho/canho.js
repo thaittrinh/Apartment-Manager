@@ -221,6 +221,10 @@ let showFormUpdate = (id, e) => {
 document.querySelector('#update').addEventListener('click', () => {
     let data = getValueFormUpdate();
     if(validateUpdate(data)){
+        if ( data.password === 'tgFxcP4b'){
+            data.password = null ;
+        }
+        console.log(data.password)
         $.ajax({
             type: 'PUT',
             url: URL + `api/apartment/${data.id}`,
@@ -245,7 +249,7 @@ document.querySelector('#update').addEventListener('click', () => {
 
 
 let fillToFormUpdate = (data) => {
-    document.querySelector('#password-update').value = data.password;
+    document.querySelector('#fakepassword-update').value = 'tgFxcP4b',
     document.querySelector('#id-own-update').value = data.ownApartment ? data.ownApartment.id : '';
     document.querySelector('#acreage-update').value = data.acreage;
     document.querySelector('#location-update').value = data.location;
@@ -286,7 +290,7 @@ let getValueFormUpdate = () => {
     }
     return {
         "id": document.querySelector('#id-update').value.trim(),
-        "password": document.querySelector('#password-update').value.trim(),
+        "password": document.querySelector('#fakepassword-update').value.trim(),
         "ownApartment": ownapartment ,
         "acreage": document.querySelector('#acreage-update').value.trim(),
         "location": document.querySelector('#location-update').value.trim(),

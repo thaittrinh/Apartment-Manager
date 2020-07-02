@@ -23,7 +23,6 @@ document.querySelector('#save').addEventListener('click', () => {
     if (validate(employee)) {
     	  if ( employee.password === 'tgFxcP4b') 
     		  employee.password = null ;
-    	   console.log(employee);
         $.ajax({
             type: 'PUT',
             url: URL + `api/employee/${ID}`,
