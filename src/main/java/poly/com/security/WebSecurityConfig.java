@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.authorizeRequests()
         	.antMatchers("/assets/**").permitAll()
+        	.antMatchers("/trang-chu/**").permitAll()
             .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER","MODERATOR")
             .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
             .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("MODERATOR")

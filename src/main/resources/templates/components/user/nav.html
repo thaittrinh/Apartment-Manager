@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top" xmlns:th="https://www.thymeleaf.org">
+	<div class="container-fluid">
+		<a class="navbar-branch" href="#">
+			<img th:src="@{/assets/user/img/logo-color.png}" height="50">
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" 
+			data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link active" th:href="@{/trang-chu}">TRANG CHỦ</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  th:href="@{/trang-chu/gioi-thieu}">GIỚI THIỆU</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/trang-chu/tin-tuc}">TIN TỨC</a>
+				</li>		
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/trang-chu/thiet-ke}">THIẾT KẾ</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">CĂN HỘ</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/trang-chu/noi-quy}">NỘI QUY</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">ĐĂNG NHẬP</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">NGÔN NGỮ</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
