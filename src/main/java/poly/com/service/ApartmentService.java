@@ -73,12 +73,6 @@ public class ApartmentService {
             if ( newApartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(newApartment.getOwnApartment().getId()))
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
-            if(newApartment.getPassword() != null && newApartment.getId() != id){ 
-                newApartment.setPassword(passwordEncoder.encode(newApartment.getPassword()));
-
-            } else {
-                newApartment.setPassword(apartment.getPassword());
-            }
             newApartment.setId(id);
             newApartment = apartmentRepository.save(newApartment);
             return ResponseEntity.ok(new ResponseDTO(newApartment, MessageSuccess.UPDATE_SUCCSESS));
@@ -88,6 +82,21 @@ public class ApartmentService {
         }
     }
 
+    // < ----------------------------- update ------------------------- 
+    public ResponseEntity<ResponseDTO> resetPassword(String id) {
+        try {
+            Apartment apartment = apartmentRepository.findById(id).orElse(null);
+            if (apartment == null)
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
+            
+            apartment.setPassword(passwordEncoder.encode("12345678"));
+            apartmentRepository.save(apartment);
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPDATE_PASSWORD_SUCCSESS));
+        } catch (Exception e) {
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     // < ----------------------------- Delete -------------------------->
     public ResponseEntity<ResponseDTO> deleteApartment(String id) {
         try {

@@ -25,7 +25,7 @@ let ID = document.getElementById("id").value;
 
 document.querySelector('#paid-false').addEventListener('click', () => {
 	 $.ajax({
-	        url: URL + `api/apartment-index/payment/${ID}?paid=false`,
+	        url: URL + `api/apartment-index/payment/${ID}?paid=false&&id_nv=${ID_NV}`,
 	        type: 'PUT',
 	        dataType: 'json',
 	        success: function (result) {   
@@ -106,7 +106,7 @@ let getValueForm = () => {
 		"date" : document.querySelector('#date').value,
 	    "bicycleNumber" : document.querySelector('#bicycleNumber').value,	
 	    "motocycleNumber": document.querySelector('#motocycleNumber').value,
-		"carNumber": document.querySelector('#carNumber').value,
+		"carNumber": document.querySelector('#carNumber').value,	
 		"employee": {
 	        "id" : ID_NV
 	    } 

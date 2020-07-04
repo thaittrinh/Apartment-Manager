@@ -2,7 +2,7 @@ package poly.com.request;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,18 +15,17 @@ import poly.com.entity.Employee;
 @NoArgsConstructor
 public class CreateIndexRequest {
 	
-	@NotBlank(message = "Apartment is not null!")
 	private Apartment apartment;
 
-	@NotBlank(message = "Electricity number is not null!")
+	@NotNull(message = "Electricity number is not null!")
 	private int electricityNumber;
 	
-	@NotBlank(message = "Water number is not null!")
+	@NotNull(message = "Water number is not null!")
 	private int warterNumber;
 	
 	private Date date;
 	
-	@NotBlank(message = "Employee is not null!")
+	@NotNull(message = "Employee is not null!")
 	private Employee employee;
  
 }

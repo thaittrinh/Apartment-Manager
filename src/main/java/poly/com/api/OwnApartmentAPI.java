@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.dto.OwnApartmentDTO;
 import poly.com.dto.ResponseDTO;
@@ -49,10 +47,6 @@ public class OwnApartmentAPI {
 		return ownApartmentService.createOwn(ownDTO);
 	}
 
-	@PostMapping("/upload-file/{id}")
-	public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id , @RequestParam("file") MultipartFile mFile) {
-	  return ownApartmentService.uploadFile(mFile, id);
-	}
 	
 	// < -------------------------- Update ---------------------------->
 	@PutMapping("/{id}")

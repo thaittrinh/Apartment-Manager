@@ -50,6 +50,12 @@ public class ApartmentAPI {
 		return apartmentService.updateApartment(id, apartment);
 	}
 
+	@PutMapping("/reset-password/{id}")
+	public ResponseEntity<ResponseDTO> resetPassword(@PathVariable String id) {
+		
+		return apartmentService.resetPassword(id);
+	}
+	
 	// < -------------------------- Delete --------------------------->
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ResponseDTO> deletePricemanagement(@PathVariable String id) {
