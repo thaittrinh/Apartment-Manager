@@ -7,6 +7,8 @@ public class MessageError {
 	public static final String ERROR_404_EMPLOYEE_PASSWORD = "Mật khẩu không đúng ";
 
 	public static final String ERROR_404_EMPLOYEE = "Nhân viên không tồn tại!";
+
+	public static final String ERROR_404_EMPLOYEE_EMAIL = "Email không tồn tại";
 	
 	public static final String ERROR_404_OWN_APARTMENT = "Chủ căn hộ không tồn tại!";
 	

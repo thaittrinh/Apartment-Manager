@@ -1,5 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{/layout-admin}">
+<html data-layout-decorate="~{/layout-admin}" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <!-------------------------------------------------------------------------------------------->
 
 <div layout:fragment="content">
@@ -9,7 +9,7 @@
         <div th:replace="components/header"></div>
     </div>
     <!----------------------------------------- TABLE phí rác----------------------------->
-    <div class="card" >
+    <div class="card">
         <!---------------------------------- card title table ----------------------------->
         <div class="card-header" style="border-radius: 6px;">
             <div class="card-titles">
@@ -32,21 +32,22 @@
                 </thead>
             </table>
             <!------------------------------- button open modal form  ---------------------------->
-            <button style="width: 150px" type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="show-form"
+            <button class="btn btn-sm btn-primary" data-target="#form-building" data-toggle="modal" id="show-form"
                     onclick="changetitle() "
-                    data-target="#form-building">
+                    style="width: 150px"
+                    type="button">
                 <i class="fas fa-plus-square mr-2"></i> Thêm giá mới
             </button>
         </div>
     </div>
     <!------------------------------------------------ Form modal can ho ---------------------------------->
-    <div class="modal fade" id="form-building" tabindex="-1" role="dialog"
-         aria-labelledby="form-label" aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="form-label" class="modal fade" id="form-building"
+         role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <!-------------------------------------- Header-modal ------------------------------------->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="form-label"><i class="fas fa-shield-alt mr-3 ml-2"></i> phÃ­ quáº£n lÃ½
+                    <h5 class="modal-title" id="form-label"><i class="fas fa-shield-alt mr-3 ml-2"></i> Phí Quản lý 
                     </h5>
                     <i class="material-icons " data-dismiss="modal">close</i>
                 </div>
@@ -56,14 +57,14 @@
                         <div class="row">
                             <!------------------------------ Don gia ------------------------------------>
                             <div class="input-container">
-                                <input type="number" id="id" hidden="true" required="required"/>
-                                <input type="number" min="0" required="required" name="price" id="price"
-                                       style="width: 220px"/>
+                                <input hidden="true" id="id" required="required" type="number"/>
+                                <input id="price" min="0" name="price" required="required" style="width: 220px"
+                                       type="number"/>
                                 <label for="price">Đơn giá</label>
                             </div>
                             <!-------------------------------- Ngay ------------------------------------>
                             <div class="input-container">
-                                <input type="date" required="required" name="date" id="date" style="width: 220px"/>
+                                <input id="date" name="date" required="required" style="width: 220px" type="date"/>
                                 <label for="date">Ngày</label>
                             </div>
                         </div>
@@ -71,8 +72,8 @@
                         <div class="row">
                             <!------------------------------- Ghi Chu -------------------------------------->
                             <div class="input-container">
-                                <textarea style="width: 465px" id="note" name="note" required="required"
-                                          rows="4"></textarea>
+                                <textarea id="note" name="note" required="required" rows="4"
+                                          style="width: 465px"></textarea>
                                 <label for="note">Ghi chú</label>
                             </div>
                         </div>
@@ -81,12 +82,12 @@
                 </div>
                 <!----------------------------------------- footer-modal -------------------------------------->
                 <div class="modal-footer">
-					<button style="width: 115px" type="button" class="btn btn-success" id="save">
-						<i class="fas fa-save mr-2"></i> Lưu lại
-					</button>
-					<button style="width: 115px" type="button" class="btn btn-sm btn-danger" id="clean-form">
-						<i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm mới
-					</button>
+                    <button class="btn btn-success" id="save" style="width: 115px" type="button">
+                        <i class="fas fa-save mr-2"></i> Lưu lại
+                    </button>
+                    <button class="btn btn-sm btn-danger" id="clean-form" style="width: 115px" type="button">
+                        <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm mới
+                    </button>
                 </div>
             </div>
         </div>
