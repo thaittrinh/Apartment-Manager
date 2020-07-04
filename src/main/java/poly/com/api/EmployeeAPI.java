@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import poly.com.dto.ResponseDTO;
+import poly.com.entity.Employee;
 import poly.com.request.EmployeeRequest;
 import poly.com.security.request.ChangePasswordRequest;
 import poly.com.service.EmployeeService;
@@ -34,7 +36,6 @@ public class EmployeeAPI {
 
     @PostMapping()
     public ResponseEntity<ResponseDTO> registerUser(@Valid @RequestBody EmployeeRequest signUpRequest) {
-
         return employeeService.insertEmployee(signUpRequest);
 
     }
@@ -59,5 +60,6 @@ public class EmployeeAPI {
     public ResponseEntity<ResponseDTO> changepassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
         return employeeService.changepassword(changePasswordRequest);
     }
+
 
 }

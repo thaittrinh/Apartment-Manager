@@ -43,7 +43,7 @@
 
            <span id="message" class="error-login"></span> <br>
             <span th:if="${param.error != null}" class="error-login">Sai tên đăng nhập hoặc mật khẩu</span>
-            <a href="#">Forgot Password?</a>
+            <a th:href="@{/api/account/page-forgot-password}">Forgot Password?</a>
             <input type="submit" class="btn" value="Login" id="login" >
         </form>
     </div>

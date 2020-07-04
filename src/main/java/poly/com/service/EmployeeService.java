@@ -4,17 +4,21 @@ package poly.com.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.ERole;
 import poly.com.entity.Employee;
+import poly.com.entity.PasswordResetToken;
 import poly.com.entity.Role;
 import poly.com.helper.FileHelper;
 import poly.com.repository.EmployeeRepository;
+import poly.com.repository.PasswordResetRespository;
 import poly.com.repository.RoleRepository;
 import poly.com.request.EmployeeRequest;
 import poly.com.security.request.ChangePasswordRequest;
@@ -26,6 +30,10 @@ import java.util.Set;
 @Service
 public class EmployeeService {
 
+    @Autowired
+    EmailSenderService emailSenderService;
+    @Autowired
+    PasswordResetRespository passwordResetRespository;
     @Autowired
     EmployeeRepository employeeRepository;
 
@@ -54,7 +62,7 @@ public class EmployeeService {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
- 
+
     public ResponseEntity<ResponseDTO> findByUsername(String username) {
         try {
             Employee employee = employeeRepository.findByUsername(username).orElse(null);
@@ -63,8 +71,8 @@ public class EmployeeService {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-     
+
+
     // < ---------------------------------------- Insert --------------------------------------------->
     public ResponseEntity<ResponseDTO> insertEmployee(EmployeeRequest signUpRequest) {
         try {
@@ -156,7 +164,7 @@ public class EmployeeService {
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
             fileHelper.deleteFile(employee.getImage());
             String fileName = fileHelper.saveFile(mfile, "admin" + id);
-            employee.setImage(fileName);            
+            employee.setImage(fileName);
             employee = employeeRepository.save(employee);
             return ResponseEntity.ok(new ResponseDTO(employee, MessageSuccess.UPLOAD_FILE_SUCCSESS));
         } catch (Exception e) {
@@ -241,4 +249,6 @@ public class EmployeeService {
          * nếu kết quả passwordEncoder.matches là true  thì mã hóa  lại mật khẩu mới và lưu vào database
          * nếu kết quả passwordEncoder.matches là fale thì trả về status code 404 ,mật khẩu cũ không đúng */
     }
+
+
 }
