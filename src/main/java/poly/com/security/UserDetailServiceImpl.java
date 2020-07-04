@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import poly.com.entity.Employee;
 import poly.com.entity.Role;
 import poly.com.repository.EmployeeRepository;
@@ -20,8 +21,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-
     /*------------- Load employee by username------------------------ */
+ 
     @Override
     public UserDetails loadUserByUsername(String username) {
         Employee employee = employeeRepository.findByUsername(username).orElse(null);
@@ -41,7 +42,5 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
         		employee.getUsername(), employee.getPassword(), grantedAuthorities);
     }
-
-    
 
 }
