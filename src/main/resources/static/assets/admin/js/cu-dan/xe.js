@@ -92,7 +92,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 cache: false,
                 data: JSON.stringify(vehicle),
                 success: function (result) {
-                    result.data.date = formatDate(result.date);
+                    result.data.date = formatDate(result.data.date);
                     // Convert date to yy-MM-dd
                     $('#table-vehicle').DataTable().row(index).data(result.data).draw();
                     //update the row in dataTable
@@ -200,8 +200,8 @@ let validateFormVehicle = (data) => {
         return false;
     }
     if (data.licensePlates != '') {
-        if (data.licensePlates.length < 10 || data.licensePlates.length > 15) {
-            toastrError("Biển số xe phải từ 10 - 15 kí tự ")
+        if (data.licensePlates.length < 9 || data.licensePlates.length > 10) {
+            toastrError("Biển số xe phải từ 9 hoặc 10 kí tự ")
             document.querySelector('#licensePlates').focus()
             return false
         }

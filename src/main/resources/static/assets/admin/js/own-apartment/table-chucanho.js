@@ -37,7 +37,7 @@ let table = (data) => {
              {"mData": "apartments"}, 
             {
                 "mRender": function (data, type, full) {
-                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id})' type="button">edit</i>`
+                    return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id},this)' type="button">edit</i>`
                 }
             },
             {
@@ -48,6 +48,31 @@ let table = (data) => {
         ]
     });
 }
+
+let changetitle = () => {
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'Thêm chủ căn hộ';
+}
+
+var index = -1;
+//< -------------------------- show form update --------------------->
+let showFormUpdate = (id, e) => {
+ index = $('#table-chucanho').DataTable().row($(e).parents('tr')).index();
+ $('#form-resident').modal('show')
+document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'Cập nhật chủ căn hộ';
+ $.ajax({
+     url: URL + `api/own-apartment/${id}`,
+     type: 'GET',
+     dataType: 'json',
+     success: function (result) {
+         fillToForm(result.data);
+         document.querySelector('#id').value = result.data.id;
+     },
+     error: function (error) {
+     	sweetalertError(error);	
+     }
+ });
+}
+
 
 
 //< ----------------------------- Delete ---------------------------->
@@ -82,14 +107,30 @@ let deleteOwn = (id, e) => {
 }
 
 
-let showFormUpdate = (id) => {
-	 location.href= URL + `quan-ly/chu-can-ho/${id}`;
-}
-
-
 document.querySelector('#save').addEventListener('click', () => {
 	 var dto  = getValueForm();
 	 if(validate(dto)){
+		 if(dto.id){	 
+			 $.ajax({
+		            type: 'PUT',
+		            url: URL + `api/own-apartment/${dto.id}`,
+		            contentType: "application/json",
+		            dataType: 'json',
+		            cache: false,
+		            data: JSON.stringify(dto),
+		            success: function (result) {  
+		            	 //update the row in dataTable
+	                    $('#table-chucanho').DataTable().row(index).data(result.data).draw();
+	                    // close modal
+	                    $('#form-resident').modal('hide');
+	                    // annount
+		            	sweetalertSuccess(result.message);         	              
+		            },
+		            error: function ( error) {	            	
+		            	sweetalertError(error);		            	 
+		            }
+		        });
+		 }else{		 
 	        $.ajax({
 	            type: 'POST',
 	            url: URL + `api/own-apartment`,
@@ -111,13 +152,15 @@ document.querySelector('#save').addEventListener('click', () => {
 	            }
 	        });
 	        
+		 }
+	        
+	        
 	 }
 });
 
-
-
 let getValueForm = () => {
     return { 
+    	"id": document.querySelector('#id').value.trim(),
         "fullname": document.querySelector('#fullname').value.trim(),
         "birthday": document.querySelector('#birthday').value.trim(),
         "homeTown": document.querySelector('#homeTown').value.trim(),
@@ -129,9 +172,24 @@ let getValueForm = () => {
         "apartments": document.querySelector('#id_apartment').value.split(/,/).map( n => n.trim())
     }
 }
+
+let fillToForm = (data) => {
+	document.querySelector('#fullname').value = data.fullname,
+    document.querySelector('#birthday').value = data.birthday,
+    document.querySelector('#homeTown').value = data.homeTown,
+	$(data.gender ? "#male" : "#female").prop('checked', true),
+    document.querySelector('#identityCard').value = data.identitycard,
+    document.querySelector('#phone').value = data.phone,
+    document.querySelector('#job').value = data.job,
+    document.querySelector('#email').value = data.email,
+    document.querySelector('#id_apartment').value = data.apartments;
+}
+
 //< ---------------- clean form when modal close ---------->
 $("#form-resident").on("hidden.bs.modal", function () {
 	cleanForm();
+	document.querySelector('#id').value ='';
+	
 });
 
 let cleanForm = () =>{  
@@ -210,15 +268,19 @@ let validate = (data) =>{
 		document.querySelector('#job').focus();
 		return false;
 	}
-	if(data.email != ''){ 
-    	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
-    	if(!filter.test(data.email))
-    		{
-    		toastrError("Email sai định dạng!");
-    		document.querySelector('#email').focus();
-    		return false;
-    		}
-    }
+	if(data.email === ''){
+		toastrError("Email không được bỏ trống!");
+		document.querySelector('#email').focus();
+		return false;
+	}
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+	if(!filter.test(data.email))
+		{
+		toastrError("Email sai định dạng!");
+		document.querySelector('#email').focus();
+		return false;
+		}
+  
 	if(data.apartments[0] === ''){  
 		toastrError("Mã căn hộ không được để trống!");
 		document.querySelector('#id_apartment').focus();

@@ -28,12 +28,16 @@ let table = (data) => {
         "aoColumns": [
             {"mData": "id"},
             {"mData": function(data){
-                    return data.ownApartment ? data.ownApartment.id : 'Chưa có';
+                    return data.ownApartment ? data.ownApartment.id : 'Chưa có chủ';
                 }
             },
             {"mData": "location"},
-            {"mData": "acreage"},
-            {"mData": "password"},
+            {"mData": "acreage"},     
+            {
+                "mRender": function (data, type, full) {
+                    return `<a href='#' onclick='updatePassword("${full.id}")'>Reset password</a>`
+                }
+            },
             {
                 "mRender": function (aaData, type, full) {           	
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate("${full.id}",this)'  type="button">edit</i>`
@@ -44,8 +48,25 @@ let table = (data) => {
                     return `<i  class="material-icons icon-table icon-delete " onclick='deleteApartment("${full.id}",this)'  type="button">delete</i>`
                 }
             }
+            
+            
         ]
     });
+}
+
+let updatePassword = (id) => {
+	 $.ajax({
+         type: 'PUT',
+         url: URL + `api/apartment/reset-password/${id}`,
+         contentType: "application/json",
+         cache: false,
+         success: function (result) {    
+             sweetalertSuccess(result.message);
+         },
+         error: function (error) {
+         	sweetalertError(error);	 
+         }
+     });
 }
 
 
@@ -124,7 +145,7 @@ let cleanForm = () => {
     document.querySelector('#id').value = '';
     document.querySelector('#password').value = '';
     document.querySelector('#id_own').value = '';
-    document.querySelector('#acreage').value = '';
+    document.querySelector('#acreage').value = 45;
     document.querySelector('#location').value = '';
     document.querySelector('#note').value = '';
 }
@@ -249,7 +270,7 @@ document.querySelector('#update').addEventListener('click', () => {
 
 
 let fillToFormUpdate = (data) => {
-    document.querySelector('#fakepassword-update').value = 'tgFxcP4b',
+    document.querySelector('#password-update').value = data.password,
     document.querySelector('#id-own-update').value = data.ownApartment ? data.ownApartment.id : '';
     document.querySelector('#acreage-update').value = data.acreage;
     document.querySelector('#location-update').value = data.location;
@@ -290,7 +311,7 @@ let getValueFormUpdate = () => {
     }
     return {
         "id": document.querySelector('#id-update').value.trim(),
-        "password": document.querySelector('#fakepassword-update').value.trim(),
+        "password": document.querySelector('#password-update').value.trim(),
         "ownApartment": ownapartment ,
         "acreage": document.querySelector('#acreage-update').value.trim(),
         "location": document.querySelector('#location-update').value.trim(),
@@ -302,18 +323,8 @@ let getValueFormUpdate = () => {
 
 let validateUpdate = (data) => {
 
-    if( data.password === '' ){
-        toastrError("Mật khẩu không được để trống!");
-        document.querySelector('#password-update').focus();
-        return false;
-    }
-    if( data.password.length < 3  ||  data.password.length > 8 ){
-        toastrError("Mật khẩu phải từ 3 đên 8 ký tự!");
-        document.querySelector('#password-update').focus();
-        return false;
-    }
     if( data.ownApartment != null && isNaN(data.ownApartment.id) ){
-        toastrError("Id chủ căn hộ phải là sô!");
+        toastrError("Id chủ căn hộ phải là số!");
         document.querySelector('#id-own-update').focus();
         return false;
     }

@@ -1,6 +1,5 @@
 package poly.com.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
@@ -16,7 +14,6 @@ import poly.com.dto.OwnApartmentDTO;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Apartment;
 import poly.com.entity.OwnApartment;
-import poly.com.helper.FileHelper;
 import poly.com.repository.ApartmentRepository;
 import poly.com.repository.OwnApartmentRepository;
 
@@ -29,8 +26,6 @@ public class OwnApartmentService {
 	@Autowired 
 	ApartmentRepository apartmentRepository;
 	
-	@Autowired
-	FileHelper fileHelper;
 
     // < --------------------------- find All convert to OwnApartmentDTO -------------------------->
 	 public ResponseEntity<ResponseDTO>  findAll() {
@@ -129,7 +124,7 @@ public class OwnApartmentService {
     	   
             OwnApartment newOwnApartment = convertToEntity(ownDTO); 
             newOwnApartment.setId(id);
-            newOwnApartment.setImage(ownApartment.getImage());
+        
             newOwnApartment = ownApmtRepository.save(newOwnApartment);
             
             List<String> listId = apartmentRepository.findIds(newOwnApartment);
@@ -180,44 +175,25 @@ public class OwnApartmentService {
              if (ownApartment == null) 		
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
-        	ownApmtRepository.deleteById(id);
-        	fileHelper.deleteFile(ownApartment.getImage());
+        	ownApmtRepository.deleteById(id);    	
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));  
         } catch (Exception e) {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
   
-    // < ------------------------------- Upload file ----------------------------------->
-    public ResponseEntity<ResponseDTO>  uploadFile(MultipartFile mFile, int id){
-    	if (mFile.isEmpty()) 
-    		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_400), HttpStatus.BAD_REQUEST);
-    	
-    	try {
-    		OwnApartment ownApartment = ownApmtRepository.findById(id).orElse(null);
-    		if (ownApartment == null) 
-    			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-			
-    		fileHelper.deleteFile(ownApartment.getImage());
-			String fileName =  fileHelper.saveFile(mFile, "user" + id); 
-			ownApartment.setImage(fileName);
-			ownApartment = ownApmtRepository.save(ownApartment);	
-			return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.UPLOAD_FILE_SUCCSESS));
-		} catch (IOException e) {
-			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-    }
+ 
     
     public OwnApartmentDTO convertToDTO(OwnApartment own) {
     	return new OwnApartmentDTO(own.getId(), own.getFullname(), own.getGender(), own.getHomeTown(),
 								   own.getPhone(), own.getEmail(), own.getBirthday(), own.getJob(),
-								   own.getImage(), own.getIdentitycard(), apartmentRepository.findIds(own));
+								 own.getIdentitycard(), apartmentRepository.findIds(own));
     }
     
     public OwnApartment convertToEntity(OwnApartmentDTO ownDTO) {
     	return new OwnApartment(ownDTO.getId(),ownDTO.getFullname(), ownDTO.getGender(), ownDTO.getBirthday(), 
     							ownDTO.getJob(), ownDTO.getPhone(), ownDTO.getEmail(), ownDTO.getHomeTown(),
-    							ownDTO.getImage(), ownDTO.getIdentitycard());
+    							 ownDTO.getIdentitycard());
     }
    
    

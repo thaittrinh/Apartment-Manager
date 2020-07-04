@@ -19,3 +19,5 @@
   			Xe máy
   			Xe ô tô
  
+ 
+ // email chủ căn hộ bắt notnull

@@ -15,4 +15,5 @@ public class MessageSuccess {
 
 	public static final String REQUEST_RESET_PASSWORD_SUCCESS ="chúng tôi đã nhận được yêu cầu lấy lại mật khẩu"
 			+ "kiểm tra email của bạn để lấy lại mật khẩu ";
+	
 }
