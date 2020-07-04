@@ -1,5 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{/layout-admin}">
+<html data-layout-decorate="~{/layout-admin}" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <!-------------------------------------------------------------------------------------------->
 
 <div layout:fragment="content">
@@ -33,16 +33,17 @@
                 </thead>
             </table>
             <!------------------------------- button open modal form  ---------------------------->
-            <button style="width: 150px" type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="show-form"
+            <button class="btn btn-sm btn-primary" data-target="#form-building" data-toggle="modal" id="show-form"
                     onclick="changetitle() "
-                    data-target="#form-building">
+                    style="width: 150px"
+                    type="button">
                 <i class="fas fa-plus-square mr-2"></i> Thêm giá mới
             </button>
         </div>
     </div>
     <!------------------------------------------------ Form modal can ho ---------------------------------->
-    <div class="modal fade" id="form-building" tabindex="-1" role="dialog"
-         aria-labelledby="form-label" aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="form-label" class="modal fade" id="form-building"
+         role="dialog" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <!-------------------------------------- Header-modal ------------------------------------->
@@ -54,24 +55,24 @@
                 <div class="modal-body">
                     <form>
                         <div class="row">
-                            <input type="number" id="id" hidden="true" required="required"/>
+                            <input hidden="true" id="id" required="required" type="number"/>
                             <!------------------------------ Don gia ------------------------------------>
                             <div class="input-container col-md-6" style="padding: 0;">
-                                <input type="number" min="0" required="required" name="price" id="price"
-                                       style="width:100%"/>
+                                <input id="price" min="0" name="price" required="required" style="width:100%"
+                                       type="number"/>
                                 <label for="price">Đơn giá</label>
                             </div>
                             <!-------------------------------- Ngay ------------------------------------>
                             <div class="input-container col-md-5 mr-2" style="padding: 0">
-                                <input type="date" required="required" name="date" id="date" style="width: 100%"/>
+                                <input id="date" name="date" required="required" style="width: 100%" type="date"/>
                                 <label for="date">Ngày</label>
                             </div>
                         </div>
                         <!-- ------------------------------- Hạn mức ---------------------------------------->
                         <div class="row">
 
-                            <select style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;" id="limits"
-                                    class="input-select">
+                            <select class="input-select" id="limits"
+                                    style="width: 220px;margin: 2px 0 0 12px;padding-bottom: 12px;">
                                 <option value="50"> Từ 0 đến 50</option>
                                 <option value="100"> Từ 50 đến 100</option>
                                 <option value="200"> Từ 100 đến 200</option>
@@ -84,8 +85,8 @@
                         <div class="row">
                             <!------------------------------- Ghi Chu -------------------------------------->
                             <div class="input-container col-11 mr-2" style="padding: 0; margin-top: 21px;">
-                                <textarea style="width:465px" id="note" name="note" required="required"
-                                          rows="3"></textarea>
+                                <textarea id="note" name="note" required="required" rows="3"
+                                          style="width:465px"></textarea>
                                 <label for="note">Ghi chú</label>
                             </div>
                         </div>
@@ -94,10 +95,10 @@
                 </div>
                 <!----------------------------------------- footer-modal -------------------------------------->
                 <div class="modal-footer">
-                    <button style="width: 115px" type="button" class="btn btn-sm btn-success" id="save">
+                    <button class="btn btn-sm btn-success" id="save" style="width: 115px" type="button">
                         <i class="fas fa-save mr-2"></i> Lưu lại
                     </button>
-                    <button style="width: 115px" type="button" class="btn btn-sm btn-danger" id="clean-form">
+                    <button class="btn btn-sm btn-danger" id="clean-form" style="width: 115px" type="button">
                         <i class=" icon-btn fas fa-sync-alt mr-2"></i>Làm mới
                     </button>
                 </div>
