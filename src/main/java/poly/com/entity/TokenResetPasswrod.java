@@ -13,7 +13,8 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PasswordResetToken implements Serializable {
+public class TokenResetPasswrod implements Serializable {
+
     private static final long serialVersionUID = 417468717936783546L;
 
     @Id
@@ -22,14 +23,13 @@ public class PasswordResetToken implements Serializable {
 
     private String token;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private Date expiryDate;
 
     @OneToOne(targetEntity = Employee.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "id_employee")
     private Employee employee;
 
-    public PasswordResetToken(Employee employee) {
+    public TokenResetPasswrod(Employee employee) {
         this.employee = employee;
         expiryDate = new Date();
         token = UUID.randomUUID().toString();

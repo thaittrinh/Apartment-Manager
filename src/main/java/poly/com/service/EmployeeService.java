@@ -1,20 +1,16 @@
-
 package poly.com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.ERole;
 import poly.com.entity.Employee;
-import poly.com.entity.PasswordResetToken;
 import poly.com.entity.Role;
 import poly.com.helper.FileHelper;
 import poly.com.repository.EmployeeRepository;
@@ -76,7 +72,7 @@ public class EmployeeService {
     // < ---------------------------------------- Insert --------------------------------------------->
     public ResponseEntity<ResponseDTO> insertEmployee(EmployeeRequest signUpRequest) {
         try {
-            ResponseEntity<ResponseDTO> reponseConflict = checkConflict(0, signUpRequest.getUsername(),
+            ResponseEntity<ResponseDTO> reponseConflict = checkConflict(0, signUpRequest.getEmail(), signUpRequest.getUsername(),
                     signUpRequest.getPhone(), signUpRequest.getIdentitycard());
 
             if (reponseConflict != null)
@@ -108,7 +104,7 @@ public class EmployeeService {
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
 
             // < -----------------  Check conflict ----------------------->
-            ResponseEntity<ResponseDTO> reponseConflict = checkConflict(id, employeeRequest.getUsername(),
+            ResponseEntity<ResponseDTO> reponseConflict = checkConflict(id, employeeRequest.getEmail(), employeeRequest.getUsername(),
                     employeeRequest.getPhone(), employeeRequest.getIdentitycard());
             if (reponseConflict != null)
                 return reponseConflict;
@@ -173,7 +169,7 @@ public class EmployeeService {
     }
 
     //< --------------------------- check Conflict------------------------------->
-    public ResponseEntity<ResponseDTO> checkConflict(int id, String username, String phone, String iddentitycard) {
+    public ResponseEntity<ResponseDTO> checkConflict(int id, String email, String username, String phone, String iddentitycard) {
         try {
             Employee employee_phone = employeeRepository.findByPhone(phone).orElse(null);
             if (employee_phone != null && employee_phone.getId() != id)
@@ -186,7 +182,9 @@ public class EmployeeService {
             Employee employee_username = employeeRepository.findByUsername(username).orElse(null);
             if (employee_username != null && employee_username.getId() != id)
                 return ResponseEntity.status(409).body(new ResponseDTO(null, MessageError.ERROR_409_USERNAME));
-
+            Employee employee_email = employeeRepository.findByEmail(email).orElse(null);
+            if (employee_email != null && employee_email.getId() != id)
+                return ResponseEntity.status(409).body(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE_EMAIL));
             return null;
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);

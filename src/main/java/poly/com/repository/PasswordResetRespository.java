@@ -1,10 +1,17 @@
 package poly.com.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import poly.com.entity.PasswordResetToken;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import poly.com.entity.TokenResetPasswrod;
 
-public interface PasswordResetRespository extends JpaRepository<PasswordResetToken, Integer> {
-    PasswordResetToken findByToken(String token);
+import java.util.Date;
 
-    PasswordResetToken deleteByToken(String token);
+public interface PasswordResetRespository extends JpaRepository<TokenResetPasswrod, Integer> {
+    TokenResetPasswrod findByToken(String token);
+
+    @Modifying
+    @Query("delete from TokenResetPasswrod t where t.expiryDate <= ?1")
+    void deleteAllByExpiryDate(Date now);
+
 }

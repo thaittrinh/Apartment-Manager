@@ -2,47 +2,63 @@ package poly.com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import poly.com.entity.Employee;
-import poly.com.entity.PasswordResetToken;
+import poly.com.entity.TokenResetPasswrod;
 import poly.com.repository.EmployeeRepository;
 import poly.com.repository.PasswordResetRespository;
 
+import java.time.Instant;
+import java.util.Date;
+
 @Service
+@Transactional
 public class ResetPasswordService {
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    @Autowired
-    EmailSenderService emailSenderService;
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    PasswordResetRespository passwordResetRespository;
+    private EmailSenderService emailSenderService;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private PasswordResetRespository passwordResetRespository;
+
+
+    /* -----------------------Scheduling delete token ----------------------------- */
+    @Scheduled(cron = "${purge.cron.expression}")
+    public void TOKENEXPIRED() {
+        Date now = Date.from(Instant.now());
+        passwordResetRespository.deleteAllByExpiryDate(now);
+        System.out.println("thanh cong");
+    }
 
     /* ----------------------------- Reset Password ----------------------*/
     public ModelAndView sendtokentoemail(ModelAndView modelAndView, String email) {
         /*  check exist email */
         Employee employee = employeeRepository.findByEmail(email).orElse(null);
-
+        
         if (employee != null) {
             /*save it */
-            PasswordResetToken passwordResetToken = new PasswordResetToken(employee);
-            passwordResetRespository.save(passwordResetToken);
+            TokenResetPasswrod token = new TokenResetPasswrod(employee);
+            passwordResetRespository.save(token);
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(email);
             mailMessage.setSubject("Xác nhận đặt lại mật khẩu  ");
             mailMessage.setFrom("ndt.programmer@gmail.com");
             mailMessage.setText(
-                    "Xin chào Bạn "
-                            + "chúng tôi đã nhận được yêu cầu  đặt lại mật khẩu của bạn "
-                            + "Vui lòng click vào link bên dưới để đặt lại mật khẩu "
+                    "Xin chào Bạn " + "\n"
+                            + "chúng tôi đã nhận được yêu cầu  đặt lại mật khẩu của bạn " + "\n"
+                            + "vui lòng click vào link bên dưới để đặt lại mật khẩu " +  "\n"
                             + "http://localhost:8081/apartment-manage.com.vn/api/account/confirm-reset?token="
-                            + passwordResetToken.getToken());
+                            + token.getToken());
             emailSenderService.sendEmail(mailMessage);
             modelAndView.setViewName("/contents/resetpassword/form-check-email");
             modelAndView.addObject("messageSuccess",
@@ -56,7 +72,7 @@ public class ResetPasswordService {
 
     /*  ------------------------------------- validateresettoken -----------------------  */
     public ModelAndView validateresettoken(ModelAndView modelAndView, String token) {
-        PasswordResetToken passwordResetToken = passwordResetRespository.findByToken(token);
+        TokenResetPasswrod passwordResetToken = passwordResetRespository.findByToken(token);
 
         if (passwordResetToken != null) {
             Employee employee = employeeRepository.findByEmail(passwordResetToken.getEmployee().getEmail()).orElse(null);
@@ -64,10 +80,9 @@ public class ResetPasswordService {
             modelAndView.addObject("employee", employee);
             modelAndView.addObject("email", employee.getEmail());
             modelAndView.setViewName("/contents/resetpassword/form-reset-password");
-/*            passwordResetRespository.deleteByToken(token);*/
         } else {
             modelAndView.addObject("message", "Liên kết không hợp lệ hoặc bị hỏng!");
-            modelAndView.setViewName("/error");
+            modelAndView.setViewName("/contents/404");
         }
         return modelAndView;
     }
@@ -78,11 +93,11 @@ public class ResetPasswordService {
             Employee tokenEmployee = employeeRepository.findByEmail(employee.getEmail()).orElse(null);
             tokenEmployee.setPassword(passwordEncoder.encode(employee.getPassword()));
             employeeRepository.save(tokenEmployee);
-            modelAndView.addObject("messageSuccess", "Password successfully reset. You can now log in with the new credentials.");
+            modelAndView.addObject("messageSuccess", "Đặt lại mật khẩu thành công");
             modelAndView.setViewName("/contents/resetpassword/form-reset-password");
         } else {
             modelAndView.addObject("message", "The link is invalid or broken!");
-            modelAndView.setViewName("/error");
+            modelAndView.setViewName("/contents/404");
         }
         return modelAndView;
     }
