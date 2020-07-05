@@ -250,8 +250,8 @@ let validate = (data) => {
         document.querySelector('#fakepassword').focus();
         return false
     }
-    if(data.password.length <8 || data.password.length > 12 ){
-        toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
+    if(data.password.length <6 || data.password.length > 12 ){
+        toastrError("Mật khẩu phải từ 6 đến 12 ký tự");
         document.querySelector('#fakepassword').focus();
         return false;
     }
