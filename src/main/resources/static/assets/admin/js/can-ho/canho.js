@@ -181,8 +181,8 @@ let validateInsert = (data) => {
         document.querySelector('#id').focus();
         return false;
     }
-    if( data.id.length > 8 ){
-        toastrError("Id căn hộ không quá 8 ký tự!");
+    if(data.id.length < 3 || data.id.length > 8 ){
+        toastrError("Id căn hộ phải từ 3 đến 8 ký tự!");
         document.querySelector('#id').focus();
         return false;
     }
@@ -191,8 +191,8 @@ let validateInsert = (data) => {
         document.querySelector('#password').focus();
         return false;
     }
-    if( data.password.length <3  ||  data.password.length > 8 ){
-        toastrError("Mật khẩu phải từ 3 đên 8 ký tự!");
+    if( data.password.length <6  ||  data.password.length > 12 ){
+        toastrError("Mật khẩu phải từ 6 đên 12 ký tự!");
         document.querySelector('#password').focus();
         return false;
     }
