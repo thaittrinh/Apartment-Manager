@@ -4,8 +4,8 @@
  
 <div layout:fragment="content">
    
-  <div class="row">
-            <a class="title"> Quản lý hóa đơn </a>
+  <div class="row" style="margin-top: -45px" >
+            <a class="title mt-3"> Quản lý hóa đơn </a>
             <div th:replace="components/header"></div>
         </div>
         <!-- ----------------------------------- Form  ThÃ´ng tin chá»§ cÄƒn há»™ ----------------------------- -->
@@ -30,8 +30,8 @@
 	          
 					</div>
 					<div style="margin: 0" class="float-right">
-							<a th:href="@{/quan-ly/hoa-don/export-pdf(id=${id})}">
-					            <button type="button" class="btn btn-sm btn-excel">
+							<a   th:href="@{/quan-ly/hoa-don/export-pdf(id=${id})}">
+					            <button  id="export" type="button" class="btn btn-sm btn-excel">
 					                <i class="fas fa-file-excel mr-1"></i> Export Pdf
 					            </button>
 				            </a>

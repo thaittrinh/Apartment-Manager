@@ -82,7 +82,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
     let vehicle = getValueFormVehicle();
     console.log(vehicle)
     if (validateFormVehicle(vehicle)) {
-        if (vehicle.id) {
+        if (vehicle.id){
             // < ------------------- update ---------------------->
             $.ajax({
                 type: 'PUT',
@@ -94,7 +94,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 success: function (result) {
                     result.data.date = formatDate(result.data.date);
                     // Convert date to yy-MM-dd
-                    // $('#table-vehicle').DataTable().row(index).data(result.data).draw();
+                    $('#table-vehicle').DataTable().row(index).data(result.data).draw();
                     //update the row in dataTable
                     $('#form-vehicle').modal('hide');
                     // close modal

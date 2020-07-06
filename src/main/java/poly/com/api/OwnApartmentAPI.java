@@ -1,5 +1,6 @@
 package poly.com.api;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,8 @@ public class OwnApartmentAPI {
 		return ownApartmentService.deleteOwn(id);
 	}
 
+	@GetMapping("/export-excel")
+	public ResponseEntity<?> exportToExcel(HttpServletResponse response) {
+		return ownApartmentService.exportToExcel(response);
+	}
 }

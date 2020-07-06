@@ -109,14 +109,14 @@ public class ResidentService {
         try {
             response.setContentType("application/octet-stream");
             String headerKey = "Content-Disposition";
-            String headerValue = "attachement; filename = Resident.xlsx";
+            String headerValue = "attachement; filename = OwnApartment.xlsx";
             response.setHeader(headerKey, headerValue);
             List<Resident> residentList = residentRepository.findAll();
             ResidentExportExcel residentExportExcel = new ResidentExportExcel(residentList);
             residentExportExcel.export(response);
             return new ResponseEntity<>(MessageSuccess.EXPORT_SUCCSESS, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("eror", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
