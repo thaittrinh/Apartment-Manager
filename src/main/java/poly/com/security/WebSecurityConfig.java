@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout
-           		.logoutSuccessUrl("/authentication/account/login?logout").permitAll(); // dang xuat thanh cong ve trang login
+           		.logoutSuccessUrl("/authentication/account/login").permitAll(); // dang xuat thanh cong ve trang login
 
 
     }
