@@ -60,9 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.authorizeRequests()   	 	
         	.antMatchers("/assets/**","/api/account/*").permitAll()
-            .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER","MODERATOR")
+            .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER")
             .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
-            .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("MODERATOR")
+            .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
         	.anyRequest().authenticated() // tat cac request khac  phai duoc xac thuc
             .and()                
         	.formLogin()                                       // cho phep nguoi dung xac thuc bang form login
@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.loginProcessingUrl("/login")                      // url login
            		.usernameParameter("username")                     // username
            		.passwordParameter("password")                     // password
-           		.defaultSuccessUrl("/welcome")                  // dang nhap thanh cong thi vao trang nay
+           		.defaultSuccessUrl("/")                            //WelcomeController
            	.and()    
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()

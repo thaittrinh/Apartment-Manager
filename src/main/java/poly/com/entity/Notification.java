@@ -23,7 +23,7 @@ public class Notification {
     private String title;
 
     
-    @Column(length = 10000)
+    @Column(length = 20000)
     @NotNull(message = "Content is not null")
     private String content;
     

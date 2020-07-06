@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.dto.ResponseDTO;
 import poly.com.request.EmployeeRequest;
-import poly.com.security.request.ChangePasswordRequest;
 import poly.com.service.EmployeeService;
 
 @RestController
@@ -52,6 +51,13 @@ public class EmployeeAPI {
 
         return employeeService.updateEmployee(id, employeeRequest);
     }
+    
+    @PutMapping("/reset-password/{id}")
+    public ResponseEntity<ResponseDTO> resetPassword(@PathVariable int id) {
+
+        return employeeService.resetPassword(id);
+    }
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
@@ -63,10 +69,6 @@ public class EmployeeAPI {
         return employeeService.uploadFile(mFile, id);
     }
 
-    @PutMapping("/change-password")
-    public ResponseEntity<ResponseDTO> changepassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
-        return employeeService.changepassword(changePasswordRequest);
-    }
 
 
 }

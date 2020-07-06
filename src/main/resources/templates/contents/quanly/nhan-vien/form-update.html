@@ -57,14 +57,14 @@
                         </div>
                         <!-------------------------------- div End row ----------------------->
                         <div class="row">
-                            <!----------------------------- Dia chi  ---------------------------->
-                            <div class="input-container col-sm-5" style="padding: 0;">
-                                <input type="text" required="required" name="address"
-                                       id="address" style="width: 100%"/>
-                                <label for="address">Địa chỉ</label>
+                           <!----------------------------------- Username ----------------------->
+                            <div class="input-container col-sm-4" style="padding: 0;">
+                                <input type="text" required="required" name="username" id="username"
+                                       style="width: 100%;"/>
+                                <label for="username">Tên đăng nhập</label>
                             </div>
                             <!----------------------------- CMND ------------------------------>
-                            <div class="input-container col-sm-3" style="padding: 0;">
+                            <div class="input-container col-sm-4" style="padding: 0;">
                                 <input type="text" required name="identitycard"
                                        id="identitycard" style="width: 100%">
                                 <label for="identitycard">CMND</label>
@@ -79,20 +79,16 @@
                         </div>
                         <!------------------------------------ End row ------------------------>
                         <div class="row">
-                            <!----------------------------------- Username ----------------------->
-                            <div class="input-container col-sm-3" style="padding: 0;">
-                                <input type="text" required="required" name="username" id="username"
-                                       style="width: 100%;"/>
-                                <label for="username">Tên đăng nhập</label>
-                            </div>
-                            <!----------------------------------- Password ----------------------->
-                            <div class="input-container col-sm-3" style="padding: 0;">
-                                <input  type="password"  required="required" name="fakepassword" id="fakepassword"
-                                        style="width:100%;"/> <label for="fakepassword">Mật khẩu</label>
-                            </div>
-                            <input hidden="true"  type="password"  required="required" name="password" id="password" style="width:100%;"/>
+                        
+                         <!----------------------------- Dia chi  ---------------------------->
+                            <div class="input-container col-sm-5" style="padding: 0;">
+                                <input type="text" required="required" name="address"
+                                       id="address" style="width: 100%"/>
+                                <label for="address">Địa chỉ</label>
+                            </div>      
+                                  
                             <!----------------------------------- Email ----------------------->
-                            <div class="input-container col-sm-5 " style="padding: 0;">
+                            <div class="input-container col-sm-6 " style="padding: 0;  margin-left: 30px;">
                                 <input type="text" required="required" name="email" id="email" style="width: 100%;"/>
                                 <label for="email">Email</label>
                             </div>
@@ -104,12 +100,7 @@
                                     <input class="form-check-input" name="ROLE_ADMIN" type="checkbox"
                                            id="role-admin" value="admin" >
                                     <label class="form-check-label" for="role-admin">Admin</label>
-                                </div>
-                                <div class="form-check form-check-inline ml-3">
-                                    <input class="form-check-input" type="checkbox"
-                                           id="role-moderator" value="mod" name="role">
-                                    <label class="form-check-label" for="role-moderator">Quản Lý</label>
-                                </div>
+                                </div>                         
                                 <div class="form-check form-check-inline ml-3">
                                     <input class="form-check-input" type="checkbox"
                                            id="role-user" value="user" name="role">
@@ -119,6 +110,8 @@
                         </div>
                         <div style="float: right;">
                             <div style="margin: 33px 0 0 0" class="float-right">
+                           	 <button  style ="font-size: 14px; height: 31px;" type="button" id="reset-password" class="btn btn-secondary">
+                           		 <i class="fas fa-sync-alt"></i> Khôi phục mật khẩu</button>
                                 <button style="width: 115px" type="button" class="btn btn-sm btn-success" id="save">
                                     <i class="fas fa-save mr-2"></i> Lưu lại
                                 </button>

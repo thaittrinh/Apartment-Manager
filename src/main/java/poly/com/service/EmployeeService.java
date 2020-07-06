@@ -108,14 +108,7 @@ public class EmployeeService {
                     employeeRequest.getPhone(), employeeRequest.getIdentitycard());
             if (reponseConflict != null)
                 return reponseConflict;
-
-            // < -----------------  Check change password ----------------------->
-            if (employeeRequest.getPassword() != null) {
-                employeeRequest.setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
-            } else {
-                employeeRequest.setPassword(employeeExists.getPassword());
-            }
-
+            
             // --------------------------------------------------------------
             Employee employee = new Employee(
                     id, employeeRequest.getFullName(),
@@ -123,7 +116,7 @@ public class EmployeeService {
                     employeeRequest.getIdentitycard(), employeeRequest.getPhone(),
                     employeeRequest.getAddress(), employeeRequest.getEmail(),
                     employeeExists.getImage(), employeeRequest.getUsername(),
-                    employeeRequest.getPassword(), null);
+                    employeeExists.getPassword(), null);
 
             // ----------------------------- Role ----------------------------->      
 
@@ -134,7 +127,23 @@ public class EmployeeService {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
 
+    /// < ------------------------- Reset password --------------------- >
+    public ResponseEntity<ResponseDTO> resetPassword(int id) {
+        try {
+            Employee employee = employeeRepository.findById(id).orElse(null);
+            if (employee == null)
+                return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
+            employee.setPassword(passwordEncoder.encode("12345678"));
+            employeeRepository.save(employee);
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.RESET_PASSWORD_SUCCSESS));
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    
     /// < ------------------------- Delete User --------------------- >
     public ResponseEntity<ResponseDTO> deleteEmployee(int id) {
         try {
@@ -203,12 +212,6 @@ public class EmployeeService {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException());
                         roles.add(adminRole);
-                        break;
-
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException());
-                        roles.add(modRole);
                         break;
                     case "user":
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
