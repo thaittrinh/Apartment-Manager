@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.loginProcessingUrl("/login")                      // url login
            		.usernameParameter("username")                     // username
            		.passwordParameter("password")                     // password
-           		.defaultSuccessUrl("/welcome")                  // dang nhap thanh cong thi vao trang nay
+           		.defaultSuccessUrl("/")                            //WelcomeController
            	.and()    
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()

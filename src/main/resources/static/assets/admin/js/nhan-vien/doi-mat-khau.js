@@ -149,8 +149,8 @@ let validateFormChangePassword = (data) => {
         document.querySelector('#newPassword').focus();
         return false
     }
-    if (data.newpassword.length < 8 || data.newpassword.length > 12) {
-        toastrError('Mật khẩu tối thiểu 8 đến 12 ký tự');
+    if (data.newpassword.length < 6 || data.newpassword.length > 12) {
+        toastrError('Mật khẩu tối thiểu 6 đến 12 ký tự');
         document.querySelector('#newPassword').focus();
         return false
     }

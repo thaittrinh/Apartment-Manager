@@ -16,10 +16,10 @@ public class ChangePasswordRequest {
     private Integer id;
 
     @NotNull
-    @Size(min = 8 ,max = 24, message = "Password from 8 to 24 characters!")
+    @Size(min = 6 ,max = 12, message = "Password from 6 to 12 characters!")
     private String password;
 
     @NotNull
-    @Size(min = 8 ,max = 24, message = "Password from 8 to 24 characters!")
+    @Size(min = 6 ,max = 12, message = "Password from 6 to 12 characters!")
     private String newpassword;
 }
