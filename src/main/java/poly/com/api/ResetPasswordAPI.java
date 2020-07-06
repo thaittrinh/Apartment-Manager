@@ -31,8 +31,9 @@ public class ResetPasswordAPI {
         return resetPasswordService.validateresettoken(modelAndView, token);
     }
 
-    @PostMapping("/reset-password")
-    public ModelAndView resetpassword(ModelAndView modelAndView, Employee employee) {
-        return resetPasswordService.resetpassword(modelAndView, employee);
+    // khoi requestParam van duoc mien ten bien trung voi ten param la duoc
+    @PostMapping(value = "/reset-password")
+    public ModelAndView resetpassword(ModelAndView modelAndView, Employee employee, @RequestParam("token") String token) {
+        return resetPasswordService.resetpassword(modelAndView, employee, token);
     }
 }

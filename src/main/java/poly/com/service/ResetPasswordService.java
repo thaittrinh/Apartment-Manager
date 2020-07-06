@@ -33,18 +33,18 @@ public class ResetPasswordService {
 
 
     /* -----------------------Scheduling delete token ----------------------------- */
+    // scheduleding(lap lich) het tgian se tu dong xoa  cho token
     @Scheduled(cron = "${purge.cron.expression}")
     public void TOKENEXPIRED() {
         Date now = Date.from(Instant.now());
         passwordResetRespository.deleteAllByExpiryDate(now);
-        System.out.println("thanh cong");
     }
 
     /* ----------------------------- Reset Password ----------------------*/
     public ModelAndView sendtokentoemail(ModelAndView modelAndView, String email) {
         /*  check exist email */
         Employee employee = employeeRepository.findByEmail(email).orElse(null);
-        
+
         if (employee != null) {
             /*save it */
             TokenResetPasswrod token = new TokenResetPasswrod(employee);
@@ -79,6 +79,7 @@ public class ResetPasswordService {
             employeeRepository.save(employee);
             modelAndView.addObject("employee", employee);
             modelAndView.addObject("email", employee.getEmail());
+            modelAndView.addObject("token", token);
             modelAndView.setViewName("/contents/resetpassword/form-reset-password");
         } else {
             modelAndView.addObject("message", "Liên kết không hợp lệ hoặc bị hỏng!");
@@ -88,16 +89,18 @@ public class ResetPasswordService {
     }
 
     /* ------------------------------------resetpassword ---------------------------*/
-    public ModelAndView resetpassword(ModelAndView modelAndView, Employee employee) {
-        if (employee.getEmail() != null) {
-            Employee tokenEmployee = employeeRepository.findByEmail(employee.getEmail()).orElse(null);
+    public ModelAndView resetpassword(ModelAndView modelAndView, Employee employee, String token) {
+        TokenResetPasswrod tokenResetPasswrod = passwordResetRespository.findByToken(token);
+
+        if (tokenResetPasswrod == null) {
+            modelAndView.addObject("message", "The link is invalid or broken!");
+            modelAndView.setViewName("/contents/404");
+        } else {
+            Employee tokenEmployee = tokenResetPasswrod.getEmployee();
             tokenEmployee.setPassword(passwordEncoder.encode(employee.getPassword()));
             employeeRepository.save(tokenEmployee);
             modelAndView.addObject("messageSuccess", "Đặt lại mật khẩu thành công");
             modelAndView.setViewName("/contents/resetpassword/form-reset-password");
-        } else {
-            modelAndView.addObject("message", "The link is invalid or broken!");
-            modelAndView.setViewName("/contents/404");
         }
         return modelAndView;
     }
