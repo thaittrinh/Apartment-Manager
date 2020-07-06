@@ -40,7 +40,7 @@
                 <input type="checkbox"  name="remember-me" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Ghi nhớ tài khoản</label>
             </div>
-            <span class="mt-2" style="font-size:13px; color: green" th:text="${messageSuccess}"></span>
+            <span class="mt-2" style="font-size:13px; color: green" th:text="${messageSuccess}"></span><br>
            <span id="message" class="error-login"></span> <br>
             <span th:if="${param.error != null}" class="error-login">Sai tên đăng nhập hoặc mật khẩu</span>
             <a th:href="@{/api/account/page-forgot-password}">Forgot Password?</a>

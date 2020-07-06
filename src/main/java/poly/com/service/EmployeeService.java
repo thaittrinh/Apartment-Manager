@@ -11,14 +11,18 @@ import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.ERole;
 import poly.com.entity.Employee;
+import poly.com.entity.Resident;
 import poly.com.entity.Role;
+import poly.com.helper.EmployeeExportExcel;
 import poly.com.helper.FileHelper;
+import poly.com.helper.ResidentExportExcel;
 import poly.com.repository.EmployeeRepository;
 import poly.com.repository.PasswordResetRespository;
 import poly.com.repository.RoleRepository;
 import poly.com.request.EmployeeRequest;
 import poly.com.security.request.ChangePasswordRequest;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -251,5 +255,20 @@ public class EmployeeService {
          * nếu kết quả passwordEncoder.matches là fale thì trả về status code 404 ,mật khẩu cũ không đúng */
     }
 
+    /* ------------------------ Export to EXCEL ----------------------- */
+    public ResponseEntity<?> exportToExcel(HttpServletResponse response) {
+        try {
+            response.setContentType("application/octet-stream");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachement; filename = Employees.xlsx";
+            response.setHeader(headerKey, headerValue);
+            List<Employee> employeeList = employeeRepository.findAll();
+            EmployeeExportExcel employeeExportExcel = new EmployeeExportExcel(employeeList);
+            employeeExportExcel.export(response);
+            return new ResponseEntity<>(MessageSuccess.EXPORT_SUCCSESS, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
+    }
 }

@@ -1,6 +1,6 @@
-<div lang="en" xmlns:th="http://www.thymeleaf.org"
+<div data-layout-decorate="~{/layout-admin}" lang="en"
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-     data-layout-decorate="~{/layout-admin}">
+     xmlns:th="http://www.thymeleaf.org">
     <!-------------------------------------------------------------------------------------------->
 
     <div layout:fragment="content">
@@ -26,30 +26,30 @@
                     <form>
                         <div class="row">
 
-                            <input type="text" id="id_employee" th:value="${idEmployee}" hidden="true">
+                            <input hidden="true" id="id_employee" th:value="${idEmployee}" type="text">
                             <!------------------------- Họ tên ------------------------------->
                             <div class="input-container col-sm-4" style="padding: 0;">
-                                <input type="text" required="required" name="fullName"
-                                       id="fullName" style="width: 100%"/>
+                                <input id="fullName" name="fullName" required="required"
+                                       style="width: 100%" type="text"/>
                                 <label for="fullName">Họ tên</label>
                             </div>
 
                             <!------------------------ Ngày sinh ------------------------------>
                             <div class="input-container col-sm-4" style="padding: 0;">
-                                <input type="date" required="required" name="birthday"
-                                       id="birthday" style="width: 100%"> <label
+                                <input id="birthday" name="birthday" required="required"
+                                       style="width: 100%" type="date"> <label
                                     for="birthday">Ngày sinh</label>
                             </div>
                             <!------------------------- gioi tinh ---------------------------->
                             <div style="padding: 10px 0 0 40px; margin: 0 15px 0 0;">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="male" name="gender" value="male"
-                                           class="custom-control-input"> <label
+                                    <input class="custom-control-input" id="male" name="gender" type="radio"
+                                           value="male"> <label
                                         class="custom-control-label" for="male">Nam</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="female" name="gender" value="female"
-                                           class="custom-control-input"> <label
+                                    <input class="custom-control-input" id="female" name="gender" type="radio"
+                                           value="female"> <label
                                         class="custom-control-label" for="female">Nữ</label>
                                 </div>
                             </div>
@@ -57,67 +57,71 @@
                         </div>
                         <!-------------------------------- div End row ----------------------->
                         <div class="row">
-                           <!----------------------------------- Username ----------------------->
+                            <!----------------------------------- Username ----------------------->
                             <div class="input-container col-sm-4" style="padding: 0;">
-                                <input type="text" required="required" name="username" id="username"
-                                       style="width: 100%;"/>
+                                <input id="username" name="username" required="required" style="width: 100%;"
+                                       type="text"/>
                                 <label for="username">Tên đăng nhập</label>
                             </div>
                             <!----------------------------- CMND ------------------------------>
                             <div class="input-container col-sm-4" style="padding: 0;">
-                                <input type="text" required name="identitycard"
-                                       id="identitycard" style="width: 100%">
+                                <input id="identitycard" name="identitycard" required
+                                       style="width: 100%" type="text">
                                 <label for="identitycard">CMND</label>
                             </div>
                             <!------------------------------ Ã„ï¿½iÃ¡Â»â€¡n ThoÃ¡ÂºÂ¡i ------------------------>
                             <div class="input-container col-sm-3" style="padding: 0;">
-                                <input type="text" required="required" name="phone" id="phone"
-                                       style="width: 100%"/>
+                                <input id="phone" name="phone" required="required" style="width: 100%"
+                                       type="text"/>
                                 <label for="phone">Số điện thoại</label>
                             </div>
 
                         </div>
                         <!------------------------------------ End row ------------------------>
                         <div class="row">
-                        
-                         <!----------------------------- Dia chi  ---------------------------->
+
+                            <!----------------------------- Dia chi  ---------------------------->
                             <div class="input-container col-sm-5" style="padding: 0;">
-                                <input type="text" required="required" name="address"
-                                       id="address" style="width: 100%"/>
+                                <input id="address" name="address" required="required"
+                                       style="width: 100%" type="text"/>
                                 <label for="address">Địa chỉ</label>
-                            </div>      
-                                  
+                            </div>
+
                             <!----------------------------------- Email ----------------------->
                             <div class="input-container col-sm-6 " style="padding: 0;  margin-left: 30px;">
-                                <input type="text" required="required" name="email" id="email" style="width: 100%;"/>
+                                <input id="email" name="email" required="required" style="width: 100%;" type="text"/>
                                 <label for="email">Email</label>
                             </div>
                         </div>
                         <div class="row">
                             <!----------------------------------- Roles ----------------------->
-                            <div id="role"  class="row ml-1">
-                                <div  class="form-check form-check-inline ml-3">
-                                    <input class="form-check-input" name="ROLE_ADMIN" type="checkbox"
-                                           id="role-admin" value="admin" >
-                                    <label class="form-check-label" for="role-admin">Admin</label>
-                                </div>                         
+                            <div class="row ml-1" id="role">
                                 <div class="form-check form-check-inline ml-3">
-                                    <input class="form-check-input" type="checkbox"
-                                           id="role-user" value="user" name="role">
+                                    <input class="form-check-input" id="role-admin" name="ROLE_ADMIN"
+                                           type="checkbox" value="admin">
+                                    <label class="form-check-label" for="role-admin">Admin</label>
+                                </div>
+                                <div class="form-check form-check-inline ml-3">
+                                    <input class="form-check-input" id="role-user"
+                                           name="role" type="checkbox" value="user">
                                     <label class="form-check-label" for="role-user">Nhân viên</label>
                                 </div>
                             </div>
                         </div>
                         <div style="float: right;">
-                            <div style="margin: 33px 0 0 0" class="float-right">
-                           	 <button  style ="font-size: 14px; height: 31px;" type="button" id="reset-password" class="btn btn-secondary">
-                           		 <i class="fas fa-sync-alt"></i> Khôi phục mật khẩu</button>
-                                <button style="width: 115px" type="button" class="btn btn-sm btn-success" id="save">
+                            <div class="float-right" style="margin: 33px 0 0 0">
+                                <button class="btn btn-sm " id="reset-password" style="width: 160px; background-color: rgb(244,119,46); color: white"
+                                        type="button">
+                                    <i class="fas fa-sync-alt"></i>
+                                    Khôi phục mật khẩu
+                                </button>
+                                <button class="btn btn-sm btn-success" id="save" style="width: 115px" type="button">
                                     <i class="fas fa-save mr-2"></i> Lưu lại
                                 </button>
                                 <a th:href="@{/quan-ly/nhan-vien}">
-                                    <button style="width: 115px" type="button" class="btn btn-sm btn-warning"
-                                            data-toggle="modal" data-target="#modal-vehicel">
+                                    <button class="btn btn-sm btn-warning" data-target="#modal-vehicel"
+                                            data-toggle="modal"
+                                            style="width: 115px" type="button">
                                         <i class="fas fa-sign-out-alt mr-2"></i> Thoát
                                     </button>
                                 </a>
@@ -134,16 +138,17 @@
                     <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/admin/photo/someone.png}">
                 </a>
                 <form id="file-upload-form">
-                    <button type="submit" id="upload-now" hidden="true">Start
+                    <button hidden="true" id="upload-now" type="submit">Start
                         Upload
                     </button>
-                    <input type="file" hidden="true" name="file" id="file" onchange="readURL(this);" accept="image/*">
+                    <input accept="image/*" hidden="true" id="file" name="file" onchange="readURL(this);" type="file">
                 </form>
                 <!------------------------------------------------>
                 <div class="card-title-name">
-                    <i class="fas fa-camera" style="font-size: 24px;" onclick="document.querySelector('#file').click()"></i>
+                    <i class="fas fa-camera" onclick="document.querySelector('#file').click()"
+                       style="font-size: 24px;"></i>
                     <h5 id="name-formImg"></h5>
-                    <h6 style="margin-left: 5px" id="email-formImg"></h6>
+                    <h6 id="email-formImg" style="margin-left: 5px"></h6>
                 </div>
                 <div class="card-body-information"></div>
             </div>
