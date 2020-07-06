@@ -39,17 +39,20 @@
 					</span>
             </div>
 
-            <form class="login100-form validate-form"  id="form-reset-password" method="post" th:action="@{/api/account/forgot-password}">
+            <form class="login100-form validate-form" id="form-reset-password" method="post"
+                  th:action="@{/api/account/forgot-password}">
+
                 <div class="mb-3">
                     <span style="font-size:13px; color: green" th:text="${messageSuccess}"></span>
                     <span style="font-size:13px ;color: red" th:text="${messageError}"></span>
                 </div>
                 <div class="wrap-input100 alidate-input m-b-26" data-validate="Username is required">
                     <span class="label-input100">E-mail</span>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="nhập địa chỉ e-mail của bạn ">
+                    <input class="form-control" id="email" name="email" placeholder="nhập địa chỉ e-mail của bạn "
+                           type="email">
                 </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" type="submit">
+                <div>
+                    <button style="width: 100px" class="btn btn-warning btn-sm " type="submit">
                         <i class="fas fa-paper-plane mr-2"></i> Gửi
                     </button>
                 </div>

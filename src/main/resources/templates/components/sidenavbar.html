@@ -3,7 +3,7 @@
 							 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 							 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <span id="username_sidenavbar" sec:authentication="name" hidden="true" > </span>
-    <div class="p-4">
+    <div  id="menu" class="p-4">
         <div class="custom-menu">
             <button type="button" id="sidebarCollapse" class="btn btn-primary">
                 <i class="fa fa-bars"></i>
@@ -12,7 +12,7 @@
         </div>
         <!-- -------------------------------- Logo -------------------------------->
         <h1><a href="index.html" class="logo">Flash</a></h1>
-        <ul class="list-unstyled components mb-5 sidenavbar">
+        <ul  class="list-unstyled components mb-5 sidenavbar">
             <!-- ------------------------------- Dashboard ------------------------- -->
             <li class="active" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
                 <a th:href="@{/quan-ly/welcome}">
@@ -167,5 +167,22 @@
         </div>
         <!-------------------------------------------------------------------------------->
         <script th:src="@{/assets/js/helper/authentication.js}" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function() {
+                var offset = $("#menu").offset();
+                var topPadding = 15;
+                $(window).scroll(function() {
+                    if ($(window).scrollTop() > offset.top) {
+                        $("#menu").stop().animate({
+                            marginTop: $(window).scrollTop() - offset.top + topPadding
+                        });
+                    } else {
+                        $("#sidebar").stop().animate({
+                            marginTop: 0
+                        });
+                    };
+                });
+            });
+        </script>
     </div>
 </nav>

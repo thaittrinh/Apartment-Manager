@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import poly.com.entity.Employee;
-import poly.com.entity.TokenResetPasswrod;
+import poly.com.entity.TokenResetPassword;
 import poly.com.repository.EmployeeRepository;
 import poly.com.repository.PasswordResetRespository;
 
@@ -47,7 +47,7 @@ public class ResetPasswordService {
 
         if (employee != null) {
             /*save it */
-            TokenResetPasswrod token = new TokenResetPasswrod(employee);
+            TokenResetPassword token = new TokenResetPassword(employee);
             passwordResetRespository.save(token);
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setTo(email);
@@ -72,7 +72,7 @@ public class ResetPasswordService {
 
     /*  ------------------------------------- validateresettoken -----------------------  */
     public ModelAndView validateresettoken(ModelAndView modelAndView, String token) {
-        TokenResetPasswrod passwordResetToken = passwordResetRespository.findByToken(token);
+        TokenResetPassword passwordResetToken = passwordResetRespository.findByToken(token);
 
         if (passwordResetToken != null) {
             Employee employee = employeeRepository.findByEmail(passwordResetToken.getEmployee().getEmail()).orElse(null);
@@ -90,7 +90,7 @@ public class ResetPasswordService {
 
     /* ------------------------------------resetpassword ---------------------------*/
     public ModelAndView resetpassword(ModelAndView modelAndView, Employee employee, String token) {
-        TokenResetPasswrod tokenResetPasswrod = passwordResetRespository.findByToken(token);
+        TokenResetPassword tokenResetPasswrod = passwordResetRespository.findByToken(token);
 
         if (tokenResetPasswrod == null) {
             modelAndView.addObject("message", "The link is invalid or broken!");
@@ -100,7 +100,7 @@ public class ResetPasswordService {
             tokenEmployee.setPassword(passwordEncoder.encode(employee.getPassword()));
             employeeRepository.save(tokenEmployee);
             modelAndView.addObject("messageSuccess", "Đặt lại mật khẩu thành công");
-            modelAndView.setViewName("/contents/resetpassword/form-reset-password");
+            modelAndView.setViewName("/contents/login/login");
         }
         return modelAndView;
     }

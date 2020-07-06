@@ -292,28 +292,3 @@ let validate = (data) => {
 }
 
 
-function exportexcel() {
-    let timerInterval
-    Swal.fire({
-        text: "Đang xuất file excel",
-        timer: 2000,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-            timerInterval = setInterval(() => {
-                const content = Swal.getContent()
-                if (content) {
-                    const b = content.querySelector('b')
-                    if (b) {
-                        b.textContent = Swal.getTimerLeft()
-                    }
-                }
-            }, 100)
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-        document.getElementById("export").click();
-       sweetalertSuccess("Xuất file execl thành công")
-    })
-}

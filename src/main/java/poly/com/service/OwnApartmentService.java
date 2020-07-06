@@ -14,8 +14,13 @@ import poly.com.dto.OwnApartmentDTO;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Apartment;
 import poly.com.entity.OwnApartment;
+import poly.com.entity.Resident;
+import poly.com.helper.OwnApartmentExportExcel;
+import poly.com.helper.ResidentExportExcel;
 import poly.com.repository.ApartmentRepository;
 import poly.com.repository.OwnApartmentRepository;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class OwnApartmentService {
@@ -195,7 +200,21 @@ public class OwnApartmentService {
     							ownDTO.getJob(), ownDTO.getPhone(), ownDTO.getEmail(), ownDTO.getHomeTown(),
     							 ownDTO.getIdentitycard());
     }
-   
-   
+
+	public ResponseEntity<?> exportToExcel(HttpServletResponse response) {
+		try {
+			response.setContentType("application/octet-stream");
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachement; filename = Resident.xlsx";
+			response.setHeader(headerKey, headerValue);
+			List<OwnApartment> ownApartmentList = ownApmtRepository.findAll();
+			OwnApartmentExportExcel ownApartmentExportExcel = new OwnApartmentExportExcel(ownApartmentList);
+			ownApartmentExportExcel.export(response);
+			return new ResponseEntity<>(MessageSuccess.EXPORT_SUCCSESS, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
     
 }
