@@ -15,7 +15,7 @@ document.querySelector('#changepassword').addEventListener('click', () => {
             if (result.value) {
                 $.ajax({
                     type: 'PUT',
-                    url: URL + `api/employee/change-password`,
+                    url: URL + `api/account/change-password`,
                     contentType: 'application/json',
                     dataType: 'json',
                     cache: false,

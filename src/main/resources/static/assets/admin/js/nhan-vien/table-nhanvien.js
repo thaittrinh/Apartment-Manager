@@ -40,7 +40,7 @@ let table = (data) => {
                     let role_name = "";
                     let roles = data.roles;
                     for (i = 0; i < roles.length; i++) {
-                        role_name += "" + roles[i].name + ",";
+                        role_name += roles[i].name + "\n";
                     }
                     return role_name;
                 }
@@ -142,7 +142,6 @@ let cleanForm = () => {
         document.querySelector('#password').value = "" ,
         document.querySelector('#email').value = "",
         document.querySelector('#role-admin').checked = false,
-        document.querySelector('#role-moderator').checked = false,
         document.querySelector('#role-user').checked = false
 
 }
