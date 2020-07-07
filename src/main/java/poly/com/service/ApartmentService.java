@@ -3,6 +3,7 @@ package poly.com.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,9 @@ public class ApartmentService {
 	 @Autowired
 	 PasswordEncoder passwordEncoder;
 	
+	 @Value("${password.default}")
+	 private String defaultPassword;
+	 
     // < -------------------- find All ---------------------------->
     public ResponseEntity<ResponseDTO> findAll() {	
         List<Apartment> apartments = apartmentRepository.findAll();
@@ -89,7 +93,7 @@ public class ApartmentService {
             if (apartment == null)
             	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
             
-            apartment.setPassword(passwordEncoder.encode("12345678"));
+            apartment.setPassword(passwordEncoder.encode(defaultPassword));
             apartmentRepository.save(apartment);
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.RESET_PASSWORD_SUCCSESS));
         } catch (Exception e) {
