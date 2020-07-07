@@ -1,6 +1,7 @@
 package poly.com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,6 +42,9 @@ public class EmployeeService {
 
     @Autowired
     FileHelper fileHelper;
+    
+    @Value("${password.default}")
+    private String defaultPassword;
 
     // <----------------------------------- find All ----------------------------->
     public ResponseEntity<ResponseDTO> findAll() {
@@ -135,7 +139,7 @@ public class EmployeeService {
             Employee employee = employeeRepository.findById(id).orElse(null);
             if (employee == null)
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-            employee.setPassword(passwordEncoder.encode("12345678"));
+            employee.setPassword(passwordEncoder.encode(defaultPassword));
             employeeRepository.save(employee);
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.RESET_PASSWORD_SUCCSESS));
         } catch (Exception e) {

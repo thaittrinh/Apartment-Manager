@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.loginProcessingUrl("/login")                      // url login
            		.usernameParameter("username")                     // username
            		.passwordParameter("password")                     // password
-           		.defaultSuccessUrl("/")                            //WelcomeController
+           		.defaultSuccessUrl("/quan-ly")                            //WelcomeController
            	.and()    
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()
@@ -80,7 +80,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout
            		.logoutSuccessUrl("/authentication/account/login").permitAll(); // dang xuat thanh cong ve trang login
-
 
     }
        
