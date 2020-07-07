@@ -56,13 +56,13 @@ public class ResetPasswordService {
             mailMessage.setText(
                     "Xin chào Bạn " + "\n"
                             + "chúng tôi đã nhận được yêu cầu  đặt lại mật khẩu của bạn " + "\n"
-                            + "vui lòng click vào link bên dưới để đặt lại mật khẩu " +  "\n"
+                            + "vui lòng click vào link bên dưới để đặt lại mật khẩu " + "\n"
                             + "http://localhost:8081/apartment-manage.com.vn/api/account/confirm-reset?token="
                             + token.getToken());
             emailSenderService.sendEmail(mailMessage);
             modelAndView.setViewName("/contents/resetpassword/form-check-email");
             modelAndView.addObject("messageSuccess",
-                    "Kiểm tra email của bạn để đặt lại mật khẩu");
+                    "Hệ thống đã gửi cho bạn một e-mail có kèm theo link"+"\n" + " để đặt lại mật khẩu, kiểm tra email của bạn");
         } else {/* if email dose not exist return not found */
             modelAndView.addObject("messageError", "Email này không tồn tại, vui lòng kiểm tra lại ");
             modelAndView.setViewName("/contents/resetpassword/form-check-email");

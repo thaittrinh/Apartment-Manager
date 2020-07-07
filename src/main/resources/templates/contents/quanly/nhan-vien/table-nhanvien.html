@@ -39,6 +39,11 @@
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#form-employee">
                     <i class="fas fa-user-plus mr-1"></i> Thêm nhân viên
                 </button>
+                <a   th:href="@{/api/employee/export-excel}">
+                    <button id="export" type="button" class="btn btn-sm btn-excel">
+                        <i class="fas fa-file-excel mr-1"></i> Excel
+                    </button>
+                </a>
             </div>
 
         </div>
