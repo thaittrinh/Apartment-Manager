@@ -68,7 +68,7 @@ let table = (data) => {
 let deleteEmployee = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
-        text: 'Bạn có chắc chắn muốn xóa không!',
+        text: 'Bạn có chắc chắn muốn xóa!',
         icon: 'warning', showCancelButton: true,
         confirmButtonColor: '#28a745',
         cancelButtonColor: '#d33',
