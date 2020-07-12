@@ -74,7 +74,7 @@ let updatePassword = (id) => {
 let deleteApartment = (id,e) => {
     Swal.fire({
         title: 'Warning',
-        text: "Bạn có chắc chắn muốn xóa không!",
+        text: "Bạn có chắc chắn muốn xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#28a745',

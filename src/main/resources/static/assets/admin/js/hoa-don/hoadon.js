@@ -37,15 +37,54 @@ let table_bill = (data) => {
             	return data.paid == true ? 'Đã thanh toán' : 'Chưa thanh toán' ;
             }
             },
-          //  {"mData": "paid"},
             {
                 "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdate(${full.id})' type="button">edit</i>`
+                }
+            },
+            {
+                "mRender": function (data, type, full) {
+                    return `<i  class="material-icons icon-table icon-delete " onclick='deleteBill(${full.id},this)' type="button">delete</i>`
                 }
             }
         ]
     });
 }
+
+
+
+//< ----------------------------- Delete ---------------------------->
+let deleteBill = (id, e) => {
+    Swal.fire({
+        title: 'Warning',
+        text: "Bạn có chắc chắn muốn xóa!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#28a745',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Xác nhận'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: 'DELETE',
+                url: URL + `api/apartment-index/${id}`,
+                contentType: "application/json",
+                cache: false,
+                success: function (result) {
+                    $('#my-table').DataTable().row($(e).parents('tr')).remove().draw();
+                    sweetalertSuccess(result.message);
+                },
+                error: function (error) {
+                	sweetalertError(error);	
+                }
+            });
+        }
+    })
+}
+
+
+
 
 
 let showFormUpdate = (id) => {

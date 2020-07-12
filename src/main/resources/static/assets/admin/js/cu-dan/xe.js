@@ -51,7 +51,7 @@ let table_vihecle = (data) => {
 let deleteVehicle = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
-        text: "Bạn chắc chắn muốn xóa Không!",
+        text: "Bạn chắc chắn muốn xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#28a745',
