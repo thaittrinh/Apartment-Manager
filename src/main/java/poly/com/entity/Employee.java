@@ -47,7 +47,7 @@ public class Employee implements Serializable {
 	private String fullName;
 
     @NotNull(message = "Gender can not be  null ")
-    private boolean gender;
+    private Boolean gender;
 
     @NotNull(message = "Birthday can not be null")
   	@Temporal(TemporalType.DATE)	 

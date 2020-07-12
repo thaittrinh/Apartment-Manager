@@ -1,4 +1,3 @@
-
 package poly.com.api;
 
 
@@ -8,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import poly.com.dto.ResponseDTO;
 import poly.com.request.EmployeeRequest;
-import poly.com.security.request.ChangePasswordRequest;
 import poly.com.service.EmployeeService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -34,7 +33,6 @@ public class EmployeeAPI {
 
     @PostMapping()
     public ResponseEntity<ResponseDTO> registerUser(@Valid @RequestBody EmployeeRequest signUpRequest) {
-
         return employeeService.insertEmployee(signUpRequest);
 
     }
@@ -44,6 +42,13 @@ public class EmployeeAPI {
 
         return employeeService.updateEmployee(id, employeeRequest);
     }
+
+    @PutMapping("/reset-password/{id}")
+    public ResponseEntity<ResponseDTO> resetPassword(@PathVariable int id) {
+
+        return employeeService.resetPassword(id);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> delete(@PathVariable int id) {
@@ -55,9 +60,11 @@ public class EmployeeAPI {
         return employeeService.uploadFile(mFile, id);
     }
 
-    @PutMapping("/change-password")
-    public ResponseEntity<ResponseDTO> changepassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
-        return employeeService.changepassword(changePasswordRequest);
+    /*  ------------------------- export file excel ----------------*/
+    @GetMapping("/export-excel")
+    public ResponseEntity<?> exportToExcel(HttpServletResponse response) {
+        return employeeService.exportToExcel(response);
     }
+
 
 }

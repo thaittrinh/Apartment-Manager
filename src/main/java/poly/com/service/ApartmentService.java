@@ -3,6 +3,7 @@ package poly.com.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,9 @@ public class ApartmentService {
 	 @Autowired
 	 PasswordEncoder passwordEncoder;
 	
+	 @Value("${password.default}")
+	 private String defaultPassword;
+	 
     // < -------------------- find All ---------------------------->
     public ResponseEntity<ResponseDTO> findAll() {	
         List<Apartment> apartments = apartmentRepository.findAll();
@@ -64,25 +68,39 @@ public class ApartmentService {
     }
 
     // < ----------------------------- update ------------------------- 
-    public ResponseEntity<ResponseDTO> updateApartment(String id, Apartment apartment) {
+    public ResponseEntity<ResponseDTO> updateApartment(String id, Apartment newApartment) {
         try {
-            if (!apartmentRepository.existsById(id))
+            Apartment apartment = apartmentRepository.findById(id).orElse(null);
+            if (apartment == null)
             	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
             
-            if ( apartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(apartment.getOwnApartment().getId()))
+            if ( newApartment.getOwnApartment() != null &&  !ownApartmentRepository.existsById(newApartment.getOwnApartment().getId()))
             	 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OWN_APARTMENT), HttpStatus.NOT_FOUND);
 
-            if (apartment.getPassword().length() < 20) 
-            	apartment.setPassword(passwordEncoder.encode(apartment.getPassword()));
-            
-            apartment.setId(id);
-            apartment = apartmentRepository.save(apartment);
-            return ResponseEntity.ok(new ResponseDTO(apartment, MessageSuccess.UPDATE_SUCCSESS));
+            newApartment.setId(id);
+            newApartment = apartmentRepository.save(newApartment);
+            return ResponseEntity.ok(new ResponseDTO(newApartment, MessageSuccess.UPDATE_SUCCSESS));
+
         } catch (Exception e) {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    // < ----------------------------- update ------------------------- 
+    public ResponseEntity<ResponseDTO> resetPassword(String id) {
+        try {
+            Apartment apartment = apartmentRepository.findById(id).orElse(null);
+            if (apartment == null)
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
+            
+            apartment.setPassword(passwordEncoder.encode(defaultPassword));
+            apartmentRepository.save(apartment);
+            return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.RESET_PASSWORD_SUCCSESS));
+        } catch (Exception e) {
+        	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     // < ----------------------------- Delete -------------------------->
     public ResponseEntity<ResponseDTO> deleteApartment(String id) {
         try {

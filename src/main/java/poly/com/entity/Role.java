@@ -33,7 +33,7 @@ public class Role implements Serializable {
 	@Column(length = 20)
 	@NotNull
 	private ERole name;
-	
+	//
 	@Column(length = 50)
 	private String note;
 	

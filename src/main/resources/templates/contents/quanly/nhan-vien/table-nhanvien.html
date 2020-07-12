@@ -39,6 +39,11 @@
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#form-employee">
                     <i class="fas fa-user-plus mr-1"></i> Thêm nhân viên
                 </button>
+                <a   th:href="@{/api/employee/export-excel}">
+                    <button id="export" type="button" class="btn btn-sm btn-excel">
+                        <i class="fas fa-file-excel mr-1"></i> Excel
+                    </button>
+                </a>
             </div>
 
         </div>
@@ -143,12 +148,7 @@
                                         <input class="form-check-input" type="checkbox"
                                                id="role-admin" value="admin"> <label
                                             class="form-check-label" for="role-admin">Admin</label>
-                                    </div>
-                                    <div class="form-check form-check-inline ml-3">
-                                        <input class="form-check-input" type="checkbox"
-                                               id="role-moderator" value="mod"> <label
-                                            class="form-check-label" for="role-moderator">Quản Lý</label>
-                                    </div>
+                                    </div>                       
                                     <div class="form-check form-check-inline ml-3">
                                         <input class="form-check-input" type="checkbox"
                                                id="role-user" value="user"> <label

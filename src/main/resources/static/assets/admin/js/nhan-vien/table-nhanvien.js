@@ -40,7 +40,7 @@ let table = (data) => {
                     let role_name = "";
                     let roles = data.roles;
                     for (i = 0; i < roles.length; i++) {
-                        role_name += "" + roles[i].name + ",";
+                        role_name += roles[i].name + "\n";
                     }
                     return role_name;
                 }
@@ -142,7 +142,6 @@ let cleanForm = () => {
         document.querySelector('#password').value = "" ,
         document.querySelector('#email').value = "",
         document.querySelector('#role-admin').checked = false,
-        document.querySelector('#role-moderator').checked = false,
         document.querySelector('#role-user').checked = false
 
 }
@@ -248,8 +247,8 @@ let validate = (data) =>{
         document.querySelector('#password').focus();
         return false
     }
-    if(data.password.length <8 || data.password.length > 12 ){
-        toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
+    if(data.password.length <6 || data.password.length > 12 ){
+        toastrError("Mật khẩu phải từ 6 đến 12 ký tự");
         document.querySelector('#password').focus();
         return false;
     }

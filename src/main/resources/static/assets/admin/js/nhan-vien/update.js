@@ -23,7 +23,6 @@ document.querySelector('#save').addEventListener('click', () => {
     if (validate(employee)) {
     	  if ( employee.password === 'tgFxcP4b') 
     		  employee.password = null ;
-    	   console.log(employee);
         $.ajax({
             type: 'PUT',
             url: URL + `api/employee/${ID}`,
@@ -45,8 +44,28 @@ document.querySelector('#save').addEventListener('click', () => {
     }
 });
 
+/* ------------------------------- Reset password -----------------------------*/
+document.querySelector('#reset-password').addEventListener('click', () => {
+	$.ajax({
+        type: 'PUT',
+        url: URL + `api/employee/reset-password/${ID}`,
+        contentType: 'application/json',
+        dataType: 'json',
+        cache: false,   
+        success: function (result) {
+            sweetalertSuccess(result.message)   
+        },
+        error: function (error) {
+            sweetalertError(error)
+        }
+    });
+	
+});
+
+
+
 /* ------------------------------- Upload  File -----------------------------*/
-document.querySelector('.img').addEventListener('click', () => {
+document.querySelector('#imgs').addEventListener('click', () => {
     document.querySelector('#file').click();
 });
 
@@ -96,8 +115,7 @@ let fillToForm = (data) => {
         document.querySelector('#address').value = data.address,
         document.querySelector('#identitycard').value = data.identitycard,
         document.querySelector('#phone').value = data.phone,
-        document.querySelector('#username').value = data.username,
-        document.querySelector('#fakepassword').value = 'tgFxcP4b',
+        document.querySelector('#username').value = data.username,   
         document.querySelector('#email').value = data.email,
         checked(data.roles)
 
@@ -107,14 +125,10 @@ let fillToForm = (data) => {
 /* ---------------------------------- get role form data -------------------------------------  */
 let checked = (roles) => {
     let admin = false;
-    let mod = false;
     let user = false;
     for (i = 0; i < roles.length; i++) {
         if (roles[i].name === "ROLE_ADMIN") {
             admin = true;
-        }
-        if (roles[i].name === "ROLE_MODERATOR") {
-            mod = true;
         }
         if (roles[i].name === "ROLE_USER") {
             user = true;
@@ -124,12 +138,7 @@ let checked = (roles) => {
         document.querySelector('#role-admin').checked = true;
     } else {
         document.querySelector('#role-admin').checked = false
-    }
-    if (mod) {
-        document.querySelector('#role-moderator').checked = true;
-    } else {
-        document.querySelector('#role-moderator').checked = false;
-    }
+    }  
     if (user) {
         document.querySelector('#role-user').checked = true;
     } else {
@@ -162,7 +171,7 @@ let getValueForm = () => {
         'phone': document.querySelector('#phone').value.trim(),
         'username': document.querySelector('#username').value.trim(),
         'email': document.querySelector('#email').value.trim(),
-        'password': document.querySelector('#fakepassword').value,
+        'password': "12345678", /// cái chuỗi này xuống data sẽ ko lấy
         'roles': $('input[type=checkbox]:checked').map(function (_, role) {
             return $(role).val();
         }).get()
@@ -170,7 +179,6 @@ let getValueForm = () => {
 
 }
 
-/* -----------------------
 
 /* ------------------------- ---------------------------------------------*/
 let validate = (data) => {
@@ -189,11 +197,17 @@ let validate = (data) => {
         toastrError("Chưa chọn giới tính");
         return false
     }
-    if (data.address === '') {
-        toastrError("Địa chỉ không được để trống!");
-        document.querySelector('#address').focus();
+    if (data.username === '') {
+        toastrError("Tên đăng nhập không được để trống!");
+        document.querySelector('#username').focus();
         return false;
     }
+    if(data.username.length < 5 || data.username.length > 20){
+        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
+        document.querySelector('#username').focus();
+        return false;
+    }
+    
     if (data.identitycard === '') {
         toastrError("Số chứng minh - căn cước công dân không được để trống!");
         document.querySelector('#identitycard').focus();
@@ -230,30 +244,9 @@ let validate = (data) => {
         document.querySelector('#phone').focus();
         return false;
     }
-    if (data.username === '') {
-        toastrError("Tên đăng nhập không được để trống!");
-        document.querySelector('#username').focus();
-        return false;
-    }
-    if(data.username.length < 5 || data.username.length > 20){
-        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
-        document.querySelector('#username').focus();
-        return false;
-    }
-    if(data.password === ''){
-        toastrError("Mật khẩu không được để trống");
-        document.querySelector('#fakepassword').focus();
-        return false;
-    }
-    let special = document.querySelector('#fakepassword').value.match((/[!@#$%^&*_]+/g));
-    if (special != null) {
-        toastrError('Mật khẩu không được chứa ký tự đặc biệt');
-        document.querySelector('#fakepassword').focus();
-        return false
-    }
-    if(data.password.length <8 || data.password.length > 12 ){
-        toastrError("Mật khẩu phải từ 8 đến 12 ký tự");
-        document.querySelector('#fakepassword').focus();
+    if (data.address === '') {
+        toastrError("Địa chỉ không được để trống!");
+        document.querySelector('#address').focus();
         return false;
     }
     if(data.email === ''){

@@ -10,22 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/quan-ly")
 public class UiController {
 
-    // return template page admin
-    @RequestMapping("/welcome")
+	@GetMapping()
     public String pageadmin() {
+    	 	
         return "layout-admin";
     }
-
+	
     // return template page table thông báo
     @GetMapping("/noi-quy")
     public String pageRegulation() {
         return "contents/quanly/noi-quy/noiquy";
-    }
-
-    // return template page table thong tin liên hệ
-    @RequestMapping("/lien-he")
-    public String pageTableLienhe() {
-        return "contents/quanly/lien-he/form-lienhe";
     }
 
     // return template page table thông báo
@@ -45,4 +39,6 @@ public class UiController {
     public  String pageFormAccount(){
         return  "contents/quanly/nhan-vien/form-account";
     }
+
+
 }

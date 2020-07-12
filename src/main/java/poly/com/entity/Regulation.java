@@ -27,7 +27,7 @@ public class Regulation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; 
 	
-	@Column(length = 10000)
+	@Column(length = 20000)
 	@NotNull
 	private String content;
 	

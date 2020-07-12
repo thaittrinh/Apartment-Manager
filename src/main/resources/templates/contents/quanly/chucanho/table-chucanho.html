@@ -2,9 +2,9 @@
 <div lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"     data-layout-decorate="~{/layout-admin}">
 
-<div layout:fragment="content">
+<div layout:fragment="content" class="scroll">
     <!--------------------------------------------- Header-------------------------------->
-    <div class="row" style="margin-top: -45px">
+    <div class="row" style="margin-right: 0">
         <a class="title mt-3"> Quản lý chủ căn hộ </a>
         <div th:replace="components/header"></div>
     </div>
@@ -37,10 +37,14 @@
             </table>
 
             <!--------------------------------- Insert  -------------------------->
-            <button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#form-resident">
+            <button type="button" class="btn  btn-sm btn-primary" data-toggle="modal" data-target="#form-resident" onclick="changetitle()">
                 <i class="fas fa-user-plus mr-1"></i> Thêm chủ căn hộ
             </button>
-
+            <a   th:href="@{/api/own-apartment/export-excel}">
+                <button id="export" type="button" class="btn btn-sm btn-excel">
+                    <i class="fas fa-file-excel mr-1"></i> Excel
+                </button>
+            </a>
         </div>
     </div>
     <!--------------------------------------------- Form insert ---------------------------------->
@@ -50,9 +54,7 @@
             <div class="modal-content">
                 <!------------------------------------- Header-modal ----------------------------------->
                 <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-address-card mr-3"></i>
-                        Thêm chủ căn hộ </h5>
+                    <h5 class="modal-title" id="form-label"> </h5>
                     <i class="material-icons " data-dismiss="modal">close</i>
                 </div>
                 <!--------------------------------------- body-modal ------------------------------------->
@@ -62,6 +64,7 @@
                         <div class="row">
                             <!------------------------- Há»� TÃªn ------------------------------->
                             <div class="input-container col-md-4" style="padding: 0;">
+                           		 <input type="text" name="id" id="id" hidden="true"/>
                                 <input type="text" required="required" name="fullname" id="fullname" style="width: 100%"/>
                                 <label for="fullname">Họ tên</label>
                             </div>
