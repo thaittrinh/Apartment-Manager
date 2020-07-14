@@ -61,25 +61,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()   	 	
         	.antMatchers("/assets/**","/api/account/*").permitAll()
             .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER")
-            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
             .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
-        	.anyRequest().authenticated() // tat cac request khac  phai duoc xac thuc
+            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
+            .antMatchers("/quan-ly/can-ho").hasAnyRole("ADMIN")       
+        	.anyRequest().authenticated() 
             .and()                
-        	.formLogin()                                       // cho phep nguoi dung xac thuc bang form login
-           		.loginPage("/authentication/account/login").permitAll()// cho phep truy cap trang login
-           		.loginProcessingUrl("/login")                      // url login
-           		.usernameParameter("username")                     // username
-           		.passwordParameter("password")                     // password
-           		.defaultSuccessUrl("/quan-ly")                            //WelcomeController
+        	.formLogin()                                    
+           		.loginPage("/authentication/account/login").permitAll()
+           		.loginProcessingUrl("/login")                     
+           		.usernameParameter("username")                    
+           		.passwordParameter("password")                 
+           		.defaultSuccessUrl("/quan-ly")    
            	.and()    
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()
-           	.logout()                                          // cho phep dang xuat
+           	.logout()                                          //
            		.invalidateHttpSession(true)                       // Hủy session của người dùng
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout
-           		.logoutSuccessUrl("/authentication/account/login").permitAll(); // dang xuat thanh cong ve trang login
+           		.logoutSuccessUrl("/authentication/account/login").permitAll(); 
 
     }
        
