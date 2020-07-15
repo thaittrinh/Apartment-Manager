@@ -1,4 +1,4 @@
-(function () {
+/*(function () {
     let username = document.getElementById("username_sidenavbar").innerText;
     $.ajax({
         type: 'GET',
@@ -15,6 +15,9 @@
     });
 
 })()
+*/
+ /* id lấy ID_NV là dc rồi */
+
 document.querySelector('#changepassword').addEventListener('click', () => {
     var changepassword = getValueFormPassword();
     console.log(changepassword)
@@ -97,7 +100,7 @@ function TogglePassword() {
 /* ---------------------  get valve form ---------------------------------  */
 let getValueFormPassword = () => {
     return {
-        'id':  document.getElementById('idnv').value.trim(),
+        'id': ID_NV,     // document.getElementById('idnv').value.trim(),
         'password': document.querySelector('#Password').value.trim(),
         'newpassword': document.querySelector('#newPassword').value.trim(),
     }

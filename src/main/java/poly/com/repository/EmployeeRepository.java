@@ -11,7 +11,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("Select e.username from Employee e where  e.id = ?1 ")
     String findUserNameById(int id);
 
-    //Boolean existsByEmail(String email);
+    Boolean existsByUsername(String username);
 
     Optional<Employee> findByPhone(String phone);
 
@@ -20,6 +20,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Optional<Employee> findByUsername(String username);
 
     Optional<Employee> findByEmail(String email);
+    
+    
 
 
 }

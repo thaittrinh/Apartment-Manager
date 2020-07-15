@@ -1,16 +1,17 @@
-(function(){
-	let username = document.getElementById("username").innerText;	
+
+$( document ).ready(function() {
+	let username =  document.getElementById("username-header").innerText;
 	 $.ajax({
          type: 'GET',
-         url: URL + `api/account/${username}`,    
+         url: URL + `api/employee/find-by/${username}`,    
          dataType: 'json',
          cache: false,   
          success: function (result) {
         	 fillToForm(result.data);   	
         	 if(result.data.image){
-        	        document.querySelector('#imgs').src = URL + `assets/photo/${result.data.image}`;
+        	        document.querySelector('#imgs').src = URL + `assets/admin/photo/${result.data.image}`;
         	    }else{
-        	        document.querySelector('#imgs').src = URL + `assets/photo/someone.png`;
+        	        document.querySelector('#imgs').src = URL + `assets/admin/photo/someone.png`;
         	    }
          },
          error: function (error) {
@@ -18,9 +19,7 @@
         	 sweetalertError(error);	
          }
      });
-
-})()
-
+});
 
 /* ------------------------------- Upload  File -----------------------------*/
 document.querySelector('.img').addEventListener('click', () => {
@@ -45,10 +44,8 @@ function readURL(input) {
 /*  --------------------------------- upload image ---------------------------*/
 $("#file-upload-form").on("submit", function (e) {
     e.preventDefault();
-    let id = document.getElementById("id").value;
-    
     $.ajax({
-        url: URL + `api/account/upload-file/${id}`,
+        url: URL + `api/account/upload-file/${ID_NV}`,
         type: "POST",
         data: new FormData(this),
         enctype: 'multipart/form-data',
@@ -65,22 +62,55 @@ $("#file-upload-form").on("submit", function (e) {
     });
 })
 
+/* ------------------------------- Change Username -----------------------------*/
+document.querySelector('#update').addEventListener('click', () => {
 
-
+	let username =  document.getElementById("username-header").innerText;
+	let newUserName = document.querySelector('#username-input').value.trim();
+	  if (newUserName === '') {
+	        toastrError("Tên đăng nhập không được để trống!");
+	        document.querySelector('#username-update').focus();
+	  }else if(newUserName.length < 5 || newUserName.length > 20){
+		
+	        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
+	        document.querySelector('#username-update').focus(); 
+	  }else{
+		  $.ajax({
+		        type: 'PUT',
+		        url: URL + `api/account/change-username/${username}?new_username=${newUserName}`,
+		        contentType: 'application/json',
+		        dataType: 'json',
+		        cache: false,   
+		        success: function (result) {
+		        	Swal.fire({
+		        		  title: 'Cập nhật thành công',
+		        		  text: "Xin vui lòng đăng nhập lại để tiếp tục!",
+		        		  icon: 'success',
+		        		  allowOutsideClick: false,
+		        		  confirmButtonColor: '#3085d6',
+		        		  confirmButtonText: 'Đồng ý!'
+		        		}).then((result) => {
+		        			 location.href =URL + `logout`      			
+		        		})
+		        },
+		        error: function (error) {
+		            sweetalertError(error)
+		        }
+		    });
+		    
+	  }
+});
 
 
 
 let fillToForm = (data) => {
-	document.querySelector('#id').value = data.id;
     document.querySelector('#name').value = data.fullName;
     document.querySelector('#birthday').value = data.birthday;
     document.querySelector('#address').value = data.address;
     document.querySelector('#identitycard').value = data.identitycard;
     document.querySelector('#phone').value = data.phone;
-    document.querySelector('#username').value = "Username" + data.username;
+    document.querySelector('#username_account').innerText = data.username;
     document.querySelector('#email').innerHTML = "Email: " +  data.email;
     document.querySelector('#gender').innerHTML =  "Giới tính: "  +   ( data.gender ?  "Nam" : "Nữ" ) ;
-   
-    
 
 }
