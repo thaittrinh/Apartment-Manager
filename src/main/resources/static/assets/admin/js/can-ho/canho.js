@@ -245,7 +245,6 @@ document.querySelector('#update').addEventListener('click', () => {
         if ( data.password === 'tgFxcP4b'){
             data.password = null ;
         }
-        console.log(data.password)
         $.ajax({
             type: 'PUT',
             url: URL + `api/apartment/${data.id}`,
