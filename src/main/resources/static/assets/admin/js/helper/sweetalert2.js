@@ -1,7 +1,6 @@
 let sweetalertError = (error) => {
 	
 	let statusCode = error.status;
-	let message = error.responseJSON.message;
 	
     switch (statusCode) { 
         case 400:
@@ -10,12 +9,12 @@ let sweetalertError = (error) => {
                 text: "Dữ liệu đầu vào không đúng!" ,
                 icon: 'error'
             });
-            console.log(message);
+            console.log(error.responseJSON.message);
             break;
         case 404:
             Swal.fire({
                 title : 'Error',
-                text :  message,
+                text :  error.responseJSON.message,
                 icon: 'error'
             })
             break;
@@ -29,7 +28,7 @@ let sweetalertError = (error) => {
         case 409:
             Swal.fire({
                 title: 'Warning',
-                text :message,
+                text :error.responseJSON.message,
                 icon: 'warning'
             })
             break;    
@@ -39,7 +38,7 @@ let sweetalertError = (error) => {
                 text: 'Lỗi server!',
                 icon: 'error'
             });
-            console.log(message);
+            console.log(error.responseJSON.message);
             break;
         default:
 

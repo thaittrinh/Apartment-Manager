@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(//securedEnabled, jsr250Enabled, prePostEnabled
+		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /* ------------------------------------ WebSecurityConfig -------------------------------- */
 
@@ -62,8 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.antMatchers("/assets/**","/api/account/*").permitAll()
             .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER")
             .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
-            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
-            .antMatchers("/quan-ly/can-ho").hasAnyRole("ADMIN")       
+            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")         
         	.anyRequest().authenticated() 
             .and()                
         	.formLogin()                                    
