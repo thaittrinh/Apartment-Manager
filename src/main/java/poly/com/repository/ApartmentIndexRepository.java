@@ -15,4 +15,11 @@ public interface ApartmentIndexRepository extends JpaRepository<ApartmentIndex, 
 	
 	@Query("select a from ApartmentIndex a where  a.apartment = ?1 and  year(a.date) = ?2 and month(a.date) = ?3")
 	Optional<ApartmentIndex> findByApartmentAndYearAndMonth(Apartment apartment ,int year, int month);
+	
+	Boolean existsByApartment(Apartment apartment);
+	
+	@Query(value = "SELECT * " + 
+			" FROM  apartment_index  " + 
+			" WHERE  id_apartment = ?1 and  year(date) = ?2 and month(date)= ?3 ", nativeQuery = true)
+	Optional<ApartmentIndex> findByMonthInYear(String id_apartment, int year, int month);
 }

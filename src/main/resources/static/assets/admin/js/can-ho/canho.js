@@ -74,7 +74,7 @@ let updatePassword = (id) => {
 let deleteApartment = (id,e) => {
     Swal.fire({
         title: 'Warning',
-        text: "Bạn có chắc chắn muốn xóa không!",
+        text: "Bạn có chắc chắn muốn xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#28a745',
@@ -245,7 +245,6 @@ document.querySelector('#update').addEventListener('click', () => {
         if ( data.password === 'tgFxcP4b'){
             data.password = null ;
         }
-        console.log(data.password)
         $.ajax({
             type: 'PUT',
             url: URL + `api/apartment/${data.id}`,

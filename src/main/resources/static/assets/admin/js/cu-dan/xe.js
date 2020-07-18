@@ -28,11 +28,11 @@ let table_vihecle = (data) => {
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
-            {"mData": "licensePlates"},
+            {"mData": "typeVehicle.name"},   
             {"mData": "color"},
             {"mData": "date"},
             {"mData": "resident.id"},
-            {"mData": "typeVehicle.name"},
+            {"mData": "licensePlates"},
             {
                 "mRender": function (data, type, full) {
                     return `<i  class="material-icons icon-table icon-update" onclick='showFormUpdateVehicle(${full.id},this)' type="button">edit</i>`
@@ -51,7 +51,7 @@ let table_vihecle = (data) => {
 let deleteVehicle = (id, e) => {
     swal.fire({
         title: 'Cảnh Báo',
-        text: "Bạn chắc chắn muốn xóa Không!",
+        text: "Bạn chắc chắn muốn xóa!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#28a745',
@@ -80,7 +80,6 @@ let deleteVehicle = (id, e) => {
 // < ------------------------- insert or update -------------------->
 document.querySelector('#save-vehicle').addEventListener('click', () => {
     let vehicle = getValueFormVehicle();
-    console.log(vehicle)
     if (validateFormVehicle(vehicle)) {
         if (vehicle.id){
             // < ------------------- update ---------------------->
@@ -129,9 +128,9 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
 
 
 // < -------------------- show form upate ------------->
-var index = -1;
+let index = -1;
 let showFormUpdateVehicle = (id, e) => {
-    index = $('#table-vehicle').DataTable().row($(e).parent('tr')).index();
+    index = $('#table-vehicle').DataTable().row($(e).parents('tr')).index();
     $('#form-vehicle').modal('show')
     document.querySelector('.modal-title').innerHTML =
         "  <i class='fas fa-motorcycle mr-1'></i>" + "Cập Nhật Thông Tin Xe ";
@@ -150,16 +149,12 @@ let showFormUpdateVehicle = (id, e) => {
 
 //<------------- When modal close -> clean form modal  ----------->
 $("#form-vehicle").on("hidden.bs.modal", function () {
-    document.querySelector('#idVehicle').value = "",
-        document.querySelector('#licensePlates').value = "",
-        document.querySelector('#color').value = "",
-        document.querySelector('#date').value = "",
-        document.querySelector('#idResident').value = ""
+        document.querySelector('#idVehicle').value = "",
+        cleanFormVehicle();
 });
 
 // < ---------------------- Clean form ---------------------------->
 let cleanFormVehicle = () => {
-    document.querySelector('#idVehicle').value = "",
         document.querySelector('#licensePlates').value = "",
         document.querySelector('#color').value = "",
         document.querySelector('#date').value = "",
@@ -193,33 +188,45 @@ let getValueFormVehicle = () => {
 }
 
 let validateFormVehicle = (data) => {
+	 let element = document.querySelector('#type');
+	 let nameType = element.options[element.selectedIndex].text;
 
     if (data.typeVehicle.id === '') {
         toastrError("Chưa chọn loại xe!");
         document.querySelector('#type').focus();
         return false;
     }
+    if(nameType === 'Xe máy' && data.licensePlates === ''){
+    	 toastrError("Biển số xe không được để trống! ")
+         document.querySelector('#licensePlates').focus()
+         return false
+    }  
+    if(nameType === 'Xe ô tô' && data.licensePlates === ''){
+    	 toastrError("Biển số xe không được để trống! ")
+         document.querySelector('#licensePlates').focus()
+         return false
+    }
     if (data.licensePlates != '') {
         if (data.licensePlates.length < 9 || data.licensePlates.length > 10) {
-            toastrError("Biển số xe phải từ 9 hoặc 10 kí tự ")
+            toastrError("Biển số xe phải từ 9 hoặc 10 kí tự!")
             document.querySelector('#licensePlates').focus()
             return false
         }
     }
 
     if (data.color === '') {
-        toastrError("Màu xe không được để trống");
+        toastrError("Màu xe không được để trống!");
         document.querySelector('#color').focus();
         return false
     }
 
     if (data.date === '') {
-        toastrError("Ngày đăng ký không được để trống");
+        toastrError("Ngày đăng ký không được để trống!");
         document.querySelector('#hometown').focus();
         return false
     }
     if (data.resident.id === '') {
-        toastrError("Mã cư dân không được để trống");
+        toastrError("Mã cư dân không được để trống!");
         document.querySelector('#idResident')
         return false
     }

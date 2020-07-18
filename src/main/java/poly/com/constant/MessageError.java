@@ -12,7 +12,9 @@ public class MessageError {
 	
 	public static final String ERROR_404_OWN_APARTMENT = "Chủ căn hộ không tồn tại!";
 	
-	public static final String ERROR_404_OWN_APARTMENT_INDEX = "Chỉ số hóa đơn không tồn tại!";
+	public static final String ERROR_404_APARTMENT_INDEX = "Hóa đơn không tồn tại!";
+	
+	public static final String ERROR_404_OLD_APARTMENT_INDEX = "Hóa đơn tháng trước chưa tạo! Vui lòng tạo mới";
 
 	public static final String ERROR_404_APARTMENT = "Căn hộ không tồn tại!";
 	
@@ -97,5 +99,7 @@ public class MessageError {
 	
 	
 	public static final String ERROR_500 = "Lỗi server!";
+	
+	public static final String DELETE_FAIL = "Xóa thất bại!";
 		
 }

@@ -3,6 +3,8 @@ package poly.com.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,9 @@ import poly.com.dto.OwnApartmentDTO;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.Apartment;
 import poly.com.entity.OwnApartment;
-import poly.com.entity.Resident;
 import poly.com.helper.OwnApartmentExportExcel;
-import poly.com.helper.ResidentExportExcel;
 import poly.com.repository.ApartmentRepository;
 import poly.com.repository.OwnApartmentRepository;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class OwnApartmentService {

@@ -1,5 +1,5 @@
 let ID = document.getElementById("id").value;
-
+let update = null;
 (function(){
 	 $.ajax({
 	        url: URL + `api/apartment-index/${ID}`,
@@ -8,13 +8,11 @@ let ID = document.getElementById("id").value;
 	        success: function (result) {
 	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
 	        	document.getElementById("title-detail").innerHTML =  `<i class="fas fa-address-card mr-3"></i> Thông tin chi tiết hóa đơn căn hộ
-	        															${result.data.apartmentIndex.apartment.id}`;
-	        		        	
+	        															${result.data.apartmentIndex.apartment.id}`;   		        	
 	        	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);
 	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
-	        
-	        	setValueForm(result.data.apartmentIndex);
-	        	hiddenPayment(result.data.paid);
+	        	update = result.data.apartmentIndex;
+	        	hiddenPayment(result.data.paid); 
 	        },
 	        error: function (error) {
 	            sweetalert(error.status)
@@ -56,7 +54,7 @@ document.querySelector('#paid-true').addEventListener('click', () => {
 	
 })
 
-//< ------------------------ insert or update  ---------------------->
+//< ------------------------ update  ---------------------->
 document.querySelector('#save').addEventListener('click', () => {	
     
 	let input = getValueForm();  
@@ -71,6 +69,7 @@ document.querySelector('#save').addEventListener('click', () => {
 	            success: function (result) {
 	            	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
 	            	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);
+	            	update = result.data.apartmentIndex;
 		        	setValueForm(result.data.apartmentIndex)
 		        	hiddenPayment(result.data.paid);
 	            	sweetalertSuccess(result.message);
@@ -83,6 +82,29 @@ document.querySelector('#save').addEventListener('click', () => {
     }
        
 });
+
+//<------------- When modal close -> clean form modal  ----------->
+$("#form-building").on("hidden.bs.modal", function () {
+    cleanForm();
+});
+
+document.querySelector('#update').addEventListener('click', () => {
+	setValueForm(update);
+	
+});
+
+
+//<------------------ clean form ---------------------------->
+let cleanForm = () => {
+	document.querySelector('#electricityNumber').value = '';
+    document.querySelector('#waterNumber').value = '';
+    document.querySelector('#bicycleNumber').value = '';	
+    document.querySelector('#motocycleNumber').value = '';
+	document.querySelector('#carNumber').value = '';
+}
+
+//< -------------- clean form when click button clean ------------>
+document.querySelector('#clean-form').addEventListener('click', cleanForm);
 
 let getMonthYear = (data) => {
 	var date = new Date(data);

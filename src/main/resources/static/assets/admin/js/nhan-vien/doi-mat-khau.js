@@ -1,6 +1,26 @@
-/* ------------------------------ Change Password ------------------------------ */
+/*(function () {
+    let username = document.getElementById("username_sidenavbar").innerText;
+    $.ajax({
+        type: 'GET',
+        url: URL + `api/account/${username}`,
+        dataType: 'json',
+        cache: false,
+        success: function (result) {
+            document.getElementById('idnv').value = result.data.id;
+        },
+        error: function (error) {
+            console.log("File authentication fail load id_nv");
+            sweetalertError(error);
+        }
+    });
+
+})()
+*/
+ /* id lấy ID_NV là dc rồi */
+
 document.querySelector('#changepassword').addEventListener('click', () => {
     var changepassword = getValueFormPassword();
+    console.log(changepassword)
     if (validateFormChangePassword(changepassword)) {
         Swal.fire({
             title: 'Cảnh báo',
@@ -33,6 +53,7 @@ document.querySelector('#changepassword').addEventListener('click', () => {
         })
     }
 });
+
 
 //  auto logout after when change pasword success
 function LogoutAfterChangePassword() {
@@ -79,7 +100,7 @@ function TogglePassword() {
 /* ---------------------  get valve form ---------------------------------  */
 let getValueFormPassword = () => {
     return {
-        'id': 1,
+        'id': ID_NV,     // document.getElementById('idnv').value.trim(),
         'password': document.querySelector('#Password').value.trim(),
         'newpassword': document.querySelector('#newPassword').value.trim(),
     }
@@ -134,16 +155,16 @@ let validateFormChangePassword = (data) => {
         document.querySelector('#newPassword').focus();
         return false
     }
- /*   if (data.newpassword.search(/[a-z]/) < 0) {
-        toastrError("Mật khẩu phải có ít nhất một chữ cái")
-        document.querySelector('#newPassword').focus();
-        return false
-    }
-    if (data.newpassword.search(/[A-Z]/) < 0) {
-        toastrError("Mật khẩu phải có ít nhất một chữ cái viết hoa")
-        document.querySelector('#newPassword').focus();
-        return false
-    }*/
+    /*   if (data.newpassword.search(/[a-z]/) < 0) {
+           toastrError("Mật khẩu phải có ít nhất một chữ cái")
+           document.querySelector('#newPassword').focus();
+           return false
+       }
+       if (data.newpassword.search(/[A-Z]/) < 0) {
+           toastrError("Mật khẩu phải có ít nhất một chữ cái viết hoa")
+           document.querySelector('#newPassword').focus();
+           return false
+       }*/
     if (data.newpassword.search(/[0-9]/) < 0) {
         toastrError("Mật khẩu phải có ít nhất một chữ số")
         document.querySelector('#newPassword').focus();

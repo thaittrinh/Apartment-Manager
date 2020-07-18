@@ -30,6 +30,11 @@ public class EmployeeAPI {
     public ResponseEntity<ResponseDTO> findById(@PathVariable int id) {
         return employeeService.findById(id);
     }
+    
+    @GetMapping("/find-by/{username}")
+    public ResponseEntity<ResponseDTO> findById(@PathVariable String username) {
+        return employeeService.findByUsername(username);
+    }
 
     @PostMapping()
     public ResponseEntity<ResponseDTO> registerUser(@Valid @RequestBody EmployeeRequest signUpRequest) {
