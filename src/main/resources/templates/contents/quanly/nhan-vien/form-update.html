@@ -134,7 +134,7 @@
             <div class="card col-sm-3"
                  style="width: 200px; height: 356px; margin-left: 30px; padding: 0;">
                 <!------------------------------------ hÃ¬nh áº£nh  ---------------------------------->
-                <a class="img" style="margin-top: 15px">
+                <a class="img" style="margin-top: 15px" type="button">
                     <img class="rounded-circle mx-auto d-block" id="imgs" th:src="@{/assets/admin/photo/someone.png}">
                 </a>
                 <form id="file-upload-form">
@@ -145,7 +145,7 @@
                 </form>
                 <!------------------------------------------------>
                 <div class="card-title-name">
-                    <i class="fas fa-camera" onclick="document.querySelector('#file').click()"
+                    <i type="button" class="fas fa-camera" onclick="document.querySelector('#file').click()"
                        style="font-size: 24px;"></i>
                     <h5 id="name-formImg"></h5>
                     <h6 id="email-formImg" style="margin-left: 5px"></h6>

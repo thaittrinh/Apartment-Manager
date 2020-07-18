@@ -56,3 +56,12 @@ let sweetalertSuccess = (message) => {
            
 }
 
+let sweetalertError2  = (message) => {
+    Swal.fire({
+        title: 'Error',
+        text : message,
+        icon: 'error'
+    })
+   
+}
+

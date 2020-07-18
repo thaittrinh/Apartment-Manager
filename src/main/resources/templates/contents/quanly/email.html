@@ -1,0 +1,52 @@
+<div lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     data-layout-decorate="~{/layout-admin}">
+    <!-------------------------------------------------------------------------------------------->
+
+    <div layout:fragment="content">
+        <!-------------------------------------------------- Header----------------------------------------------->
+        <div class="row" style="margin-top: -45px">
+            
+            <div th:replace="components/header"></div>
+        </div>
+        <!------------------------------------------------- table CÆ° DÃ¢n ---------------------------------------->
+        <div class="card">
+            <!-------------------------------------------- card title table ------------------------------------->
+            <div class="card-header" style="border-radius: 6px;">
+                <div class="card-titles">
+                    <h6 style="color: white"><i class="fas fa-envelope-square"></i>&nbspEmail</h6>
+                </div>
+            </div>
+            <div class="card-body" style="margin: 30px 0 0 30px;">
+    			   <form id="send-email">
+                        <div class="row">        
+                            <div class="input-container col-sm-4" style="padding: 0">
+                                <input type="text" required="required" name="to"
+                                       id="to" style="width: 100%"/>
+                                <label for="to">Gửi đến</label>
+                            </div>
+
+                            <!------------------------ NgÃƒÂ y Sinh ------------------------------>
+                            <div class="input-container col-sm-7" style="padding: 0;">
+                                <input type="text" required="required" name="subject"
+                                       id="subject" style="width: 100%">
+                                <label for="subject">Chủ đề</label>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                       	 <div class="input-container col" style="padding: 0; margin-right:50px;">
+							<textarea style="width: 100%"  id="body" name="body"
+                                      required="required" rows="7"></textarea>
+                                <label for="body">Nội dung</label>
+                            </div>                    
+                        </div>     
+                           <button style="font-size: 18px; width: 120px;" type="submit" class="btn btn-sm btn-success"  id="send">
+                              <i class="fas fa-paper-plane"></i>&nbspGửi
+                        </button>               
+                   </form>                
+            </div>      
+        </div>
+      
+        <script th:src="@{/assets/admin/js/email.js}" type="text/javascript"></script>
+    </div>
+    <!------------------------------------------------------- end div content --------------------------------------------->
+</div>
