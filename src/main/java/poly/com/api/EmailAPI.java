@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import poly.com.service.MailService;
 
@@ -18,8 +19,9 @@ public class EmailAPI {
 	
 	  @PostMapping()
 	  public ResponseEntity<?> sendEmail(@RequestParam("to") String sendTo, @RequestParam("subject") String subject,
-			  							@RequestParam("body") String body) {	 	  
-		  return mailService.sendEmail(sendTo, subject, body); 
+			  							@RequestParam("body") String body, @RequestParam("file") MultipartFile[] mFiles)   {	 	 
+		  
+		  return mailService.sendEmail(sendTo, subject, body, mFiles); 
 	  }
 	
 }

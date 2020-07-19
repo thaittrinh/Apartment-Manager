@@ -20,26 +20,29 @@
     			   <form id="send-email">
                         <div class="row">        
                             <div class="input-container col-sm-4" style="padding: 0">
-                                <input type="text" required="required" name="to"
-                                       id="to" style="width: 100%"/>
+                                <input type="text" name="to" id="to" style="width: 100%" />
                                 <label for="to">Gửi đến</label>
                             </div>
 
-                            <!------------------------ NgÃƒÂ y Sinh ------------------------------>
                             <div class="input-container col-sm-7" style="padding: 0;">
-                                <input type="text" required="required" name="subject"
-                                       id="subject" style="width: 100%">
+                                <input type="text" name="subject" id="subject" style="width: 100%">
                                 <label for="subject">Chủ đề</label>
                             </div>                            
                         </div>
                         <div class="row">
                        	 <div class="input-container col" style="padding: 0; margin-right:50px;">
-							<textarea style="width: 100%"  id="body" name="body"
-                                      required="required" rows="7"></textarea>
+							<textarea style="width: 100%"  id="body" name="body" rows="7"></textarea>
                                 <label for="body">Nội dung</label>
                             </div>                    
-                        </div>     
-                           <button style="font-size: 18px; width: 120px;" type="submit" class="btn btn-sm btn-success"  id="send">
+                        </div>    
+                        <div class="row">
+                       	 <div class=" col-sm-3" style="padding: 0; margin-right:50px; font-size: 14px;">
+                       		 <label for="file">Đính kèm file</label>
+							<input type="file" name="file" multiple
+                                       id="file" style="width: 100%"  size="20" >
+                            </div>                    
+                        </div>  
+                       <button style="font-size: 18px; width: 120px; float: right; margin-right: 30px;" type="submit" class="btn btn-sm btn-success"  id="send">
                               <i class="fas fa-paper-plane"></i>&nbspGửi
                         </button>               
                    </form>                
