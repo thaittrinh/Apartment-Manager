@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.cors()
         	.and()
         	.authorizeRequests()   	 	
-        	.antMatchers("/assets/**","/api/account/*").permitAll()
+        	.antMatchers("/assets/**","/api/account/*","/api/email").permitAll()
             .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER")
             .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
             .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")         
