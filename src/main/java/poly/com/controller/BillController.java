@@ -25,23 +25,25 @@ public class BillController {
 	@Autowired
 	BillRepository billRepository;
 	
+	
 	 // return template page table hoa don
     @GetMapping()
     public String pageTableHoadon() {
-        return "contents/quanly/hoa-don/table-hoadon";
+        return "quanly/hoa-don/table-hoa-don.html";
     }
-        
+    
+    
     @GetMapping("/{id}")
     public String pageUpdate(@PathVariable int id, ModelMap model){
     	
     	model.addAttribute("id", id);
-        return "contents/quanly/hoa-don/detail";
+        return "quanly/hoa-don/hoa-don-chi-tiet";
     }
     
     @GetMapping("/export-pdf")
     public void exportPdf(HttpServletResponse response, @RequestParam("id") int id) throws DocumentException, IOException{ 	
     	response.setContentType("application/pdf; charset=utf-8");
-        response.setCharacterEncoding("UTF-8");
+          response.setCharacterEncoding("UTF-8");
     	 String headerKey = "Content-Disposition";
          String headerValue = "attachement; filename=bill.pdf";
          response.setHeader(headerKey, headerValue);

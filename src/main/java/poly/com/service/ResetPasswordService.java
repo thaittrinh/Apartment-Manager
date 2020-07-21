@@ -60,12 +60,12 @@ public class ResetPasswordService {
                             + "http://localhost:8081/apartment-manage.com.vn/api/account/confirm-reset?token="
                             + token.getToken());
             emailSenderService.sendEmail(mailMessage);
-            modelAndView.setViewName("/contents/resetpassword/form-check-email");
+            modelAndView.setViewName("resetpassword/form-check-email");
             modelAndView.addObject("messageSuccess",
                     "Hệ thống đã gửi cho bạn một e-mail có kèm theo link"+"\n" + " để đặt lại mật khẩu, kiểm tra email của bạn");
         } else {/* if email dose not exist return not found */
             modelAndView.addObject("messageError", "Email này không tồn tại, vui lòng kiểm tra lại ");
-            modelAndView.setViewName("/contents/resetpassword/form-check-email");
+            modelAndView.setViewName("resetpassword/form-check-email");
         }
         return modelAndView;
     }
@@ -80,10 +80,10 @@ public class ResetPasswordService {
             modelAndView.addObject("employee", employee);
             modelAndView.addObject("email", employee.getEmail());
             modelAndView.addObject("token", token);
-            modelAndView.setViewName("/contents/resetpassword/form-reset-password");
+            modelAndView.setViewName("resetpassword/form-reset-password");
         } else {
             modelAndView.addObject("message", "Liên kết không hợp lệ hoặc bị hỏng!");
-            modelAndView.setViewName("/contents/404");
+            modelAndView.setViewName("404");
         }
         return modelAndView;
     }
@@ -94,13 +94,13 @@ public class ResetPasswordService {
 
         if (tokenResetPasswrod == null) {
             modelAndView.addObject("message", "The link is invalid or broken!");
-            modelAndView.setViewName("/contents/404");
+            modelAndView.setViewName("404");
         } else {
             Employee tokenEmployee = tokenResetPasswrod.getEmployee();
             tokenEmployee.setPassword(passwordEncoder.encode(employee.getPassword()));
             employeeRepository.save(tokenEmployee);
             modelAndView.addObject("messageSuccess", "Đặt lại mật khẩu thành công");
-            modelAndView.setViewName("/contents/login/login");
+            modelAndView.setViewName("login/login");
         }
         return modelAndView;
     }

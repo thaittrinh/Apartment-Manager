@@ -25,6 +25,7 @@ public class AccountAPI {
 	@Autowired
 	EmployeeService employeeService;
 	
+	
 	@GetMapping("/{username}")
     public ResponseEntity<ResponseDTO> findByUsername(@PathVariable String username) {
       
@@ -41,11 +42,6 @@ public class AccountAPI {
         return employeeService.changepassword(changePasswordRequest);
     }
 
-    @PutMapping("/change-username/{username}")
-    public ResponseEntity<ResponseDTO> changeUsername(@PathVariable String username, @RequestParam("new_username") String newUsername) {
-        return employeeService.changeUsername(username, newUsername);
-    }
-    
 	 
     
 }

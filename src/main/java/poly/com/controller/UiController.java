@@ -19,25 +19,25 @@ public class UiController {
     // return template page table thông báo
     @GetMapping("/noi-quy")
     public String pageRegulation() {
-        return "contents/quanly/noi-quy/noiquy";
+        return "quanly/noi-quy/noiquy";
     }
 
     // return template page table thông báo
     @GetMapping("/thong-bao")
     public String pageNotification() {
-        return "contents/quanly/thong-bao/thongbao";
+        return "quanly/thong-bao/table-thong-bao";
     }
 
     // return template page form table thông báo
     @GetMapping("/thong-bao/{id}")
     public String pageFormNotification(@PathVariable int id, ModelMap model) {
         model.addAttribute("id", id);
-        return "contents/quanly/thong-bao/form-thongbao";
+        return "quanly/thong-bao/form-thong-bao";
     }
     
     @GetMapping("/thong-tin-tai-khoan")
     public  String pageFormAccount(){
-        return  "contents/quanly/nhan-vien/form-account";
+        return  "account/form-thong-tin-tai-khoan";
     }
 
 

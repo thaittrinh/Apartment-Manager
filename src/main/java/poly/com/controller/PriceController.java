@@ -17,31 +17,31 @@ public class PriceController {
     // return template page table phi rac
     @RequestMapping("/phi-rac")
     public String pageTablePhirac() {
-        return "contents/quanly/bang-gia/table-phirac";
+        return "quanly/bang-gia/table-phi-rac";
     }
 
     // return template page table gia dien 
     @RequestMapping("/gia-dien")
     public String pageTableGiadien() {
-        return "contents/quanly/bang-gia/table-giadien";
+        return "quanly/bang-gia/table-gia-dien";
     }
 
     // return template page table gia nuoc
     @RequestMapping("/gia-nuoc")
     public String pageTableGianuoc() {
-        return "contents/quanly/bang-gia/table-gianuoc";
+        return "quanly/bang-gia/table-gia-nuoc";
     }
 
     // return template page table phi quan ly 
     @RequestMapping("/phi-quan-ly")
     public String pageTablePhiquanly() {
-        return "contents/quanly/bang-gia/table-phiquanly";
+        return "quanly/bang-gia/table-phi-quan-ly";
     }
 
     @GetMapping("/phi-gui-xe")
     public String pageTableXe(ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
-        return "contents/quanly/bang-gia/table-phixe";
+        return "quanly/bang-gia/table-phi-xe";
     }
 
 }

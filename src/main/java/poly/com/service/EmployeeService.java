@@ -1,11 +1,5 @@
 package poly.com.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,20 +7,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
 import poly.com.entity.ERole;
 import poly.com.entity.Employee;
+import poly.com.entity.Resident;
 import poly.com.entity.Role;
 import poly.com.helper.EmployeeExportExcel;
 import poly.com.helper.FileHelper;
+import poly.com.helper.ResidentExportExcel;
 import poly.com.repository.EmployeeRepository;
 import poly.com.repository.PasswordResetRespository;
 import poly.com.repository.RoleRepository;
 import poly.com.request.EmployeeRequest;
 import poly.com.security.request.ChangePasswordRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class EmployeeService {
@@ -234,28 +234,6 @@ public class EmployeeService {
         }
     }
 
-    /*------------------------------------------  change password -------------------------------------*/
-    public ResponseEntity<ResponseDTO> changeUsername(String username, String newUsername) {
-        try {
-          Employee employee = employeeRepository.findByUsername(username).orElse(null);
-          if (employee == null) 
-        	  return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-          if(employeeRepository.existsByUsername(newUsername) && !username.equals(newUsername)) 
-        	  return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_USERNAME), HttpStatus.CONFLICT);
-          
-        	employee.setUsername(newUsername);
-        	employee = employeeRepository.save(employee);
-        	
-          return ResponseEntity.ok(new ResponseDTO(employee, MessageSuccess.UPDATE_SUCCSESS));
-  
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-       
-    }
-    
-    
-    
     /*------------------------------------------  change password -------------------------------------*/
     public ResponseEntity<ResponseDTO> changepassword(ChangePasswordRequest passwordRequest) {
         try {

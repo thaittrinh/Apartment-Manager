@@ -12,14 +12,14 @@ public class EmployeeController {
 
     @GetMapping()
     public String pageEmployee(){
-        return "contents/quanly/nhan-vien/table-nhanvien";
+        return "quanly/nhan-vien/table-nhan-vien";
     }
     
     // return template page chu can ho
  	@GetMapping("/{id}")
  	public String formUpdate(@PathVariable int id, ModelMap model) {
  			model.addAttribute("idEmployee" , id);
- 		return "contents/quanly/nhan-vien/form-update";
+ 		return "quanly/nhan-vien/form-update-nhanvien";
  	}
     
     

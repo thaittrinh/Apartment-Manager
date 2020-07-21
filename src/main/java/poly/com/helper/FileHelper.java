@@ -14,7 +14,7 @@ public class FileHelper {
 	String fileName = newName + "." + photo.getOriginalFilename().split("\\.")[1];
 	String local = System.getProperty("user.dir");	
 	
-	File convertFile = new File(local+"\\src\\main\\resources\\static\\assets\\admin\\photo\\"+ fileName );
+	File convertFile = new File(local+"\\src\\main\\resources\\static\\assets\\quanly\\image\\"+ fileName );
 	convertFile.createNewFile();
 	FileOutputStream fout = new FileOutputStream(convertFile);
 	fout.write(photo.getBytes());// 
@@ -23,7 +23,7 @@ public class FileHelper {
   }
 	    
   public void deleteFile(String fileName) throws IOException{	
-	String urlFile = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\admin\\photo\\" + fileName;
+	String urlFile = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\assets\\quanly\\image\\" + fileName;
   	File myFile = new File(urlFile);
   	myFile.delete();
 	  
