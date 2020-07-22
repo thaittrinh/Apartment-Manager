@@ -221,10 +221,18 @@ public class ApartmentIndexService {
 			
 	
 			// Kiểm tra căn hộ đã từng tồn tại hóa đơn nào chưa -> set lại số điện nươc (default = 0 )
+					
+			int month = request.getDate().getMonth();
+			int year  = request.getDate().getYear() + 1900;
+			
+			if (request.getDate().getMonth() == 0) {
+				month = 12;
+				year = year -1;
+			}
+				
 			if (apartmentIndexRepository.existsByApartment(request.getApartment())) {
-				ApartmentIndex apartmentIndexOld  = apartmentIndexRepository.findByMonthInYear(request.getApartment().getId(),
-																			request.getDate().getYear() + 1900,
-																			request.getDate().getMonth()).orElse(null);
+				ApartmentIndex apartmentIndexOld  = apartmentIndexRepository.findByMonthInYear(request.getApartment().getId(), year, month).orElse(null);
+								
 				if (apartmentIndexOld == null) {
 					return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OLD_APARTMENT_INDEX), HttpStatus.NOT_FOUND);
 				}
@@ -272,6 +280,8 @@ public class ApartmentIndexService {
 	public ResponseEntity<ResponseDTO> update(int id, UpdateIndexRequest request) {
 		int waterNumber = request.getWarterNumber() ;
 		int electricityNumber = request.getElectricityNumber();	
+		int month = request.getDate().getMonth();
+		int year  = request.getDate().getYear() + 1900;
 		
 		try {	
 			// Check exist apartmentIndex
@@ -353,24 +363,39 @@ public class ApartmentIndexService {
 					 .orElse(null);
 			if (electricityPrice_6 == null)
 			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_ELECTRICITY_LIMIT_6), HttpStatus.NOT_FOUND);
+				
+			
+			ApartmentIndex exApartmentIndex = apartmentIndexRepository.findByMonthInYear(apartmentIndexOld.getApartment().getId(),
+					year ,month +1).orElse(null);		
+
+			if (exApartmentIndex !=  null && exApartmentIndex.getId() != id ) {
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_APARTMENT_INDEX), HttpStatus.CONFLICT);
+			}
+					
+			if (request.getDate().getMonth() == 0) {
+				month = 12;
+				year = year -1;
+			}
 			
 			// Get old previous
-			ApartmentIndex apartmentIndexprevious = apartmentIndexRepository.findByMonthInYear(apartmentIndexOld.getApartment().getId(),
-																							   request.getDate().getYear() + 1900,
-																							   request.getDate().getMonth()).orElse(null);		
-			if (apartmentIndexprevious != null) {
-				// Check the number is smaller than the old number
-				if ( apartmentIndexprevious != null  &&  request.getElectricityNumber() < apartmentIndexprevious.getNewElectricityNumber() ) {
-					return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_LECTRICITY_NUMBER), HttpStatus.CONFLICT);
-				}
-				if ( apartmentIndexprevious != null  &&   request.getWarterNumber()  < apartmentIndexprevious.getNewWaterNumber() ) {
-					return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_WATER_NUMBER ), HttpStatus.CONFLICT);
-				}
-				
-			 	 waterNumber  =  request.getWarterNumber() -  apartmentIndexprevious.getNewWaterNumber();
-			     electricityNumber = request.getElectricityNumber() - apartmentIndexprevious.getNewElectricityNumber();
-				
+			ApartmentIndex apartmentIndexprevious = apartmentIndexRepository.findByMonthInYear(apartmentIndexOld.getApartment().getId(), year,month).orElse(null);		
+
+			if (apartmentIndexprevious == null || apartmentIndexprevious.getId() == id ) {
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OLD_APARTMENT_INDEX), HttpStatus.NOT_FOUND);
 			}
+				
+			// Check the number is smaller than the old number
+			if (  request.getElectricityNumber() < apartmentIndexprevious.getNewElectricityNumber() ) {
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_LECTRICITY_NUMBER), HttpStatus.CONFLICT);
+			}
+			if (  request.getWarterNumber()  < apartmentIndexprevious.getNewWaterNumber() ) {
+				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_WATER_NUMBER ), HttpStatus.CONFLICT);
+			}
+			
+		 	 waterNumber  =  request.getWarterNumber() -  apartmentIndexprevious.getNewWaterNumber();
+		     electricityNumber = request.getElectricityNumber() - apartmentIndexprevious.getNewElectricityNumber();
+				
+			
 			
 			// Insert into table ApartmentIndex
 			ApartmentIndex apartmentIndex = new ApartmentIndex(id, request.getElectricityNumber(), request.getWarterNumber(), request.getBicycleNumber(),

@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Nhân Viên </h4>
+                    <h4 class="page-title">Quản lý nhân viên</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -39,7 +39,7 @@
                                     <a th:href="@{/api/resident/export-excel}">
                                         <button class="btn btn-sm btn-primary btn-round ml-auto ">
                                             <i class="fas fa-download"></i>
-                                            Xuất File Excel
+                                            Xuất file excel
                                         </button>
                                     </a>
                                 </div>
@@ -52,7 +52,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title">
-                                                    Thêm nhân viên
+                                                   THÊM NHÂN VIÊN
                                                 </h5>
                                                 <button aria-label="Close" class="close" data-dismiss="modal"
                                                         type="button">
@@ -66,13 +66,13 @@
                                                             <div class="form-group form-group-default">
                                                                 <input hidden="true" id="id" required="required" type="number"/>
                                                                 <label>Họ và tên </label>
-                                                                <input class="form-control" id="fullName" placeholder="họ và tên" type="text">
+                                                                <input class="form-control" id="fullName" placeholder="Họ & tên" type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Ngày sinh </label>
-                                                                <input class="form-control" id="birthday" placeholder="ngày sinh" type="date">
+                                                                <label>Ngáy sinh </label>
+                                                                <input class="form-control" id="birthday"  type="date">
                                                             </div>
                                                         </div>
 
@@ -102,7 +102,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>CMND</label>
                                                                 <input class="form-control" id="identitycard"
-                                                                       placeholder="sô chứng minh thư"
+                                                                       placeholder="Số chứng minh"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -110,7 +110,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Điện thoại</label>
                                                                 <input class="form-control" id="phone"
-                                                                       placeholder="số điện thoại"
+                                                                       placeholder="Số điện thoại"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -118,9 +118,9 @@
                                                     <div class="row">
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Địa chỉ </label>
+                                                                <label>Địa chỉ</label>
                                                                 <input class="form-control" id="address"
-                                                                       placeholder="địa chỉ"
+                                                                       placeholder="Địa chỉ"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -128,7 +128,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>E-mail</label>
                                                                 <input class="form-control" id="email"
-                                                                       placeholder="địa chỉ e-mail"
+                                                                       placeholder="Địa chỉ email"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -137,14 +137,14 @@
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Tên đăng nhập</label>
-                                                                <input class="form-control" id="username" placeholder="tên đăng nhập" type="text">
+                                                                <input class="form-control" id="username" placeholder="Tên đăng nhập" type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Mật khẩu</label>
                                                                 <input class="form-control" id="password"
-                                                                       placeholder="mật khẩu" type="password">
+                                                                       placeholder="Mật khẩu" type="password">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -177,7 +177,7 @@
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                    Làm mới
                                                 </button>
                                             </div>
                                         </div>
@@ -192,10 +192,10 @@
                                             <th>Họ tên</th>
                                             <th>Giới tính</th>
                                             <th>Tên đăng nhập</th>
-                                            <th>Quyền hạn</th>
+                                            <th>Quê quán</th>
                                             <th>Số điện thoại</th>
                                             <th style="width: 10%">Cập nhật</th>
-                                            <th style="width: 10%">Xoá</th>
+                                            <th style="width: 10%">Xóa</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
@@ -204,9 +204,9 @@
                                             <th>Họ tên</th>
                                             <th>Giới tính</th>
                                             <th>Tên đăng nhập</th>
-                                            <th>Quyền hạn</th>
+                                            <th>Quê quán</th>
                                             <th>Số điện thoại</th>
-                                            <th style="width: 10%">Cập Nhật</th>
+                                            <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
                                         </tr>
                                         </tfoot>

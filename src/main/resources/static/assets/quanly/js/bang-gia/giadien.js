@@ -83,7 +83,7 @@ let deletePrice = (id, e) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3'></i>" + 'Thêm Giá Mới'
+    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3'></i>" + 'THÊM GIÁ ĐIỆN'
 }
 
 // < ----------------------- show form update ---------------->
@@ -91,7 +91,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-electricity').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3 '></i>" + "Cập Nhật Giá Điện";
+    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3 '></i>" + "CẬP NHẬT GIÁ ĐIỆN";
     $.ajax({
         url: URL + `api/price-electricity/${id}`,
         type: 'GET',

@@ -1,5 +1,8 @@
 let ID = document.getElementById("id").value;
 
+let OUpdate = {};
+
+
 (function(){
 	 $.ajax({
 	        url: URL + `api/apartment-index/${ID}`,
@@ -7,13 +10,12 @@ let ID = document.getElementById("id").value;
 	        dataType: 'json',
 	        success: function (result) {
 	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
-	        	document.getElementById("title-detail").innerHTML =  `<i class="fas fa-address-card mr-3"></i> Thông tin chi tiết hóa đơn căn hộ
+	        	document.getElementById("title-detail").innerHTML =  `<i class="fas fa-address-card mr-3"></i>CẬP NHẬT HÓA ĐƠN CĂN HỘ 
 	        															${result.data.apartmentIndex.apartment.id}`;
 	        		        	
 	        	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);
-	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
-	        
-	        	setValueForm(result.data.apartmentIndex);
+	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	        
+	        	OUpdate = getDataUpdate(result.data.apartmentIndex);
 	        	hiddenPayment(result.data.paid);
 	        },
 	        error: function (error) {
@@ -70,8 +72,8 @@ document.querySelector('#save').addEventListener('click', () => {
 	            data: JSON.stringify(input),
 	            success: function (result) {
 	            	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
-	            	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);
-		        	setValueForm(result.data.apartmentIndex)
+	            	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);	
+	            	OUpdate = getDataUpdate(result.data.apartmentIndex);
 		        	hiddenPayment(result.data.paid);
 	            	sweetalertSuccess(result.message);
 	            	  $('#form-building').modal('hide');
@@ -83,6 +85,34 @@ document.querySelector('#save').addEventListener('click', () => {
     }
        
 });
+
+document.querySelector('#clean-form').addEventListener('click', () => {	
+	document.querySelector('#electricityNumber').value = '';
+    document.querySelector('#waterNumber').value = '';
+	document.querySelector('#date').value =  '';
+    document.querySelector('#bicycleNumber').value = '';	
+    document.querySelector('#motocycleNumber').value = '';
+	document.querySelector('#carNumber').value = '';
+});
+
+
+$('#form-building').on('show.bs.modal', function (e) {
+	setValueForm(OUpdate);
+});
+
+
+let getDataUpdate = (data) =>{
+	return {
+		"newElectricityNumber": data.newElectricityNumber,
+		"newWaterNumber": data.newWaterNumber,
+		"date": data.date,
+		"bicycleNumber": data.bicycleNumber,
+		"motocycleNumber": data.motocycleNumber,
+		"carNumber": data.carNumber,
+	
+	}
+}
+
 
 let getMonthYear = (data) => {
 	var date = new Date(data);

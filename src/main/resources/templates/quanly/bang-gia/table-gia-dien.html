@@ -6,7 +6,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Bảng Giá</h4>
+                    <h4 class="page-title">Quản lý bảng giá</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -17,13 +17,13 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a>Quản lý </a>
+                            <a>Quản lý</a>
                         </li>
                         <li class="separator">
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a>Bảng giá điện </a>
+                            <a>Bảng giá điện</a>
                         </li>
                     </ul>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Bảng giá điện </h4>
+                                    <h4 class="card-title">Bảng giá điện</h4>
                                     <button class="btn btn-sm btn-success btn-round ml-auto" data-target="#form-building"
                                             data-toggle="modal" onclick="changetitle()">
                                         <i class="fa fa-plus"></i>
@@ -61,15 +61,15 @@
                                                             <div class="form-group form-group-default">
                                                                 <input hidden="true" id="id" required="required"
                                                                        type="number"/>
-                                                                <label> Đơn giá </label>
-                                                                <input class="form-control" id="price" placeholder="đơn giá"
-                                                                       type="number">
+                                                                <label>Đơn giá</label>
+                                                                <input class="form-control" id="price" placeholder="Đơn giá"
+                                                                       type="number" />
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Ngày</label>
-                                                                <input class="form-control" id="date" placeholder="ngày"
+                                                                <label>Ngày tạo</label>
+                                                                <input class="form-control" id="date" placeholder="Ngày tạo"
                                                                        type="date">
                                                             </div>
                                                         </div>
@@ -79,14 +79,13 @@
 
                                                         <div class="col-md-12 pl-2">
                                                             <div class="form-group form-group-default ">
-                                                                <label>Select</label>
-                                                                <select class="form-control" id="limits">
-                                                                    <option>---</option>
-                                                                    <option value="50"> Từ 0 đến 50</option>
-                                                                    <option value="100"> Từ 50 đến 100</option>
-                                                                    <option value="200"> Từ 100 đến 200</option>
-                                                                    <option value="300"> Từ 200 đến 300</option>
-                                                                    <option value="400"> Từ 300 đến 400</option>
+                                                                <label>Hạn mức(kWh)</label>
+                                                                <select class="form-control" id="limits">                       
+                                                                    <option value="50">Từ 0 đến 50 </option>
+                                                                    <option value="100">Từ 51 đến 100</option>
+                                                                    <option value="200">Từ 101 đến 200</option>
+                                                                    <option value="300">Từ 201 đến 300</option>
+                                                                    <option value="400">Từ 301 đến 400</option>
                                                                     <option value="401">Trên 400</option>
                                                                 </select>
                                                             </div>
@@ -111,7 +110,7 @@
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                    Làm mới
                                                 </button>
                                             </div>
                                         </div>
@@ -122,27 +121,26 @@
                                     <table class="display table table-striped table-hover" id="table-electricity">
                                         <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>Id</th>
                                             <th>Hạn mức</th>
                                             <th>Đơn giá</th>
                                             <th>Ngày</th>
                                             <th>Người tạo</th>
                                             <th>Ghi chú</th>
-                                            <th style="width: 10%">Cập Nhật </th>
+                                            <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>ID</th>
+                                             <th>ID</th>
                                             <th>Hạn mức</th>
                                             <th>Đơn giá</th>
                                             <th>Ngày</th>
                                             <th>Người tạo</th>
                                             <th>Ghi chú</th>
-                                            <th style="width: 10%">Cập Nhật</th>
+                                            <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
-
                                         </tr>
                                         </tfoot>
                                         <tbody>

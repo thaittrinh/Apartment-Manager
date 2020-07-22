@@ -88,7 +88,7 @@ let deleteResident = (id, e) => {
 // ------------------- change title ------------------------
 let changetitle = () => {
     document.querySelector('#form-label').innerHTML =
-        "<i class='fas fa-address-card mr-3'></i>" + 'Thêm Cư Dân'
+        "<i class='fas fa-address-card mr-3'></i>" + 'THÊM CƯ DÂN'
 }
 
 // < ----------------- show form update -------------------->
@@ -97,7 +97,7 @@ let showFormUpdate = (id, e) => {
     index = $('#table-resident').DataTable().row($(e).parents('tr')).index();
     $('#form-resident').modal('show')
     document.querySelector('#form-label').innerHTML =
-        "<i class='fas fa-address-card mr-3'></i>" + "Cập Nhật Thông Tin Cư Dân";
+        "<i class='fas fa-address-card mr-3'></i>" + "CẬP NHẬT THÔNG TIN CƯ DÂN";
     $.ajax({
         url: URL + `api/resident/${id}`,
         type: 'GET',
@@ -265,6 +265,11 @@ let validate = (data) => {
         document.querySelector('#phone').focus();
         return false;
     }
+    if (data.job === '') {
+        toastrError("Nghề nghiệp không được để trống!");
+        document.querySelector('#job').focus();
+        return false
+    }
     if (data.hometown === '') {
         toastrError("Quê quán không được để trống!");
         document.querySelector('#hometown').focus();
@@ -278,15 +283,9 @@ let validate = (data) => {
             return false;
         }
     }
-
-    if (data.job === '') {
-        toastrError("Nghề nghiệp không được để trống!");
-        document.querySelector('#job').focus();
-        return false
-    }
     if (data.apartment.id === '') {
         toastrError("Mã căn hộ không được để trống!");
-        document.querySelector('#idapartment')
+        document.querySelector('#idapartment').focus();
         return false
 
     }

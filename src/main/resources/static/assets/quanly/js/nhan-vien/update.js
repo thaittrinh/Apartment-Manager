@@ -128,7 +128,20 @@ document.querySelector('#reset-password').addEventListener('click', () => {
 	
 });
 
+document.querySelector('#clean-form').addEventListener('click', () => {
+     document.querySelector('#fullName').value = '';
+     document.querySelector('#birthday').value = '';
+     document.querySelector('#address').value  = '';
+     $('input[name="gender"]').prop('checked', false),
+     document.querySelector('#identitycard').value = '';
+     document.querySelector('#phone').value = '';
+     document.querySelector('#username').value = '';
+     document.querySelector('#email').value = ''	 
+     document.querySelector('#role-admin').checked = false;
+     document.querySelector('#role-user').checked = false;
+     
 
+});
 
 /* ------------------------------- Upload  File -----------------------------*/
 document.querySelector('#imgs').addEventListener('click', () => {
@@ -186,21 +199,6 @@ let validate = (data) => {
         document.querySelector('#birthday').focus();
         return false;
     }
-    if (!$('input[name=gender]:checked').val()) {
-        toastrError("Chưa chọn giới tính");
-        return false
-    }
-    if (data.username === '') {
-        toastrError("Tên đăng nhập không được để trống!");
-        document.querySelector('#username').focus();
-        return false;
-    }
-    if(data.username.length < 5 || data.username.length > 20){
-        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
-        document.querySelector('#username').focus();
-        return false;
-    }
-    
     if (data.identitycard === '') {
         toastrError("Số chứng minh - căn cước công dân không được để trống!");
         document.querySelector('#identitycard').focus();
@@ -237,6 +235,11 @@ let validate = (data) => {
         document.querySelector('#phone').focus();
         return false;
     }
+    if (!$('input[name=gender]:checked').val()) {
+        toastrError("Chưa chọn giới tính");
+        return false
+    }
+
     if (data.address === '') {
         toastrError("Địa chỉ không được để trống!");
         document.querySelector('#address').focus();
@@ -253,7 +256,18 @@ let validate = (data) => {
 		toastrError("Email sai định dạng!");
 		document.querySelector('#email').focus();
 		return false;
-		}
+	}
+	   if (data.username === '') {
+	        toastrError("Tên đăng nhập không được để trống!");
+	        document.querySelector('#username').focus();
+	        return false;
+	    }
+	    if(data.username.length < 5 || data.username.length > 20){
+	        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
+	        document.querySelector('#username').focus();
+	        return false;
+	    }
+	    
     return true;
 
 }

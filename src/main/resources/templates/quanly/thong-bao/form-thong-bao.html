@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Thông Báo </h4>
+                    <h4 class="page-title">Quản lý thông báo</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -20,7 +20,7 @@
                         <li class="separator">
                             <i class="flaticon-right-arrow"></i>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="level3-menu">
                             <a >Cập nhật thông báo</a>
                         </li>
                     </ul>
@@ -30,17 +30,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Danh sách nhân viên</h4>
-                                    <button id="save" class="btn btn-sm btn-success btn-round ml-auto mr-2">
-                                        <i class="fa fa-plus"></i>
-                                        Lưu lại
-                                    </button>
-                                    <a  th:href="@{/quan-ly/thong-bao}">
-                                        <button class="btn btn-danger btn-sm btn-round ml-auto" >
-                                            <i class="fas fa-sign-out-alt"></i>
-                                            Thoát
-                                        </button>
-                                    </a>
+                                    <h4 class="card-title">Cập nhật thông báo</h4>    
                                 </div>
                             </div>
                             <div class="card-body">
@@ -50,19 +40,19 @@
                                             <div class="form-group form-group-default">
                                                 <input type="number" id="id" hidden="true" th:value="${id}"/>
                                                 <label>Tiêu đề</label>
-                                                <input class="form-control" id="title" placeholder="họ và tên" type="text">
+                                                <input class="form-control" id="title" placeholder="Tiêu đề bài viết" type="text">
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-2">
                                             <div class="form-group form-group-default">
-                                                <label>Ngày </label>
-                                                <input class="form-control" id="date" placeholder="ngày" type="date">
+                                                <label>Ngày tạo </label>
+                                                <input class="form-control" id="date" placeholder="Ngày tạo" type="date">
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-2">
                                             <div class="form-group form-group-default">
                                                 <label>Hình ảnh</label>
-                                                <input class="form-control" id="image" placeholder="hình ảnh" type="text">
+                                                <input class="form-control" id="image" placeholder="Hình ảnh đại diện" type="text">
                                             </div>
                                         </div>
                                     </div>
@@ -81,6 +71,18 @@
                                                 <textarea  id="note" name="note" class="form-control"></textarea>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+	                                    <button id="save" type="button" class="btn btn-sm btn-success btn-round ml-auto mr-2">
+	                                        <i class="fas fa-save"></i>
+	                                        Lưu lại
+	                                    </button>
+	                                    <a  th:href="@{/quan-ly/thong-bao}">
+	                                        <button type="button" class="btn btn-danger btn-sm btn-round ml-auto mr-3" >
+	                                            <i class="fas fa-sign-out-alt"></i>
+	                                           Thoát
+	                                        </button>
+	                                    </a>
                                     </div>
                                 </form>
                             </div>

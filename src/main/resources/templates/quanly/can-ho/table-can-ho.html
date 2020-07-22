@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Căn Hộ</h4>
+                    <h4 class="page-title">Quản lý căn hộ</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -25,12 +25,13 @@
                         </li>
                     </ul>
                 </div>
+                <!-- Modal update -->
                 <div aria-hidden="true" class="modal fade" id="form-update" role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header no-bd">
                                 <h5 class="modal-title" id="title-update">
-                                    Thêm căn hộ mới
+                                   CẬP NHẬT CĂN HỘ
                                 </h5>
                                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                     <span aria-hidden="true">&times;</span>
@@ -39,24 +40,23 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="row">
-                                        <input class="form-control" hidden="true " id="id-update" placeholder="id căn hộ" type="text">
+                                        <input class="form-control" hidden="true " id="id-update" placeholder="Id căn hộ" type="text">
 
-                                        <input class="form-control" hidden="true" id="password-update" placeholder="mật khẩu" type="password">
+                                        <input class="form-control" hidden="true" id="password-update" placeholder="Mật khẩu" type="password">
                                     </div>
                                     <div class="row">
 
                                         <div class="col-md-5 pl-2">
                                             <div class="form-group form-group-default">
-                                                <label>Chủ Hộ</label>
-                                                <input class="form-control" id="id-own-update" placeholder="chủ hộ"
+                                                <label>Chủ căn hộ</label>
+                                                <input class="form-control" id="id-own-update" placeholder="Id chủ căn hộ"
                                                        type="text">
                                             </div>
                                         </div>
                                         <div class="col-md-7 pl-2">
                                             <div class="form-group form-group-default ">
-                                                <label>Select</label>
-                                                <select class="form-control" id="acreage-update">
-                                                    <option>---</option>
+                                                <label>Diện tích</label>
+                                                <select class="form-control" id="acreage-update">                               
                                                     <option value="45"> 45 m2</option>
                                                     <option value="75"> 75 m2</option>
                                                     <option value="110"> 110 m2</option>
@@ -69,7 +69,7 @@
                                         <div class="col-md-12 pl-2">
                                             <div class="form-group form-group-default">
                                                 <label>Vị trí </label>
-                                                <input class="form-control" id="location-update" placeholder="vị trí căn hộ"
+                                                <input class="form-control" id="location-update" placeholder="Vị trí căn hộ "
                                                        type="text">
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                 </button>
                                 <button class="btn btn-danger btn-sm" id="clean-form-update" type="button">
                                     <i class="fas fa-sync-alt"></i>
-                                    làm mới
+                                    Làm mới
                                 </button>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Danh Sách Căn Hộ </h4>
+                                    <h4 class="card-title">Danh sách căn hộ </h4>
                                     <button class="btn btn-sm btn-success btn-round ml-auto" data-target="#form-building"
                                             data-toggle="modal">
                                         <i class="fa fa-plus"></i>
@@ -118,7 +118,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title">
-                                                    Thêm căn hộ mới
+                                                   THÊM CĂN HỘ
                                                 </h5>
                                                 <button aria-label="Close" class="close" data-dismiss="modal"
                                                         type="button">
@@ -131,7 +131,7 @@
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>ID </label>
-                                                                <input class="form-control" id="id" placeholder="id căn hộ"
+                                                                <input class="form-control" id="id" placeholder="Id căn hộ"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -139,7 +139,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Mật khẩu</label>
                                                                 <input class="form-control" id="password"
-                                                                       placeholder="mật khẩu" type="password">
+                                                                       placeholder="Mật khẩu" type="password">
                                                             </div>
                                                         </div>
 
@@ -148,16 +148,15 @@
 
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Chủ Hộ</label>
-                                                                <input class="form-control" id="id_own" placeholder="chủ hộ"
+                                                                <label>Chủ căn hộ</label>
+                                                                <input class="form-control" id="id_own" placeholder="Chủ căn hộ"
                                                                        type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">
                                                             <div class="form-group form-group-default ">
-                                                                <label>Select</label>
-                                                                <select class="form-control" id="acreage">
-                                                                    <option>---</option>
+                                                                <label>Diện tích</label>
+                                                                <select class="form-control" id="acreage">          
                                                                     <option value="45"> 45 m2</option>
                                                                     <option value="75"> 75 m2</option>
                                                                     <option value="110"> 110 m2</option>
@@ -170,7 +169,7 @@
                                                         <div class="col-md-12 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Vị trí </label>
-                                                                <input class="form-control" id="location" placeholder="vị trí căn hộ"
+                                                                <input class="form-control" id="location" placeholder="Vị trí căn hộ"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -193,7 +192,7 @@
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                   Làm mới
                                                 </button>
                                             </div>
                                         </div>
@@ -221,8 +220,7 @@
                                             <th>Diện tích</th>
                                             <th>Quên mật khẩu</th>
                                             <th style="width: 10%">Cập nhật</th>
-                                            <th style="width: 10%">Xóa </th>
-
+                                            <th style="width: 10%">Xóa</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>

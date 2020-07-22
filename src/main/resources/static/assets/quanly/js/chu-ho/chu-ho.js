@@ -51,7 +51,7 @@ let table = (data) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'Thêm chủ căn hộ';
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'THÊM CHỦ CĂN HỘ';
 }
 
 var index = -1;
@@ -59,7 +59,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
  index = $('#table-chucanho').DataTable().row($(e).parents('tr')).index();
  $('#form-resident').modal('show')
-document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'Cập nhật chủ căn hộ';
+document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'CẬP NHẬT THÔNG TIN CHỦ CĂN HỘ';
  $.ajax({
      url: URL + `api/own-apartment/${id}`,
      type: 'GET',
@@ -223,11 +223,6 @@ let validate = (data) =>{
 		toastrError("Chưa chọn giới tính");
 		return false
 	}
-	if(data.homeTown === ''){
-		toastrError("Quê quán không được để trống!");
-		document.querySelector('#homeTown').focus();
-		return false;
-	}
 	if(data.identitycard === ''){
 		toastrError("Số chứng minh - căn cước công dân không được để trống!");
 		document.querySelector('#identityCard').focus();
@@ -267,6 +262,11 @@ let validate = (data) =>{
 	if(data.job === ''){
 		toastrError("Nghề nghiệp không được để trống!");
 		document.querySelector('#job').focus();
+		return false;
+	}
+	if(data.homeTown === ''){
+		toastrError("Quê quán không được để trống!");
+		document.querySelector('#homeTown').focus();
 		return false;
 	}
 	if(data.email === ''){

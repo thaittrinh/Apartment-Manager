@@ -94,7 +94,7 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
                 data: JSON.stringify(vehicle),
                 success: function (result) {
                     result.data.date = formatDate(result.data.date);
-                    // Convert date to yy-MM-dd
+                    // Convert date to yy-MM-dd           
                     $('#table-vehicle').DataTable().row(index).data(result.data).draw();
                     //update the row in dataTable
                     $('#form-vehicle').modal('hide');
@@ -132,10 +132,10 @@ document.querySelector('#save-vehicle').addEventListener('click', () => {
 // < -------------------- show form upate ------------->
 var index = -1;
 let showFormUpdateVehicle = (id, e) => {
-    index = $('#table-vehicle').DataTable().row($(e).parent('tr')).index();
+    index = $('#table-vehicle').DataTable().row($(e).parents('tr')).index();
     $('#form-vehicle').modal('show')
     document.querySelector('.modal-title').innerHTML =
-        "  <i class='fas fa-motorcycle mr-1'></i>" + "Cập Nhật Thông Tin Xe ";
+        "  <i class='fas fa-motorcycle mr-1'></i>" + "CẬP NHẬT THÔNG TIN XE ";
     $.ajax({
         url: URL + `api/vehicle/${id}`,
         type: 'GET',
@@ -151,21 +151,18 @@ let showFormUpdateVehicle = (id, e) => {
 
 //<------------- When modal close -> clean form modal  ----------->
 $("#form-vehicle").on("hidden.bs.modal", function () {
-    document.querySelector('#idVehicle').value = "",
-        document.querySelector('#licensePlates').value = "",
-        document.querySelector('#color').value = "",
-        document.querySelector('#date').value = "",
-        document.querySelector('#idResident').value = ""
+	 document.querySelector('#idVehicle').value = "",
+     cleanFormVehicle();
 });
 
 // < ---------------------- Clean form ---------------------------->
 let cleanFormVehicle = () => {
-    document.querySelector('#idVehicle').value = "",
+    	//document.querySelector('#idVehicle').value = "",
         document.querySelector('#licensePlates').value = "",
         document.querySelector('#color').value = "",
         document.querySelector('#date').value = "",
         document.querySelector('#idResident').value = "",
-        document.querySelector('#type').value = ""
+        document.querySelector('#type').value = 1
 }
 
 // < -------------- clean form when click button clean ------------>
@@ -194,41 +191,53 @@ let getValueFormVehicle = () => {
 }
 
 let validateFormVehicle = (data) => {
+	 let element = document.querySelector('#type');
+	 let nameType = element.options[element.selectedIndex].text;
 
-    if (data.typeVehicle.id === '') {
-        toastrError("Chưa chọn loại xe!");
-        document.querySelector('#type').focus();
-        return false;
-    }
-    if (data.licensePlates != '') {
-        if (data.licensePlates.length < 9 || data.licensePlates.length > 10) {
-            toastrError("Biển số xe phải từ 9 hoặc 10 kí tự ")
-            document.querySelector('#licensePlates').focus()
-            return false
-        }
-    }
-
-    if (data.color === '') {
-        toastrError("Màu xe không được để trống");
-        document.querySelector('#color').focus();
+   if (data.typeVehicle.id === '') {
+       toastrError("Chưa chọn loại xe!");
+       document.querySelector('#type').focus();
+       return false;
+   }
+   if(nameType === 'Xe máy' && data.licensePlates === ''){
+   	 toastrError("Biển số xe không được để trống! ")
+        document.querySelector('#licensePlates').focus()
         return false
-    }
-
-    if (data.date === '') {
-        toastrError("Ngày đăng ký không được để trống");
-        document.querySelector('#hometown').focus();
+   }  
+   if(nameType === 'Xe ô tô' && data.licensePlates === ''){
+   	 toastrError("Biển số xe không được để trống! ")
+        document.querySelector('#licensePlates').focus()
         return false
-    }
-    if (data.resident.id === '') {
-        toastrError("Mã cư dân không được để trống");
-        document.querySelector('#idResident')
-        return false
-    }
-    if (data.resident != null && isNaN(data.resident.id)) {
-        toastrError("Id cư dân phải là số!");
-        document.querySelector('#idResident').focus();
-        return false;
-    }
+   }
+   if (data.licensePlates != '') {
+       if (data.licensePlates.length < 9 || data.licensePlates.length > 10) {
+           toastrError("Biển số xe phải từ 9 hoặc 10 kí tự!")
+           document.querySelector('#licensePlates').focus()
+           return false
+       }
+   }
 
-    return true;
+   if (data.color === '') {
+       toastrError("Màu xe không được để trống!");
+       document.querySelector('#color').focus();
+       return false
+   }
+
+   if (data.date === '') {
+       toastrError("Ngày đăng ký không được để trống!");
+       document.querySelector('#date').focus();
+       return false
+   }
+   if (data.resident.id === '') {
+       toastrError("Mã cư dân không được để trống!");
+       document.querySelector('#idResident').focus();
+       return false
+   }
+   if (data.resident != null && isNaN(data.resident.id)) {
+       toastrError("Id cư dân phải là số!");
+       document.querySelector('#idResident').focus();
+       return false;
+   }
+
+   return true;
 }

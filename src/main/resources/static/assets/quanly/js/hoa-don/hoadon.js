@@ -40,7 +40,7 @@ let table_bill = (data) => {
           //  {"mData": "paid"},
             {
                 "mRender": function (data, type, full) {
-                    return `<button onclick='showFormUpdate(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                    return `<button onclick='showFormUpdate(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Remove">
                           <i class="fa fa-edit"></i> </button>`
                 }
             },

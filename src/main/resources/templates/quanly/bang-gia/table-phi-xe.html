@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Bảng Giá</h4>
+                    <h4 class="page-title">Quản lý bảng giá</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -21,7 +21,7 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Bảng phí gửi xe </a>
+                            <a >Bảng giá gửi xe</a>
                         </li>
                     </ul>
                 </div>
@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Bảng phí gửi xe </h4>
+                                    <h4 class="card-title">Bảng giá gửi xe </h4>
                                     <button onclick="changetitle()" class="btn btn-success btn-sm btn-round ml-auto" data-toggle="modal" data-target="#form-building">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
@@ -44,7 +44,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 id="form-label" class="modal-title">
-                                                    Thêm căn hộ mới
+                                                    Thêm giá mới
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -57,13 +57,13 @@
                                                             <div class="form-group form-group-default">
                                                                 <input type="number"  id="id" hidden="true" required="required" />
                                                                 <label> Đơn giá </label>
-                                                                <input id="price" type="number" class="form-control" placeholder="đơn giá">
+                                                                <input id="price" type="number" class="form-control" placeholder="Đơn giá">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Ngày</label>
-                                                                <input id="date" type="date" class="form-control" placeholder="ngày">
+                                                                <label>Ngày tạo</label>
+                                                                <input id="date" type="date" class="form-control" placeholder="Ngày tạo">
                                                             </div>
                                                         </div>
 
@@ -72,7 +72,7 @@
 
                                                         <div class="col-md-12 pl-2">
                                                             <div class="form-group form-group-default ">
-                                                                <label>Select</label>
+                                                                <label>Loại xe</label>
                                                                 <select class="form-control" id="type">
                                                                      <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
                                                                 </select>
@@ -97,7 +97,7 @@
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                    Làm mới
                                                 </button>
                                             </div>
                                         </div>
@@ -108,26 +108,26 @@
                                     <table id="my-table" class="display table table-striped table-hover" >
                                         <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>Id</th>
                                             <th>Ngày</th>
                                             <th>Loại xe</th>
-                                            <th> Đơn giá</th>
+                                            <th>Đơn giá</th>
                                             <th>Người tạo</th>
                                             <th>Ghi chú</th>
-                                            <th style="width: 10%">Action</th>
-                                            <th style="width: 10%">Action</th>
+                                            <th style="width: 10%">Câp nhật</th>
+                                            <th style="width: 10%">Xóa</th>
                                         </tr>
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>Id</th>
                                             <th>Ngày</th>
                                             <th>Loại xe</th>
-                                            <th> Đơn giá</th>
+                                            <th>Đơn giá</th>
                                             <th>Người tạo</th>
                                             <th>Ghi chú</th>
-                                            <th style="width: 10%">Action</th>
-                                            <th style="width: 10%">Action</th>
+                                            <th style="width: 10%">Câp nhật</th>
+                                            <th style="width: 10%">Xóa</th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
