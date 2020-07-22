@@ -9,7 +9,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Thông Tin Tài Khoản</h4>
+                    <h4 class="page-title">Thông tin tài khoản</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a href="#">
@@ -26,7 +26,7 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a href="#">Thông tin tài khoản</a>
+                            <a href="#">Thông tin tài khoản đăng nhập</a>
                         </li>
                     </ul>
                 </div>
@@ -47,13 +47,13 @@
                                                     <div class="form-group form-group-default">
                                                         <input hidden="true" id="id_employee" disabled="true" th:value="${idEmployee}" type="text">
                                                         <label>Họ và tên </label>
-                                                        <input class="form-control" disabled="true" id="name" placeholder="họ và tên" type="text">
+                                                        <input class="form-control" disabled id="name" placeholder="Họ & tên" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
-                                                        <label>Ngày sinh </label>
-                                                        <input class="form-control"  disabled="true" id="birthday" placeholder="fill position" type="date">
+                                                        <label>Ngày sinh</label>
+                                                        <input class="form-control"  disabled id="birthday" type="date">
                                                     </div>
                                                 </div>
 
@@ -62,13 +62,13 @@
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <label>CMND</label>
-                                                        <input class="form-control" disabled="true" id="identitycard" placeholder="só chứng minh thư" type="text">
+                                                        <input class="form-control" disabled id="identitycard" placeholder="Số chứng minh thư" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <label>Điện thoại</label>
-                                                        <input class="form-control" disabled="true" id="phone" placeholder="số điện thoại" type="text">
+                                                        <input class="form-control" disabled="true" id="phone" placeholder="Số điện thoại" type="text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -88,8 +88,8 @@
                                                 </div>
                                                 <div class="col-md-8 pl-2">
                                                     <div class="form-group form-group-default">
-                                                        <label>Địa chỉ </label>
-                                                        <input class="form-control" disabled="true" id="address" placeholder="địa chỉ" type="text">
+                                                        <label>Địa chỉ</label>
+                                                        <input class="form-control" disabled id="address" placeholder="Địa chỉ" type="text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,13 +97,13 @@
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <label>E-mail</label>
-                                                        <input class="form-control" disabled="true" id="email" placeholder="địa chỉ e-mail" type="text">
+                                                        <input class="form-control" disabled id="email" placeholder="Địa chỉ email" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
-                                                        <label>Tên đăng nhập</label>
-                                                        <input class="form-control" disabled="true" id="username" placeholder="tên đăng nhập" type="text">
+                                                        <label>Tên đăng nhập  <i id="open-usename"  class="fas fa-edit"></i></label><a></a>
+                                                        <input class="form-control" disabled id="username"  placeholder="Tên đăng nhập" type="text">
                                                     </div>
                                                 </div>
                                             </div>
