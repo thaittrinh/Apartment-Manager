@@ -10,18 +10,23 @@ let fillToForm = (data) => {
 CKEDITOR.replace('note');
 const ID = document.querySelector('#id').value;
 (function(){
-	 $.ajax({
-	     url: URL + `api/notification/${ID}`,
-	     type: 'GET',
-	     dataType: 'json',
-	     success: function (result) {
-	    	 fillToForm(result.data);
-	     },
-	     error: function (error) {
-	    	 sweetalertError(error);	
-	     }
-	 });
-	
+	if(ID === '0'){
+		document.querySelector('#level3-menu').innerText = 'Thêm thông báo';
+		document.querySelector('.card-title').innerText =  'Thêm thông báo';
+	}else{
+		$.ajax({
+		     url: URL + `api/notification/${ID}`,
+		     type: 'GET',
+		     dataType: 'json',
+		     success: function (result) {
+		    	 fillToForm(result.data);
+		    	 
+		     },
+		     error: function (error) {
+		    	 sweetalertError(error);	
+		     }
+		 });
+	}
 })()
 
 

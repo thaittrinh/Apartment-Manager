@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Hóa Đơn</h4>
+                    <h4 class="page-title">Quản lý hóa đơn</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -23,6 +23,12 @@
                         <li class="nav-item">
                             <a >Danh sách hóa đơn </a>
                         </li>
+                         <li class="separator">
+                            <i class="flaticon-right-arrow"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a >Chi tiết hóa đơn </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="row">
@@ -33,11 +39,11 @@
                                     <h4 class="card-title" id="date-detail"> </h4>
                                     <button class="btn btn-success btn-sm btn-round ml-auto  mr-2" id="paid-true">
                                         <i class="fa fa-plus"></i>
-                                        Thanh toán
+                                        Đã thanh toán
                                     </button>
                                     <button class="btn btn-danger btn-sm btn-round ml-auto  mr-2" id="paid-false">
                                         <i class="fas fa-times"></i>
-                                        Hủy thanh toán
+                                        Chưa thanh toán
                                     </button>
                                     <button   data-toggle="modal" data-target="#form-building" class="btn btn-warning btn-sm btn-round mr-2" id="update">
                                         <i class="fas fa-edit"></i>
@@ -46,13 +52,13 @@
                                     <a  th:href="@{/quan-ly/hoa-don/export-pdf(id=${id})}">
                                         <button class="btn btn-primary btn-sm btn-round ml-auto mr-2" id="export">
                                             <i class="fas fa-download"></i>
-                                            Xuất File PDF
+                                           Xuất file Pdf
                                         </button>
                                     </a>
                                     <a th:href="@{/quan-ly/hoa-don}">
                                         <button class="btn btn-danger btn-sm btn-round ml-auto" >
                                             <i class="fas fa-sign-out-alt"></i>
-                                            Thoát
+                                           Thoát
                                         </button>
                                     </a>
                                 </div>
@@ -63,7 +69,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 id="title-detail" class="modal-title">
-                                                    Thêm  hóa đơn mới
+                                                    Cập nhật hóa đơn
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -72,45 +78,45 @@
                                             <div class="modal-body">
                                                 <form>
                                                     <div class="row">
-                                                        <div class="col-md-5 pl-2">
+                                                        <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label> Số điện mới/label>
-                                                                <input id="electricityNumber" type="text" class="form-control" placeholder="căn hộ">
+                                                                <label>Số điện mới</label>
+                                                                <input id="electricityNumber" type="text" class="form-control" placeholder="Số điện mới">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-7 pl-2">
+                                                        <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Ngày</label>
-                                                                <input id="date" type="date" class="form-control" placeholder="ngày tạo">
+                                                                <label>Ngày tạo</label>
+                                                                <input id="date" type="date" class="form-control" placeholder="Ngày tạo">
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-5 pl-2">
+                                                        <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label> Số nước mới</label>
-                                                                <input id="waterNumber" min="0" type="number" class="form-control" placeholder="số điện">
+                                                                <label>Số nước mới</label>
+                                                                <input id="waterNumber" min="0" type="number" class="form-control" placeholder="Số nước mới">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-7 pl-2">
+                                                        <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Xe đạp</label>
-                                                                <input id="bicycleNumber" min="0" type="number" class="form-control" placeholder="số nước"/>
+                                                                <input id="bicycleNumber" min="0" type="number" class="form-control" placeholder="Số lượng xe đạp"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-5 pl-2">
+                                                        <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label> Xe máy</label>
-                                                                <input id="motocycleNumber" min="0" type="number" class="form-control" placeholder="số điện">
+                                                                <input id="motocycleNumber" min="0" type="number" class="form-control" placeholder="Số lượng xe máy">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-7 pl-2">
+                                                        <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Xe  ô tô</label>
-                                                                <input id="carNumber" min="0" type="number" class="form-control" placeholder="số nước"/>
+                                                                <label>Xe ô tô</label>
+                                                                <input id="carNumber" min="0" type="number" class="form-control" placeholder="Số lượng ô tô"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -119,11 +125,11 @@
                                             <div class="modal-footer no-bd">
                                                 <button type="button" id="save" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-save"></i>
-                                                    Lưu lại
+                                                 	 Lưu lại
                                                 </button>
-                                                <button type="button" id="clean-form-insert" class="btn btn-danger btn-sm">
+                                                <button type="button" id="clean-form" class="btn btn-danger btn-sm">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                    Làm mới
                                                 </button>
                                             </div>
                                         </div>

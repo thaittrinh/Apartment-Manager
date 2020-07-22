@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Nhân Viên </h4>
+                    <h4 class="page-title">Quản lý nhân viên</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Danh sách nhân viên</h4>
+                                    <h4 class="card-title">Thông tin nhân viên</h4>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -41,14 +41,14 @@
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <input hidden="true" id="id_employee" th:value="${idEmployee}" type="text">
-                                                        <label>Họ và tên </label>
-                                                        <input class="form-control" id="fullName" placeholder="fill name" type="text">
+                                                        <label>Họ tên</label>
+                                                        <input class="form-control" id="fullName" placeholder="Họ & tên" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <label>Ngày sinh </label>
-                                                        <input class="form-control" id="birthday" placeholder="fill position" type="date">
+                                                        <input class="form-control" id="birthday" placeholder="Ngày sinh" type="date">
                                                     </div>
                                                 </div>
 
@@ -57,13 +57,13 @@
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <label>CMND</label>
-                                                        <input class="form-control" id="identitycard" placeholder="só chứng minh thư" type="text">
+                                                        <input class="form-control" id="identitycard" placeholder="Số chứng minh thư" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 pl-2">
                                                     <div class="form-group form-group-default">
                                                         <label>Điện thoại</label>
-                                                        <input class="form-control" id="phone" placeholder="số điện thoại" type="text">
+                                                        <input class="form-control" id="phone" placeholder="Số điện thoại" type="text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,9 +90,9 @@
                                                 </div>
                                                 <div class="col-md-8 pl-2">
                                                     <div class="form-group form-group-default">
-                                                        <label>Địa chỉ </label>
+                                                        <label>Địa chỉ</label>
                                                         <input class="form-control" id="address"
-                                                               placeholder="địa chỉ"
+                                                               placeholder="Địa chỉ"
                                                                type="text">
                                                     </div>
                                                 </div>
@@ -102,7 +102,7 @@
                                                     <div class="form-group form-group-default">
                                                         <label>E-mail</label>
                                                         <input class="form-control" id="email"
-                                                               placeholder="địa chỉ e-mail"
+                                                               placeholder="Địa chỉ email"
                                                                type="text">
                                                     </div>
                                                 </div>
@@ -112,7 +112,7 @@
                                                     <div class="form-group form-group-default">
                                                         <label>Tên đăng nhập</label>
                                                         <input class="form-control" id="username"
-                                                               placeholder="tên đăng nhập"
+                                                               placeholder="Tên đăng nhập"
                                                                type="text">
                                                     </div>
                                                 </div>
@@ -138,9 +138,9 @@
                                         </form>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
-                                        <div class="avatar-lg" style="width: 300px; height: auto">
+                                        <div class="avatar-lg" style="width: 300px; height: auto;" >
                                             <img alt="image profile" class="avatar-img rounded" id="imgs"
-                                                 th:src="@{/assets/quanly/image/someone.png}">
+                                               th:src="@{/assets/quanly/image/someone.png}">
                                             <form id="file-upload-form">
                                                 <button hidden="true" id="upload-now" type="submit">Start
                                                     Upload
@@ -154,11 +154,15 @@
                                 <div class="float-right mt-4">
                                     <button class="btn btn-secondary btn-sm" id="reset-password" type="button">
                                         <i class="fas fa-key"></i>
-                                        khôi phục mật khẩu
-                                    </button>
+                                        Khôi phục mật khẩu
+                                    </button>                                 
                                     <button class="btn btn-success btn-sm" id="save" type="button">
                                         <i class="fas fa-save"></i>
                                         Lưu lại
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" id="clean-form" type="button">
+                                          <i class="fas fa-sync-alt"></i>
+                                       Làm mới
                                     </button>
                                     <a th:href="@{/quan-ly/nhan-vien}">
                                         <button class="btn btn-danger btn-sm" id="clean-form" type="button">

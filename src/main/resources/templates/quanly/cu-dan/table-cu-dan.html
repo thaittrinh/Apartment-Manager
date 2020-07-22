@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Cư Dân</h4>
+                    <h4 class="page-title">Quản lý cư dân</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -15,7 +15,7 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Cư Dân</a>
+                            <a >Cư dân</a>
                         </li>
                         <li class="separator">
                             <i class="flaticon-right-arrow"></i>
@@ -31,7 +31,7 @@
                         <div class="modal-content">
                             <div class="modal-header no-bd">
                                 <h5 class="modal-title">
-                                    Thêm căn hộ mới
+                                    Thêm cư dân mới
                                 </h5>
                                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                     <span aria-hidden="true">&times;</span>
@@ -39,12 +39,12 @@
                             </div>
                             <div class="modal-body">
                                 <form>
-                                    <input class="form-control" hidden="true" id="idVehicle" placeholder="đơn giá"
+                                    <input class="form-control" hidden="true" id="idVehicle" 
                                            type="number">
                                     <div class="row">
                                         <div class="col-md-3 pl-2">
                                             <div class="form-group form-group-default ">
-                                                <label>Select</label>
+                                                <label>Loại xe</label>
                                                 <select class="form-control" id="type">
                                                     <option th:each="t : ${TypeVehicles}" th:text="${t.name}" th:value="${t.id}"/>
                                                 </select>
@@ -52,15 +52,15 @@
                                         </div>
                                         <div class="col-md-5 pl-2">
                                             <div class="form-group form-group-default">
-                                                <label>Biển số xe </label>
-                                                <input class="form-control" id="licensePlates" placeholder="biển số xe"
+                                                <label>Biển số </label>
+                                                <input class="form-control" id="licensePlates" placeholder="Biển số xe"
                                                        type="text">
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-2">
                                             <div class="form-group form-group-default">
                                                 <label>Màu </label>
-                                                <input class="form-control" id="color" placeholder="màu xe" type="text">
+                                                <input class="form-control" id="color" placeholder="Màu xe" type="text">
                                             </div>
                                         </div>
                                     </div>
@@ -68,13 +68,13 @@
                                         <div class="col-md-6 pl-2">
                                             <div class="form-group form-group-default">
                                                 <label>Ngày đăng ký </label>
-                                                <input class="form-control" id="date" placeholder="ngày đăng ký"
+                                                <input class="form-control" id="date" placeholder="Ngày đăng ký"
                                                        type="date">
                                             </div>
                                         </div>
                                         <div class="col-md-6 pl-2">
                                             <div class="form-group form-group-default">
-                                                <label>ID Cư dân </label>
+                                                <label>Cư dân </label>
                                                 <input class="form-control" id="idResident" placeholder="Id cư dân"
                                                        type="text">
                                             </div>
@@ -85,11 +85,11 @@
                             <div class="modal-footer no-bd">
                                 <button class="btn btn-success btn-sm" id="save-vehicle" type="button">
                                     <i class="fas fa-save"></i>
-                                    Lưu lại
+                                   Lưu lại
                                 </button>
                                 <button class="btn btn-danger btn-sm" id="clean-form-vehicle" type="button">
                                     <i class="fas fa-sync-alt"></i>
-                                    làm mới
+                                   Làm mới
                                 </button>
                             </div>
                         </div>
@@ -109,12 +109,12 @@
                                     <button class="btn btn-sm btn-primary btn-round mr-2 " data-target="#form-vehicle"
                                             data-toggle="modal">
                                         <i class="fa fa-plus"></i>
-                                        Đăng ký xe gửi
+                                    	Đăng ký gửi xe
                                     </button>
                                     <a th:href="@{/api/resident/export-excel}">
                                         <button class="btn btn-sm btn-primary btn-round ml-auto ">
                                             <i class="fas fa-download"></i>
-                                            Xuất File Excel
+                                           Xuất file excel
                                         </button>
                                     </a>
 
@@ -137,19 +137,19 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form>
-                                                    <input class="form-control" hidden="true" id="id" placeholder="đơn giá"
+                                                    <input class="form-control" hidden="true" id="id" placeholder="Ä‘Æ¡n giÃ¡"
                                                            type="number">
                                                     <div class="row">
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Họ và tên </label>
-                                                                <input class="form-control" id="fullname" placeholder="fill name" type="text">
+                                                                <label>Họ và tên</label>
+                                                                <input class="form-control" id="fullname" placeholder="Họ & tên" type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Ngày sinh </label>
-                                                                <input class="form-control" id="birthday" placeholder="fill position"
+                                                                <label>Ngày sinh</label>
+                                                                <input class="form-control" id="birthday" placeholder="Ngày sinh"
                                                                        type="date">
                                                             </div>
                                                         </div>
@@ -158,7 +158,7 @@
                                                     <div class="row">
                                                         <div class="col-md-4 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label class="mb-1">Giới tính </label>
+                                                                <label class="mb-1">Giới tính</label>
                                                                 <div class="custom-control custom-radio custom-control-inline">
                                                                     <input class="custom-control-input" id="male" name="gender"
                                                                            type="radio" value="male">
@@ -178,14 +178,14 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>CMND</label>
                                                                 <input class="form-control" id="identitycard"
-                                                                       placeholder="số chứng minh thư"
+                                                                       placeholder="Số chứng minh"
                                                                        type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Điện thoại</label>
-                                                                <input class="form-control" id="phone" placeholder="số điện thoại"
+                                                                <input class="form-control" id="phone" placeholder="Số điện thoại"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -194,14 +194,14 @@
                                                         <div class="col-md-4 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Nghề nghiệp</label>
-                                                                <input class="form-control" id="job" placeholder="nghề nghiệp"
+                                                                <input class="form-control" id="job" placeholder="Nghề nghiệp"
                                                                        type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-8 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Quê quán</label>
-                                                                <input class="form-control" id="hometown" placeholder="quê quán"
+                                                                <input class="form-control" id="hometown" placeholder="Quê quán"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -210,14 +210,14 @@
                                                         <div class="col-md-8 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>E-mail</label>
-                                                                <input class="form-control" id="email" placeholder="địa chỉ e-mail"
+                                                                <input class="form-control" id="email" placeholder="Địa chỉ email"
                                                                        type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Căn hộ</label>
-                                                                <input class="form-control" id="idapartment" placeholder="căn hộ"
+                                                                <input class="form-control" id="idapartment" placeholder="Id căn hộ"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -227,11 +227,11 @@
                                             <div class="modal-footer no-bd">
                                                 <button class="btn btn-success btn-sm" id="saveResident" type="button">
                                                     <i class="fas fa-save"></i>
-                                                    Lưu lại
+                                                   Lưu lại
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form-resident" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                    Làm mới
                                                 </button>
                                             </div>
                                         </div>
@@ -243,7 +243,7 @@
                                         <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Họ Tên</th>
+                                            <th>Họ tên</th>
                                             <th>Giới tính</th>
                                             <th>Ngày sinh</th>
                                             <th>Nghề nghiệp</th>
@@ -256,7 +256,7 @@
                                         <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Họ Tên</th>
+                                            <th>Họ tên</th>
                                             <th>Giới tính</th>
                                             <th>Ngày sinh</th>
                                             <th>Nghề nghiệp</th>
@@ -279,9 +279,9 @@
         </div>
             <footer class="footer">
             <div class="container-fluid">
-                <div class="pull-left">Version 1.0</div>
+                <div class="pull-left"></div>
                 <div class="copyright ml-auto">
-                    all copyrights reserved 2020 by team A
+                    Version 1.0
                 </div>
             </div>
         </footer>

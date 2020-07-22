@@ -6,6 +6,7 @@ let toastrError = (message) => {
         preventDuplicates: true,
         showMethod: "show",
         hideMethod: "hide",
+        timeOut: 2000,
     })
 }
 let toastrWarning= (message) => {
@@ -15,6 +16,7 @@ let toastrWarning= (message) => {
                 preventDuplicates: true,
                 showMethod: "show",
                 hideMethod: "hide",
+                timeOut: 2000,
         })
 }
 

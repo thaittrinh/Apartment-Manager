@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Chủ Căn Hộ</h4>
+                    <h4 class="page-title">Quản lý chủ căn hộ</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a th:href="@{/quan-ly}">
@@ -15,7 +15,7 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Căn Hộ</a>
+                            <a >Căn hộ</a>
                         </li>
                         <li class="separator">
                             <i class="flaticon-right-arrow"></i>
@@ -31,15 +31,15 @@
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Danh sách chủ căn hộ</h4>
-                                    <button class="btn btn-sm btn-success btn-round ml-auto mr-2" data-target="#form-resident" data-toggle="modal">
+                                    <button class="btn btn-sm btn-success btn-round ml-auto mr-2" data-target="#form-resident" data-toggle="modal"  onclick="changetitle()">
                                         <i class="fa fa-plus"></i>
-                                        Thêm mới
+                                       Thêm mới
                                     </button>
 
                                     <a th:href="@{/api/own-apartment/export-excel}">
                                         <button class="btn btn-sm btn-primary btn-round ml-auto ">
                                             <i class="fas fa-download"></i>
-                                            Xuất File Excel
+                                           Xuất file excel
                                         </button>
                                     </a>
                                 </div>
@@ -52,7 +52,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title" id="form-label">
-                                                    Thêm căn hộ mới
+                                                   THÊM CHỦ CĂN HỘ
                                                 </h5>
                                                 <button aria-label="Close" class="close" data-dismiss="modal"
                                                         type="button">
@@ -67,7 +67,7 @@
                                                                 <input hidden="true" id="id" name="id" type="text"/>
                                                                 <label>Họ và tên </label>
                                                                 <input class="form-control" id="fullname"
-                                                                       placeholder="fill name"
+                                                                       placeholder="Họ & tên"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -75,7 +75,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Ngày sinh </label>
                                                                 <input class="form-control" id="birthday"
-                                                                       placeholder="fill position"
+                                                                       placeholder="Ngày sinh"
                                                                        type="date">
                                                             </div>
                                                         </div>
@@ -106,7 +106,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>CMND</label>
                                                                 <input class="form-control" id="identityCard"
-                                                                       placeholder="số chứng minh thư"
+                                                                       placeholder="Số chứng minh thư"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -114,7 +114,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Điện thoại</label>
                                                                 <input class="form-control" id="phone"
-                                                                       placeholder="số điện thoại"
+                                                                       placeholder="Số điện thoại"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -122,9 +122,9 @@
                                                     <div class="row">
                                                         <div class="col-md-4 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Nghề nghiệp</label>
+                                                                <label>Nghề nghiệpp</label>
                                                                 <input class="form-control" id="job"
-                                                                       placeholder="nghề nghiệp"
+                                                                       placeholder="Nghề nghiệp"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -132,7 +132,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Quê quán</label>
                                                                 <input class="form-control" id="homeTown"
-                                                                       placeholder="quê quán"
+                                                                       placeholder="Quê quán"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -142,7 +142,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>E-mail</label>
                                                                 <input class="form-control" id="email"
-                                                                       placeholder="địa chỉ e-mail"
+                                                                       placeholder="Địa chỉ email"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -150,7 +150,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Căn hộ</label>
                                                                 <input class="form-control" id="id_apartment"
-                                                                       placeholder="căn hộ"
+                                                                       placeholder="Id căn hộ"
                                                                        type="text">
                                                             </div>
                                                         </div>
@@ -160,11 +160,11 @@
                                             <div class="modal-footer no-bd">
                                                 <button class="btn btn-success btn-sm" id="save" type="button">
                                                     <i class="fas fa-save"></i>
-                                                    Lưu lại
+                                                   Lưu lại 
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                   Làm mới
                                                 </button>
                                             </div>
                                         </div>

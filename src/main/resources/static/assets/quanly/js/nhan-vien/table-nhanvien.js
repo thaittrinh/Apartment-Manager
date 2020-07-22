@@ -187,11 +187,6 @@ let validate = (data) =>{
         toastrError("Chưa chọn giới tính");
         return false
     }
-    if(data.address === ''){
-        toastrError("Địa chỉ không được để trống!");
-        document.querySelector('#address').focus();
-        return false;
-    }
     if(data.identitycard === ''){
         toastrError("Số chứng minh - căn cước công dân không được để trống!");
         document.querySelector('#identitycard').focus();
@@ -217,6 +212,11 @@ let validate = (data) =>{
         document.querySelector('#phone').focus();
         return false;
     }
+    if(data.address === ''){
+        toastrError("Địa chỉ không được để trống!");
+        document.querySelector('#address').focus();
+        return false;
+    }
     var vnf_regex = /((09|03|07|08|05)+([0-9]{7,8})\b)/g;		
 	if(!vnf_regex.test(data.phone)){
 		toastrError("Số điện thoại sai định dạng!");
@@ -228,6 +228,18 @@ let validate = (data) =>{
         document.querySelector('#phone').focus();
         return false;
     }
+    if(data.email === ''){
+		toastrError("Email không được để trống!");
+		document.querySelector('#email').focus();
+		return false;
+	}
+	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+	if(!filter.test(data.email))
+		{
+		toastrError("Email sai định dạng!");
+		document.querySelector('#email').focus();
+		return false;
+		}
     if(data.username === ''){
         toastrError("Tên đăng nhập không được để trống!");
         document.querySelector('#username').focus();
@@ -254,18 +266,7 @@ let validate = (data) =>{
         document.querySelector('#password').focus();
         return false;
     }
-    if(data.email === ''){
-		toastrError("Email không được để trống!");
-		document.querySelector('#email').focus();
-		return false;
-	}
-	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
-	if(!filter.test(data.email))
-		{
-		toastrError("Email sai định dạng!");
-		document.querySelector('#email').focus();
-		return false;
-		}
+  
     
     
     return true;

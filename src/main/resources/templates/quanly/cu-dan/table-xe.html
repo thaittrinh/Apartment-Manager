@@ -4,7 +4,7 @@
         <div class="content">
             <div class="page-inner">
                 <div class="page-header">
-                    <h4 class="page-title">Quản Lý Cư Dân</h4>
+                    <h4 class="page-title">Quản lý cư dân</h4>
                     <ul class="breadcrumbs">
                         <li class="nav-home">
                             <a hth:href="@{/quan-ly}">
@@ -15,13 +15,13 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Cư Dân</a>
+                            <a >Cư dân</a>
                         </li>
                         <li class="separator">
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Xe đăng ký gửi </a>
+                            <a >Xe ký gửi</a>
                         </li>
                     </ul>
                 </div>
@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Danh sách ký gửi</h4>
+                                    <h4 class="card-title">Danh sách xe ký gửi</h4>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -40,7 +40,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title">
-                                                    Thêm căn hộ mới
+                                                    Thêm xe ký gửi
                                                 </h5>
                                                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                                     <span aria-hidden="true">&times;</span>
@@ -48,12 +48,12 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form>
-                                                    <input class="form-control" hidden="true" id="idVehicle" placeholder="đơn giá"
+                                                    <input class="form-control" hidden="true" id="idVehicle" 
                                                            type="number">
                                                     <div class="row">
                                                         <div class="col-md-3 pl-2">
                                                             <div class="form-group form-group-default ">
-                                                                <label>Select</label>
+                                                                <label>Loại xe</label>
                                                                 <select class="form-control" id="type">
                                                                     <option th:each="t : ${TypeVehicles}" th:text="${t.name}" th:value="${t.id}"/>
                                                                 </select>
@@ -61,29 +61,29 @@
                                                         </div>
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Biển số xe </label>
-                                                                <input class="form-control" id="licensePlates" placeholder="biển số xe"
+                                                                <label>Biển số </label>
+                                                                <input class="form-control" id="licensePlates" placeholder="Biển số xe"
                                                                        type="text">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Màu </label>
-                                                                <input class="form-control" id="color" placeholder="màu xe" type="text">
+                                                                <input class="form-control" id="color" placeholder="Màu xe" type="text">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>Ngày đăng ký </label>
-                                                                <input class="form-control" id="date" placeholder="ngày đăng ký"
+                                                                <label>Ngày ký gửi</label>
+                                                                <input class="form-control" id="date" placeholder="Ngày ký gửi"
                                                                        type="date">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <label>ID Cư dân </label>
+                                                                <label>Cư dân </label>
                                                                 <input class="form-control" id="idResident" placeholder="Id cư dân"
                                                                        type="text">
                                                             </div>
@@ -98,7 +98,7 @@
                                                 </button>
                                                 <button class="btn btn-danger btn-sm" id="clean-form-vehicle" type="button">
                                                     <i class="fas fa-sync-alt"></i>
-                                                    làm mới
+                                                    Làm mới
                                                 </button>
                                             </div>
                                         </div>
@@ -109,10 +109,10 @@
                                         <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Biển số xe</th>
+                                            <th>Biến số</th>
                                             <th>Màu xe</th>
-                                            <th>Ngày đăng ký</th>
-                                            <th>Id cư dân</th>
+                                            <th>Ngày ký gửi</th>
+                                            <th>Id cư dâ</th>
                                             <th>Loại xe</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
@@ -121,10 +121,10 @@
                                         <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Biển số xe</th>
+                                            <th>Biến số</th>
                                             <th>Màu xe</th>
-                                            <th>Ngày đăng ký</th>
-                                            <th>Id cư dân</th>
+                                            <th>Ngày ký gửi</th>
+                                            <th>Id cư dâ</th>
                                             <th>Loại xe</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
@@ -143,9 +143,9 @@
         </div>
             <footer class="footer">
             <div class="container-fluid">
-                <div class="pull-left">Version 1.0</div>
+                <div class="pull-left"></div>
                 <div class="copyright ml-auto">
-                    all copyrights reserved 2020 by team A
+                    Version 1.0
                 </div>
             </div>
         </footer>
