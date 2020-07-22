@@ -1,5 +1,4 @@
 let fillToForm = (data) => {
-    document.querySelector('#id').value = data.id;
     document.querySelector('#name').value = data.fullName;
     document.querySelector('#birthday').value = data.birthday;
     document.querySelector('#address').value = data.address;
@@ -59,10 +58,9 @@ function readURL(input) {
 /*  --------------------------------- upload image ---------------------------*/
 $("#file-upload-form").on("submit", function (e) {
     e.preventDefault();
-    let id = document.getElementById("id").value;
-    
+  
     $.ajax({
-        url: URL + `api/account/upload-file/${id}`,
+        url: URL + `api/account/upload-file/${ID_NV}`,
         type: "POST",
         data: new FormData(this),
         enctype: 'multipart/form-data',
@@ -78,6 +76,56 @@ $("#file-upload-form").on("submit", function (e) {
         }
     });
 })
+
+
+document.querySelector('#open-usename').addEventListener('click', () => {
+	document.getElementById("username").disabled = false;
+	document.getElementById("username").focus();
+	document.addEventListener('keypress', function(event) { // sự kiện nhán bàn phím
+	    if (event.keyCode === 13 || event.which === 13) { // nhấn enter
+	    	let username = document.getElementById("account").innerText;
+	    	let newUserName = document.querySelector('#username').value.trim();
+	    	  if (newUserName === '') {
+	    	        toastrError("Tên đăng nhập không được để trống!");
+	    	        document.querySelector('#username').focus();
+	    	  }else if(newUserName.length < 5 || newUserName.length > 20 ){
+	    		
+	    	        toastrError("Tên đăng nhập từ 5 đến 20 ký tự!");
+	    	        document.querySelector('#username').focus(); 
+	    	  }else{
+	    		  $.ajax({
+	    		        type: 'PUT',
+	    		        url: URL + `api/account/change-username/${username}?new_username=${newUserName}`,
+	    		        contentType: 'application/json',
+	    		        dataType: 'json',
+	    		        cache: false,   
+	    		        success: function (result) {
+	    		        	Swal.fire({
+	    		        		  title: 'Cập nhật thành công',
+	    		        		  text: "Xin vui lòng đăng nhập lại để tiếp tục!",
+	    		        		  icon: 'success',
+	    		        		  allowOutsideClick: false,
+	    		        		  confirmButtonColor: '#3085d6',
+	    		        		  confirmButtonText: 'Đồng ý!'
+	    		        		}).then((result) => {
+	    		        			 location.href =URL + `logout`      			
+	    		        		})
+	    		        },
+	    		        error: function (error) {
+	    		            sweetalertError(error)
+	    		        }
+	    		    });		    
+	    	  }
+	    };
+	    
+	});
+
+	
+});
+
+
+
+
 
 
 
