@@ -19,7 +19,7 @@ $("#send-email").on("submit", function (e) {
 					Swal.fire({
 						allowOutsideClick: false,
 						html: 'Đang gửi...',
-						timer: 5000,
+						//timer: 5000,				
 						onBeforeOpen: () => {
 							Swal.showLoading()
 							timerInterval = setInterval(() => {
@@ -40,17 +40,7 @@ $("#send-email").on("submit", function (e) {
 						if (result.dismiss === Swal.DismissReason.timer) {
 							console.log('I was closed by the timer')
 						}
-					})
-		          /*  swal.fire({
-		                html: '<h5>Đang gửi . . .</h5>',
-		                showConfirmButton: false,
-		                onRender: function() {
-		                     // there will only ever be one sweet alert open.
-		                    $('.swal2-content').prepend(
-		                    		 '<div class="sweet_loader"><svg viewBox="0 0 140 140" width="140" height="140"><g class="outline"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="rgba(0,0,0,0.1)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></g><g class="circle"><path d="m 70 28 a 1 1 0 0 0 0 84 a 1 1 0 0 0 0 -84" stroke="#71BBFF" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dashoffset="200" stroke-dasharray="300"></path></g></svg></div>'	
-		                    );
-		                }
-		            });*/
+					})      
 		        },
 		        success: function (result) {
 		        	sweetalertSuccess("Gửi email thành công")
@@ -66,6 +56,32 @@ $("#send-email").on("submit", function (e) {
 		    });
 	 }   
 });
+
+$("#file-mail").on("change", function (e) {
+    let files = e.currentTarget.files; // puts all files into an array
+    // call them as such; files[0].size will get you the file size of the 0th file
+    let size = 0;
+    for (let x in files) {
+    	size += files[x].size;     
+    	if(size > 10000000){
+    		Swal.fire({
+                title: 'File quá lớn!',
+                text : 'Kích thước file phải nhỏ hơn 10M',
+                icon: 'warning'
+            });
+            document.getElementById("file-mail").value='';
+    		break;
+    	}
+    }
+   
+  
+
+});
+
+
+
+
+
 
 
 let ValidateFomrSendEmail= () =>{
