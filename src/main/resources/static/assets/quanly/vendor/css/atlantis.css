@@ -368,6 +368,19 @@ body {
   flex: 1;
   max-width: 400px; }
 
+#btnScollTop{
+  position: fixed;
+  right: 15px;
+  bottom: 39px;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
 .sidebar .nav > .nav-item.active > a:before, .sidebar[data-background-color="white"] .nav > .nav-item.active > a:before, .sidebar .nav > .nav-item.active:hover > a:before, .sidebar[data-background-color="white"] .nav > .nav-item.active:hover > a:before, .sidebar .nav > .nav-item a[data-toggle=collapse][aria-expanded=true]:before, .sidebar[data-background-color="white"] .nav > .nav-item a[data-toggle=collapse][aria-expanded=true]:before {
   opacity: 1 !important;
   position: absolute;
@@ -8807,7 +8820,7 @@ body {
       box-shadow: 0px 0px 5px #121727; }
     body[data-background-color="dark"] .main-panel {
       color: rgba(169, 175, 187, 0.82) !important; }
-      body[data-background-color="dark"] .main-panel label, .modal-body label {
+      body[data-background-color="dark"] .main-panel label {
         color: #fff !important; }
     body[data-background-color="dark"] .card, body[data-background-color="dark"] .row-card-no-pd, body[data-background-color="dark"] .list-group-item, body[data-background-color="dark"] .timeline > li > .timeline-panel {
       background: #202940; }
