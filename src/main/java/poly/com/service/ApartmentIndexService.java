@@ -433,7 +433,7 @@ public class ApartmentIndexService {
             if (bill != null && bill.getPaid()) 
             	return new ResponseEntity<>(new ResponseDTO(null, MessageError.DELETE_FAIL), HttpStatus.CONFLICT);   
 
-            billRepository.deleteById(id);
+         //   billRepository.deleteById(id);
             apartmentIndexRepository.deleteById(id);
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {

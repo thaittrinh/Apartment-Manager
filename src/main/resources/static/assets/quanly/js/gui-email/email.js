@@ -19,7 +19,7 @@ $("#send-email").on("submit", function (e) {
 					Swal.fire({
 						allowOutsideClick: false,
 						html: 'Đang gửi...',
-						timer: 5000,
+						//timer: 5000,
 						onBeforeOpen: () => {
 							Swal.showLoading()
 							timerInterval = setInterval(() => {
@@ -66,6 +66,32 @@ $("#send-email").on("submit", function (e) {
 		    });
 	 }   
 });
+
+$("#file-mail").on("change", function (e) {
+    let files = e.currentTarget.files; // puts all files into an array
+    // call them as such; files[0].size will get you the file size of the 0th file
+    let size = 0;
+    for (let x in files) {
+    	size += files[x].size;     
+    	if(size > 10000000){
+    		Swal.fire({
+                title: 'File quá lớn!',
+                text : 'Kích thước file phải nhỏ hơn 10M',
+                icon: 'warning'
+            });
+            document.getElementById("file-mail").value='';
+    		break;
+    	}
+    }
+   
+  
+
+});
+
+
+
+
+
 
 
 let ValidateFomrSendEmail= () =>{
