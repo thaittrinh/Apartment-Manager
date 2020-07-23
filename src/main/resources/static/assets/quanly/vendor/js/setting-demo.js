@@ -32,10 +32,12 @@ $('.changeLogoHeaderColor').on('click', function(){
 });
 
 $('.changeTopBarColor').on('click', function(){
+	localStorage.setItem("colorNavBar",$(this).attr('data-color'))
+	var color = localStorage.getItem("colorNavBar")
 	if($(this).attr('data-color') == 'default'){
 		$('.main-header .navbar-header').removeAttr('data-background-color');
 	} else {
-		$('.main-header .navbar-header').attr('data-background-color', $(this).attr('data-color'));
+		$('.main-header .navbar-header').attr('data-background-color',color);
 	}
 
 	$(this).parent().find('.changeTopBarColor').removeClass("selected");
@@ -44,10 +46,13 @@ $('.changeTopBarColor').on('click', function(){
 });
 
 $('.changeSideBarColor').on('click', function(){
-	if($(this).attr('data-color') == 'default'){
+	localStorage.setItem("colorSideBar",$(this).attr('data-color'))
+	var color = localStorage.getItem("colorSideBar")
+
+	if ($(this).attr('data-color') == 'default') {
 		$('.sidebar').removeAttr('data-background-color');
 	} else {
-		$('.sidebar').attr('data-background-color', $(this).attr('data-color'));
+		$('.sidebar').attr('data-background-color', color);
 	}
 
 	$(this).parent().find('.changeSideBarColor').removeClass("selected");
@@ -56,8 +61,10 @@ $('.changeSideBarColor').on('click', function(){
 });
 
 $('.changeBackgroundColor').on('click', function(){
+	localStorage.setItem("colorBackgroundBody",$(this).attr('data-color'))
+	var color = localStorage.getItem("colorBackgroundBody")
 	$('body').removeAttr('data-background-color');
-	$('body').attr('data-background-color', $(this).attr('data-color'));
+	$('body').attr('data-background-color',color);
 	$(this).parent().find('.changeBackgroundColor').removeClass("selected");
 	$(this).addClass("selected");
 });
