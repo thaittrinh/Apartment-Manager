@@ -35,14 +35,8 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex align-items-center">
-                                    <h4 class="card-title" id="date-detail"> </h4>
-                                    <a th:href="@{/quan-ly/hoa-don}" class="ml-auto">
-                                        <button class="btn btn-danger btn-sm btn-round ml-auto" >
-                                            <i class="fas fa-sign-out-alt"></i>
-                                           Thoát
-                                        </button>
-                                    </a>
+                                <div class="d-flex align-items-center float-right">
+                                    <h4 class="card-title " id="date-detail"> </h4>                         
                                 </div>
                             </div>
                             <div class="card-body">
@@ -120,18 +114,12 @@
                                 <div class="table-responsive" id="content-detail">
                                     <input id="id" type="text" hidden = "true"  th:value="${id}">
                                 </div>
-                                <div class="row float-right">
-                                    <a class="ml-auto"  th:href="@{/quan-ly/hoa-don/export-pdf(id=${id})}">
-                                        <button class="btn btn-primary btn-sm   mr-2" id="export">
-                                            <i class="fas fa-download"></i>
-                                            Xuất file Pdf
-                                        </button>
-                                    </a>
-                                    <button class="btn btn-success btn-sm    mr-2" id="paid-true">
+                                <div class="row float-right">         
+                                    <button class="btn btn-success btn-sm mr-2" id="paid-true">
                                         <i class="fa fa-plus"></i>
                                         Đã thanh toán
                                     </button>
-                                    <button class="btn btn-danger btn-sm   mr-2" id="paid-false">
+                                    <button class="btn btn-danger btn-sm mr-2" id="paid-false">
                                         <i class="fas fa-times"></i>
                                         Chưa thanh toán
                                     </button>
@@ -139,6 +127,12 @@
                                         <i class="fas fa-edit"></i>
                                         Cập nhật
                                     </button>
+                                     <a th:href="@{/quan-ly/hoa-don}" class="ml-auto">
+                                        <button class="btn btn-danger ml-auto" >
+                                            <i class="fas fa-sign-out-alt"></i>
+                                           Thoát
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
