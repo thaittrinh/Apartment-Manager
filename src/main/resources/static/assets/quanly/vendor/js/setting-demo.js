@@ -72,9 +72,9 @@ $('.changeBackgroundColor').on('click', function(){
 function customCheckColor(){
 	var logoHeader = $('.logo-header').attr('data-background-color');
 	if (logoHeader !== "white") {
-		$('.logo-header .navbar-brand').attr('src', './assets/quanly/vendor/img/logo.svg');
+		$('.logo-header .navbar-brand').attr('th:src', '../assets/quanly/vendor/img/logo.svg');
 	} else {
-		$('.logo-header .navbar-brand').attr('src', './assets/quanly/vendor/img/logo2.svg');
+		$('.logo-header .navbar-brand').attr('th:src', '../assets/quanly/vendor/img/logo2.svg');
 	}
 }
 

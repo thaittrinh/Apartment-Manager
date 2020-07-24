@@ -48,25 +48,28 @@ function legendClickCallback(event) {
 
 function checkCurrentColorInLocalStorage() {
 
-
     let currenColorNavBar = localStorage.getItem("colorNavBar");
-    if (!currenColorNavBar) {
-        return;
+    if (currenColorNavBar) {
+        $('.main-header .navbar-header').attr('data-background-color', currenColorNavBar);
     }
-    $('.main-header .navbar-header').attr('data-background-color', currenColorNavBar);
 
-    // --------------------------------
     let currenColorSideBar = localStorage.getItem("colorSideBar");
-    if (!currenColorSideBar) {
-        return;
+    if (currenColorSideBar) {
+        $('.sidebar').attr('data-background-color', currenColorSideBar);
     }
-    $('.sidebar').attr('data-background-color', currenColorSideBar);
-    // -----------------------
+
     let currenColorBackgoundBody = localStorage.getItem("colorBackgroundBody");
-    if (!currenColorBackgoundBody) {
-        return;
+    if (currenColorBackgoundBody) {
+        $('body').attr('data-background-color', currenColorBackgoundBody);
     }
-    $('body').attr('data-background-color', currenColorBackgoundBody);
+// active menu
+    let currentActiveMenu = localStorage.getItem("active");
+    if (currentActiveMenu) {
+        $('#' + currentActiveMenu).addClass("active")
+        let menu = $('#' + currentActiveMenu).closest(".nav-item");
+        menu.addClass("active");
+        menu.find("a[data-toggle=collapse]").click();
+    }
 
 }
 
@@ -86,6 +89,11 @@ function ScollTop() {
 
 $(document).ready(function () {
     checkCurrentColorInLocalStorage();
+    // get value and save localstorage
+    $('.sidebar-menu').click(function() {
+        localStorage.setItem("active", this.id);
+    });
+
     ScollTop();
     $('.btn-refresh-card').on('click', function () {
         var e = $(this).parents(".card");
@@ -317,17 +325,10 @@ $(document).ready(function () {
         }
     });
 
-
-    // active
-    $('ul li ').click(function () {
-        $('li').removeClass("active");
-         let test = $(this).addClass("active");
-         let test2 = localStorage.setItem("active", test)
-        if (test2) {
-            $(this).addClass("active");
-        return;
-    }});
-
+    $('ul li a ').click(function () {
+        $('a').removeClass('active');
+        $(this).addClass("active")
+    })
     // addClass if nav-item click and has subnav
 
     $(".nav-item a").on('click', (function () {
@@ -337,7 +338,6 @@ $(document).ready(function () {
             $(this).parent().addClass('submenu');
         }
     }));
-
 
     //Chat Open
     $('.messages-contact .user a').on('click', function () {
