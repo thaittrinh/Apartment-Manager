@@ -35,8 +35,75 @@
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
                                     </button>
+                                    &ensp; <!-- th:href="@{/quan-ly/hoa-don/export-excel}" -->
+                                    <a  data-toggle="modal" data-target="#form-building" >
+                                        <button class="btn btn-sm btn-primary btn-round ml-auto ">
+                                            <i class="fas fa-download"></i>
+                                           Xuất file excel
+                                        </button>
+                                 	</a>
                                 </div>
                             </div>
+                              <!-- Modal -->
+                                <div class="modal fade" id="form-building" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header no-bd">
+                                                <h5 class="modal-title" id="form-label">
+													XUẤT EXCEL HÓA ĐƠN
+                                                </h5>                                          
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/quan-ly/hoa-don/export-excel/month}" method="GET">                                                          
+                                                <button type="button" class="btn btn-primary" style="width: 10px; height: 10px;"></button>
+												<button type="button" class="btn btn-secondary"></button>
+												<button type="button" class="btn btn-success"></button>
+												<button type="button" class="btn btn-danger"></button>
+												<button type="button" class="btn btn-warning"></button>
+												<button type="button" class="btn btn-info"></button>		
+												<button type="button" class="btn btn-dark"></button>
+                                              
+                                                 <p style="color: #FFAD46;">Chọn tháng & năm để xuất excel theo tháng. Hoặc xuất cả 
+                                                 <a th:href="@{/quan-ly/hoa-don/export-excel/all}">tại đây!</a></p>
+                                                 <div class="row ">                            
+                                                     <div class="col-md-6 pl-2" >
+                                                         <div class="form-group form-group-default">
+                                                            <label>Tháng</label>
+                                                                <select name="month" class="form-control" id="select_month">
+                                                                                                                              
+                                                                </select>
+                                                         </div>
+                                                     </div>                              
+                                                      <div class="col-md-6 pl-2 " >
+	                                                       <div class="form-group form-group-default">
+	                                                            <label>Năm</label>
+	                                                                <select name="year"  class="form-control" id="select_year">     
+															                                                                        
+	                                                                </select>
+	                                                         </div>
+                                                       </div>
+                                                 </div>
+      										<br />
+      										<div class="row" style="float:right;">
+      											<button class="btn btn-success btn-sm" type="submit">
+                                                    <i class="fas fa-save"></i>
+                                                    Export
+                                                </button> &ensp;
+                                                <button type="button" class="btn btn-secondary  btn-sm" data-dismiss="modal"> 
+                                                <i class="fas fa-save"></i>
+                                                Cancel</button>
+                                               &emsp;
+      										</div>
+      										 
+                                                </form>
+                                            </div>              
+                                        </div>
+                                    </div>
+                                </div>
+                           
                             <div class="card-body">
                                 <!-- Modal -->
                                 <div class="modal fade" id="form-building"  tabindex="-1" role="dialog" aria-hidden="true">
@@ -145,5 +212,6 @@
         </footer>
 
         <script th:src="@{/assets/quanly/js/hoa-don/hoadon.js}"></script>
+         <script th:src="@{/assets/quanly/js/hoa-don/export-excel.js}"></script>
     </div>
 </div>

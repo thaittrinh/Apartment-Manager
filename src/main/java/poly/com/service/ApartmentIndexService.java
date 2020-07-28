@@ -254,11 +254,13 @@ public class ApartmentIndexService {
 		
 		   // Insert into table Bills							
 			Bill bill = new Bill(apartmentIndex.getId(), electricityNumber, electricityPrice_1.getPrice(), electricityPrice_2.getPrice(), electricityPrice_3.getPrice(),
-					electricityPrice_4.getPrice(), electricityPrice_5.getPrice(), electricityPrice_6.getPrice(), waterNumber, priceWater.getPrice(),
+					electricityPrice_4.getPrice(), electricityPrice_5.getPrice(), electricityPrice_6.getPrice(), 0.0, waterNumber, priceWater.getPrice(),
 					apartmentIndex.getBicycleNumber(), bicyclePrice.getPrice(), apartmentIndex.getMotocycleNumber(), motocyclePrice.getPrice(),
-					apartmentIndex.getCarNumber(), carPrice.getPrice(), managementPrice.getPrice(),priceGarbage.getPrice(), 0,
+					apartmentIndex.getCarNumber(), carPrice.getPrice(), 0.0, managementPrice.getPrice(),priceGarbage.getPrice(), 0,
 					false, apartmentIndex);
 			
+			bill.setElectricityPriceTotal(electricityPriceTotal(bill));
+			bill.setParkingPriceTotal(parkingPriceTotal(bill));
 			bill.setTotalPrice(calculatorTotal(bill));	
 			bill =  billRepository.save(bill);
 			
@@ -275,7 +277,6 @@ public class ApartmentIndexService {
 	}
 
 		
-	
 	@SuppressWarnings("deprecation")
 	public ResponseEntity<ResponseDTO> update(int id, UpdateIndexRequest request) {
 		int waterNumber = request.getWarterNumber() ;
@@ -379,6 +380,12 @@ public class ApartmentIndexService {
 			
 			// Get old previous
 			ApartmentIndex apartmentIndexprevious = apartmentIndexRepository.findByMonthInYear(apartmentIndexOld.getApartment().getId(), year,month).orElse(null);		
+			List<ApartmentIndex> apartmentIndexsPrevious  = apartmentIndexRepository.findByDateLessThan(apartmentIndexOld.getApartment().getId(), year,month+1);
+
+		    if (apartmentIndexsPrevious.size() <= 0) {
+		    	waterNumber  =  request.getWarterNumber();
+			    electricityNumber = request.getElectricityNumber();	 
+			}else {
 
 			if (apartmentIndexprevious == null || apartmentIndexprevious.getId() == id ) {
 				return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_OLD_APARTMENT_INDEX), HttpStatus.NOT_FOUND);
@@ -394,8 +401,14 @@ public class ApartmentIndexService {
 			
 		 	 waterNumber  =  request.getWarterNumber() -  apartmentIndexprevious.getNewWaterNumber();
 		     electricityNumber = request.getElectricityNumber() - apartmentIndexprevious.getNewElectricityNumber();
-				
+			}	
 			
+		     
+		     
+		     
+		     
+		     
+		     
 			
 			// Insert into table ApartmentIndex
 			ApartmentIndex apartmentIndex = new ApartmentIndex(id, request.getElectricityNumber(), request.getWarterNumber(), request.getBicycleNumber(),
@@ -407,11 +420,12 @@ public class ApartmentIndexService {
 						
 		   // Insert into table Bills							
 			Bill bill = new Bill(apartmentIndex.getId(), electricityNumber, electricityPrice_1.getPrice(), electricityPrice_2.getPrice(), electricityPrice_3.getPrice(),
-					electricityPrice_4.getPrice(), electricityPrice_5.getPrice(), electricityPrice_6.getPrice(), waterNumber, priceWater.getPrice(),
+					electricityPrice_4.getPrice(), electricityPrice_5.getPrice(), electricityPrice_6.getPrice(),0.0, waterNumber, priceWater.getPrice(),
 					apartmentIndex.getBicycleNumber(), bicyclePrice.getPrice(), apartmentIndex.getMotocycleNumber(), motocyclePrice.getPrice(),
-					apartmentIndex.getCarNumber(), carPrice.getPrice(), managementPrice.getPrice(),priceGarbage.getPrice(), 0,
+					apartmentIndex.getCarNumber(), carPrice.getPrice(), 0.0, managementPrice.getPrice(),priceGarbage.getPrice(), 0,
 					false, apartmentIndex);
-			
+			bill.setElectricityPriceTotal(electricityPriceTotal(bill));
+			bill.setParkingPriceTotal(parkingPriceTotal(bill));
 			bill.setTotalPrice(calculatorTotal(bill));	
 			bill =  billRepository.save(bill);
 			
@@ -465,8 +479,40 @@ public class ApartmentIndexService {
 		
 	}
 	
+	public ResponseEntity<List<Integer>> findAllMonth(int year) {
+		
+		try {
+			return ResponseEntity.ok(apartmentIndexRepository.findALLMonth(year));
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
+	}
+	
+	public ResponseEntity<List<Integer>> findAllYear() {
+		
+		try {
+			return ResponseEntity.ok(apartmentIndexRepository.findALLYear());
+		} catch (Exception e) {
+			
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
+	}
+	
+	
+	
+	
 	
 	public int calculatorTotal(Bill bill) {	
+			
+	   double total = bill.getElectricityPriceTotal() +  bill.getWaterNumber()*bill.getWaterPrice()+ bill.getParkingPriceTotal() + bill.getManagementPrice() + bill.getGarbagesPrice();
+
+	   return (int) total ;
+	}
+	
+	
+    public double electricityPriceTotal(Bill bill) {
+
 		double priceElectricity = ( getInt(bill.getElectricityNumber(), 0, ElectricityLimits.LIMIT_1)*bill.getElectricityPrice1()
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_1, ElectricityLimits.LIMIT_2)*bill.getElectricityPrice2()
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_2, ElectricityLimits.LIMIT_3)*bill.getElectricityPrice3()
@@ -474,13 +520,19 @@ public class ApartmentIndexService {
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_4, ElectricityLimits.LIMIT_5)*bill.getElectricityPrice5()
 				 + getInt(bill.getElectricityNumber(), ElectricityLimits.LIMIT_5, 9999)*bill.getElectricityPrice6())*1.1;
 		
-	   double total = priceElectricity + bill.getWaterNumber()*bill.getWaterPrice() + bill.getCarNumber()*bill.getCarPrice() 
-						+ bill.getBicycleNumber()*bill.getBicyclePrice() + bill.getMotocycleNumber()*bill.getMotocyclePrice() + bill.getManagementPrice() + bill.getGarbagesPrice();
-
-	   return (int) total ;
+		return (int) priceElectricity;
+		
 	}
 	
-	
+    public double parkingPriceTotal(Bill bill) {
+		double priceParking =   bill.getCarNumber()*bill.getCarPrice() 
+				+ bill.getBicycleNumber()*bill.getBicyclePrice() + bill.getMotocycleNumber()*bill.getMotocyclePrice();
+		
+		return (int) priceParking;
+		
+	}
+    
+
 	public int getInt(int number, int start, int end){
 		  if (number <= start) return 0;
 		  if (number >= end) return end-start;

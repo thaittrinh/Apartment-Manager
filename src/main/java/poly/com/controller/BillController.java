@@ -1,6 +1,6 @@
 package poly.com.controller;
 
-import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lowagie.text.DocumentException;
-
 import poly.com.entity.Bill;
-import poly.com.helper.BillExportPDF;
+import poly.com.helper.BillExportExcel;
 import poly.com.repository.BillRepository;
 
 @Controller
@@ -29,7 +27,7 @@ public class BillController {
 	 // return template page table hoa don
     @GetMapping()
     public String pageTableHoadon() {
-        return "quanly/hoa-don/table-hoa-don.html";
+        return "quanly/hoa-don/table-hoa-don";
     }
     
     
@@ -40,6 +38,33 @@ public class BillController {
         return "quanly/hoa-don/hoa-don-chi-tiet";
     }
     
+      /*  ------------------------- export file excel ----------------*/
+    @GetMapping("/export-excel/month")
+    public void exportToExcel(HttpServletResponse response, @RequestParam("month") int month, @RequestParam("year") int year) throws Exception {
+
+              response.setContentType("application/octet-stream");
+              String headerKey = "Content-Disposition";
+              String headerValue = "attachement; filename = OwnApartment.xlsx";
+              response.setHeader(headerKey, headerValue);
+              List<Bill> bills = billRepository.findByMonth(month, year);
+        
+              BillExportExcel billExportExcel = new BillExportExcel(bills);
+              billExportExcel.export(response);
+    }
+    
+    @GetMapping("/export-excel/all")
+    public void exportToExcel(HttpServletResponse response) throws Exception {;
+              response.setContentType("application/octet-stream");
+              String headerKey = "Content-Disposition";
+              String headerValue = "attachement; filename = OwnApartment.xlsx";
+              response.setHeader(headerKey, headerValue);
+              List<Bill> bills = billRepository.findAll();
+        
+              BillExportExcel billExportExcel = new BillExportExcel(bills);
+              billExportExcel.export(response);
+    }
+    
+    /*
     @GetMapping("/export-pdf")
     public void exportPdf(HttpServletResponse response, @RequestParam("id") int id) throws DocumentException, IOException{ 	
     	response.setContentType("application/pdf; charset=utf-8");
@@ -51,4 +76,7 @@ public class BillController {
     	 BillExportPDF  billPDF = new BillExportPDF(bill);
     	 billPDF.export(response);
     }
+    */
+    
+    
 }
