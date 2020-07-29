@@ -254,8 +254,6 @@ public class EmployeeService {
        
     }
     
-    
-    
     /*------------------------------------------  change password -------------------------------------*/
     public ResponseEntity<ResponseDTO> changepassword(ChangePasswordRequest passwordRequest) {
         try {

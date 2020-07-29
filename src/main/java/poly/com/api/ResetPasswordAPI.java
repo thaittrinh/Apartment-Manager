@@ -17,7 +17,7 @@ public class ResetPasswordAPI {
     @GetMapping("/page-forgot-password")
     public ModelAndView displayResetPassword(ModelAndView modelAndView, Employee employee) {
         modelAndView.addObject("employee", employee);
-        modelAndView.setViewName("/contents/resetpassword/form-check-email");
+        modelAndView.setViewName("resetpassword/form-check-email");
         return modelAndView;
     }
 

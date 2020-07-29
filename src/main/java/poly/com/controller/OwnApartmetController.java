@@ -13,7 +13,7 @@ public class OwnApartmetController {
 	// return template page table chu can ho
 	@GetMapping()
 	public String pageTabelChuCanho() {
-		return "contents/quanly/chucanho/table-chucanho";
+		return "quanly/chu-ho/table-chu-can-ho";
 	}
 
    // return template page chu can ho

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,8 +15,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(//securedEnabled, jsr250Enabled, prePostEnabled
-		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /* ------------------------------------ WebSecurityConfig -------------------------------- */
 
@@ -62,27 +59,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.cors()
         	.and()
         	.authorizeRequests()   	 	
-        	.antMatchers("/assets/**","/api/account/*","/api/email").permitAll()
+        	.antMatchers("/assets/**","/api/account/*").permitAll()
             .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER")
+            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
             .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
-            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")         
-        	.anyRequest().authenticated() 
+        	.anyRequest().authenticated() // tat cac request khac  phai duoc xac thuc
             .and()                
-        	.formLogin()                                    
-           		.loginPage("/authentication/account/login").permitAll()
-           		.loginProcessingUrl("/login")                     
-           		.usernameParameter("username")                    
-           		.passwordParameter("password")                 
-           		.defaultSuccessUrl("/quan-ly")    
+        	.formLogin()                                       // cho phep nguoi dung xac thuc bang form login
+           		.loginPage("/authentication/account/login").permitAll()// cho phep truy cap trang login
+           		.loginProcessingUrl("/login")                      // url login
+           		.usernameParameter("username")                     // username
+           		.passwordParameter("password")                     // password
+           		.defaultSuccessUrl("/quan-ly")                            //WelcomeController
            	.and()    
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()
-           	.logout()                                          //
+           	.logout()                                          // cho phep dang xuat
            		.invalidateHttpSession(true)                       // Hủy session của người dùng
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout
-           		.logoutSuccessUrl("/authentication/account/login").permitAll(); 
+           		.logoutSuccessUrl("/authentication/account/login").permitAll(); // dang xuat thanh cong ve trang login
 
     }
        

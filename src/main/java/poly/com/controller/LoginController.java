@@ -8,13 +8,13 @@ public class LoginController {
 
 	@RequestMapping("/authentication/account/login")
     public String pageLogin() {
-        return "contents/login/login";
+        return "login/login";
     }
     
 	@RequestMapping("/403")
     public String page403() {
 		
-        return "contents/403";
+        return "/403";
     }
     
 }

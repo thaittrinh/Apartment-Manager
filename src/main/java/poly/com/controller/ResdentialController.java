@@ -17,13 +17,13 @@ public class ResdentialController {
     @GetMapping("/cu-dan")
     public String pageTableCudan( ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
-        return "contents/quanly/cudan/table-Cudan";
+        return "quanly/cu-dan/table-cu-dan";
     }
 
     @GetMapping("/xe")
     public String pageTableXe( ModelMap model) {
         model.addAttribute("TypeVehicles", typeVehicelRepository.findAll());
-        return "contents/quanly/cudan/table-xe";
+        return "quanly/cu-dan/table-xe";
     }
 
 

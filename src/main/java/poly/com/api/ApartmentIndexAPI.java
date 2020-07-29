@@ -1,5 +1,7 @@
 package poly.com.api;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,18 @@ public class ApartmentIndexAPI {
 		return  apartmentIndexService.findById(id);
 	}
 	
+	@GetMapping("/all-month/{year}")
+	public ResponseEntity<List<Integer>> findAllMonth(@PathVariable int year){
+		
+		return  apartmentIndexService.findAllMonth(year);
+	}
+	
+	@GetMapping("/all-year")
+	public ResponseEntity<List<Integer>> findAllYear(){
+		
+		return  apartmentIndexService.findAllYear();
+	}
+	
 	@PostMapping
 	public ResponseEntity<ResponseDTO> create(@Valid @RequestBody CreateIndexRequest request){
 		
@@ -63,5 +77,7 @@ public class ApartmentIndexAPI {
 	
 		return	apartmentIndexService.payment(id, paid, id_nv);
 	}
+	
+	
 	
 }
