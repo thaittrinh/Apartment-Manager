@@ -11,8 +11,8 @@
                                     <div class="col-md-12">
                                         <input class="form-control" id="idnv" hidden="true"  type="text">
                                         <div class="form-group form-group-default">                                         
-                                            <label>Mật khẩu củ </label>
-                                            <input class="form-control" id="Password" placeholder="Nhập mật khẩu củ" type="password">
+                                            <label>Mật khẩu cũ </label>
+                                            <input class="form-control" id="Password" placeholder="nhập mật khẩu cũ" type="password">
                                         </div>
                                     </div>
                                 </div>
@@ -20,7 +20,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group form-group-default">
                                             <label>Mật khẩu mới</label>
-                                            <input class="form-control" id="newPassword" placeholder="Nhập mật khẩu mới" type="password">
+                                            <input class="form-control" id="newPassword" placeholder="nhập mật khẩu mới " type="password">
                                         </div>
                                     </div>
                                 </div>
@@ -28,12 +28,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group form-group-default">
                                             <label>Xác nhận mật khẩu</label>
-                                            <input class="form-control" id="confirmPassword" placeholder="Nhập lại mật khẩu" type="password">
+                                            <input class="form-control" id="confirmPassword" placeholder="xác nhận mật khẩu mới " type="password">
                                         </div>
                                     </div>
                                 </div>
                                 <input type="checkbox" class="ml-2" onclick="TogglePassword()"> Hiển thị mật khẩu
-                                <a class="float-right" th:href="@{/api/account/page-forgot-password}">Quyên mật khẩu</a>
+                                <a class="float-right" th:href="@{/api/account/page-forgot-password}">Quên mật khẩu?</a>
                             </form>
                         </div>
                         <div class="modal-footer no-bd">

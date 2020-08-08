@@ -28,9 +28,9 @@ let sweetalertError = (error) => {
             break;           
         case 409:
             Swal.fire({
-                title: 'Warning',
+                title: 'Error',
                 text :message,
-                icon: 'warning'
+                icon: 'error'
             })
             break;    
         case 500:

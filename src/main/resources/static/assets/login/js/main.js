@@ -23,8 +23,13 @@ function validateForm() {
     var username = document.forms["formlogin"]["username"].value;
     var password = document.forms["formlogin"]["password"].value;
 
-    if (username , password === "") {
-        document.getElementById('message').innerHTML = 'vui lòng nhập tên đăng nhập và mật khẩu ';
+    if (username  === "") {
+        document.getElementById('message').innerHTML = 'vui lòng nhập tên đăng nhập ';
         return false;
     }
+    else if(password === ''){
+	document.getElementById('message').innerHTML = 'vui lòng nhập mật khẩu ';
+        return false;
+	}
+return true;
 }

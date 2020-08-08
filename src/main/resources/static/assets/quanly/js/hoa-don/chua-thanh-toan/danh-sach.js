@@ -1,7 +1,7 @@
 
 (function(){
 	 $.ajax({
-	        url: URL + 'api/apartment-index',
+	        url: URL + 'api/apartment-index/paid/false',
 	        type: 'GET',
 	        dataType: 'json',
 	        success: function (result) {
@@ -84,7 +84,7 @@ let deleteBill = (id, e) => {
     })
 }
 let showFormUpdate = (id) => {
-	 location.href= URL + `quan-ly/hoa-don/${id}`;
+	 location.href= URL + `quan-ly/hoa-don/chua-thanh-toan/${id}`;
 }
 
 

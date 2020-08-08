@@ -14,5 +14,6 @@ public interface BillRepository extends JpaRepository<Bill, Integer>{
 			" WHERE month(a.date)  = ?1 and  year(a.date) = ?2 ", nativeQuery = true)
 	List<Bill> findByMonth(int month, int year);
 	
-	
+    List<Bill> findByPaid(Boolean paid);
+    
 }
