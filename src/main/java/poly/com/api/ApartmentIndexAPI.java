@@ -40,6 +40,12 @@ public class ApartmentIndexAPI {
 		return  apartmentIndexService.findById(id);
 	}
 	
+	@GetMapping("/paid/{isPaid}")
+	public ResponseEntity<ResponseDTO> findByPaid(@PathVariable boolean isPaid){
+		
+		return  apartmentIndexService.findByPaid(isPaid);
+	}
+	
 	@GetMapping("/all-month/{year}")
 	public ResponseEntity<List<Integer>> findAllMonth(@PathVariable int year){
 		

@@ -91,13 +91,29 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li  class="nav-item sidebar-menu" id="menu-quan-ly-hoa-don">
-                    <a th:href="@{/quan-ly/hoa-don}">
-                        <i class="fas fa-table"></i>
+                </li>      
+                 <li class="nav-item">
+                    <a data-toggle="collapse" href="#sidebar">
+                         <i class="fas fa-table"></i>
                         <p>HÓA ĐƠN</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="sidebar">
+                        <ul class="nav nav-collapse">
+                            <li class="sidebar-menu" id="menu-danh-sach-hoa-don">
+                                <a th:href="@{/quan-ly/hoa-don}">
+                                    <span class="sub-item">Danh sách hóa đơn</span>
+                                </a>
+                            </li>
+                            <li  class="sidebar-menu" id="menu-hoa-don-chua-thanh-toan">
+                               <a th:href="@{/quan-ly/hoa-don/chua-thanh-toan}">
+                                    <span class="sub-item">Danh sách hóa đơn chưa thanh toán</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+                
                 <li  class="sidebar-menu nav-item" id="menu-quan-ly-nhan-vien" >
                     <a th:href="@{/quan-ly/nhan-vien}">
                         <i class="fas fa-user"></i>
