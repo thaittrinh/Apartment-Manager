@@ -94,6 +94,25 @@ public class ApartmentIndexService {
 
 	}
 	
+	public ResponseEntity<ResponseDTO> findByPaid(Boolean paid) {
+		try {
+			List<Bill> lists = billRepository.findByPaid(paid);
+			List<ApartmentBillDTO> listDTOs = new ArrayList<>();
+			for (Bill bill : lists) {
+				ApartmentBillDTO dto = new ApartmentBillDTO(bill.getId(),
+						bill.getApartmentIndex().getApartment().getId(), bill.getApartmentIndex().getDate(),
+						bill.getTotalPrice(), bill.getApartmentIndex().getEmployee().getUsername(), bill.getPaid());
+				listDTOs.add(dto);
+			}
+
+			return ResponseEntity.ok(new ResponseDTO(listDTOs, null));
+		} catch (Exception e) {
+
+			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
 	
 	public ResponseEntity<ResponseDTO> findById(int id) {
 		try {
@@ -105,7 +124,6 @@ public class ApartmentIndexService {
 			return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 	
 

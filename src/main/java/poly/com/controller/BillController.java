@@ -44,7 +44,8 @@ public class BillController {
 
               response.setContentType("application/octet-stream");
               String headerKey = "Content-Disposition";
-              String headerValue = "attachement; filename = OwnApartment.xlsx";
+              String fileName =  "bills-" + month + "-" + year + ".xlsx";
+              String headerValue = "attachement; filename = " +fileName;
               response.setHeader(headerKey, headerValue);
               List<Bill> bills = billRepository.findByMonth(month, year);
         
@@ -56,7 +57,7 @@ public class BillController {
     public void exportToExcel(HttpServletResponse response) throws Exception {;
               response.setContentType("application/octet-stream");
               String headerKey = "Content-Disposition";
-              String headerValue = "attachement; filename = OwnApartment.xlsx";
+              String headerValue = "attachement; filename = bills.xlsx";
               response.setHeader(headerKey, headerValue);
               List<Bill> bills = billRepository.findAll();
         
@@ -77,6 +78,32 @@ public class BillController {
     	 billPDF.export(response);
     }
     */
+    
+    @GetMapping("/chua-thanh-toan")
+    public String DanhSachHoaDonChuaThanhToan() {
+    	
+        return "quanly/hoa-don/chua-thanh-toan/danh-sach";
+    }
+    
+    @GetMapping("/chua-thanh-toan/{id}")
+    public String HoaDonChuaThanhToan(@PathVariable int id, ModelMap model){
+    	
+    	model.addAttribute("id", id);
+        return "quanly/hoa-don/chua-thanh-toan/hoa-don-chi-tiet";
+    }
+    
+    @GetMapping("/chua-thanh-toan/export-excel/all")
+    public void exportExcelPaid(HttpServletResponse response) throws Exception {;
+              response.setContentType("application/octet-stream");
+              String headerKey = "Content-Disposition";
+              String headerValue = "attachement; filename = bills.xlsx";
+              response.setHeader(headerKey, headerValue);
+              List<Bill> bills = billRepository.findByPaid(false);
+        
+              BillExportExcel billExportExcel = new BillExportExcel(bills);
+              billExportExcel.export(response);
+    }
+    
     
     
 }
