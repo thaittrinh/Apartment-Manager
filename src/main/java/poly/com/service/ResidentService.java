@@ -1,9 +1,14 @@
 package poly.com.service;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
@@ -11,9 +16,6 @@ import poly.com.entity.Resident;
 import poly.com.helper.ResidentExportExcel;
 import poly.com.repository.ApartmentRepository;
 import poly.com.repository.ResidentRepository;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Service
 public class ResidentService {

@@ -100,7 +100,11 @@ let deleteApartment = (id, e) => {
                     sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                    sweetalertError(error);
+                	 Swal.fire({
+                         title: 'Error',
+                         text: 'Xóa thất bại!',
+                         icon: 'error'
+                     }); 
                 }
             });
         }

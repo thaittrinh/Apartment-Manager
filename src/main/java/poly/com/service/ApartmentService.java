@@ -104,10 +104,13 @@ public class ApartmentService {
     // < ----------------------------- Delete -------------------------->
     public ResponseEntity<ResponseDTO> deleteApartment(String id) {
         try {
-        	if (!apartmentRepository.existsById(id))
+        	Apartment apartment = apartmentRepository.findById(id).orElse(null);
+        	if (apartment == null)
         		return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
+            if (apartment.getOwnApartment() != null) 
+            	return new ResponseEntity<>(new ResponseDTO(null, MessageError.DELETE_FAIL), HttpStatus.CONFLICT);	
             
-        	apartmentRepository.deleteById(id);
+        	 apartmentRepository.deleteById(id);
         	 return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
