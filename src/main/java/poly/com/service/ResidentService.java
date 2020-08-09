@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class ResidentService {
     // < --------------------------------- Class Residential Service --------------------------------->
     @Autowired
