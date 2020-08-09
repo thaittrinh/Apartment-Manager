@@ -17,7 +17,8 @@
 let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-phiquanly').DataTable({
-        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
             "paging": true,
             "serverSize": true,
             "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],

@@ -1,36 +1,35 @@
-
-(function(){
-	 $.ajax({
-	        url: URL + `api/price-parking`,
-	        type: 'GET',
-	        dataType: 'json',
-	        success: function (result) {
-	        	table(result.data)
-	        },
-	        error: function (error) {
-	        	sweetalertError(error);	
-	        }
-	    });
+(function () {
+    $.ajax({
+        url: URL + `api/price-parking`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            table(result.data)
+        },
+        error: function (error) {
+            sweetalertError(error);
+        }
+    });
 })()
 
 
-
 let table = (data) => {
-	
+
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
-        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
         "autoWidth": false,
-        "processing": true,  
+        "processing": true,
         "sAjaxDataProp": "",
         "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
-            {"mData": "id"},          
+            {"mData": "id"},
             {"mData": "date"},
             {"mData": "typeVehicel.name"},
             {"mData": "price"},
@@ -76,7 +75,7 @@ let deletePrice = (id, e) => {
                     sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                	sweetalertError(error);	
+                    sweetalertError(error);
                 }
             });
         }
@@ -92,83 +91,83 @@ let fillToForm = (water) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-car mr-3'></i>" +'Thêm Giá Mới'
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-car mr-3'></i>" + 'Thêm Giá Mới'
 }
 
 
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
- index = $('#my-table').DataTable().row($(e).parents('tr')).index();
- $('#form-building').modal('show')
- document.querySelector('#form-label').innerHTML =  "<i class='fas fa-car mr-3'></i>" + "Cập nhập giá"
- $.ajax({
-     url: URL + `api/price-parking/${id}`,
-     type: 'GET',
-     dataType: 'json',
-     success: function (result) {
-    	 document.querySelector('#id').value = result.data.id;
-         fillToForm(result.data)
-     },
-     error: function (error) {
-    	 sweetalertError(error);	
-     }
- });
+    index = $('#my-table').DataTable().row($(e).parents('tr')).index();
+    $('#form-building').modal('show')
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-car mr-3'></i>" + "Cập nhập giá"
+    $.ajax({
+        url: URL + `api/price-parking/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            document.querySelector('#id').value = result.data.id;
+            fillToForm(result.data)
+        },
+        error: function (error) {
+            sweetalertError(error);
+        }
+    });
 }
 
 
 document.querySelector('#save').addEventListener('click', () => {
-	let price = getValueForm();
-	if(validate(price)){
-	 if (price.id) {
-	        $.ajax({
-	            type: 'PUT',
-	            url: URL + `api/price-parking/${price.id}`,
-	            contentType: "application/json",
-	            dataType: 'json',
-	            cache: false,
-	            data: JSON.stringify(price),
-	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.data.date = formatDate(result.data.date); 
-	                //update the row in dataTable
-	                $('#my-table').DataTable().row(index).data(result.data).draw(); 
-	                // close modal
-	                $('#form-building').modal('hide');   
-	                // annount
-	                sweetalertSuccess(result.message);
-	            },
-	            error: function (error) {           
-	            	sweetalertError(error);	  
-	            }
-	        });
-	
-	    } else {
-	        $.ajax({
-	            type: 'POST',
-	            url: URL + `api/price-parking`,
-	            contentType: "application/json",
-	            dataType: 'json',
-	            cache: false,
-	            data: JSON.stringify(price),
-	            success: function (result) {
-	            	// Convert date to yy-MM-dd
-	                result.data.date = formatDate(result.data.date);                
-	                // Add new data to DataTable
-	                $('#my-table').DataTable()       
-	                    .row.add(result.data).draw().node();
-	                // Clean form
-	                cleanForm();
-	                // annount
-	                sweetalertSuccess(result.message);
-	            },
-	            error: function (error) {
-	            	sweetalertError(error);	  
-	            }
-	        });
-	    }
-	}
-	
+    let price = getValueForm();
+    if (validate(price)) {
+        if (price.id) {
+            $.ajax({
+                type: 'PUT',
+                url: URL + `api/price-parking/${price.id}`,
+                contentType: "application/json",
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(price),
+                success: function (result) {
+                    // Convert date to yy-MM-dd
+                    result.data.date = formatDate(result.data.date);
+                    //update the row in dataTable
+                    $('#my-table').DataTable().row(index).data(result.data).draw();
+                    // close modal
+                    $('#form-building').modal('hide');
+                    // annount
+                    sweetalertSuccess(result.message);
+                },
+                error: function (error) {
+                    sweetalertError(error);
+                }
+            });
+
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: URL + `api/price-parking`,
+                contentType: "application/json",
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify(price),
+                success: function (result) {
+                    // Convert date to yy-MM-dd
+                    result.data.date = formatDate(result.data.date);
+                    // Add new data to DataTable
+                    $('#my-table').DataTable()
+                        .row.add(result.data).draw().node();
+                    // Clean form
+                    cleanForm();
+                    // annount
+                    sweetalertSuccess(result.message);
+                },
+                error: function (error) {
+                    sweetalertError(error);
+                }
+            });
+        }
+    }
+
 });
 
 
@@ -180,10 +179,10 @@ $("#form-building").on("hidden.bs.modal", function () {
 
 // < ---------------------- Clean form ---------------------------->
 let cleanForm = () => {
-    fillToForm({      
+    fillToForm({
         "price": "",
         "date": "",
-        "typeVehicel":"",
+        "typeVehicel": "",
         "note": ""
     });
     document.querySelector('#type').selectedIndex = 0
@@ -199,36 +198,36 @@ let getValueForm = () => {
         "price": document.querySelector('#price').value.trim(),
         "date": document.querySelector('#date').value.trim(),
         "employee": {
-            "id": ID_NV   
+            "id": ID_NV
         },
         "typeVehicel": {
-        	"id": document.querySelector('#type').value.trim(),
+            "id": document.querySelector('#type').value.trim(),
         },
         "note": document.querySelector('#note').value.trim()
     }
 }
 
-let validate = (data) =>  {
-	if(data.price === ''){
-		toastrError("Giá không được để trống!");
-		document.querySelector('#price').focus();
-		return false;
-	}
-	if(data.price < 0){
-		toastrError("Giá không được âm!");
-		document.querySelector('#price').focus();
-		return false;
-	}
-	if(data.date === ''){
-		toastrError("Ngày không được để trống!");
-		document.querySelector('#date').focus();
-		return false;
-	}
-	if(data.typeVehicel.id === ''){
-		toastrError("Chưa chọn loại xe!");
-		document.querySelector('#type').focus();
-		return false;
-	}
-return true;
+let validate = (data) => {
+    if (data.price === '') {
+        toastrError("Giá không được để trống!");
+        document.querySelector('#price').focus();
+        return false;
+    }
+    if (data.price < 0) {
+        toastrError("Giá không được âm!");
+        document.querySelector('#price').focus();
+        return false;
+    }
+    if (data.date === '') {
+        toastrError("Ngày không được để trống!");
+        document.querySelector('#date').focus();
+        return false;
+    }
+    if (data.typeVehicel.id === '') {
+        toastrError("Chưa chọn loại xe!");
+        document.querySelector('#type').focus();
+        return false;
+    }
+    return true;
 }
 

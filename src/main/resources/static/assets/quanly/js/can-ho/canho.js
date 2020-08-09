@@ -1,38 +1,40 @@
-
-(function(){
-	 $.ajax({
-	        url: URL + `api/apartment`,
-	        type: 'GET',
-	        dataType: 'json',
-	        success: function (result) {
-	        	table(result.data)
-	        },
-	        error: function (error) {
-	            sweetalert(error.status)
-	        }
-	    });
+(function () {
+    $.ajax({
+        url: URL + `api/apartment`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            table(result.data)
+        },
+        error: function (error) {
+            sweetalert(error.status)
+        }
+    });
 })()
 
 let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
-    $('#my-table').DataTable({   
+    $('#my-table').DataTable({
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
         "autoWidth": false,
         "processing": true,
-        "sAjaxDataProp": "",          
+        "sAjaxDataProp": "",
         "aaData": data,
         "order": [[0, "asc"]],
         "aoColumns": [
             {"mData": "id"},
-            {"mData": function(data){
+            {
+                "mData": function (data) {
                     return data.ownApartment ? data.ownApartment.id : 'Chưa có chủ';
                 }
             },
             {"mData": "location"},
-            {"mData": "acreage"},     
+            {"mData": "acreage"},
             {
                 "mRender": function (data, type, full) {
                     return `<a href='#' onclick='updatePassword("${full.id}")'>Reset password</a>`
@@ -40,7 +42,7 @@ let table = (data) => {
             },
             {
                 "mRender": function (aaData, type, full) {
-                    return   `<button onclick='showFormUpdate("${full.id}",this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                    return `<button onclick='showFormUpdate("${full.id}",this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
                         <i class="fa fa-edit"></i> </button>`
                 },
             },
@@ -52,30 +54,30 @@ let table = (data) => {
                         <i class="fa fa-times"></i> </button>`
                 }
             }
-            
-            
+
+
         ]
     });
 }
 
 let updatePassword = (id) => {
-	 $.ajax({
-         type: 'PUT',
-         url: URL + `api/apartment/reset-password/${id}`,
-         contentType: "application/json",
-         cache: false,
-         success: function (result) {    
-             sweetalertSuccess(result.message);
-         },
-         error: function (error) {
-         	sweetalertError(error);	 
-         }
-     });
+    $.ajax({
+        type: 'PUT',
+        url: URL + `api/apartment/reset-password/${id}`,
+        contentType: "application/json",
+        cache: false,
+        success: function (result) {
+            sweetalertSuccess(result.message);
+        },
+        error: function (error) {
+            sweetalertError(error);
+        }
+    });
 }
 
 
 // < ----------------------------- Delete ---------------------------->
-let deleteApartment = (id,e) => {
+let deleteApartment = (id, e) => {
     Swal.fire({
         title: 'Warning',
         text: "Bạn có chắc chắn muốn xóa không!",
@@ -98,7 +100,7 @@ let deleteApartment = (id,e) => {
                     sweetalertSuccess(result.message);
                 },
                 error: function (error) {
-                	sweetalertError(error);	 
+                    sweetalertError(error);
                 }
             });
         }
@@ -106,16 +108,15 @@ let deleteApartment = (id,e) => {
 }
 
 
-
 //< -------------------------------------------- INSERT  ------------------------------------->
 $.ajaxSetup({
     headers:
-        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
 });
 
 document.querySelector('#insert').addEventListener('click', () => {
     let data = getValueForm();
-    if(validateInsert(data)){
+    if (validateInsert(data)) {
         $.ajax({
             type: 'POST',
             url: URL + `api/apartment`,
@@ -133,7 +134,7 @@ document.querySelector('#insert').addEventListener('click', () => {
                 sweetalertSuccess(result.message);
             },
             error: function (error) {
-            	sweetalertError(error);	            
+                sweetalertError(error);
             }
         });
     }
@@ -163,16 +164,16 @@ document.querySelector('#clean-form').addEventListener('click', cleanForm);
 let getValueForm = () => {
     let id_own = document.querySelector('#id_own').value.trim();
     let ownapartment = null;
-    if(id_own) {
+    if (id_own) {
         ownapartment = {
             "id": id_own,
         }
     }
- 
+
     return {
         "id": document.querySelector('#id').value.trim(),
         "password": document.querySelector('#password').value.trim(),
-        "ownApartment": ownapartment ,
+        "ownApartment": ownapartment,
         "acreage": document.querySelector('#acreage').value.trim(),
         "location": document.querySelector('#location').value.trim(),
         "note": document.querySelector('#note').value.trim()
@@ -185,22 +186,22 @@ let validateInsert = (data) => {
         document.querySelector('#id').focus();
         return false;
     }
-    if(data.id.length < 3 || data.id.length > 8 ){
+    if (data.id.length < 3 || data.id.length > 8) {
         toastrError("Id căn hộ phải từ 3 đến 8 ký tự!");
         document.querySelector('#id').focus();
         return false;
     }
-    if( data.password === '' ){
+    if (data.password === '') {
         toastrError("Mật khẩu không được để trống!");
         document.querySelector('#password').focus();
         return false;
     }
-    if( data.password.length <6  ||  data.password.length > 12 ){
+    if (data.password.length < 6 || data.password.length > 12) {
         toastrError("Mật khẩu phải từ 6 đên 12 ký tự!");
         document.querySelector('#password').focus();
         return false;
     }
-    if( data.ownApartment != null && isNaN(data.ownApartment.id) ){
+    if (data.ownApartment != null && isNaN(data.ownApartment.id)) {
         toastrError("Id chủ căn hộ phải là số!");
         document.querySelector('#id_own').focus();
         return false;
@@ -226,7 +227,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#my-table').DataTable().row($(e).parents('tr')).index();
     $('#form-update').modal('show')
-    document.querySelector('#title-update').innerHTML =  "<i class='fas fa-building mr-3'></i>" +`CẬP NHẬT THÔNG TIN CĂN HỘ ${id}`;
+    document.querySelector('#title-update').innerHTML = "<i class='fas fa-building mr-3'></i>" + `CẬP NHẬT THÔNG TIN CĂN HỘ ${id}`;
     $.ajax({
         url: URL + `api/apartment/${id}`,
         type: 'GET',
@@ -236,7 +237,7 @@ let showFormUpdate = (id, e) => {
             document.querySelector('#id-update').value = result.data.id;
         },
         error: function (error) {
-        	sweetalertError(error);	
+            sweetalertError(error);
         }
     });
 
@@ -245,9 +246,9 @@ let showFormUpdate = (id, e) => {
 
 document.querySelector('#update').addEventListener('click', () => {
     let data = getValueFormUpdate();
-    if(validateUpdate(data)){
-        if ( data.password === 'tgFxcP4b'){
-            data.password = null ;
+    if (validateUpdate(data)) {
+        if (data.password === 'tgFxcP4b') {
+            data.password = null;
         }
         $.ajax({
             type: 'PUT',
@@ -256,7 +257,7 @@ document.querySelector('#update').addEventListener('click', () => {
             dataType: 'json',
             cache: false,
             data: JSON.stringify(data),
-            success: function (result) {     
+            success: function (result) {
                 //update the row in dataTable
                 $('#my-table').DataTable().row(index).data(result.data).draw();
                 // close modal
@@ -265,7 +266,7 @@ document.querySelector('#update').addEventListener('click', () => {
                 sweetalertSuccess(result.message);
             },
             error: function (error) {
-            	sweetalertError(error);	
+                sweetalertError(error);
             }
         });
     }
@@ -274,7 +275,7 @@ document.querySelector('#update').addEventListener('click', () => {
 
 let fillToFormUpdate = (data) => {
     document.querySelector('#password-update').value = data.password,
-    document.querySelector('#id-own-update').value = data.ownApartment ? data.ownApartment.id : '';
+        document.querySelector('#id-own-update').value = data.ownApartment ? data.ownApartment.id : '';
     document.querySelector('#acreage-update').value = data.acreage;
     document.querySelector('#location-update').value = data.location;
     document.querySelector('#note-update').value = data.note;
@@ -307,7 +308,7 @@ document.querySelector('#clean-form-update').addEventListener('click', cleanForm
 let getValueFormUpdate = () => {
     let id_own = document.querySelector('#id-own-update').value.trim();
     let ownapartment = null;
-    if(id_own) {
+    if (id_own) {
         ownapartment = {
             "id": id_own,
         }
@@ -315,7 +316,7 @@ let getValueFormUpdate = () => {
     return {
         "id": document.querySelector('#id-update').value.trim(),
         "password": document.querySelector('#password-update').value.trim(),
-        "ownApartment": ownapartment ,
+        "ownApartment": ownapartment,
         "acreage": document.querySelector('#acreage-update').value.trim(),
         "location": document.querySelector('#location-update').value.trim(),
         "note": document.querySelector('#note-update').value.trim()
@@ -323,10 +324,9 @@ let getValueFormUpdate = () => {
 }
 
 
-
 let validateUpdate = (data) => {
 
-    if( data.ownApartment != null && isNaN(data.ownApartment.id) ){
+    if (data.ownApartment != null && isNaN(data.ownApartment.id)) {
         toastrError("Id chủ căn hộ phải là số!");
         document.querySelector('#id-own-update').focus();
         return false;

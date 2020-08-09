@@ -17,11 +17,12 @@ let table_vihecle = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-vehicle').DataTable({
         fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "autoWidth": true,
+        "autoWidth": false,
         "processing": true,
         "sAjaxDataProp": "",
         "aaData": data,
