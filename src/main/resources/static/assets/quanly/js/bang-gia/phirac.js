@@ -89,7 +89,7 @@ let fillToForm = (garbage) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" + 'Thêm Giá Mới'
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" + 'Thêm phí rác '
 }
 
 
@@ -98,7 +98,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-garbage').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" + "Cập nhập phí rác ";
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-trash-alt mr-3'></i>" + "Cập nhật phí rác ";
     $.ajax({
         url: URL + `api/price-garbage/${id}`,
         type: 'GET',

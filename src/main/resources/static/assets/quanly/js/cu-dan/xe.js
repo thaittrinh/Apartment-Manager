@@ -136,7 +136,7 @@ let showFormUpdateVehicle = (id, e) => {
     index = $('#table-vehicle').DataTable().row($(e).parents('tr')).index();
     $('#form-vehicle').modal('show')
     document.querySelector('.modal-title').innerHTML =
-        "  <i class='fas fa-motorcycle mr-1'></i>" + "CẬP NHẬT THÔNG TIN XE ";
+        "  <i class='fas fa-motorcycle mr-2 '></i>" + "Cập nhật thông tin xe  ";
     $.ajax({
         url: URL + `api/vehicle/${id}`,
         type: 'GET',

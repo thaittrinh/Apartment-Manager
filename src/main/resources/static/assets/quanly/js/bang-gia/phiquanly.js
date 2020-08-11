@@ -57,14 +57,14 @@ let fillToForm = (management) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" +'THÊM PHÍ QUẢN LÝ'
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" +'Thêm phí quản lý'
 }
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
     index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "CẬP NHẬT PHÍ QUẢN LÝ";
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "Cập nhật phí quản lý";
     $.ajax({
         url: URL + `api/price-management/${id}`,
         type: 'GET',
