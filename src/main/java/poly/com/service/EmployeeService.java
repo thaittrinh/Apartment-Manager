@@ -234,7 +234,7 @@ public class EmployeeService {
         }
     }
 
-    /*------------------------------------------  change password -------------------------------------*/
+    /*------------------------------------------  change Username-------------------------------------*/
     public ResponseEntity<ResponseDTO> changeUsername(String username, String newUsername) {
         try {
           Employee employee = employeeRepository.findByUsername(username).orElse(null);
