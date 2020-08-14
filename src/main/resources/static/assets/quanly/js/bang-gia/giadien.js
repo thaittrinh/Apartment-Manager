@@ -17,16 +17,13 @@ let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-electricity').DataTable({
         fixedColumns: {leftColumns: 1, rightColumns: 1},
-        //  "scrollCollapse": true,
+        fixedHeader: true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        //  "scroller": true,
         "autoWidth": false,
         "processing": true,
-        // "scrollY": "250px",
-        // "sAjaxSource": URL + 'api/price-electricity',
         "sAjaxDataProp": "",
         "aaData": data,
         "order": [[0, "asc"]],
@@ -83,7 +80,7 @@ let deletePrice = (id, e) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3'></i>" + 'THÊM GIÁ ĐIỆN'
+    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3'></i>" + 'Thêm giá điện'
 }
 
 // < ----------------------- show form update ---------------->
@@ -91,7 +88,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#table-electricity').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3 '></i>" + "CẬP NHẬT GIÁ ĐIỆN";
+    document.querySelector('#form-giadien').innerHTML = "<i class='fas fa-bolt mr-3 '></i>" + "Cập nhật giá điện";
     $.ajax({
         url: URL + `api/price-electricity/${id}`,
         type: 'GET',

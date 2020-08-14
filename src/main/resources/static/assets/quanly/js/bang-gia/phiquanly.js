@@ -17,7 +17,8 @@
 let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-phiquanly').DataTable({
-        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
             "paging": true,
             "serverSize": true,
             "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
@@ -56,14 +57,14 @@ let fillToForm = (management) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" +'THÊM PHÍ QUẢN LÝ'
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" +'Thêm phí quản lý'
 }
 var index = -1;
 //< -------------------------- show form update --------------------->
 let showFormUpdate = (id, e) => {
     index = $('#table-phiquanly').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "CẬP NHẬT PHÍ QUẢN LÝ";
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-shield-alt mr-3'></i>" + "Cập nhật phí quản lý";
     $.ajax({
         url: URL + `api/price-management/${id}`,
         type: 'GET',

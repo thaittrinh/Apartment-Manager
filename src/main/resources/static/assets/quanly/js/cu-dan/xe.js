@@ -17,11 +17,12 @@ let table_vihecle = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#table-vehicle').DataTable({
         fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
         "responsive": true,
-        "autoWidth": true,
+        "autoWidth": false,
         "processing": true,
         "sAjaxDataProp": "",
         "aaData": data,
@@ -135,7 +136,7 @@ let showFormUpdateVehicle = (id, e) => {
     index = $('#table-vehicle').DataTable().row($(e).parents('tr')).index();
     $('#form-vehicle').modal('show')
     document.querySelector('.modal-title').innerHTML =
-        "  <i class='fas fa-motorcycle mr-1'></i>" + "CẬP NHẬT THÔNG TIN XE ";
+        "  <i class='fas fa-motorcycle mr-2 '></i>" + "Cập nhật thông tin xe  ";
     $.ajax({
         url: URL + `api/vehicle/${id}`,
         type: 'GET',

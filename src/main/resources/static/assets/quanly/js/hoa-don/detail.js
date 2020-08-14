@@ -10,7 +10,7 @@ let OUpdate = {};
 	        dataType: 'json',
 	        success: function (result) {
 	        	document.getElementById("content-detail").innerHTML = viewDetail(result.data);	
-	        	document.getElementById("title-detail").innerHTML =  `<i class="fas fa-address-card mr-3"></i>CẬP NHẬT HÓA ĐƠN CĂN HỘ 
+	        	document.getElementById("title-detail").innerHTML =  `<i class="fas fa-file-invoice-dollar mr-2 "></i>Cập nhật hóa đơn căn hộ 
 	        															${result.data.apartmentIndex.apartment.id}`;
 	        		        	
 	        	document.getElementById("date-detail").innerHTML = getMonthYear(result.data.apartmentIndex.date);

@@ -156,7 +156,7 @@ function readURL(input) {
             $('#imgs')
                 .attr('src', e.target.result)
                 .width(300)
-                .height(auto);
+
         };
         reader.readAsDataURL(input.files[0]);
         document.querySelector('#upload-now').click();

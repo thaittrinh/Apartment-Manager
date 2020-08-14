@@ -15,7 +15,8 @@
 let table = (data) => {
     // < ----------------------- load data to table  ------------------------------->
     $('#my-table').DataTable({
-        fixedColumns:   {leftColumns: 1, rightColumns: 1},
+        fixedColumns: {leftColumns: 1, rightColumns: 1},
+        fixedHeader: true,
         "paging": true,
         "serverSize": true,
         "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
@@ -81,7 +82,7 @@ let deletePrice = (id, e) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-tint mr-3'></i>" +'THÊM GIÁ MỚI'
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-tint mr-3'></i>" +'Thêm giá nước'
 }
 // < ------------------- fill to form------------------------------>
 let fillToForm = (water) => {
@@ -95,7 +96,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#my-table').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-label').innerHTML =  "<i class='fas fa-tint mr-3'></i>" +"CẬP NHẬT GIÁ NƯỚC";
+    document.querySelector('#form-label').innerHTML =  "<i class='fas fa-tint mr-3'></i>" +"Cập nhật giá nước ";
     $.ajax({
         url: URL + `api/price-water/${id}`,
         type: 'GET',

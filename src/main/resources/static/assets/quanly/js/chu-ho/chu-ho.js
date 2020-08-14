@@ -15,6 +15,8 @@
 let table = (data) => {
     // <- ------------------------- load data to table ---------------------------->
      $('#table-chucanho').DataTable({
+		 fixedColumns: {leftColumns: 1, rightColumns: 1},
+		 fixedHeader: true,
 		 "paging": true,
 		 "serverSize": true,
 		 "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
@@ -51,7 +53,7 @@ let table = (data) => {
 }
 
 let changetitle = () => {
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'THÊM CHỦ CĂN HỘ';
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'Thêm chủ căn hộ';
 }
 
 var index = -1;
@@ -59,7 +61,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
  index = $('#table-chucanho').DataTable().row($(e).parents('tr')).index();
  $('#form-resident').modal('show')
-document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'CẬP NHẬT THÔNG TIN CHỦ CĂN HỘ';
+document.querySelector('#form-label').innerHTML = "<i class='fas fa-address-card mr-3 '></i>" +'Cập nhật thông tin chủ căn hộ';
  $.ajax({
      url: URL + `api/own-apartment/${id}`,
      type: 'GET',

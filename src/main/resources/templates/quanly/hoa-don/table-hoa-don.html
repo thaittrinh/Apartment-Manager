@@ -1,4 +1,4 @@
-<div data-layout-decorate="~{/layout-admin}" layout:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml"
+<div data-layout-decorate="~{layout-admin}" layout:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml"
      xmlns:layout="http://www.w3.org/1999/xhtml">
     <div class="main-panel">
         <div class="content">
@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Hóa đơn</h4>
+                                    <h4 class="card-title">Danh sách hóa đơn</h4>
                                     <button class="btn btn-sm btn-success btn-round ml-auto" data-toggle="modal" data-target="#form-building">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
@@ -63,26 +63,21 @@
 												<button type="button" class="btn btn-success"></button>
 												<button type="button" class="btn btn-danger"></button>
 												<button type="button" class="btn btn-warning"></button>
-												<button type="button" class="btn btn-info"></button>		
+												<button type="button" class="btn btn-info"></button>
 												<button type="button" class="btn btn-dark"></button>
-                                              
                                                  <p style="color: #FFAD46;">Chọn tháng & năm để xuất excel theo tháng. Hoặc xuất tất cả 
                                                  <a th:href="@{/quan-ly/hoa-don/export-excel/all}">tại đây!</a></p>
                                                  <div class="row ">                            
                                                      <div class="col-md-6 pl-2" >
                                                          <div class="form-group form-group-default">
                                                             <label>Tháng</label>
-                                                                <select name="month" class="form-control" id="select_month">
-                                                                                                                              
-                                                                </select>
+                                                                <select name="month" class="form-control" id="select_month"></select>
                                                          </div>
                                                      </div>                              
                                                       <div class="col-md-6 pl-2 " >
 	                                                       <div class="form-group form-group-default">
 	                                                            <label>Năm</label>
-	                                                                <select name="year"  class="form-control" id="select_year">     
-															                                                                        
-	                                                                </select>
+	                                                                <select name="year"  class="form-control" id="select_year"></select>
 	                                                         </div>
                                                        </div>
                                                  </div>
@@ -90,14 +85,13 @@
       										<div class="row" style="float:right;">
       											<button class="btn btn-success btn-sm" type="submit">
                                                      <i class="fas fa-download"></i>
-                                                    Export
+                                                    Xuất file
                                                 </button> &ensp;
-                                                <button type="button" class="btn btn-secondary  btn-sm" data-dismiss="modal"> 
-                                                <i class="fas fa-sign-out-alt"></i>
-                                                Cancel</button>
-                                               &emsp;
+                                                <button type="button" class="btn btn-danger mr-3 btn-sm" data-dismiss="modal">
+                                                <i class="fas fa-times"></i>
+                                                Hủy bỏ
+                                                </button>
       										</div>
-      										 
                                                 </form>
                                             </div>              
                                         </div>
@@ -111,7 +105,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title">
-                                                    THÊM HÓA ĐƠN
+                                                    <i class="fas fa-file-invoice-dollar mr-2 "></i>
+                                                    Thêm hóa đơn
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>

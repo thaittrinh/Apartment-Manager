@@ -88,7 +88,7 @@ let deleteResident = (id, e) => {
 // ------------------- change title ------------------------
 let changetitle = () => {
     document.querySelector('#form-label').innerHTML =
-        "<i class='fas fa-address-card mr-3'></i>" + 'THÊM CƯ DÂN'
+        "<i class='fas fa-address-card mr-2'></i>" + 'Thêm cư dân'
 }
 
 // < ----------------- show form update -------------------->
@@ -97,7 +97,7 @@ let showFormUpdate = (id, e) => {
     index = $('#table-resident').DataTable().row($(e).parents('tr')).index();
     $('#form-resident').modal('show')
     document.querySelector('#form-label').innerHTML =
-        "<i class='fas fa-address-card mr-3'></i>" + "CẬP NHẬT THÔNG TIN CƯ DÂN";
+        "<i class='fas fa-address-card mr-2'></i>" + "Cập nhật thông tin cư dân";
     $.ajax({
         url: URL + `api/resident/${id}`,
         type: 'GET',
