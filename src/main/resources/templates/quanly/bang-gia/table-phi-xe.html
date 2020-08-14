@@ -21,7 +21,7 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Bảng giá gửi xe</a>
+                            <a>Bảng giá gửi xe</a>
                         </li>
                     </ul>
                 </div>
@@ -31,7 +31,8 @@
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Bảng giá gửi xe </h4>
-                                    <button onclick="changetitle()" class="btn btn-success btn-sm btn-round ml-auto" data-toggle="modal" data-target="#form-building">
+                                    <button onclick="changetitle()" class="btn btn-success btn-sm btn-round ml-auto"
+                                            data-toggle="modal" data-target="#form-building">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
                                     </button>
@@ -39,7 +40,8 @@
                             </div>
                             <div class="card-body">
                                 <!-- Modal -->
-                                <div class="modal fade" id="form-building" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal fade" id="form-building" tabindex="-1" role="dialog"
+                                     aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
@@ -55,7 +57,7 @@
                                                     <div class="row">
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <input type="number"  id="id" hidden="true" required="required" />
+                                                                <input type="number" id="id" hidden="true" required="required"/>
                                                                 <label> Đơn giá </label>
                                                                 <input id="price" type="number" class="form-control" placeholder="Đơn giá">
                                                             </div>
@@ -63,28 +65,28 @@
                                                         <div class="col-md-7 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Ngày tạo</label>
-                                                                <input id="date" type="date" class="form-control" placeholder="Ngày tạo">
+                                                                <input id="date" type="date" class="form-control"
+                                                                       placeholder="Ngày tạo">
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                     <div class="row">
-
                                                         <div class="col-md-12 pl-2">
                                                             <div class="form-group form-group-default ">
                                                                 <label>Loại xe</label>
                                                                 <select class="form-control" id="type">
-                                                                     <option th:each="t : ${TypeVehicles}" th:value="${t.id}" th:text="${t.name}"/>
+                                                                    <option th:each="t : ${TypeVehicles}"
+                                                                            th:value="${t.id}" th:text="${t.name}"/>
                                                                 </select>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-12 pl-2 ">
                                                             <div class="form-group form-group-default">
                                                                 <label>Ghi chú</label>
-                                                                <textarea id="note" rows="3" class="form-control"></textarea>
+                                                                <textarea id="note" rows="3"
+                                                                          class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -103,13 +105,12 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="table-responsive">
-                                    <table id="my-table" class="display table table-striped table-hover" >
+                                    <table id="my-table" class="display table table-striped table-hover">
                                         <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Ngày</th>
+                                            <th>Ngày tạo</th>
                                             <th>Loại xe</th>
                                             <th>Đơn giá</th>
                                             <th>Người tạo</th>
@@ -121,7 +122,7 @@
                                         <tfoot>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Ngày</th>
+                                            <th>Ngày tạo</th>
                                             <th>Loại xe</th>
                                             <th>Đơn giá</th>
                                             <th>Người tạo</th>
@@ -141,16 +142,16 @@
                 </div>
             </div>
         </div>
-            <footer class="footer">
+        <footer class="footer">
             <div class="container-fluid">
                 <div class="pull-left"></div>
                 <div class="copyright ml-auto">
-                   Version 1.0
+                    Version 1.0
                 </div>
             </div>
         </footer>
 
         <script th:src="@{/assets/quanly/js/bang-gia/phi-xe.js}"></script>
-       
+
     </div>
 </div>

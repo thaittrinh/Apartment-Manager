@@ -15,13 +15,13 @@
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Quản lý</a>
+                            <a>Quản lý</a>
                         </li>
                         <li class="separator">
                             <i class="flaticon-right-arrow"></i>
                         </li>
                         <li class="nav-item">
-                            <a >Bảng giá nước</a>
+                            <a>Bảng giá nước</a>
                         </li>
                     </ul>
                 </div>
@@ -31,7 +31,8 @@
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Bảng giá nước</h4>
-                                    <button onclick="changetitle()" class="btn btn-sm btn-success btn-round ml-auto" data-toggle="modal" data-target="#form-building">
+                                    <button onclick="changetitle()" class="btn btn-sm btn-success btn-round ml-auto"
+                                            data-toggle="modal" data-target="#form-building">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
                                     </button>
@@ -39,14 +40,15 @@
                             </div>
                             <div class="card-body">
                                 <!-- Modal -->
-                                <div class="modal fade" id="form-building" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal fade" id="form-building" tabindex="-1" role="dialog"
+                                     aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title" id="form-label">
-
                                                 </h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -55,25 +57,27 @@
                                                     <div class="row">
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
-                                                                <input type="number"  id="id" hidden="true" required="required" />
+                                                                <input type="number" id="id" hidden="true"
+                                                                       required="required"/>
                                                                 <label>Đơn giá </label>
-                                                                <input id="price" type="number" class="form-control" placeholder="Đơn giá">
+                                                                <input id="price" type="number" class="form-control"
+                                                                       placeholder="Đơn giá">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Ngày tạo</label>
-                                                                <input id="date" type="date" class="form-control" placeholder="Ngày tạo">
+                                                                <input id="date" type="date" class="form-control"
+                                                                       placeholder="Ngày tạo">
                                                             </div>
                                                         </div>
-
                                                     </div>
-
                                                     <div class="row">
                                                         <div class="col-md-12 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Ghi chú</label>
-                                                                <textarea id="note" rows="3" class="form-control"></textarea>
+                                                                <textarea id="note" rows="3"
+                                                                          class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -94,13 +98,13 @@
                                 </div>
 
                                 <div class="table-responsive">
-                                    <table id="my-table" class="display table table-striped table-hover" >
+                                    <table id="my-table" class="display table table-striped table-hover">
                                         <thead>
                                         <tr>
                                             <th>Id</th>
                                             <th>Ngày tạo</th>
                                             <th>Đơn giá</th>
-                                            <th>Ngày tạo</th>
+                                            <th>Người tạo</th>
                                             <th>Ghi chú</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
@@ -108,10 +112,10 @@
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                           <th>ID</th>
+                                            <th>Id</th>
                                             <th>Ngày</th>
                                             <th>Đơn giá</th>
-                                            <th>Ngày tạo</th>
+                                            <th>Người tạo</th>
                                             <th>Ghi chú</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
@@ -128,11 +132,11 @@
                 </div>
             </div>
         </div>
-           <footer class="footer">
+        <footer class="footer">
             <div class="container-fluid">
                 <div class="pull-left"></div>
                 <div class="copyright ml-auto">
-                   Version 1.0
+                    Version 1.0
                 </div>
             </div>
         </footer>

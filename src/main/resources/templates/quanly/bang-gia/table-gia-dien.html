@@ -1,5 +1,6 @@
 <div data-layout-decorate="~{/layout-admin}" layout:fragment="content"
-     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
      xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="main-panel">
         <span hidden="true" id="username" sec:authentication="name"> </span>
@@ -33,7 +34,8 @@
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Bảng giá điện</h4>
-                                    <button class="btn btn-sm btn-success btn-round ml-auto" data-target="#form-building"
+                                    <button class="btn btn-sm btn-success btn-round ml-auto"
+                                            data-target="#form-building"
                                             data-toggle="modal" onclick="changetitle()">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
@@ -62,14 +64,16 @@
                                                                 <input hidden="true" id="id" required="required"
                                                                        type="number"/>
                                                                 <label>Đơn giá</label>
-                                                                <input class="form-control" id="price" placeholder="Đơn giá"
-                                                                       type="number" />
+                                                                <input class="form-control" id="price"
+                                                                       placeholder="Đơn giá"
+                                                                       type="number"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Ngày tạo</label>
-                                                                <input class="form-control" id="date" placeholder="Ngày tạo"
+                                                                <input class="form-control" id="date"
+                                                                       placeholder="Ngày tạo"
                                                                        type="date">
                                                             </div>
                                                         </div>
@@ -80,8 +84,8 @@
                                                         <div class="col-md-12 pl-2">
                                                             <div class="form-group form-group-default ">
                                                                 <label>Hạn mức(kWh)</label>
-                                                                <select class="form-control" id="limits">                       
-                                                                    <option value="50">Từ 0 đến 50 </option>
+                                                                <select class="form-control" id="limits">
+                                                                    <option value="50">Từ 0 đến 50</option>
                                                                     <option value="100">Từ 51 đến 100</option>
                                                                     <option value="200">Từ 101 đến 200</option>
                                                                     <option value="300">Từ 201 đến 300</option>
@@ -133,7 +137,7 @@
                                         </thead>
                                         <tfoot>
                                         <tr>
-                                             <th>ID</th>
+                                            <th>ID</th>
                                             <th>Hạn mức</th>
                                             <th>Đơn giá</th>
                                             <th>Ngày</th>
