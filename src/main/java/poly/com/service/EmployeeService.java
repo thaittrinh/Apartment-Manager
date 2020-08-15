@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import poly.com.constant.FireBasePhotoFolders;
 import poly.com.constant.MessageError;
 import poly.com.constant.MessageSuccess;
 import poly.com.dto.ResponseDTO;
@@ -160,7 +161,7 @@ public class EmployeeService {
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
 
             employeeRepository.deleteById(id);
-            fileHelper.deleteFile(employee.getImage());
+//            fileHelper.deleteFile(employee.getImage());
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -175,8 +176,8 @@ public class EmployeeService {
             Employee employee = employeeRepository.findById(id).orElse(null);
             if (employee == null)
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-            fileHelper.deleteFile(employee.getImage());
-            String fileName = fileHelper.saveFile(mfile, "admin" + id);
+//            fileHelper.deleteFile(employee.getImage());
+            String fileName = fileHelper.saveFile(mfile, FireBasePhotoFolders.USER, "admin" + id);
             employee.setImage(fileName);
             employee = employeeRepository.save(employee);
             return ResponseEntity.ok(new ResponseDTO(employee, MessageSuccess.UPLOAD_FILE_SUCCSESS));

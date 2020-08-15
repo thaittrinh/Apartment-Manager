@@ -40,7 +40,9 @@ let fillToForm = (data) => {
 let fillToFormImage = (data) => {
     if(data.image){
         document.querySelector('#imgs').src = URL + `assets/quanly/image/${data.image}`;
-    }else{
+        document.querySelector('#imgs').src = `https://storage.googleapis.com/apartment-management-15f74.appspot.com/photo/user/${data.image}`;
+    }
+    else{
         document.querySelector('#imgs').src = URL + `assets/quanly/image/someone.png`;
     }
 }
