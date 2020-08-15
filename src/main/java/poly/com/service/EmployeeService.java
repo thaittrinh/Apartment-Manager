@@ -161,7 +161,7 @@ public class EmployeeService {
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
 
             employeeRepository.deleteById(id);
-//            fileHelper.deleteFile(employee.getImage());
+            fileHelper.deleteFile("photo/user" ,employee.getImage());
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.DELETE_SUCCSESS));
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -176,8 +176,8 @@ public class EmployeeService {
             Employee employee = employeeRepository.findById(id).orElse(null);
             if (employee == null)
                 return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_EMPLOYEE), HttpStatus.NOT_FOUND);
-//            fileHelper.deleteFile(employee.getImage());
-            String fileName = fileHelper.saveFile(mfile, FireBasePhotoFolders.USER, "admin" + id);
+            fileHelper.deleteFile("photo/user" ,employee.getImage());
+            String fileName = fileHelper.saveFile(mfile, FireBasePhotoFolders.USER, System.nanoTime()+ "admin" + id);
             employee.setImage(fileName);
             employee = employeeRepository.save(employee);
             return ResponseEntity.ok(new ResponseDTO(employee, MessageSuccess.UPLOAD_FILE_SUCCSESS));
