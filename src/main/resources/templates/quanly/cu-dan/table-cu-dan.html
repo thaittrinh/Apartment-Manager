@@ -95,20 +95,20 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Danh sách cư dân</h4>
-                                    <button class="btn btn-success btn-sm btn-round ml-auto mr-2" data-target="#form-resident"
+                                <div class="d-flex flex-wrap  align-items-center">
+                                    <h4 class="card-title mt-1">Danh sách cư dân</h4>
+                                    <button class="btn btn-success btn-sm btn-round ml-auto mr-2 mt-1 " data-target="#form-resident"
                                             data-toggle="modal" onclick="changetitle()">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
                                     </button>
-                                    <button class="btn btn-sm btn-primary btn-round mr-2 " data-target="#form-vehicle"
+                                    <button class="btn btn-sm btn-primary btn-round mr-2 mt-1  " data-target="#form-vehicle"
                                             data-toggle="modal">
                                         <i class="fa fa-plus"></i>
                                     	Đăng ký gửi xe
                                     </button>
                                     <a th:href="@{/api/resident/export-excel}">
-                                        <button class="btn btn-sm btn-primary btn-round ml-auto ">
+                                        <button class="btn btn-sm btn-primary btn-round mt-1 ">
                                             <i class="fas fa-download"></i>
                                            Xuất file excel
                                         </button>
