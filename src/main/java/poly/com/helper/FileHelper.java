@@ -20,11 +20,9 @@ public class FileHelper {
         return fileName;
     }
 
-    public void deleteFile(String fileName) throws IOException {
-//        fireBase.deleteImg();
-//        String urlFile = System.getProperty("user.dir") + photoFolder + fileName;
-//        File myFile = new File(urlFile);
-//        myFile.delete();
+    public void deleteFile( String folderName,String fileName) throws IOException {
+        fireBase.DeleteImg("photo/user", fileName);
+
 
     }
 

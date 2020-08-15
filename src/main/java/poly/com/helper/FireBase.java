@@ -23,44 +23,43 @@ import java.nio.ByteBuffer;
 
 @Component
 public class FireBase {
-    
+
     private class Constants {
         public static final String PROJECT_ID = "apartment-management";
         public static final String BUCKET_NAME = "apartment-management-15f74.appspot.com";
         public static final String SERVICE_ACCOUNT_KEY = "firebase.json";
     }
-    
+
     private final String bucketName = Constants.BUCKET_NAME;
-    
+
     private Storage storage;
-    
+
     public FireBase() {
         try {
             initStorage();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
         }
     }
-    
+
     private void initStorage() throws IOException {
         Resource resource = new ClassPathResource(Constants.SERVICE_ACCOUNT_KEY);
 //        try (FileInputStream serviceAccount = new FileInputStream(FireBase.class.getResource(Constants.SERVICE_ACCOUNT_KEY).getFile())) {
         try (InputStream serviceAccount = resource.getInputStream()) {
             this.storage = StorageOptions.newBuilder()
-                                         .setProjectId(Constants.PROJECT_ID)
-                                         .setCredentials(ServiceAccountCredentials.fromStream(serviceAccount))
-                                         .build()
-                                         .getService();
+                    .setProjectId(Constants.PROJECT_ID)
+                    .setCredentials(ServiceAccountCredentials.fromStream(serviceAccount))
+                    .build()
+                    .getService();
         }
     }
-    
+
     public void uploadImg(String folderName, File file) throws IOException {
         BlobInfo blobInfo = BlobInfo.newBuilder(BlobId.of(bucketName, folderName + "/" + file.getName()))
-                                    .setContentType("image/jpeg")
-                                    .build();
-        
+                .setContentType("image/jpeg")
+                .build();
+
         try (WriteChannel writer = storage.writer(blobInfo);
              InputStream inputStream = new FileInputStream(file)
         ) {
@@ -74,8 +73,8 @@ public class FireBase {
 
     public void uploadImg(String folderName, MultipartFile file, String newName) throws IOException {
         BlobInfo blobInfo = BlobInfo.newBuilder(BlobId.of(bucketName, folderName + "/" + newName))
-                                    .setContentType("image/jpeg")
-                                    .build();
+                .setContentType("image/jpeg")
+                .build();
 
         try (WriteChannel writer = storage.writer(blobInfo);
              InputStream inputStream = file.getInputStream()
@@ -95,9 +94,10 @@ public class FireBase {
 
     }
 
-    // thich thi tu che them, co ban la no chay roi khong can phai delete
-//    public boolean deleteImg(String folderName, String fileName)
-//    storage.delete(BlobId)
-
+    // delete image
+    public void DeleteImg(String folderName, String fileName) {
+        BlobId blobId = BlobId.of(bucketName, folderName + "/" + fileName);
+        storage.delete(blobId);
+    }
 
 }
