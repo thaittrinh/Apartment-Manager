@@ -78,7 +78,7 @@ let getValueForm = () => {
         'phone': document.querySelector('#phone').value.trim(),
         'username': document.querySelector('#username').value.trim(),
         'email': document.querySelector('#email').value.trim(),
-        'password': "12345678", /// cái chuỗi này xuống data sẽ ko lấy
+        'password': "123@123a", /// cái chuỗi này xuống data sẽ ko lấy
         'roles': $('input[type=checkbox]:checked').map(function (_, role) {
             return $(role).val();
         }).get()
