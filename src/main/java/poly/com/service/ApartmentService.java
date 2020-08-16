@@ -93,7 +93,7 @@ public class ApartmentService {
             if (apartment == null)
             	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_404_APARTMENT), HttpStatus.NOT_FOUND);
             
-            apartment.setPassword(passwordEncoder.encode(defaultPassword));
+            apartment.setPassword(passwordEncoder.encode("12345678"));
             apartmentRepository.save(apartment);
             return ResponseEntity.ok(new ResponseDTO(null, MessageSuccess.RESET_PASSWORD_SUCCSESS));
         } catch (Exception e) {
