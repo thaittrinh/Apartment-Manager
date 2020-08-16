@@ -83,14 +83,13 @@ public class EmployeeExportExcel {
     }
 
     /* - ---------------- write data in row in Excel -----------------  */
-    private void writeDataRows() {//c ham nay ko can truyen vao ak // à  nó dùng để ghỉ data vào con truyen sang class khac
+    private void writeDataRows() {
         Employee newemployee  = new Employee();
         Set<Role> roles = newemployee.getRoles();
         String roleString = "" ;
         for (Role role : roles) {
-            roleString += role.getName()+"";
+            roleString = role.getName()+"";
         }
-
         int rowcount = 1;
         CellStyle cellStyle = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -147,7 +146,7 @@ public class EmployeeExportExcel {
     }
     public void export(HttpServletResponse response) throws Exception {
         writeHeaderRow();
-        writeDataRows(); // thang nay ko truyen gi vao ak
+        writeDataRows();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();

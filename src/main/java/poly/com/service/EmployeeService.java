@@ -289,6 +289,7 @@ public class EmployeeService {
             response.setHeader(headerKey, headerValue);
             List<Employee> employeeList = employeeRepository.findAll();
             EmployeeExportExcel employeeExportExcel = new EmployeeExportExcel(employeeList);
+            System.out.println(employeeExportExcel);
             employeeExportExcel.export(response);
             return new ResponseEntity<>(MessageSuccess.EXPORT_SUCCSESS, HttpStatus.OK);
         } catch (Exception e) {
