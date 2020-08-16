@@ -63,7 +63,7 @@ public class FireBase {
         try (WriteChannel writer = storage.writer(blobInfo);
              InputStream inputStream = new FileInputStream(file)
         ) {
-            byte[] buffer = new byte[2000];
+            byte[] buffer = new byte[5120000];
             int limit;
             while ((limit = inputStream.read(buffer)) >= 0) {
                 writer.write(ByteBuffer.wrap(buffer, 0, limit));
@@ -79,7 +79,7 @@ public class FireBase {
         try (WriteChannel writer = storage.writer(blobInfo);
              InputStream inputStream = file.getInputStream()
         ) {
-            byte[] buffer = new byte[2000];
+            byte[] buffer = new byte[5120000];
             int limit;
             while ((limit = inputStream.read(buffer)) >= 0) {
                 writer.write(ByteBuffer.wrap(buffer, 0, limit));

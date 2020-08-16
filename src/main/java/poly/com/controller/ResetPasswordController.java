@@ -1,4 +1,4 @@
-package poly.com.api;
+package poly.com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +9,7 @@ import poly.com.service.ResetPasswordService;
 
 @Controller
 @RequestMapping("api/account")
-public class ResetPasswordAPI {
+public class ResetPasswordController {
 
     @Autowired
     ResetPasswordService resetPasswordService;
