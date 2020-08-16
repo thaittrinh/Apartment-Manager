@@ -21,7 +21,7 @@ let fillToForm = (data) => {
             fillToForm(result.data);
             if (result.data.image) {
         //        document.querySelector('#imgs').src = URL + `assets/quanly/image/${result.data.image}`;
-                document.querySelector('#imgs').src = `https://storage.googleapis.com/apartment-management-15f74.appspot.com/photo/user/${data.image}`;
+                document.querySelector('#imgs').src = `https://storage.googleapis.com/apartment-management-15f74.appspot.com/photo/user/${result.data.image}`;
             } else {
                 document.querySelector('#imgs').src = URL + `assets/quanly/image/someone.png`;
             }

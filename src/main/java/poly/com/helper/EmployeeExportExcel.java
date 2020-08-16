@@ -147,7 +147,7 @@ public class EmployeeExportExcel {
     }
     public void export(HttpServletResponse response) throws Exception {
         writeHeaderRow();
-        writeDataRows(); // thang nay ko truyen gi vao ak
+        writeDataRows();
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();
