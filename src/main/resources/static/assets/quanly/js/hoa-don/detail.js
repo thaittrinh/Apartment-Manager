@@ -19,7 +19,7 @@ let OUpdate = {};
 	        	hiddenPayment(result.data.paid);
 	        },
 	        error: function (error) {
-	            sweetalert(error.status)
+	        	sweetalertError(error.status)
 	        }
 	    });
 })()
@@ -35,7 +35,7 @@ document.querySelector('#paid-false').addEventListener('click', () => {
 	        	hiddenPayment(false);	        	
 	        },
 	        error: function (error) {
-	            sweetalert(error.status)
+	        	sweetalertError(error.status)
 	        }
 	    });
 	
@@ -52,7 +52,7 @@ document.querySelector('#paid-true').addEventListener('click', () => {
 	        	hiddenPayment(true);	        	
 	        },
 	        error: function (error) {
-	            sweetalert(error.status)
+	        	sweetalertError(error.status)
 	        }
 	    });
 	

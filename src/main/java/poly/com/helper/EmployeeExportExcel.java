@@ -1,19 +1,20 @@
 package poly.com.helper;
 
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import poly.com.entity.Employee;
 import poly.com.entity.Role;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Set;
 
 public class EmployeeExportExcel {
     Employee newEmployee = new Employee();
@@ -84,13 +85,11 @@ public class EmployeeExportExcel {
 
     /* - ---------------- write data in row in Excel -----------------  */
     private void writeDataRows() {
-        Employee newemployee  = new Employee();
-        Set<Role> roles = newemployee.getRoles();
-        String roleString = "" ;
-        for (Role role : roles) {
-            roleString = role.getName()+"";
-        }
-        int rowcount = 1;
+     
+   
+        
+        
+        int rowcount = 1;    
         CellStyle cellStyle = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(12);
@@ -139,7 +138,7 @@ public class EmployeeExportExcel {
             sheet.autoSizeColumn(7);
             // -------------------------
             cell = row.createCell(8);
-            cell.setCellValue(roleString);
+            cell.setCellValue(getRoleNames(employee));
             cell.setCellStyle(cellStyle);
             sheet.autoSizeColumn(8);
         }
@@ -153,4 +152,14 @@ public class EmployeeExportExcel {
         outputStream.close();
     }
 
+    public String getRoleNames(Employee employee) {   	 	
+           Set<Role> roles = employee.getRoles();
+           String roleString = "" ;
+           for (Role role : roles) {
+               roleString += role.getName()+" ";
+           }
+           
+    	return roleString;
+    }
+    
 }
