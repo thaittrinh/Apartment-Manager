@@ -7,7 +7,7 @@
             table_vihecle(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error.status)
         }
     });
 })()

@@ -60,9 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.authorizeRequests()   	 	
         	.antMatchers("/assets/**","/api/account/*").permitAll()
-            .antMatchers("/quan-ly/hoa-don/**").hasAnyRole("USER")
-            .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
-            .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
+            .antMatchers("/quan-ly/hoa-don/**","/quan-ly/bang-gia/**").hasAnyRole("USER")
+            .antMatchers("/quan-ly/nhan-vien", "/quan-ly/can-ho", "/quan-ly/chu-can-ho").hasAnyRole("ADMIN")    
         	.anyRequest().authenticated() // tat cac request khac  phai duoc xac thuc
             .and()                
         	.formLogin()                                       // cho phep nguoi dung xac thuc bang form login
