@@ -116,6 +116,16 @@ public class ApartmentService {
         	return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_500), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-	
+
+
+    public ResponseEntity<List<String>> findAllId() {
+        try {
+             List<String> listId = apartmentRepository.findAllId();
+            return new ResponseEntity<>(listId, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 	
 }

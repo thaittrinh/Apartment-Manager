@@ -84,8 +84,9 @@
                                                         <div class="col-md-6 pl-2">
                                                             <div class="form-group form-group-default">
                                                                 <label>Cư dân </label>
-                                                                <input class="form-control" id="idResident" placeholder="Id cư dân"
-                                                                       type="text">
+                                                                <select class="form-control" style="width: 100%"  id="resident_id">
+                                                                    <option >  </option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -149,7 +150,7 @@
                 </div>
             </div>
         </footer>
-
+        <script th:src="@{/assets/quanly/js/find-data-select.js}"></script>
         <script th:src="@{/assets/quanly/js/cu-dan/xe.js}"></script>
     </div>
 </div>

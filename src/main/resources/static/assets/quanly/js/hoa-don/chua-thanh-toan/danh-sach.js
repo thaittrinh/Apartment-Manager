@@ -130,7 +130,7 @@ $("#form-building").on("hidden.bs.modal", function () {
 let getValueFormInsert = () => {
 	return {
 		"apartment" : {
-			"id": document.querySelector('#id-apartment').value.trim()
+            "id": document.querySelector('#apartment_id').value.trim()
 		},
 		"electricityNumber": document.querySelector('#electricity-insert').value.trim(),
 		"warterNumber": document.querySelector('#water-insert').value.trim(),
@@ -142,7 +142,7 @@ let getValueFormInsert = () => {
 }
 
 let cleanFormInsert = () => {
-	 document.querySelector('#id-apartment').value = '';
+    $('#apartment_id').val(null).trigger('change');
 	 document.querySelector('#electricity-insert').value = '';
 	 document.querySelector('#water-insert').value = '';
 	document.querySelector('#date-insert').value = '';
@@ -153,7 +153,7 @@ let validateFormInsert = (data) => {
 	
     if (data.apartment.id === '') {
         toastrError("Căn hộ không được để trống!");
-        document.querySelector('#id-apartment').focus();
+        document.querySelector('#apartment_id').focus();
         return false
     }
     if( data.apartment.id.length > 8 ){
