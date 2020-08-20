@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.authorizeRequests()   	 	
         	.antMatchers("/assets/**","/api/account/*").permitAll()
-            .antMatchers("/quan-ly/hoa-don").hasAnyRole("USER")
+            .antMatchers("/quan-ly/hoa-don/**").hasAnyRole("USER")
             .antMatchers("/quan-ly/nhan-vien").hasAnyRole("ADMIN")
             .antMatchers("/quan-ly/bang-gia/**").hasAnyRole("USER")
         	.anyRequest().authenticated() // tat cac request khac  phai duoc xac thuc
@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()
            	.logout()                                          // cho phep dang xuat
-           		.invalidateHttpSession(true)                       // Hủy session của người dùng
+           		.invalidateHttpSession(true)                       //S Hủy session của người dùng
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout

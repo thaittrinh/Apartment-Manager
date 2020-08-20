@@ -39,8 +39,10 @@ let fillToForm = (data) => {
 /* -------------------------------------  fill image ----------------------------------- */
 let fillToFormImage = (data) => {
     if(data.image){
-        document.querySelector('#imgs').src = URL + `assets/quanly/image/${data.image}`;
-    }else{
+   //     document.querySelector('#imgs').src = URL + `assets/quanly/image/${data.image}`;
+        document.querySelector('#imgs').src = `https://storage.googleapis.com/apartment-management-15f74.appspot.com/photo/user/${data.image}`;
+    }
+    else{
         document.querySelector('#imgs').src = URL + `assets/quanly/image/someone.png`;
     }
 }
@@ -76,7 +78,7 @@ let getValueForm = () => {
         'phone': document.querySelector('#phone').value.trim(),
         'username': document.querySelector('#username').value.trim(),
         'email': document.querySelector('#email').value.trim(),
-        'password': "12345678", /// cái chuỗi này xuống data sẽ ko lấy
+        'password': "123@123a", /// cái chuỗi này xuống data sẽ ko lấy
         'roles': $('input[type=checkbox]:checked').map(function (_, role) {
             return $(role).val();
         }).get()
@@ -156,7 +158,7 @@ function readURL(input) {
             $('#imgs')
                 .attr('src', e.target.result)
                 .width(300)
-                .height(auto);
+
         };
         reader.readAsDataURL(input.files[0]);
         document.querySelector('#upload-now').click();
@@ -168,11 +170,12 @@ $("#file-upload-form").on("submit", function (e) {
     e.preventDefault();
     $.ajax({
         url: URL + `api/employee/upload-file/${ID}`,
-        type: "POST",
+        method: 'POST',
         data: new FormData(this),
         enctype: 'multipart/form-data',
-        processData: false,
+        processData: false, 
         contentType: false,
+        //contentType: "image/jpeg",
         cache: false,
         success: function (result) {
             sweetalertSuccess(result.message);

@@ -119,13 +119,14 @@ let validateFormChangePassword = (data) => {
         document.querySelector('#newPassword').focus();
         return false
     }
-
+  /*
     let special = data.newpassword.match((/[!@#$%^&*_]+/g));
     if (special != null) {
         toastrError('Mật khẩu không được chứa ký tự đặc biệt');
         document.querySelector('#newPassword').focus();
         return false
     }
+    */
     /*   if (data.newpassword.search(/[a-z]/) < 0) {
            toastrError("Mật khẩu phải có ít nhất một chữ cái")
            document.querySelector('#newPassword').focus();

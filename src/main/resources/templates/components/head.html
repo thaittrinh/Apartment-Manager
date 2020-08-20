@@ -1,5 +1,5 @@
 
-<head xmlns:th="https://www.thymeleaf.org">
+<head xmlns:th="http://www.w3.org/1999/xhtml">
     <title>Vinhomes Management </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
@@ -45,7 +45,10 @@
     <script th:src="@{/assets/quanly/vendor/js/plugin/sweetalert/sweetalert2@9.js}"></script>
     <link th:href="@{/assets/quanly/vendor/js/plugin/toastr/toastr.min.css}" rel="stylesheet" type="text/css">
     <script th:src="@{/assets/quanly/vendor/js/plugin/toastr/toastr.min.js}"></script>
-
+    
+    <!-- Drowpdown search with selecte2 for id Apratment -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
 
     <script th:src="@{/assets/quanly/js/helper/formatdata.js}"></script>
     <script th:src="@{/assets/quanly/js/helper/sweetalert2.js}"></script>
@@ -71,4 +74,5 @@
     	color:black;
     } 
     </style>
+		
 </head>

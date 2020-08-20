@@ -141,7 +141,7 @@ let cleanForm = () => {
         document.querySelector('#identitycard').value = "",
         document.querySelector('#phone').value = "",
         document.querySelector('#username').value = "",
-        document.querySelector('#password').value = "" ,
+        document.querySelector('#password').value = "123@123a" ,
         document.querySelector('#email').value = "",
         document.querySelector('#role-admin').checked = false,
         document.querySelector('#role-user').checked = false
@@ -255,12 +255,14 @@ let validate = (data) =>{
         document.querySelector('#password').focus();
         return false;
     }
+    /*
     let special = data.password.match((/[!@#$%^&*_]+/g));
     if (special != null) {
         toastrError('Mật khẩu không được chứa ký tự đặc biệt');
         document.querySelector('#password').focus();
         return false
     }
+    */
     if(data.password.length <6 || data.password.length > 12 ){
         toastrError("Mật khẩu phải từ 6 đến 12 ký tự");
         document.querySelector('#password').focus();

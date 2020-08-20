@@ -1,4 +1,4 @@
-<div data-layout-decorate="~{/layout-admin}" layout:fragment="content"
+<div data-layout-decorate="~{layout-admin}" layout:fragment="content"
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org">
     <div class="main-panel">
         <div class="content">
@@ -36,7 +36,7 @@
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
                                     </button>
-                                    <a th:href="@{/api/resident/export-excel}">
+                                    <a th:href="@{/api/employee/export-excel}">
                                         <button class="btn btn-sm btn-primary btn-round ml-auto ">
                                             <i class="fas fa-download"></i>
                                             Xuất file excel
@@ -52,7 +52,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title">
-                                                   THÊM NHÂN VIÊN
+                                                    <i class="fas fa-user mr-2 "></i>
+                                                    Thêm nhân viên
                                                 </h5>
                                                 <button aria-label="Close" class="close" data-dismiss="modal"
                                                         type="button">
@@ -144,7 +145,7 @@
                                                             <div class="form-group form-group-default">
                                                                 <label>Mật khẩu</label>
                                                                 <input class="form-control" id="password"
-                                                                       placeholder="Mật khẩu" type="password">
+                                                                       placeholder="Mật khẩu" type="password" value="123@123a">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -192,7 +193,7 @@
                                             <th>Họ tên</th>
                                             <th>Giới tính</th>
                                             <th>Tên đăng nhập</th>
-                                            <th>Quê quán</th>
+                                            <th>Role user</th>
                                             <th>Số điện thoại</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
@@ -204,7 +205,7 @@
                                             <th>Họ tên</th>
                                             <th>Giới tính</th>
                                             <th>Tên đăng nhập</th>
-                                            <th>Quê quán</th>
+                                            <th>Role user</th>
                                             <th>Số điện thoại</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>

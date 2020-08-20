@@ -1,4 +1,4 @@
-<div data-layout-decorate="~{/layout-admin}" layout:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml"
+<div data-layout-decorate="~{layout-admin}" layout:fragment="content" xmlns:th="http://www.w3.org/1999/xhtml"
      xmlns:layout="http://www.w3.org/1999/xhtml">
     <div class="main-panel">
         <div class="content">
@@ -29,15 +29,15 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex align-items-center">
-                                    <h4 class="card-title">Hóa đơn</h4>
-                                    <button class="btn btn-sm btn-success btn-round ml-auto" data-toggle="modal" data-target="#form-building">
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <h4 class="card-title mt-1 ">Danh sách hóa đơn</h4>
+                                    <button class="btn btn-sm btn-success btn-round ml-auto mt-1 " data-toggle="modal" data-target="#form-building">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
                                     </button>
                                     &ensp; <!-- th:href="@{/quan-ly/hoa-don/export-excel}" -->
                                     <a  data-toggle="modal" data-target="#form-building2" >
-                                        <button class="btn btn-sm btn-primary btn-round ml-auto ">
+                                        <button class="btn btn-sm btn-primary btn-round ml-auto  mt-1 ">
                                             <i class="fas fa-download"></i>
                                            Xuất file excel
                                         </button>
@@ -63,26 +63,21 @@
 												<button type="button" class="btn btn-success"></button>
 												<button type="button" class="btn btn-danger"></button>
 												<button type="button" class="btn btn-warning"></button>
-												<button type="button" class="btn btn-info"></button>		
+												<button type="button" class="btn btn-info"></button>
 												<button type="button" class="btn btn-dark"></button>
-                                              
                                                  <p style="color: #FFAD46;">Chọn tháng & năm để xuất excel theo tháng. Hoặc xuất tất cả 
                                                  <a th:href="@{/quan-ly/hoa-don/export-excel/all}">tại đây!</a></p>
                                                  <div class="row ">                            
                                                      <div class="col-md-6 pl-2" >
                                                          <div class="form-group form-group-default">
                                                             <label>Tháng</label>
-                                                                <select name="month" class="form-control" id="select_month">
-                                                                                                                              
-                                                                </select>
+                                                                <select name="month" class="form-control" id="select_month"></select>
                                                          </div>
                                                      </div>                              
                                                       <div class="col-md-6 pl-2 " >
 	                                                       <div class="form-group form-group-default">
 	                                                            <label>Năm</label>
-	                                                                <select name="year"  class="form-control" id="select_year">     
-															                                                                        
-	                                                                </select>
+	                                                                <select name="year"  class="form-control" id="select_year"></select>
 	                                                         </div>
                                                        </div>
                                                  </div>
@@ -90,14 +85,13 @@
       										<div class="row" style="float:right;">
       											<button class="btn btn-success btn-sm" type="submit">
                                                      <i class="fas fa-download"></i>
-                                                    Export
+                                                    Xuất file
                                                 </button> &ensp;
-                                                <button type="button" class="btn btn-secondary  btn-sm" data-dismiss="modal"> 
-                                                <i class="fas fa-sign-out-alt"></i>
-                                                Cancel</button>
-                                               &emsp;
+                                                <button type="button" class="btn btn-danger mr-3 btn-sm" data-dismiss="modal">
+                                                <i class="fas fa-times"></i>
+                                                Hủy bỏ
+                                                </button>
       										</div>
-      										 
                                                 </form>
                                             </div>              
                                         </div>
@@ -111,7 +105,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header no-bd">
                                                 <h5 class="modal-title">
-                                                    THÊM HÓA ĐƠN
+                                                    <i class="fas fa-file-invoice-dollar mr-2 "></i>
+                                                    Thêm hóa đơn
                                                 </h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -122,9 +117,35 @@
                                                     <div class="row">
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
+                                                            
                                                                 <input type="number"  id="id" hidden="true" required="required" />
+                                                                <!-- 
                                                                 <label>Căn hộ </label>
                                                                 <input id="id-apartment" type="text" class="form-control" placeholder="Id căn hộ">
+                                                                --> 
+                                                                <label>Căn hộ </label>
+                                                            <select id="apartment_id" style="width:100%;">
+															
+															</select>											                                                               
+                                                               <script>
+                                                               $(document).ready(function() {
+                                                   				var ids = ["", "L.A.101", "L.A.102", "L.A.103", "L.A.204", "L.A.205", "L.A.206", "L.A.207"];
+                                                   				$("#apartment_id").select2({
+                                                   				  data: ids,
+                                                   				 "language": {
+                                                   			       "noResults": function(){
+                                                   			           return "Không tìm thấy căn hộ";
+                                                   			       }
+                                                   			   },
+                                                   			    escapeMarkup: function (markup) {
+                                                   			        return markup;
+                                                   			    }
+                                                   				 
+                                                   				});
+                                                   			});
+                                                               </script>
+                                                               
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">

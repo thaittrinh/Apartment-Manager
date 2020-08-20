@@ -231,7 +231,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#my-table').DataTable().row($(e).parents('tr')).index();
     $('#form-update').modal('show')
-    document.querySelector('#title-update').innerHTML = "<i class='fas fa-building mr-3'></i>" + `CẬP NHẬT THÔNG TIN CĂN HỘ ${id}`;
+    document.querySelector('#title-update').innerHTML = "<i class='fas fa-building mr-2'></i>" + `Cập nhật thông tin căn hộ ${id}`;
     $.ajax({
         url: URL + `api/apartment/${id}`,
         type: 'GET',

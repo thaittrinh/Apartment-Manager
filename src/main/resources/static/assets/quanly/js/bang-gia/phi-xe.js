@@ -100,7 +100,7 @@ var index = -1;
 let showFormUpdate = (id, e) => {
     index = $('#my-table').DataTable().row($(e).parents('tr')).index();
     $('#form-building').modal('show')
-    document.querySelector('#form-label').innerHTML = "<i class='fas fa-car mr-3'></i>" + "Cập nhập giá"
+    document.querySelector('#form-label').innerHTML = "<i class='fas fa-car mr-3'></i>" + "Cập nhật phí gửi xe"
     $.ajax({
         url: URL + `api/price-parking/${id}`,
         type: 'GET',
