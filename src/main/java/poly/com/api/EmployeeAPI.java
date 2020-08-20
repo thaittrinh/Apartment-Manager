@@ -56,7 +56,7 @@ public class EmployeeAPI {
     }
 
     @PostMapping("/upload-file/{id}")
-    public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id, @RequestParam("file") MultipartFile mFile) {
+    public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id, @RequestParam(name="file", required = false) MultipartFile mFile) {
         return employeeService.uploadFile(mFile, id);
     }
 

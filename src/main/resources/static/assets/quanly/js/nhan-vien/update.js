@@ -170,11 +170,12 @@ $("#file-upload-form").on("submit", function (e) {
     e.preventDefault();
     $.ajax({
         url: URL + `api/employee/upload-file/${ID}`,
-        type: "POST",
+        method: 'POST',
         data: new FormData(this),
         enctype: 'multipart/form-data',
-        processData: false,
+        processData: false, 
         contentType: false,
+        //contentType: "image/jpeg",
         cache: false,
         success: function (result) {
             sweetalertSuccess(result.message);
