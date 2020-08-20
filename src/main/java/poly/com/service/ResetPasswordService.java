@@ -1,6 +1,7 @@
 package poly.com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,9 @@ public class ResetPasswordService {
     @Autowired
     private PasswordResetRespository passwordResetRespository;
 
+    @Value("${app.domain}")
+    private String domain;
+    
 
     /* -----------------------Scheduling delete token ----------------------------- */
     // scheduleding(lap lich) het tgian se tu dong xoa  cho token
@@ -57,7 +61,7 @@ public class ResetPasswordService {
                         "Xin chào Bạn " + "\n"
                                 + "chúng tôi đã nhận được yêu cầu  đặt lại mật khẩu của bạn " + "\n"
                                 + "vui lòng click vào link bên dưới để đặt lại mật khẩu " + "\n"
-                                + "http://localhost:5000/api/account/confirm-reset?token="
+                                + domain + "/api/account/confirm-reset?token="
                                 + token.getToken());
                 emailSenderService.sendEmail(mailMessage);
                 modelAndView.setViewName("resetpassword/form-check-email");

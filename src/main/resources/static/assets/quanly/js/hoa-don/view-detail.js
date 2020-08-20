@@ -22,8 +22,8 @@ var viewDetail = (data) => {
 						  <thead>
 						    <tr>
 						     <th>Loại</th>
-                       		 <th>Chỉ số mới</th>
-                         	 <th>Chỉ số cũ </th>
+                       		 <th>Chỉ số cũ</th>
+                         	 <th>Chỉ số mới</th>
                              <th>Số lượng</th>
                              <th>Đơn giá  <i>(vnd)</i></th>
                              <th>THUẾ <i>(10%)</i></th>
