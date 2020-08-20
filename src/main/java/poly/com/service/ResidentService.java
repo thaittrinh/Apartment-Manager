@@ -51,7 +51,7 @@ public class ResidentService {
             // --------------------------------------------------------
             if (newResident.getIdentitycard() != "") {
                 Resident resident = residentRepository.findByIdentitycard(
-                    newResident.getIdentitycard()).orElse(null);
+                        newResident.getIdentitycard()).orElse(null);
                 if (resident != null)
                     return new ResponseEntity<>(new ResponseDTO(null, MessageError.ERROR_409_IDENTICARD), HttpStatus.CONFLICT);
             } // ---------------------------------------------------
@@ -120,6 +120,18 @@ public class ResidentService {
         } catch (Exception e) {
             return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+    }
+
+    public ResponseEntity<List<String>> findAllId() {
+        try {
+            List<String> listId = residentRepository.findAllId();
+            return new ResponseEntity<>(listId, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
 
     }
 }

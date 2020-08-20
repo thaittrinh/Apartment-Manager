@@ -10,6 +10,7 @@ import poly.com.service.ResidentService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/resident")
@@ -29,6 +30,12 @@ public class ResidentAPI {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO> findById(@PathVariable int id) {
         return residentService.findById(id);
+    }
+
+    // find All Id
+    @GetMapping("/listid")
+    public ResponseEntity<List<String>> findAllId() {
+        return residentService.findAllId();
     }
 
     // < ----------------------------- Create --------------------->

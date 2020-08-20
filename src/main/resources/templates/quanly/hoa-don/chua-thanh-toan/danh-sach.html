@@ -64,7 +64,10 @@
                                                             <div class="form-group form-group-default">
                                                                 <input type="number"  id="id" hidden="true" required="required" />
                                                                 <label>Căn hộ </label>
-                                                                <input id="id-apartment" type="text" class="form-control" placeholder="Id căn hộ">
+                                                                <select class="form-control" style="width: 100%"
+                                                                        id="apartment_id">
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">
@@ -150,7 +153,7 @@
                 </div>
             </div>
         </footer>
-
+        <script th:src="@{/assets/quanly/js/find-data-select.js}"></script>
         <script th:src="@{/assets/quanly/js/hoa-don/chua-thanh-toan/danh-sach.js}"></script> 
     </div>
 </div>
