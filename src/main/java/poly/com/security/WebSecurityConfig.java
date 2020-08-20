@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
            		.exceptionHandling().accessDeniedPage("/403")
         	.and()
            	.logout()                                          // cho phep dang xuat
-           		.invalidateHttpSession(true)                       // Hủy session của người dùng
+           		.invalidateHttpSession(true)                       //S Hủy session của người dùng
            		.clearAuthentication(true)                         //-------------------
            		.deleteCookies("JSESSIONID")                       //  xoa JSESSIOIND  khi logout success
            		.logoutUrl("/logout")                              //  url logout

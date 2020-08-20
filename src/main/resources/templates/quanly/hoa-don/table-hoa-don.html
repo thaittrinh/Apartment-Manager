@@ -117,9 +117,35 @@
                                                     <div class="row">
                                                         <div class="col-md-5 pl-2">
                                                             <div class="form-group form-group-default">
+                                                            
                                                                 <input type="number"  id="id" hidden="true" required="required" />
+                                                                <!-- 
                                                                 <label>Căn hộ </label>
                                                                 <input id="id-apartment" type="text" class="form-control" placeholder="Id căn hộ">
+                                                                --> 
+                                                                <label>Căn hộ </label>
+                                                            <select id="apartment_id" style="width:100%;">
+															
+															</select>											                                                               
+                                                               <script>
+                                                               $(document).ready(function() {
+                                                   				var ids = ["", "L.A.101", "L.A.102", "L.A.103", "L.A.204", "L.A.205", "L.A.206", "L.A.207"];
+                                                   				$("#apartment_id").select2({
+                                                   				  data: ids,
+                                                   				 "language": {
+                                                   			       "noResults": function(){
+                                                   			           return "Không tìm thấy căn hộ";
+                                                   			       }
+                                                   			   },
+                                                   			    escapeMarkup: function (markup) {
+                                                   			        return markup;
+                                                   			    }
+                                                   				 
+                                                   				});
+                                                   			});
+                                                               </script>
+                                                               
+                                                                
                                                             </div>
                                                         </div>
                                                         <div class="col-md-7 pl-2">

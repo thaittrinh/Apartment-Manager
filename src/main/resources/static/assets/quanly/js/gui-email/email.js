@@ -43,19 +43,29 @@ $("#send-email").on("submit", function (e) {
 					})      
 		        },
 		        success: function (result) {
-		        	sweetalertSuccess("Gửi email thành công")
+		        	$('#form-send-email').modal('hide');
+		        	console.log(1);
+		        	sweetalertSuccess("Gửi email thành công");        	
 		        },
 		        error: function (error) {
-		        	if(error.status === 200){       	
-		        		sweetalertSuccess("Gửi email thành công")
-		        	}else{
-		        		sweetalertError2("Gửi mail thất bại!")
-		        	}
-
+		        	Swal.fire({
+		                title: 'Error',
+		                text: 'Gửi mail thất bại!',
+		                icon: 'error'
+		            });
 		        }
 		    });
 	 }   
 });
+
+$("#form-send-email").on("hidden.bs.modal", function () {
+	document.getElementById("to").value='';
+	document.getElementById("subject").value='';
+	document.getElementById("body").value='';
+	document.getElementById("file-mail").value='';
+	
+});
+
 
 $("#file-mail").on("change", function (e) {
     let files = e.currentTarget.files; // puts all files into an array
