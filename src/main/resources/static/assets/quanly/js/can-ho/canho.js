@@ -7,7 +7,7 @@
             table(result.data)
         },
         error: function (error) {
-        	sweetalertError(error.status)
+            sweetalertError(error.status)
         }
     });
 })()
