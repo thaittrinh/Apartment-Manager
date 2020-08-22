@@ -40,14 +40,20 @@ let table = (data) => {
             {"mData": "apartment.id"},
             {
                 "mRender": function (data, type, full) {
-                    return `<button onclick='showFormUpdate(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                    return `<button onclick='showFormUpdate(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="cập nhật">
                         <i class="fa fa-edit"></i> </button>`
                 }
             },
             {
                 "mRender": function (data, type, full) {
-                    return `<button onclick='deleteResident(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                    return `<button onclick='deleteResident(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="xóa">
                         <i class="fa fa-times"></i> </button>`
+                }
+            },
+            {
+                "mRender": function (data, type, full) {
+                    return `<button onclick='showFormResgiterVehicle(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-success" data-original-title="thêm">
+                        <i class="fa fa-plus"></i> </button>`
                 }
             }
         ]
@@ -89,6 +95,23 @@ let deleteResident = (id, e) => {
 let changetitle = () => {
     document.querySelector('#form-label').innerHTML =
         "<i class='fas fa-address-card mr-2'></i>" + 'Thêm cư dân'
+}
+
+let index2 = -1
+let showFormResgiterVehicle = (id , e) => {
+index2 = $('#table-resident').DataTable().row($(e).parents('tr')).index();
+    $('#form-vehicle').modal('show')
+    $.ajax({
+        url: URL + `api/resident/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            document.querySelector("#resident_id").value = result.data.id;
+        },
+        error: function (error) {
+            sweetalertError(error)
+        }
+    })
 }
 
 // < ----------------- show form update -------------------->

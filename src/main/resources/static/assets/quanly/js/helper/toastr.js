@@ -9,7 +9,7 @@ let toastrError = (message) => {
         timeOut: 2000,
     })
 }
-let toastrWarning= (message) => {
+let toastrWarning = (message) => {
         toastr.warning(message, "", {
                 progressBar: true,
                 positionClass: "toast-top-right",
