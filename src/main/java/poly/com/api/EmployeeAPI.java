@@ -9,6 +9,8 @@ import poly.com.dto.ResponseDTO;
 import poly.com.request.EmployeeRequest;
 import poly.com.service.EmployeeService;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -56,7 +58,8 @@ public class EmployeeAPI {
     }
 
     @PostMapping("/upload-file/{id}")
-    public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id, @RequestParam(name="file", required = false) MultipartFile mFile) {
+    public ResponseEntity<ResponseDTO> uploadFile(@PathVariable int id,
+    											  @RequestParam(name="file", required = false) MultipartFile mFile) throws IOException {
         return employeeService.uploadFile(mFile, id);
     }
 
