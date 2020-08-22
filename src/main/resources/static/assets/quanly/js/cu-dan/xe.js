@@ -80,6 +80,8 @@ let deleteVehicle = (id, e) => {
     })
 }
 
+
+
 // < ------------------------- insert or update -------------------->
 document.querySelector('#save-vehicle').addEventListener('click', () => {
     let vehicle = getValueFormVehicle();
@@ -229,16 +231,16 @@ let validateFormVehicle = (data) => {
         document.querySelector('#date').focus();
         return false
     }
-    if (data.resident.id === '') {
-        toastrError("Mã cư dân không được để trống!");
-        document.querySelector('#resident_id').focus();
-        return false
-    }
-    if (data.resident != null && isNaN(data.resident.id)) {
-        toastrError("Id cư dân phải là số!");
-        document.querySelector('#idResident').focus();
-        return false;
-    }
+    // if (data.resident.id === '') {
+    //     toastrError("Mã cư dân không được để trống!");
+    //     document.querySelector('#resident_id').focus();
+    //     return false
+    // }
+    // if (data.resident != null && isNaN(data.resident.id)) {
+    //     toastrError("Id cư dân phải là số!");
+    //     document.querySelector('#idResident').focus();
+    //     return false;
+    // }
 
     return true;
 }

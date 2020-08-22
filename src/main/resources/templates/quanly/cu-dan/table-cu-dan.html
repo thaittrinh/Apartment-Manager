@@ -27,7 +27,7 @@
                 </div>
                 <!-- Modal -->
                 <div aria-hidden="true" class="modal fade" id="form-vehicle" role="dialog" tabindex="-1">
-                    <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header no-bd">
                                 <h5 class="modal-title" >
@@ -41,7 +41,7 @@
                                 <form>
                                     <input class="form-control" hidden="true" id="idVehicle" type="number">
                                     <div class="row">
-                                        <div class="col-md-3 pl-2">
+                                        <div class="col-md-6 pl-2">
                                             <div class="form-group form-group-default ">
                                                 <label>Loại xe</label>
                                                 <select class="form-control" id="type">
@@ -49,16 +49,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-5 pl-2">
+                                        <div class="col-md-6 pl-2">
                                             <div class="form-group form-group-default">
                                                 <label>Biển số </label>
                                                 <input class="form-control" id="licensePlates" placeholder="Biển số xe" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 pl-2">
-                                            <div class="form-group form-group-default">
-                                                <label>Màu </label>
-                                                <input class="form-control" id="color" placeholder="Màu xe" type="text">
                                             </div>
                                         </div>
                                     </div>
@@ -71,12 +65,11 @@
                                         </div>
                                         <div class="col-md-6 pl-2">
                                             <div class="form-group form-group-default">
-                                                <label>Cư dân </label>
-                                                <select class="form-control"  style="width: 100%" id="resident_id">
-                                                    <option >  </option>
-                                                </select>
+                                                <label>Màu </label>
+                                                <input class="form-control" id="color" placeholder="Màu xe" type="text">
                                             </div>
                                         </div>
+                                                <input hidden="true" class="form-control" id="resident_id" placeholder="Ngày đăng ký" type="text">
                                     </div>
                                 </form>
                             </div>
@@ -103,11 +96,6 @@
                                             data-toggle="modal" onclick="changetitle()">
                                         <i class="fa fa-plus"></i>
                                         Thêm mới
-                                    </button>
-                                    <button class="btn btn-sm btn-primary btn-round mr-2 mt-1  " data-target="#form-vehicle"
-                                            data-toggle="modal">
-                                        <i class="fa fa-plus"></i>
-                                    	Đăng ký gửi xe
                                     </button>
                                     <a th:href="@{/api/resident/export-excel}">
                                         <button class="btn btn-sm btn-primary btn-round mt-1 ">
@@ -249,6 +237,7 @@
                                             <th>Căn hộ</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
+                                            <th style="width: 10%">Đăng ký xe </th>
                                         </tr>
                                         </thead>
                                         <tfoot>
@@ -262,6 +251,7 @@
                                             <th>Căn hộ</th>
                                             <th style="width: 10%">Cập nhật</th>
                                             <th style="width: 10%">Xóa</th>
+                                            <th style="width: 10%">Đăng ký xe </th>
                                         </tr>
                                         </tfoot>
                                         <tbody>
