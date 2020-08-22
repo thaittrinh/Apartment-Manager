@@ -21,27 +21,27 @@
             sweetalertError(error.status)
         }
     });
-    $.ajax({
-        url: URL + `api/resident/listid`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (result) {
-            $("#resident_id").select2({
-                data: result,
-                "language": {
-                    "noResults": function(){
-                        return "Không tìm thấy cư dân";
-                    }
-                },
-                escapeMarkup: function (markup) {
-                    return markup;
-                }
-
-            });
-        },
-        error: function (error) {
-            sweetalertError(error.status)
-        }
-    });
+    // $.ajax({
+    //     url: URL + `api/resident/listid`,
+    //     type: 'GET',
+    //     dataType: 'json',
+    //     success: function (result) {
+    //         $("#resident_id").select2({
+    //             data: result,
+    //             "language": {
+    //                 "noResults": function(){
+    //                     return "Không tìm thấy cư dân";
+    //                 }
+    //             },
+    //             escapeMarkup: function (markup) {
+    //                 return markup;
+    //             }
+    //
+    //         });
+    //     },
+    //     error: function (error) {
+    //         sweetalertError(error.status)
+    //     }
+    // });
 })()
 
