@@ -7,7 +7,7 @@
             table(result.data)
         },
         error: function (error) {
-            sweetalert(error.status)
+        	sweetalertError(error.status)
         }
     });
 })()
@@ -40,14 +40,20 @@ let table = (data) => {
             {"mData": "apartment.id"},
             {
                 "mRender": function (data, type, full) {
-                    return `<button onclick='showFormUpdate(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                    return `<button onclick='showFormUpdate(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="cập nhật">
                         <i class="fa fa-edit"></i> </button>`
                 }
             },
             {
                 "mRender": function (data, type, full) {
-                    return `<button onclick='deleteResident(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                    return `<button onclick='deleteResident(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="xóa">
                         <i class="fa fa-times"></i> </button>`
+                }
+            },
+            {
+                "mRender": function (data, type, full) {
+                    return `<button onclick='showFormResgiterVehicle(${full.id},this)' type="button" data-toggle="tooltip" title="" class="btn btn-link btn-success" data-original-title="thêm">
+                        <i class="fa fa-plus"></i> </button>`
                 }
             }
         ]
@@ -89,6 +95,23 @@ let deleteResident = (id, e) => {
 let changetitle = () => {
     document.querySelector('#form-label').innerHTML =
         "<i class='fas fa-address-card mr-2'></i>" + 'Thêm cư dân'
+}
+
+let index2 = -1
+let showFormResgiterVehicle = (id , e) => {
+index2 = $('#table-resident').DataTable().row($(e).parents('tr')).index();
+    $('#form-vehicle').modal('show')
+    $.ajax({
+        url: URL + `api/resident/${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            document.querySelector("#resident_id").value = result.data.id;
+        },
+        error: function (error) {
+            sweetalertError(error)
+        }
+    })
 }
 
 // < ----------------- show form update -------------------->
@@ -177,8 +200,8 @@ let cleanFrom = () => {
         document.querySelector('#job').value = "",
         document.querySelector('#phone').value = "",
         document.querySelector('#email').value = "",
-        document.querySelector('#identitycard').value = "" ,
-        document.querySelector('#idapartment').value = ""
+        document.querySelector('#identitycard').value = "" ;
+        $('#apartment_id').val(null).trigger('change');
 }
 
 // < -------------- clean form when click button clean ------------>
@@ -197,25 +220,25 @@ let getValueForm = () => {
         'phone': document.querySelector('#phone').value.trim(),
         'email': document.querySelector('#email').value.trim(),
         'identitycard': document.querySelector('#identitycard').value.trim(),
-        'apartment': {"id": document.querySelector('#idapartment').value.trim()}
+        'apartment': {	"id": document.querySelector('#apartment_id').value.trim()}
     }
 
 
 }
 // < ------------------ fill to form -------------------------->
 let fillToFrom = (resident) => {
-    document.querySelector("#id").value = resident.id,
-        document.querySelector('#fullname').value = resident.fullname,
-        document.querySelector('#birthday').value = resident.birthday,
-        $(resident.gender ? "#female" : "#male").prop('checked', true),
-        document.querySelector("#hometown").value = resident.hometown,
-        document.querySelector('#job').value = resident.job ,
-        document.querySelector('#phone').value = resident.phone,
-        document.querySelector('#email').value = resident.email,
-        document.querySelector('#identitycard').value = resident.identitycard,
-        document.querySelector('#idapartment').value = resident.apartment.id
+    document.querySelector("#id").value = resident.id;
+    document.querySelector('#fullname').value = resident.fullname;
+    document.querySelector('#birthday').value = resident.birthday;
+    $(resident.gender ? "#female" : "#male").prop('checked', true);
+    document.querySelector("#hometown").value = resident.hometown;
+    document.querySelector('#job').value = resident.job;
+    document.querySelector('#phone').value = resident.phone;
+    document.querySelector('#email').value = resident.email;
+    document.querySelector('#identitycard').value = resident.identitycard;
+    // document.querySelector('#apartment_id').value = resident.apartment.id
+    $('#apartment_id').val(resident.apartment.id).trigger('change');
 }
-
 let validate = (data) => {
     if (data.fullname === '') {
         toastrError("Họ tên không được để trống!");
@@ -285,7 +308,7 @@ let validate = (data) => {
     }
     if (data.apartment.id === '') {
         toastrError("Mã căn hộ không được để trống!");
-        document.querySelector('#idapartment').focus();
+        document.querySelector('#apartment_id').focus();
         return false
 
     }

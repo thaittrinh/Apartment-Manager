@@ -8978,3 +8978,7 @@ body {
 /*.modal-body{*/
 /*  background-color: #1a2035 !im;*/
 /*}*/
+
+span.select2-selection.select2-selection--single{
+  border: none;
+}
