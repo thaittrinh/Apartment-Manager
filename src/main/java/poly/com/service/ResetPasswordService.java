@@ -34,7 +34,7 @@ public class ResetPasswordService {
 
     @Value("${app.domain}")
     private String domain;
-    
+
 
     /* -----------------------Scheduling delete token ----------------------------- */
     // scheduleding(lap lich) het tgian se tu dong xoa  cho token
@@ -50,28 +50,33 @@ public class ResetPasswordService {
         try {
             Employee employee = employeeRepository.findByEmail(email).orElse(null);
             if (employee != null) {
-                /*save it */
-                TokenResetPassword token = new TokenResetPassword(employee);
-                passwordResetRespository.save(token);
-                SimpleMailMessage mailMessage = new SimpleMailMessage();
-                mailMessage.setTo(email);
-                mailMessage.setSubject("Xác nhận đặt lại mật khẩu  ");
-                mailMessage.setFrom("ndt.programmer@gmail.com");
-                mailMessage.setText(
-                        "Xin chào Bạn " + "\n"
-                                + "chúng tôi đã nhận được yêu cầu  đặt lại mật khẩu của bạn " + "\n"
-                                + "vui lòng click vào link bên dưới để đặt lại mật khẩu " + "\n"
-                                + domain + "/api/account/confirm-reset?token="
-                                + token.getToken());
-                emailSenderService.sendEmail(mailMessage);
-                modelAndView.setViewName("resetpassword/form-check-email");
-                modelAndView.addObject("messageSuccess",
-                        "Hệ thống đã gửi cho bạn một e-mail có kèm theo link"+"\n" + " để đặt lại mật khẩu, kiểm tra email của bạn");
+                TokenResetPassword existTokenUser = passwordResetRespository.findByEmployee(employee);
+                if(existTokenUser != null){
+                    passwordResetRespository.deleteById(existTokenUser.getId());
+                }
+                    /*save it */
+                    TokenResetPassword token = new TokenResetPassword(employee);
+                    passwordResetRespository.save(token);
+                    SimpleMailMessage mailMessage = new SimpleMailMessage();
+                    mailMessage.setTo(email);
+                    mailMessage.setSubject("Xác nhận đặt lại mật khẩu  ");
+                    mailMessage.setFrom("ndt.programmer@gmail.com");
+                    mailMessage.setText(
+                            "Xin chào Bạn " + "\n"
+                                    + "chúng tôi đã nhận được yêu cầu  đặt lại mật khẩu của bạn " + "\n"
+                                    + "vui lòng click vào link bên dưới để đặt lại mật khẩu " + "\n"
+                                    + domain +  "/api/account/confirm-reset?token="
+                                    + token.getToken());
+                    emailSenderService.sendEmail(mailMessage);
+                    modelAndView.addObject("messageSuccess",
+                            "Hệ thống đã gửi cho bạn một e-mail có kèm theo link" + "\n" + " để đặt lại mật khẩu, kiểm tra email của bạn");
+
+                    modelAndView.setViewName("resetpassword/form-check-email");
             } else {/* if email dose not exist return not found */
                 modelAndView.addObject("messageError", "Email này không tồn tại, vui lòng kiểm tra lại ");
                 modelAndView.setViewName("resetpassword/form-check-email");
             }
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return modelAndView;
@@ -79,7 +84,7 @@ public class ResetPasswordService {
 
     /*  ------------------------------------- validateresettoken -----------------------  */
     public ModelAndView validateresettoken(ModelAndView modelAndView, String token) {
-        try{
+        try {
             TokenResetPassword passwordResetToken = passwordResetRespository.findByToken(token);
             if (passwordResetToken != null) {
                 Employee employee = employeeRepository.findByEmail(passwordResetToken.getEmployee().getEmail()).orElse(null);
@@ -92,7 +97,7 @@ public class ResetPasswordService {
                 modelAndView.addObject("message", "Liên kết không hợp lệ hoặc bị hỏng!");
                 modelAndView.setViewName("404");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return modelAndView;
@@ -110,6 +115,7 @@ public class ResetPasswordService {
             employeeRepository.save(tokenEmployee);
             modelAndView.addObject("messageSuccess", "Đặt lại mật khẩu thành công");
             modelAndView.setViewName("login/login");
+            passwordResetRespository.deleteById(tokenResetPasswrod.getId());
         }
         return modelAndView;
     }
