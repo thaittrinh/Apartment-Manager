@@ -178,7 +178,7 @@ let fillToFormVehicle = (vehicle) => {
     document.querySelector('#licensePlates').value = vehicle.licensePlates
     document.querySelector('#color').value = vehicle.color;
     document.querySelector('#date').value = vehicle.date;
-    $('#resident_id').val(vehicle.resident.id).trigger('change');
+    document.querySelector('#resident_id').value = vehicle.resident.id;
     document.querySelector('#type').value = vehicle.typeVehicle.id;
 }
 
@@ -220,17 +220,17 @@ let validateFormVehicle = (data) => {
         }
     }
 
+    if (data.date === '') {
+        toastrError("Ngày đăng ký không được để trống!");
+        document.querySelector('#date').focus();
+        return false
+    }
     if (data.color === '') {
         toastrError("Màu xe không được để trống!");
         document.querySelector('#color').focus();
         return false
     }
 
-    if (data.date === '') {
-        toastrError("Ngày đăng ký không được để trống!");
-        document.querySelector('#date').focus();
-        return false
-    }
     // if (data.resident.id === '') {
     //     toastrError("Mã cư dân không được để trống!");
     //     document.querySelector('#resident_id').focus();
