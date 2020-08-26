@@ -152,7 +152,7 @@ $("#form-building").on("hidden.bs.modal", function () {
 // < ---------------------------------------- Clean form ---------------------------->
 let cleanForm = () => {
     document.querySelector('#id').value = '';
-    document.querySelector('#password').value = '';
+    document.querySelector('#password').value = '12345678';
     document.querySelector('#id_own').value = '';
     document.querySelector('#acreage').value = 45;
     document.querySelector('#location').value = '';
@@ -189,6 +189,12 @@ let validateInsert = (data) => {
         toastrError("Id căn hộ không được để trống!");
         document.querySelector('#id').focus();
         return false;
+    }
+    let special = data.id.match((/[!@#$%^&*_]+/g));
+    if (special != null) {
+    	 toastrError("Id căn hộ không được chứa các ký tự đặc biệt!");
+         document.querySelector('#id').focus();
+         return false;
     }
     if (data.id.length < 3 || data.id.length > 8) {
         toastrError("Id căn hộ phải từ 3 đến 8 ký tự!");
