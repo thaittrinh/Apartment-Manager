@@ -289,6 +289,16 @@ let validate = (data) =>{
 		document.querySelector('#id_apartment').focus();
 		return false;
 	}
+	 
+	for(let i = 0; i< data.apartments.length ; i++){
+		 let special = data.apartments[i].match((/[!@#$%^&*_]+/g));
+		 if (special != null) {
+	    	 toastrError("Mã căn hộ không được chứa các ký tự đặc biệt hoặc phải ngăn cách nhau bởi dấu phẩy!");
+	         document.querySelector('#id_apartment').focus();
+	         return false;
+	      }
+	}
+	
 	return true;
 	
 }
