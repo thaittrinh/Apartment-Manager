@@ -4,7 +4,7 @@ public class MessageError {
 
 	public static final String ERROR_400 = "Dữ liệu đầu vào không đúng!";
 
-	public static final String ERROR_404_EMPLOYEE_PASSWORD = "Mật khẩu không đúng ";
+	public static final String ERROR_404_EMPLOYEE_PASSWORD = "Mật khẩu cũ không đúng ";
 
 	public static final String ERROR_404_EMPLOYEE = "Nhân viên không tồn tại!";
 

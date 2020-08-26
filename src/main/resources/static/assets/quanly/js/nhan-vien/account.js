@@ -48,7 +48,7 @@ function readURL(input) {
             $('#imgs')
                 .attr('src', e.target.result)
                 .width(300)
-                .height(auto);
+                .height(350);
         };
         reader.readAsDataURL(input.files[0]);
         document.querySelector('#upload-now').click();

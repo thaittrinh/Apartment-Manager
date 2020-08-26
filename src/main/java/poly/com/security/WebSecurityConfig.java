@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("http://localhost:8081"); /* chi cho phep domain nay gui request*/
+        configuration.addAllowedOrigin("http://ad-vinhomegrandparkvn.ap-southeast-1.elasticbeanstalk.com"); /* chi cho phep domain nay gui request*/
         configuration.addAllowedHeader("*");
         /* cho phep cac request method gui request len server */
         configuration.addAllowedMethod("GET");
