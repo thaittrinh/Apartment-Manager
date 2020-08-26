@@ -58,7 +58,7 @@ function validate() {
                 maxlength: "Mật khẩu tối đa 12 ký tự"
             },
             confirmPassword: {
-                required: "",
+                required: "chưa nhập xác nhận mật khẩu",
                 equalTo: "Xác nhận mật khẩu không khớp nhau"
             }
         }
