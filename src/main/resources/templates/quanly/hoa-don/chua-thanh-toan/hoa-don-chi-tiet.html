@@ -127,6 +127,10 @@
                                         <i class="fas fa-edit"></i>
                                         Cập nhật
                                     </button>
+                                    <button   class="btn btn-primary btn-sm mr-2" id="btnPrint">       
+                                    <i class="fas fa-file-export"></i>
+                                       Xuất hóa đơn
+                                    </button>
                                      <a th:href="@{/quan-ly/hoa-don/chua-thanh-toan}" class="ml-auto">
                                         <button class=" btn-sm btn btn-danger ml-auto" >
                                             <i class="fas fa-sign-out-alt"></i>
@@ -151,5 +155,19 @@
 
         <script th:src="@{/assets/quanly/js/hoa-don/detail.js}"></script>
         <script th:src="@{/assets/quanly/js/hoa-don/view-detail.js}"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	    <script type="text/javascript">
+	        $("#btnPrint").live("click", function () {
+	            var divContents = $("#content-detail").html();
+	            var date = document.getElementById("date-detail").textContent;
+	            var printWindow = window.open('', '', 'height=400,width=800');
+	            printWindow.document.write(`<html><head><title>Hóa đơn tháng ${date}</title>`);
+	            printWindow.document.write('</head><body >');
+	            printWindow.document.write(divContents);
+	            printWindow.document.write('</body></html>');
+	            printWindow.document.close();
+	            printWindow.print();
+	        });
+	    </script>
     </div>
 </div>
