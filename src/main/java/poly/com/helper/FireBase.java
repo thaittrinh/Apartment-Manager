@@ -1,18 +1,5 @@
 package poly.com.helper;
 
-import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.google.cloud.WriteChannel;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -20,6 +7,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+
+import javax.imageio.ImageIO;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.WriteChannel;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 
 @Component
 public class FireBase {
